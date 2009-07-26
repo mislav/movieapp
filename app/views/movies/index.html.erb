@@ -1,0 +1,7 @@
+<h1>All Movies</h1>
+
+<ol>
+<% for movie in @movies %>
+  <li><%= link_to_movie(movie) %></li>
+<% end %>
+</ol>

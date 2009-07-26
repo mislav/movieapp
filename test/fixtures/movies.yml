@@ -1,13 +1,11 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+casablanca:
+  title: Casablanca
+  original_title: Casa mala blanca
+  year: 1999
+  length: 120
 
-one:
-  title: MyString
-  original_title: MyString
-  year: 1
-  length: 1
-
-two:
-  title: MyString
-  original_title: MyString
-  year: 1
-  length: 1
+cabaret:
+  title: Cabaret
+  original_title: 
+  year: 1998
+  length: 90

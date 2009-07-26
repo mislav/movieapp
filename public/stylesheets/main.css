@@ -1,0 +1,30 @@
+body {
+  font: normal medium/1.3em "Lucida Grande", Helvetica, sans-serif;
+  padding: 2em;
+}
+h1 {
+  margin-bottom: 1em;
+}
+
+form.edit_movie .field {
+  margin: .5em 0;
+}
+form.edit_movie .field label {
+  display: block;
+  float: left;
+  clear: left;
+  width: 7em;
+}
+form.edit_movie .field label:after {
+  content: ":";
+}
+form.edit_movie .actions {
+  background: lightyellow;
+  border-top: 1px solid orange;
+  width: 19em;
+  padding: .5em 1em;
+}
+form.edit_movie .actions a {
+  color: darkorange;
+  font-size: 80%;
+}

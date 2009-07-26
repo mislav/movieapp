@@ -1,0 +1,9 @@
+<h1><%= title_for_movie(@movie) %></h1>
+<p>running time: <%= @movie.length %> minutes</p>
+
+<p><i>Description for this movie</i></p>
+
+<div class="actions">
+  <%= link_to("Back to movies list", movies_path) %> |
+  <%= link_to("Edit movie", edit_movie_path(@movie)) %>
+</div>

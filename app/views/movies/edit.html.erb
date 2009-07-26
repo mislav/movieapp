@@ -1,0 +1,25 @@
+<h1>Edit "<%= title_for_movie @movie %>"</h1>
+
+<% form_for(@movie) do |f| %>
+  <div class="field">
+    <%= f.label(:title) %>
+    <%= f.text_field(:title) %>
+  </div>
+  <div class="field">
+    <%= f.label(:original_title) %>
+    <%= f.text_field(:original_title) %>
+  </div>
+  <div class="field">
+    <%= f.label(:year) %>
+    <%= f.text_field(:year) %>
+  </div>
+  <div class="field">
+    <%= f.label(:length, "Duration") %>
+    <%= f.text_field(:length) %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit("Save") %>
+    <%= link_to("cancel", @movie) %>
+  </div>
+<% end %>
