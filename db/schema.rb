@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090625123554) do
+ActiveRecord::Schema.define(:version => 20090802160214) do
 
   create_table "members", :force => true do |t|
     t.string   "name"
@@ -24,7 +24,10 @@ ActiveRecord::Schema.define(:version => 20090625123554) do
     t.integer  "length"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "plot"
   end
+
+  add_index "movies", ["title", "year"], :name => "index_movies_on_title_and_year", :unique => true
 
   create_table "roles", :force => true do |t|
     t.integer  "member_id"
