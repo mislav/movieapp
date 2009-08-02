@@ -3,7 +3,9 @@ class MoviesController < ApplicationController
   before_filter :find_movie, :only => [:show, :edit, :update, :destroy]
   
   def index
-    @movies = Movie.all :order => 'year ASC'
+    options = {:page => params[:page], :order => 'year ASC'}
+    options[:conditions] = ['lower(title) like ?', "%#{@query}%"] if @query = params[:q]
+    @movies = Movie.paginate options
   end
   
   def new

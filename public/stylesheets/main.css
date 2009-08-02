@@ -1,10 +1,23 @@
+/*
+  darkblue: #0d1b2b
+  lightblue: #2a4a6b
+  darkred: #850010
+  lightred: #b31d12
+  green: #678c3f
+  orange: #d26200
+*/
 body {
   font: normal medium/1.3em "Lucida Grande", Helvetica, sans-serif;
   padding: 2em;
 }
 h1 {
   margin-bottom: 1em;
+  color: #850010;
 }
+
+a:link { color: #2a4a6b; }
+a:hover, a:active { color: #d26200; }
+a:visited { color: #0d1b2b; }
 
 form.edit_movie .field {
   margin: .5em 0;
@@ -28,3 +41,46 @@ form.edit_movie .actions a {
   color: darkorange;
   font-size: 80%;
 }
+
+ol.movies { counter-reset: item; padding-left: 0; }
+/* ol.movies { counter-reset: item 5 } */
+ol.movies li { display: block; padding-left: 0; }
+ol.movies li:before {
+	content: counter(item) ". ";
+	counter-increment: item;
+	color: gray;
+	font-size: 80%;
+	text-align: right;
+	display: inline-block;
+	min-width: 2em;
+	padding-right: .4em;
+}
+
+.pagination, h1:first-child {
+  margin-top: 0;
+  background: #F1F1F1 -webkit-gradient(linear, center top, center bottom, from(rgba(0,0,0,0)), to(rgba(0,0,0,.1)));
+  -webkit-border-radius: 11px;
+  border: 1px solid #ddd;
+  padding: .8em 1em;
+  text-shadow: white 1px 1px 1px;
+}
+
+.pagination {
+  text-align: center;
+  font-size: .9em; }
+  .pagination a, .pagination span {
+    padding: .2em .3em; }
+  .pagination span.disabled {
+    color: #AAA; }
+  .pagination span.current {
+    font-weight: bold;
+    background: #bbb;
+    -webkit-border-radius: 11px;
+    display: inline-block;
+    min-width: 16px; }
+  .pagination a {
+    text-decoration: none;
+    color: black; }
+    .pagination a:hover, .pagination a:focus {
+      text-decoration: underline; }
+      

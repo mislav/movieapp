@@ -1,7 +1,20 @@
-<h1>All Movies</h1>
+<h1><% if @query %>
+  Searching for: <b><%= h @query %></b>
+<% else %>
+  Listing all movies
+<% end %></h1>
 
-<ol>
+<% form_tag request.path, :method => 'get' do %>
+  <div>
+    <%= label_tag :q, 'Search:' %>
+    <%= text_field_tag :q, @query, :type => 'search' %>
+  </div>
+<% end %>
+
+<ol class="movies" style="counter-reset: item <%= @movies.offset %>">
 <% for movie in @movies %>
   <li><%= link_to_movie(movie) %></li>
 <% end %>
 </ol>
+
+<%= will_paginate @movies %>
