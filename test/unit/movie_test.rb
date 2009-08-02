@@ -9,6 +9,13 @@ class MovieTest < ActiveSupport::TestCase
   test "year failure" do
     movie = build_movie(:year => 1870)
     assert !movie.save
+    assert_equal "has to be a number greater than 1890", movie.errors.on(:year)
+  end
+  
+  test "title failure" do
+    movie = build_movie(:title => nil)
+    assert !movie.save
+    assert_equal "can't be blank", movie.errors.on(:title)
   end
   
   test "is directed" do

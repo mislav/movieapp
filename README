@@ -1,3 +1,11 @@
+TODO:
+
+    * import IMDB databases (movies, genres, actors, actresses, directors)
+    * implement user accounts (OpenID enabled)
+    * interface for adding movies to your account (autocompletion)
+    * investigate where to fetch movie posters from
+    * investigate which sites we can link to for movie trailers
+
 Features:
 
     * keep track movies you watched
@@ -5,14 +13,3 @@ Features:
     * mark movies as "to watch"
     * follow what your friends are watching
     * get recommendations based on what your friends liked and you didn't watch
-
-Movie metadata:
-
-    * title (English and original)
-    * year
-    * cover image
-    * director
-    * genre(s)
-    * running time
-    * main cast
-    * link to trailer
