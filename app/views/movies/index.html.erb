@@ -1,7 +1,7 @@
 <h1><% if @query %>
-  Searching for: <b><%= h @query %></b>
+  Searched for: <b><%= h @query %></b>
 <% else %>
-  Listing all movies
+  All movies
 <% end %></h1>
 
 <% form_tag request.path, :method => 'get' do %>
@@ -11,9 +11,14 @@
   </div>
 <% end %>
 
-<ol class="movies" style="counter-reset: item <%= @movies.offset %>">
+<ol class="movies">
 <% for movie in @movies %>
-  <li><%= link_to_movie(movie) %></li>
+  <li>
+    <%= image_tag movie.poster_medium_url %>
+    <%= link_to movie.title, movie.netflix_url %> (<%= movie.year %>)
+    <br>
+    <%= movie.directors.to_sentence %>
+  </li>
 <% end %>
 </ol>
 

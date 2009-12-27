@@ -3,9 +3,11 @@ class MoviesController < ApplicationController
   before_filter :find_movie, :only => [:show, :edit, :update, :destroy]
   
   def index
-    options = {:page => params[:page], :order => 'year ASC'}
-    options[:conditions] = ['lower(title) like ?', "%#{@query}%"] if @query = params[:q]
-    @movies = Movie.paginate options
+    if @query = params[:q]
+      @movies = Movie.netflix_search(@query, params[:page])
+    else
+      @movies = Movie.paginate(:order => 'title', :page => params[:page], :per_page => 10)
+    end
   end
   
   def new

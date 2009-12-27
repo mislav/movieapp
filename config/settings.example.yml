@@ -1,0 +1,6 @@
+development:
+  mongodb:
+    database: movies
+  netflix:
+    consumer_key: KEY
+    secret: SECRET
