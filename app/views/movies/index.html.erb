@@ -11,11 +11,11 @@
   </div>
 <% end %>
 
-<ol class="movies">
+<ol class="movies" style="counter-reset: item <%= @movies.offset %>">
 <% for movie in @movies %>
   <li>
     <%= image_tag movie.poster_medium_url %>
-    <%= link_to movie.title, movie.netflix_url %> (<%= movie.year %>)
+    <%= link_to_movie movie %>
     <br>
     <%= movie.directors.to_sentence %>
   </li>

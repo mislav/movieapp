@@ -1,10 +1,14 @@
 <h1><%= title_for_movie(@movie) %></h1>
 
-<% if @movie.length %>
-<p>running time: <%= @movie.length %> minutes</p>
+<% if @movie.poster_medium_url %>
+<%= image_tag @movie.poster_medium_url %>
 <% end %>
 
-<!-- <p><i>Description for this movie</i></p> -->
+<% if @movie.runtime %>
+<p>running time: <%= @movie.runtime / 60 %> minutes</p>
+<% end %>
+
+<p><%= @movie.plot %></p>
 
 <div class="actions">
   <%= link_to("Back to movies list", movies_path) %> |

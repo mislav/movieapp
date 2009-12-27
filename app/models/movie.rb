@@ -7,11 +7,11 @@ class Movie
   key :plot, String
   key :poster_small_url, String
   key :poster_medium_url, String
-  key :runtime, String
+  key :runtime, Integer
   key :directors, Array
   key :cast, Array
-  key :official_website, String
   
+  key :official_website, String
   key :netflix_id, String
   key :netflix_url, String
   
