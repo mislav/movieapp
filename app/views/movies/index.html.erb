@@ -1,5 +1,5 @@
 <h1><% if @query %>
-  Searched for: <b><%= h @query %></b>
+  Searched for: <span><%= h @query %></span>
 <% else %>
   All movies
 <% end %></h1>
@@ -13,11 +13,11 @@
 
 <ol class="movies" style="counter-reset: item <%= @movies.offset %>">
 <% for movie in @movies %>
-  <li>
-    <%= image_tag movie.poster_medium_url %>
-    <%= link_to_movie movie %>
-    <br>
-    <%= movie.directors.to_sentence %>
+  <li style="background-image:url(<%= movie.poster_small_url %>)">
+    <dl>
+      <dt><%= link_to(title_for_movie(movie), movie) %> <span>(<%= movie.year %>)</span></dt>
+      <dd><% unless movie.directors.empty? %>by <em><%= movie.directors.to_sentence %></em><% end %></dd>
+    </dl>
   </li>
 <% end %>
 </ol>
