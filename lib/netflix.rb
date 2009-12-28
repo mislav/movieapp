@@ -41,7 +41,7 @@ module Netflix
   
   def self.search(name, page = 1, per_page = 5)
     offset = per_page * (page.to_i - 1)
-    response = CLIENT.request(:get, "/catalog/titles?term=#{CGI.escape name}&max_results=#{per_page}&start_index=#{offset}&expand=directors,cast,synopsis")
+    response = client.request(:get, "/catalog/titles?term=#{CGI.escape name}&max_results=#{per_page}&start_index=#{offset}&expand=directors,cast,synopsis")
     parse response.body
   end
   
@@ -50,7 +50,7 @@ module Netflix
   end
   
   def self.autocomplete(name)
-    response = CLIENT.request(:get, "/catalog/titles/autocomplete?term=#{CGI.escape name}")
+    response = client.request(:get, "/catalog/titles/autocomplete?term=#{CGI.escape name}")
     Autocomplete.parse response.body
   end
 end
