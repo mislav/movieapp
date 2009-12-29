@@ -17,9 +17,8 @@ h1 {
   margin-bottom:1em; letter-spacing:1px; font-weight:normal;
 }
 
-a:link { color: #BECAD0; }
-a:hover, a:active { color: #d26200; }
-a:visited { color: #0d1b2b; }
+a:link, a:visited { color: white; }
+a:hover, a:active { color: lemonchiffon; }
 
 form.edit_movie .field {
   margin: .5em 0;
@@ -72,7 +71,13 @@ ol.movies {
 		}
 		.actions a:hover { background:#E49D52 }
 		.actions li:first-child a:hover { -moz-border-radius-topright:10px; -webkit-border-top-right-radius:10px }
-	
+
+#session-status {
+  width: 400px;
+  text-align: right;
+  margin: 0 0 2em 0;
+}
+
 .pagination {
 	margin-top:1em;
   text-align: center;

@@ -2,6 +2,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :movies
   
+  map.logout 'logout', :controller => 'sessions', :action => 'logout'
+  
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

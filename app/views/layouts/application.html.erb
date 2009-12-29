@@ -5,6 +5,13 @@
     <%= stylesheet_link_tag "main" %>
   </head>
   <body>
+    <p id="session-status"><% if logged_in? %>
+      Logged in as <%= current_user.username %> |
+      <%= link_to 'logout', logout_path %>
+    <% else %>
+      <%= link_to 'login', '/login' %>
+    <% end %></p>
+    
     <%= yield %>
   </body>
 </html>

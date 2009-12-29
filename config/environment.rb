@@ -19,7 +19,8 @@ Rails::Initializer.run do |config|
   config.gem 'nokogiri', :version => '~> 1.4.1'
   config.gem 'hashie', :version => '~> 0.1.5'
   config.gem 'oauth', :version => '~> 0.3.6'
-
+  config.gem 'twitter', :version => '~> 0.8.0'
+  
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
@@ -45,5 +46,9 @@ Rails::Initializer.run do |config|
     $settings = Hashie::Mash.new YAML::load(settings)[Rails.env.to_s]
     
     MongoMapper.database = $settings.mongodb.database
+    
+    require 'oauth_login'
+    config.middleware.use Twitter::OAuthLogin,
+      :key => $settings.twitter.consumer_key, :secret => $settings.twitter.secret
   end
 end
