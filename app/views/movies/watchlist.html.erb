@@ -1,17 +1,6 @@
-<h1><% if @query %>
-  Searched for: <span><%= h @query %></span>
-<% else %>
-  All movies
-<% end %></h1>
+<h1><%= @user.username %>'s watchlist</h1>
 
-<% form_tag request.path, :method => 'get' do %>
-  <div>
-    <%= label_tag :q, 'Search:' %>
-    <%= text_field_tag :q, @query, :type => 'search' %>
-  </div>
-<% end %>
-
-<ol class="movies" style="counter-reset: item <%= @movies.offset %>">
+<ol class="movies">
 <% for movie in @movies %>
   <li style="background-image:url(<%= movie.poster_small_url %>)">
     <dl>
@@ -26,5 +15,3 @@
   </li>
 <% end %>
 </ol>
-
-<%= will_paginate @movies %>

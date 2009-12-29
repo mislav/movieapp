@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   
-  before_filter :find_movie, :only => [:show, :edit, :update, :destroy]
+  before_filter :find_movie, :only => [:show, :edit, :update, :destroy, :add_watchlist]
   
   def index
     if @query = params[:q]
@@ -32,6 +32,17 @@ class MoviesController < ApplicationController
   def destroy
     @movie.destroy
     redirect_to @movies_url
+  end
+  
+  def add_watchlist
+    current_user.add_movie_to_watch @movie
+    current_user.save!
+    redirect_to :back
+  end
+  
+  def watchlist
+    @user = User.first(:username => params[:username])
+    @movies = @user.movies_to_watch
   end
   
   protected
