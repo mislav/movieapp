@@ -51,6 +51,7 @@ ol.movies {
 	  margin-top:1em; border:2px solid white;
 		width:400px; height:90px;
 		background:#F8E9D6; background-repeat:no-repeat;
+		-webkit-box-shadow: rgba(0,0,0,.6) 0 0 8px; -moz-box-shadow: rgba(0,0,0,.6) 0 0 8px;
 	}
 	ol.movies dl { margin-left:75px; width:293px; float:left }
 	  ol.movies dt, ol.movies dd { color:#95A3AD; padding-top:.25em; font-size:.75em; text-shadow:1px 1px 1px #fff }
@@ -62,7 +63,7 @@ ol.movies {
 .actions {
 	background:#D26200;
 	margin-left:368px; width:32px; height:90px;
-	-moz-border-radius:0 10px 10px 0; -webkit-border-radius:0 10px 10px 0;
+	-moz-border-radius:0 10px 10px 0; -webkit-border-top-right-radius:9px; -webkit-border-bottom-right-radius:9px;
 }
 	.actions li { height:32px }
 		.actions a {
