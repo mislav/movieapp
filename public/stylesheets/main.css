@@ -49,39 +49,32 @@ ol.movies {
 }
 	ol.movies > li {
 	  -moz-border-radius: 10px; -webkit-border-radius: 10px;
-	  margin-top:1em; border:2px solid white; width:400px; background:#F8E9D6; background-repeat:no-repeat;
+	  margin-top:1em; border:2px solid white;
+		width:400px; height:90px;
+		background:#F8E9D6; background-repeat:no-repeat;
 	}
-	ol.movies dl { margin-left:4.5em; height:90px; }
+	ol.movies dl { margin-left:75px; width:293px; float:left }
 	  ol.movies dt, ol.movies dd { color:#95A3AD; padding-top:.25em; font-size:.75em; text-shadow:1px 1px 1px #fff }
 	  ol.movies dt { font:1.1em Georgia, Arial, sans-serif; }
-	    ol.movies dl a:link { color:#012340; font-weight:bold }
+	    ol.movies dl a { color:#012340; font-weight:bold }
 	    ol.movies dl span { color:#46657F }
 	    ol.movies dl em { color:#D4914D; font-style:normal; font-variant:small-caps }
-/*	
-ol.movies li:before {
-	content: counter(item) ". ";
-	counter-increment: item;
-	color: gray;
-	font-size: 80%;
-	text-align: right;
-	display: inline-block;
-	min-width: 2em;
-	padding-right: .4em;
+	
+.actions {
+	background:#D26200;
+	margin-left:368px; width:32px; height:90px;
+	-moz-border-radius:0 10px 10px 0; -webkit-border-radius:0 10px 10px 0;
 }
-*/
-
-.pagination, h1:first-child {
-  margin-top: 0;
-/*
-  background: #F1F1F1 -webkit-gradient(linear, center top, center bottom, from(rgba(0,0,0,0)), to(rgba(0,0,0,.1)));
-  -webkit-border-radius: 11px;
-  border: 1px solid #ddd;
-  padding: .8em 1em;
-  text-shadow: white 1px 1px 1px;
-*/
-}
-
+	.actions li { height:32px }
+		.actions a {
+			color:white; text-decoration:none;
+			padding:15% 0 15% 29%; display:block;
+		}
+		.actions a:hover { background:#E49D52 }
+		.actions li:first-child a:hover { -moz-border-radius-topright:10px; -webkit-border-top-right-radius:10px }
+	
 .pagination {
+	margin-top:1em;
   text-align: center;
   font-size: .9em; }
   .pagination a, .pagination span {
