@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
   
-  include Twitter::OAuthLogin::Helpers
+  include Twitter::Login::Helpers
   
   def logged_in?
     !!current_user

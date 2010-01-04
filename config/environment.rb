@@ -19,7 +19,7 @@ Rails::Initializer.run do |config|
   config.gem 'nokogiri', :version => '~> 1.4.1'
   config.gem 'hashie', :version => '~> 0.1.5'
   config.gem 'oauth', :version => '~> 0.3.6'
-  config.gem 'twitter', :version => '~> 0.8.0'
+  config.gem 'twitter-login', :version => '~> 0.2.0', :lib => 'twitter/login'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -47,8 +47,7 @@ Rails::Initializer.run do |config|
     
     MongoMapper.database = $settings.mongodb.database
     
-    require 'oauth_login'
-    config.middleware.use Twitter::OAuthLogin,
-      :key => $settings.twitter.consumer_key, :secret => $settings.twitter.secret
+    config.middleware.use Twitter::Login,
+      :consumer_key => $settings.twitter.consumer_key, :secret => $settings.twitter.secret
   end
 end
