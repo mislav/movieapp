@@ -1,11 +1,3 @@
-/*
-  darkblue: #0d1b2b
-  lightblue: #2a4a6b
-  darkred: #850010
-  lightred: #b31d12
-  green: #678c3f
-  orange: #d26200
-*/
 * { margin:0; padding:0 }
 ol, ul { list-style:none; }
 body {
@@ -16,9 +8,39 @@ body {
 h1 {
   margin-bottom:1em; letter-spacing:1px; font-weight:normal;
 }
-
 a:link, a:visited { color: white; }
 a:hover, a:active { color: lemonchiffon; }
+
+/* movie list */
+
+ol.movies {
+	counter-reset: item; padding-left: 0;
+}
+	ol.movies > li {
+	  -moz-border-radius: 10px; -webkit-border-radius: 10px;
+	  margin-top:1em; border:2px solid white;
+		width:400px; height:90px;
+		background:#F8E9D6; background-repeat:no-repeat;
+		-webkit-box-shadow: rgba(0,0,0,.6) 0 0 8px; -moz-box-shadow: rgba(0,0,0,.6) 0 0 8px;
+	}
+	ol.movies dl { margin-left:75px; width:293px; float:left }
+	  ol.movies dt, ol.movies dd { color:#95A3AD; padding-top:.25em; font-size:.75em; text-shadow:1px 1px 1px #fff }
+	  ol.movies dt { font:1.1em Georgia, Arial, sans-serif; }
+	    ol.movies dl a { color:#012340; font-weight:bold }
+	    ol.movies dl span { color:#46657F }
+	    ol.movies dl em { color:#D4914D; font-style:normal; font-variant:small-caps }
+	ol.movies .actions {
+		background:#D26200;
+		margin-left:368px; width:32px; height:90px;
+		-moz-border-radius:0 10px 10px 0; -webkit-border-top-right-radius:9px; -webkit-border-bottom-right-radius:9px;
+	}
+		ol.movies .actions li { height:32px }
+			ol.movies .actions a {
+				color:white; text-decoration:none;
+				padding:15% 0 15% 29%; display:block;
+			}
+			ol.movies .actions a:hover { background:#E49D52 }
+			ol.movies .actions li:first-child a:hover { -moz-border-radius-topright:10px; -webkit-border-top-right-radius:10px }
 
 form.edit_movie .field {
   margin: .5em 0;
@@ -42,36 +64,6 @@ form.edit_movie .actions a {
   color: darkorange;
   font-size: 80%;
 }
-
-ol.movies {
-	counter-reset: item; padding-left: 0;
-}
-	ol.movies > li {
-	  -moz-border-radius: 10px; -webkit-border-radius: 10px;
-	  margin-top:1em; border:2px solid white;
-		width:400px; height:90px;
-		background:#F8E9D6; background-repeat:no-repeat;
-		-webkit-box-shadow: rgba(0,0,0,.6) 0 0 8px; -moz-box-shadow: rgba(0,0,0,.6) 0 0 8px;
-	}
-	ol.movies dl { margin-left:75px; width:293px; float:left }
-	  ol.movies dt, ol.movies dd { color:#95A3AD; padding-top:.25em; font-size:.75em; text-shadow:1px 1px 1px #fff }
-	  ol.movies dt { font:1.1em Georgia, Arial, sans-serif; }
-	    ol.movies dl a { color:#012340; font-weight:bold }
-	    ol.movies dl span { color:#46657F }
-	    ol.movies dl em { color:#D4914D; font-style:normal; font-variant:small-caps }
-	
-.actions {
-	background:#D26200;
-	margin-left:368px; width:32px; height:90px;
-	-moz-border-radius:0 10px 10px 0; -webkit-border-top-right-radius:9px; -webkit-border-bottom-right-radius:9px;
-}
-	.actions li { height:32px }
-		.actions a {
-			color:white; text-decoration:none;
-			padding:15% 0 15% 29%; display:block;
-		}
-		.actions a:hover { background:#E49D52 }
-		.actions li:first-child a:hover { -moz-border-radius-topright:10px; -webkit-border-top-right-radius:10px }
 
 #session-status {
   width: 400px;
