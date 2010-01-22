@@ -10,7 +10,7 @@
 
 <p><%= @movie.plot %></p>
 
-<div class="actions">
-  <%= link_to("Back to movies list", movies_path) %> |
-  <%= link_to("Edit movie", edit_movie_path(@movie)) %>
-</div>
+<ol class="actions">
+  <li><%= link_to("Back to movies list", movies_path) %></li>
+  <li><%= link_to("Edit movie", edit_movie_path(@movie)) %></li>
+</ol>

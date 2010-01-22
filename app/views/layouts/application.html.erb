@@ -5,12 +5,14 @@
     <%= stylesheet_link_tag "main" %>
   </head>
   <body>
-    <p id="session-status"><% if logged_in? %>
-      Logged in as <%= link_to(current_user.username, watchlist_path(:username => current_user.username)) %> |
-      <%= link_to 'logout', logout_path %>
-    <% else %>
-      <%= link_to 'login', '/login' %>
-    <% end %></p>
+    <ol id="session-status" class="actions">
+      <% if logged_in? %>
+        <li>Logged in as <%= link_to(current_user.username, watchlist_path(:username => current_user.username)) %></li>
+        <li><%= link_to 'logout', logout_path %></li>
+      <% else %>
+        <li><%= link_to 'login', '/login' %></li>
+      <% end %>
+    </ol>
     
     <%= yield %>
   </body>
