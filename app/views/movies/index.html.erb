@@ -21,7 +21,7 @@
     
     <ol class="actions">
       <li><a href="#" title="Hey, I watched this!">&radic;</a></li>
-      <li><%= link_to '+', add_watchlist_path(:id => movie.id), :title => "To watch..." %></li>
+      <li><%= link_to '+', add_to_watch_path(:id => movie.id), :title => "To watch..." %></li>
     </ol>
   </li>
 <% end %>

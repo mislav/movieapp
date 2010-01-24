@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   
-  map.add_watchlist '/movies/watchlist', :controller => 'movies', :action => 'add_watchlist'
-  map.watchlist '/user/:username', :controller => 'movies', :action => 'watchlist'
+  map.add_to_watch '/movies/towatch', :controller => 'movies', :action => 'add_to_watch'
+  map.to_watch '/user/:username', :controller => 'movies', :action => 'to_watch'
   map.resources :movies
   
   map.logout 'logout', :controller => 'sessions', :action => 'logout'

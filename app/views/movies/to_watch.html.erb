@@ -1,4 +1,4 @@
-<h1><%= @user.username %>'s watchlist</h1>
+<h1><%= @user.username %>'s to-watch list</h1>
 
 <ol class="movies">
 <% for movie in @movies %>
@@ -10,7 +10,7 @@
     
     <ol class="actions">
       <li><a href="#" title="Hey, I watched this!">&radic;</a></li>
-      <li><%= link_to '+', add_watchlist_path(:id => movie.id), :title => "To watch..." %></li>
+      <li><%= link_to '+', add_to_watch_path(:id => movie.id), :title => "To watch..." %></li>
     </ol>
   </li>
 <% end %>

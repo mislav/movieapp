@@ -7,7 +7,7 @@
   <body>
     <ol id="session-status" class="actions">
       <% if logged_in? %>
-        <li>Logged in as <%= link_to(current_user.username, watchlist_path(:username => current_user.username)) %></li>
+        <li>Logged in as <%= link_to(current_user.username, to_watch_path(:username => current_user.username)) %></li>
         <li><%= link_to 'logout', logout_path %></li>
       <% else %>
         <li><%= link_to 'login', '/login' %></li>
