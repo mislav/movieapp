@@ -1,8 +1,15 @@
 class User
   include MongoMapper::Document
   
+  many :views do
+    def create(attributes)
+      self.concat self.klass.create(attributes)
+    end
+  end
+  
+  many :to_watch, :class => Movie
+  
   key :username, String
-  key :to_watch, Array
   
   def self.find_or_create_from_twitter(twitter_user)
     first(:username => twitter_user.screen_name) || create(:username => twitter_user.screen_name)
@@ -15,10 +22,4 @@ class User
   def add_movie_to_watch(movie)
     self.to_watch << movie.id unless to_watch.include? movie.id
   end
-  
-  # I watched this
-  # - current date
-  # - liked it/didn't like
-  
-  # to watch
 end
