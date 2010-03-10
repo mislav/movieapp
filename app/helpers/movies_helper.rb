@@ -5,7 +5,7 @@ module MoviesHelper
   
   def title_for_movie(movie)
     if movie.original_title
-      "<i>#{movie.original_title}</i> / #{movie.title.titleize}"
+      ("<i>%s</i> / %s" % [h(movie.original_title), h(movie.title.titleize)]).html_safe
     else
       movie.title.titleize
     end
