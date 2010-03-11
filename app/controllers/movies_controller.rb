@@ -35,14 +35,13 @@ class MoviesController < ApplicationController
   end
   
   def add_to_watch
-    current_user.add_movie_to_watch @movie
-    current_user.save!
+    current_user.to_watch << @movie
     redirect_to :back
   end
   
   def to_watch
     @user = User.first(:username => params[:username])
-    @movies = @user.movies_to_watch
+    @movies = @user.to_watch
   end
   
   protected
