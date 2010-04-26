@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   include Twitter::Login::Helpers
+  include Facebook::Login::Helpers
   
   def logged_in?
     !!current_user

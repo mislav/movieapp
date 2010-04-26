@@ -4,6 +4,8 @@ Movies::Application.routes.draw do |map|
   match 'user/:username' => 'movies#to_watch', :as => :to_watch
   resources :movies
 
+  match 'login/facebook' => $fb.login_handler
+
   match 'logout' => 'sessions#logout', :as => :logout
 
   root :to => "movies#index"

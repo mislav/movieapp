@@ -10,3 +10,4 @@ gem 'hashie', '~> 0.2.0'
 gem 'oauth', '~> 0.4.0', :require => nil
 gem 'twitter-login', '~> 0.2.2', :require => 'twitter/login'
 gem 'will_paginate', '3.0.pre'
+gem 'facebook', '~> 0.1.0'

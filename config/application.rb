@@ -11,6 +11,8 @@ require 'erb'
 settings = ERB.new(IO.read(File.expand_path('../settings.yml', __FILE__))).result
 $settings = Hashie::Mash.new YAML::load(settings)[Rails.env.to_s]
 
+$fb = Facebook::Client.new($settings.facebook.app_id, $settings.facebook.secret)
+
 module Movies
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
