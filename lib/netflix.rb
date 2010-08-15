@@ -1,6 +1,6 @@
 require 'oauth/consumer'
 require 'cgi'
-require_dependency 'scraper'
+require 'nibbler'
 
 module Netflix
 
@@ -12,7 +12,7 @@ module Netflix
     )
   end
   
-  class Title < Scraper
+  class Title < Nibbler
     element 'id' => :id
     element './title/@regular' => :name
     element './box_art/@small' => :poster_small
@@ -27,7 +27,7 @@ module Netflix
     element './/link[@title="official webpage"]/@href' => :official_url
   end
   
-  class Catalog < Scraper
+  class Catalog < Nibbler
     elements 'catalog_title' => :titles, :with => Title
     
     element 'number_of_results' => :total_entries
@@ -35,7 +35,7 @@ module Netflix
     element 'start_index' => :offset
   end
   
-  class Autocomplete < Scraper
+  class Autocomplete < Nibbler
     elements './/autocomplete_item/title/@short' => :titles
   end
   

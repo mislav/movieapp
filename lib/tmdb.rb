@@ -1,36 +1,10 @@
 require 'net/http'
 require 'cgi'
 require 'uri'
-require 'yajl'
-require_dependency 'scraper'
+require 'yajl/json_gem'
+require 'nibbler/json'
 
-# a wrapper for JSON data that provides `at` and `search`
-class JsonDocument
-  def initialize(obj)
-    @data = String === obj ? Yajl::Parser.parse(obj) : obj
-  end
-  
-  def self.[](obj)
-    self.class === obj ? obj : new(obj)
-  end
-  
-  def search(selector)
-    @data.to_a
-  end
-  
-  def at(selector)
-    @data[selector]
-  end
-end
-
-# a scraper that works with JsonDocument
-class JsonScraper < Scraper
-  def self.convert_document(doc)
-    JsonDocument[doc]
-  end
-end
 module Tmdb
-
   # http://api.themoviedb.org/2.1/methods/Movie.search
   def self.search term
     json_string = Net::HTTP.get(URI.parse("http://api.themoviedb.org/2.1/Movie.search/en/json/#{$settings.tmdb.api_key}/#{CGI.escape term}"))
@@ -40,7 +14,7 @@ module Tmdb
     Result.parse json_string
   end
   
-  class Movie < JsonScraper
+  class Movie < NibblerJSON
     element :id, :with => lambda { |id| id.to_i }
     element :name
     element :alternative_name
@@ -51,7 +25,7 @@ module Tmdb
     element 'released' => :year, :with => lambda { |date| Date.parse(date).year }
   end
   
-  class Result < JsonScraper
+  class Result < NibblerJSON
     elements :movies, :with => Movie
   end
   
