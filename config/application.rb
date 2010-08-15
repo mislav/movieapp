@@ -8,16 +8,18 @@ require 'action_view/railtie'
 Bundler.require :default, Rails.env
 
 require 'erb'
-settings = ERB.new(IO.read(File.expand_path('../settings.yml', __FILE__))).result
-$settings = Hashie::Mash.new YAML::load(settings)[Rails.env.to_s]
-
-$fb = Facebook::Client.new($settings.facebook.app_id, $settings.facebook.secret)
 
 module Movies
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    
+    ERB.new(IO.read(File.expand_path('../settings.yml', __FILE__))).result.tap do |settings|
+      Hashie::Mash.new(YAML::load(settings)[Rails.env.to_s]).each do |key, value|
+        config.send("#{key}=", value)
+      end
+    end
 
     # Add additional load paths for your own custom dirs
     # config.load_paths += %W( #{config.root}/extras )
@@ -44,12 +46,15 @@ module Movies
     #   g.test_framework  :test_unit, :fixture => true
     # end
     
-    config.after_initialize do
-      MongoMapper.database = $settings.mongodb.database
+    initializer "MongoMapper connect" do
+      MongoMapper.database = config.mongodb.database
     end
     
     config.middleware.use Twitter::Login,
-      :consumer_key => $settings.twitter.consumer_key, :secret => $settings.twitter.secret
+      :consumer_key => config.twitter.consumer_key, :secret => config.twitter.secret
+    
+    config.facebook_client = Facebook::Client.new(config.facebook.app_id, config.facebook.secret,
+      :user_fields => %w[link name email website timezone movies])
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters << :password

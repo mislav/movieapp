@@ -1,15 +1,18 @@
+require 'active_support/memoizable'
 require 'oauth/consumer'
 require 'cgi'
 require 'nibbler'
 
 module Netflix
 
-  def self.client
-    @client ||= OAuth::Consumer.new(
-      $settings.netflix.consumer_key,
-      $settings.netflix.secret,
-      :site => 'http://api.netflix.com'
-    )
+  class << self
+    extend ActiveSupport::Memoizable
+
+    def oauth_client
+      config = Movies::Application.config.netflix
+      OAuth::Consumer.new(config.consumer_key, config.secret, :site => 'http://api.netflix.com')
+    end
+    memoize :oauth_client
   end
   
   class Title < Nibbler
@@ -41,7 +44,7 @@ module Netflix
   
   def self.search(name, page = 1, per_page = 5)
     offset = per_page * (page.to_i - 1)
-    response = client.request(:get, "/catalog/titles?term=#{CGI.escape name}&max_results=#{per_page}&start_index=#{offset}&expand=directors,cast,synopsis")
+    response = oauth_client.request(:get, "/catalog/titles?term=#{CGI.escape name}&max_results=#{per_page}&start_index=#{offset}&expand=directors,cast,synopsis")
     parse response.body
   end
   
@@ -50,7 +53,7 @@ module Netflix
   end
   
   def self.autocomplete(name)
-    response = client.request(:get, "/catalog/titles/autocomplete?term=#{CGI.escape name}")
+    response = oauth_client.request(:get, "/catalog/titles/autocomplete?term=#{CGI.escape name}")
     Autocomplete.parse response.body
   end
 end

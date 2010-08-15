@@ -5,10 +5,14 @@ require 'yajl/json_gem'
 require 'nibbler/json'
 
 module Tmdb
+  
   # http://api.themoviedb.org/2.1/methods/Movie.search
+  SEARCH_URL = "http://api.themoviedb.org/2.1/Movie.search/en/json/%s/%s"
+  
   def self.search term
-    uri = URI.parse("http://api.themoviedb.org/2.1/Movie.search/en/json/#{$settings.tmdb.api_key}/#{CGI.escape term}")
-    json_string = Net::HTTP.get(uri)
+    api_key = Movies::Application.config.tmdb.api_key
+    url = SEARCH_URL % [api_key, CGI.escape(term)]
+    json_string = Net::HTTP.get(URI.parse(url))
     parse json_string
   end
   
