@@ -1,3 +1,5 @@
+require_dependency 'netflix'
+
 class Movie
   include MongoMapper::Document
   

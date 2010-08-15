@@ -1,6 +1,6 @@
 require 'oauth/consumer'
 require 'cgi'
-require 'scraper'
+require_dependency 'scraper'
 
 module Netflix
 
