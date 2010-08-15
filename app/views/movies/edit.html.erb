@@ -1,6 +1,6 @@
 <h1>Edit "<%= title_for_movie @movie %>"</h1>
 
-<% form_for(@movie) do |f| %>
+<%= form_for(@movie) do |f| %>
   <div class="field">
     <%= f.label(:title) %>
     <%= f.text_field(:title) %>

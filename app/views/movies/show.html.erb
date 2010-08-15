@@ -1,7 +1,7 @@
 <h1><%= title_for_movie(@movie) %></h1>
 
 <% if @movie.poster_medium_url %>
-<%= image_tag @movie.poster_medium_url %>
+  <%= image_tag @movie.poster_medium_url %>
 <% end %>
 
 <% if @movie.runtime %>

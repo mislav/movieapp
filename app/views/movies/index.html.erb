@@ -4,7 +4,7 @@
   All movies
 <% end %></h1>
 
-<% form_tag request.path, :method => 'get' do %>
+<%= form_tag request.path, :method => 'get' do %>
   <div>
     <%= label_tag :q, 'Search:' %>
     <%= text_field_tag :q, @query, :type => 'search' %>
