@@ -4,6 +4,7 @@ gem 'rails', '3.0.0.rc'
 
 gem 'mongo_mapper', '~> 0.8.3'
 gem 'mongo_ext', '0.19.3', :require => nil
+gem 'bson_ext', '1.0.4', :require => nil
 gem 'nokogiri', '~> 1.4.1'
 gem 'hashie', '~> 0.2.0'
 gem 'oauth', '~> 0.4.0', :require => nil
