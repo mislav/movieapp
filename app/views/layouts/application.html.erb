@@ -14,6 +14,10 @@
       <% end %>
     </ol>
     
+    <% if flash[:warning] %>
+      <p class="warning"><%= flash[:warning] %></p>
+    <% end %>
+    
     <%= yield %>
   </body>
 </html>
