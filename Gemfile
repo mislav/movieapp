@@ -1,13 +1,12 @@
-git 'git://github.com/rails/rails.git'
-source :gemcutter
+source :rubygems
 
-gem 'rails', '3.0.0.beta3'
+gem 'rails', '3.0.0.rc'
 
-gem 'mongo_mapper', '~> 0.7.4'
+gem 'mongo_mapper', '~> 0.8.3'
 gem 'mongo_ext', '0.19.3', :require => nil
 gem 'nokogiri', '~> 1.4.1'
 gem 'hashie', '~> 0.2.0'
 gem 'oauth', '~> 0.4.0', :require => nil
-gem 'twitter-login', '~> 0.2.2', :require => 'twitter/login'
-gem 'will_paginate', '3.0.pre'
-gem 'facebook', '~> 0.1.0'
+gem 'twitter-login', '~> 0.2.3', :require => 'twitter/login' #, :path => '/Users/mislav/Projects/twitter-login'
+gem 'will_paginate', '3.0.pre2' #, :path => '/Users/mislav/.coral/will_paginate-mislav'
+gem 'facebook-login', '~> 0.2.0', :require => 'facebook/login' #, :path => '/Users/mislav/Projects/facebook'
