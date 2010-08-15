@@ -77,5 +77,102 @@ if $0 == __FILE__
     
   end
 end
+
 __END__
-[{"score":4.3219414,"popularity":3,"translated":true,"adult":false,"language":"en","original_name":"Crna ma\u010dka, beli ma\u010dor","name":"Black Cat, White Cat","alternative_name":"Black Cat, White Cat","movie_type":"movie","id":1075,"imdb_id":"tt0118843","url":"http://www.themoviedb.org/movie/1075","votes":3,"rating":6.6,"certification":"","overview":"Matko is a small time hustler, living by the Danube with his 17 year old son Zare. After a failed business deal he owes money to the much more successful gangster Dadan. Dadan has a sister, Afrodita, that he desperately wants to see get married so they strike a deal: Zare is to marry her. ","released":"1998-09-10","posters":[{"image":{"type":"poster","size":"original","height":932,"width":666,"url":"http://hwcdn.themoviedb.org/posters/64f/4bf41d18017a3c320a00064f/crna-macka-beli-macor-original.jpg","id":"4bf41d18017a3c320a00064f"}},{"image":{"type":"poster","size":"mid","height":700,"width":500,"url":"http://hwcdn.themoviedb.org/posters/64f/4bf41d18017a3c320a00064f/crna-macka-beli-macor-mid.jpg","id":"4bf41d18017a3c320a00064f"}},{"image":{"type":"poster","size":"cover","height":259,"width":185,"url":"http://hwcdn.themoviedb.org/posters/64f/4bf41d18017a3c320a00064f/crna-macka-beli-macor-cover.jpg","id":"4bf41d18017a3c320a00064f"}},{"image":{"type":"poster","size":"thumb","height":129,"width":92,"url":"http://hwcdn.themoviedb.org/posters/64f/4bf41d18017a3c320a00064f/crna-macka-beli-macor-thumb.jpg","id":"4bf41d18017a3c320a00064f"}}],"backdrops":[{"image":{"type":"backdrop","size":"original","height":720,"width":1280,"url":"http://hwcdn.themoviedb.org/backdrops/703/4bc90f20017a3c57fe005703/crna-macka-beli-macor-original.jpg","id":"4bc90f20017a3c57fe005703"}},{"image":{"type":"backdrop","size":"poster","height":439,"width":780,"url":"http://hwcdn.themoviedb.org/backdrops/703/4bc90f20017a3c57fe005703/crna-macka-beli-macor-poster.jpg","id":"4bc90f20017a3c57fe005703"}},{"image":{"type":"backdrop","size":"thumb","height":169,"width":300,"url":"http://hwcdn.themoviedb.org/backdrops/703/4bc90f20017a3c57fe005703/crna-macka-beli-macor-thumb.jpg","id":"4bc90f20017a3c57fe005703"}}],"version":29,"last_modified_at":"2010-07-19 23:15:42"}]
+[
+  {
+    "rating": 6.6,
+    "votes": 3,
+    "movie_type": "movie",
+    "alternative_name": "Black Cat, White Cat",
+    "name": "Black Cat, White Cat",
+    "original_name": "Crna mačka, beli mačor",
+    "popularity": 3,
+    "translated": true,
+    "overview": "Matko is a small time hustler, living by the Danube with his 17 year old son Zare. After a failed business deal he owes money to the much more successful gangster Dadan. Dadan has a sister, Afrodita, that he desperately wants to see get married so they strike a deal: Zare is to marry her. ",
+    "last_modified_at": "2010-07-19 23:15:42",
+    "url": "http://www.themoviedb.org/movie/1075",
+    "language": "en",
+    "adult": false,
+    "id": 1075,
+    "version": 29,
+    "posters": [
+      {
+        "image": {
+          "size": "original",
+          "url": "http://hwcdn.themoviedb.org/posters/64f/4bf41d18017a3c320a00064f/crna-macka-beli-macor-original.jpg",
+          "id": "4bf41d18017a3c320a00064f",
+          "type": "poster",
+          "height": 932,
+          "width": 666
+        }
+      },
+      {
+        "image": {
+          "size": "mid",
+          "url": "http://hwcdn.themoviedb.org/posters/64f/4bf41d18017a3c320a00064f/crna-macka-beli-macor-mid.jpg",
+          "id": "4bf41d18017a3c320a00064f",
+          "type": "poster",
+          "height": 700,
+          "width": 500
+        }
+      },
+      {
+        "image": {
+          "size": "cover",
+          "url": "http://hwcdn.themoviedb.org/posters/64f/4bf41d18017a3c320a00064f/crna-macka-beli-macor-cover.jpg",
+          "id": "4bf41d18017a3c320a00064f",
+          "type": "poster",
+          "height": 259,
+          "width": 185
+        }
+      },
+      {
+        "image": {
+          "size": "thumb",
+          "url": "http://hwcdn.themoviedb.org/posters/64f/4bf41d18017a3c320a00064f/crna-macka-beli-macor-thumb.jpg",
+          "id": "4bf41d18017a3c320a00064f",
+          "type": "poster",
+          "height": 129,
+          "width": 92
+        }
+      }
+    ],
+    "certification": "",
+    "imdb_id": "tt0118843",
+    "backdrops": [
+      {
+        "image": {
+          "size": "original",
+          "url": "http://hwcdn.themoviedb.org/backdrops/703/4bc90f20017a3c57fe005703/crna-macka-beli-macor-original.jpg",
+          "id": "4bc90f20017a3c57fe005703",
+          "type": "backdrop",
+          "height": 720,
+          "width": 1280
+        }
+      },
+      {
+        "image": {
+          "size": "poster",
+          "url": "http://hwcdn.themoviedb.org/backdrops/703/4bc90f20017a3c57fe005703/crna-macka-beli-macor-poster.jpg",
+          "id": "4bc90f20017a3c57fe005703",
+          "type": "backdrop",
+          "height": 439,
+          "width": 780
+        }
+      },
+      {
+        "image": {
+          "size": "thumb",
+          "url": "http://hwcdn.themoviedb.org/backdrops/703/4bc90f20017a3c57fe005703/crna-macka-beli-macor-thumb.jpg",
+          "id": "4bc90f20017a3c57fe005703",
+          "type": "backdrop",
+          "height": 169,
+          "width": 300
+        }
+      }
+    ],
+    "released": "1998-09-10",
+    "score": 4.3219414
+  }
+]
