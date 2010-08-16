@@ -1,0 +1,29 @@
+<catalog_titles>
+<catalog_title>
+    <id>http://api.netflix.com/catalog/titles/movies/70018295</id><title short="The Sea Inside" regular="The Sea Inside"/>
+<box_art small="http://cdn-5.nflximg.com/us/boxshots/tiny/70018295.jpg" medium="http://cdn-5.nflximg.com/us/boxshots/small/70018295.jpg" large="http://cdn-5.nflximg.com/us/boxshots/large/70018295.jpg"/>
+<link href="http://api.netflix.com/catalog/titles/movies/70018295/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[<a href="http://www.netflix.com/RoleDisplay/Javier_Bardem/20001338">Javier Bardem</a> stars in this moving film based on a true story as Ramon Sampedro, a Spaniard who's condemned to life as a quadriplegic. Determined to die with dignity, Sampedro leads a 30-year campaign to win the right to end his life. His extraordinary example even inspires his lawyer, Julia (<a href="http://www.netflix.com/RoleDisplay/Bel_n_Rueda/30009945">Belen Rueda</a>), and a local woman (<a href="http://www.netflix.com/RoleDisplay/Lola_Due_as/20042060">Lola Duenas</a>) to reach for the heavens, with both women achieving far beyond their wildest dreams.]]></synopsis></link>
+<release_year>2004</release_year>
+<category scheme="http://api.netflix.com/categories/mpaa_ratings" label="PG-13" term="PG-13"/>
+<category scheme="http://api.netflix.com/categories/genres" label="Foreign" term="Foreign"/>
+<category scheme="http://api.netflix.com/categories/genres" label="Foreign Dramas" term="Foreign Dramas"/>
+<category scheme="http://api.netflix.com/categories/genres" label="Spain" term="Spain"/>
+<category scheme="http://api.netflix.com/categories/genres" label="Foreign Must-See" term="Foreign Must-See"/>
+<category scheme="http://api.netflix.com/categories/genres" label="Spanish Language" term="Spanish Language"/>
+<category scheme="http://api.netflix.com/categories/genres" label="Foreign Languages" term="Foreign Languages"/>
+<category scheme="http://api.netflix.com/categories/genres" label="Foreign Regions" term="Foreign Regions"/>
+<category scheme="http://api.netflix.com/categories/genres" label="Warner Home Video" term="Warner Home Video"/>
+<runtime>7500</runtime>
+<link href="http://api.netflix.com/catalog/titles/movies/70018295/awards" rel="http://schemas.netflix.com/catalog/titles/awards" title="awards"/>
+<link href="http://api.netflix.com/catalog/titles/movies/70018295/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"/>
+<link href="http://api.netflix.com/catalog/titles/movies/70018295/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"/>
+<link href="http://api.netflix.com/catalog/titles/movies/70018295/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"><people><link href="http://api.netflix.com/catalog/people/20001338" rel="http://schemas.netflix.com/catalog/person" title="Javier Bardem"/><link href="http://api.netflix.com/catalog/people/30009945" rel="http://schemas.netflix.com/catalog/person" title="Bel&#xE9;n Rueda"/><link href="http://api.netflix.com/catalog/people/20042060" rel="http://schemas.netflix.com/catalog/person" title="Lola Due&#xF1;as"/></people></link>
+<link href="http://api.netflix.com/catalog/titles/movies/70018295/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api.netflix.com/catalog/people/20004974" rel="http://schemas.netflix.com/catalog/person" title="Alejandro Amen&#xE1;bar"/></people></link>
+<link href="http://api.netflix.com/catalog/titles/movies/70018295/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"/>
+<average_rating>3.9</average_rating>
+<link href="http://api.netflix.com/catalog/titles/movies/70018295/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"/>
+<link href="http://www.mar-adentro.com/" rel="http://schemas.netflix.com/catalog/titles/official_url" title="official webpage"/>
+<link href="http://www.netflix.com/Movie/The_Sea_Inside/70018295" rel="alternate" title="web page"/>
+
+  </catalog_title>
+</catalog_titles>

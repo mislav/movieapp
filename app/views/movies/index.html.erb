@@ -11,9 +11,9 @@
   </div>
 <% end %>
 
-<ol class="movies" style="counter-reset: item <%= @movies.offset %>">
+<ol class="movies" style="counter-reset: item <%#= @movies.offset %>">
 <% for movie in @movies %>
-  <li style="background-image:url(<%= movie.poster_small_url %>)">
+  <li style="background-image:url(<%#= movie.poster_small_url %>)">
     <dl>
       <dt><%= link_to(title_for_movie(movie), movie) %> <span>(<%= movie.year %>)</span></dt>
       <dd><% unless movie.directors.empty? %>by <em><%= movie.directors.to_sentence %></em><% end %></dd>
@@ -27,4 +27,4 @@
 <% end %>
 </ol>
 
-<%= will_paginate @movies %>
+<%#= will_paginate @movies %>

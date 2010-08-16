@@ -7,4 +7,4 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 
-Rails::Application.load_tasks
+Movies::Application.load_tasks
