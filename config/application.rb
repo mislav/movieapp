@@ -47,7 +47,8 @@ module Movies
     # end
     
     initializer "MongoMapper connect" do
-      MongoMapper.database = config.mongodb.database
+      MongoMapper.config = { Rails.env => config.mongodb }
+      MongoMapper.connect(Rails.env)
     end
     
     config.middleware.use Twitter::Login,
