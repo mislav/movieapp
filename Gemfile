@@ -11,4 +11,5 @@ gem 'oauth', '~> 0.4.0', :require => nil
 gem 'twitter-login', '~> 0.2.3', :require => 'twitter/login' #, :path => '/Users/mislav/Projects/twitter-login'
 gem 'will_paginate', '3.0.pre2' #, :path => '/Users/mislav/.coral/will_paginate-mislav'
 gem 'facebook-login', '~> 0.2.0', :require => 'facebook/login' #, :path => '/Users/mislav/Projects/facebook'
-gem 'nibbler', '~> 1.0' #, :path => '/Users/mislav/Projects/scraper'
+gem 'nibbler', '~> 1.0', :require => 'nibbler/json' #, :path => '/Users/mislav/Projects/scraper'
+gem 'yajl-ruby', '~> 0.7.7', :require => 'yajl/json_gem'

@@ -122,3 +122,4 @@ DEPENDENCIES
   rails (= 3.0.0.rc)
   twitter-login (~> 0.2.3)
   will_paginate (= 3.0.pre2)
+  yajl-ruby (~> 0.7.7)
