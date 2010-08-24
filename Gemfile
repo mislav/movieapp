@@ -14,3 +14,4 @@ gem 'facebook-login', '~> 0.2.0', :require => 'facebook/login' #, :path => '/Use
 gem 'nibbler', '~> 1.0' #, :path => '/Users/mislav/Projects/scraper'
 gem 'yajl-ruby', '~> 0.7.7', :require => nil
 gem 'rspec-rails', '~> 2.0.0.beta.19'
+gem 'addressable'

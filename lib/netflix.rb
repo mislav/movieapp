@@ -1,16 +1,45 @@
 require 'active_support/memoizable'
 require 'oauth/consumer'
-require 'cgi'
 require 'nibbler'
+require 'addressable/template'
 
 module Netflix
+
+  SITE = 'http://api.netflix.com'
+
+  SEARCH_URL = Addressable::Template.new \
+    "#{SITE}/catalog/titles?{-join|&|term,max_results,start_index,expand}"
+
+  AUTOCOMPLETE_URL = Addressable::Template.new \
+    "#{SITE}/catalog/titles/autocomplete?{-join|&|term}"
+  
+  def self.search(query, page = 1, per_page = 5)
+    offset = per_page * (page.to_i - 1)
+    
+    request_uri = SEARCH_URL.expand(
+      :term => query, :expand => 'directors,cast,synopsis',
+      :max_results => per_page, :start_index => offset
+    ).request_uri
+    
+    response = oauth_client.request(:get, request_uri)
+    parse response.body
+  end
+  
+  def self.parse(xml)
+    Catalog.parse(xml)
+  end
+  
+  def self.autocomplete(name)
+    response = oauth_client.request(:get, AUTOCOMPLETE_URL.expand(:term => name).request_uri)
+    Autocomplete.parse response.body
+  end
 
   class << self
     extend ActiveSupport::Memoizable
 
     def oauth_client
       config = Movies::Application.config.netflix
-      OAuth::Consumer.new(config.consumer_key, config.secret, :site => 'http://api.netflix.com')
+      OAuth::Consumer.new(config.consumer_key, config.secret, :site => SITE)
     end
     memoize :oauth_client
   end
@@ -41,19 +70,5 @@ module Netflix
   class Autocomplete < Nibbler
     elements './/autocomplete_item/title/@short' => :titles
   end
-  
-  def self.search(name, page = 1, per_page = 5)
-    offset = per_page * (page.to_i - 1)
-    response = oauth_client.request(:get, "/catalog/titles?term=#{CGI.escape name}&max_results=#{per_page}&start_index=#{offset}&expand=directors,cast,synopsis")
-    parse response.body
-  end
-  
-  def self.parse(xml)
-    Catalog.parse(xml)
-  end
-  
-  def self.autocomplete(name)
-    response = oauth_client.request(:get, "/catalog/titles/autocomplete?term=#{CGI.escape name}")
-    Autocomplete.parse response.body
-  end
+
 end

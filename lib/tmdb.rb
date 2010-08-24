@@ -1,18 +1,17 @@
 require 'net/http'
-require 'cgi'
-require 'uri'
 require 'yajl/json_gem'
 require 'nibbler/json'
+require 'addressable/template'
+require 'active_support/core_ext/object/blank'
 
 module Tmdb
   
   # http://api.themoviedb.org/2.1/methods/Movie.search
-  SEARCH_URL = "http://api.themoviedb.org/2.1/Movie.search/en/json/%s/%s"
+  SEARCH_URL = Addressable::Template.new 'http://api.themoviedb.org/2.1/Movie.search/en/json/{api_key}/{query}'
   
-  def self.search term
-    api_key = Movies::Application.config.tmdb.api_key
-    url = SEARCH_URL % [api_key, CGI.escape(term)]
-    json_string = Net::HTTP.get(URI.parse(url))
+  def self.search query
+    url = SEARCH_URL.expand :api_key => Movies::Application.config.tmdb.api_key, :query => query
+    json_string = Net::HTTP.get url
     parse json_string
   end
   

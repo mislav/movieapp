@@ -131,6 +131,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  addressable
   bson_ext (= 1.0.4)
   facebook-login (~> 0.2.0)
   hashie (~> 0.2.0)
