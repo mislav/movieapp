@@ -1,24 +1,23 @@
 require 'netflix'
 require 'tmdb'
 
-class Movie
-  include MongoMapper::Document
+class Movie < Mingo
+  property :title
   
-  key :title, String
-  key :original_title, String
-  key :year, Integer
-  key :plot, String
-  key :poster_small_url, String
-  key :poster_medium_url, String
-  key :runtime, Integer
-  key :directors, Array
-  key :cast, Array
-  
-  key :official_website, String
-  key :netflix_id, String
-  key :netflix_url, String
-  
-  key :tmdb_id, String
+  # key :original_title, String
+  # key :year, Integer
+  # key :plot, String
+  # key :poster_small_url, String
+  # key :poster_medium_url, String
+  # key :runtime, Integer
+  # key :directors, Array
+  # key :cast, Array
+
+  # key :official_website, String
+  # key :netflix_id, String
+  # key :netflix_url, String
+
+  # key :tmdb_id, String
   
   def self.tmdb_search(term)
     result = Tmdb.search(term)

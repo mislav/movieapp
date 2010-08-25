@@ -46,9 +46,8 @@ module Movies
     #   g.test_framework  :test_unit, :fixture => true
     # end
     
-    initializer "MongoMapper connect" do
-      MongoMapper.config = { Rails.env => config.mongodb }
-      MongoMapper.connect(Rails.env)
+    initializer "MongoDB connect" do
+      Mingo.connect(config.mongodb.database || config.mongodb.uri)
     end
     
     config.middleware.use Twitter::Login,

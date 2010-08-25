@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   
-  before_filter :find_movie, :only => [:show, :edit, :update, :destroy, :add_to_watch]
+  before_filter :find_movie, :only => [:show, :edit, :update, :destroy]
   
   def index
     if @query = params[:q]
@@ -35,7 +35,7 @@ class MoviesController < ApplicationController
   end
   
   def add_to_watch
-    current_user.to_watch << @movie
+    current_user.add_to_watch params[:id]
     redirect_to :back
   end
   
