@@ -32,8 +32,8 @@ class Movie < Mingo
       :title => movie.name,
       :original_title => movie.original_name,
       :year => movie.year,
-      # :poster_small_url => movie.poster_medium,
-      # :poster_medium_url => movie.poster_large,
+      :poster_small_url => movie.poster_thumb,
+      :poster_medium_url => movie.poster_cover,
       :plot => movie.synopsis,
       :tmdb_id => movie.id,
       :tmdb_url => movie.url

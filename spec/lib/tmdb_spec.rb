@@ -15,5 +15,8 @@ describe Tmdb::Movie do
   its(:url)               { should == 'http://www.themoviedb.org/movie/1075' }
   its(:synopsis)          { should include('Matko is a small time hustler') }
   its(:year)              { should == 1998 }
+  its(:poster_cover) {
+    should == 'http://hwcdn.themoviedb.org/posters/64f/4bf41d18017a3c320a00064f/crna-macka-beli-macor-cover.jpg'
+  }
   
 end

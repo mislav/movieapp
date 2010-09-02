@@ -30,6 +30,14 @@ module Tmdb
     element 'released' => :year, :with => lambda { |date|
       Date.parse(date).year unless date.blank?
     }
+    element 'posters' => :poster_cover, :with => lambda { |posters|
+      poster = posters.find { |p| p["image"]["size"] == "cover" }
+      poster.nil? ? '' : poster["image"]["url"]
+    }
+    element 'posters' => :poster_thumb, :with => lambda { |posters|
+      poster = posters.find { |p| p["image"]["size"] == "thumb" }
+      poster.nil? ? '' : poster["image"]["url"]
+    }    
   end
   
   class Result < NibblerJSON
