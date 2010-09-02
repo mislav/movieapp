@@ -1,0 +1,7 @@
+<a href="<%= movie_path(movie.id) %>">
+  <img src="<%= movie.poster_small_url %>" alt="<%= movie.poster_small_url.empty? ? 'No' : movie.title %> cover" />
+
+  <h1><%= title_for_movie(movie) %></h1>
+
+  <%= movie_year(movie) %>
+</a>

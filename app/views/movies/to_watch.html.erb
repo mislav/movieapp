@@ -2,16 +2,19 @@
 
 <ol class="movies">
 <% for movie in @movies %>
-  <li style="background-image:url(<%= movie.poster_small_url %>)">
-    <dl>
-      <dt><%= link_to(title_for_movie(movie), movie) %> <span>(<%= movie.year %>)</span></dt>
-      <dd><% unless movie.directors.empty? %>by <em><%= movie.directors.to_sentence %></em><% end %></dd>
-    </dl>
-    
-    <ol class="actions">
-      <li><a href="#" title="Hey, I watched this!">&radic;</a></li>
-      <li><%= link_to '+', add_to_watch_path(:id => movie.id), :title => "To watch..." %></li>
-    </ol>
+
+  <li>
+    <article>
+
+      <%= render :partial => 'movie', :locals => { :movie => movie } %>
+        
+      <ol class="actions">
+        <li><a href="#"><span>✓</span>Watched it!</a></li>
+        <li><a href="#"><span class="toothin">-</span>Remove</a></li>
+      </ol>
+  
+    </article>
   </li>
+
 <% end %>
 </ol>

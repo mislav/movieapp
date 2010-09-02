@@ -1,23 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8" />
+    
     <title>Movies app!</title>
-    <%= stylesheet_link_tag "main" %>
+    <%= stylesheet_link_tag "movie" %>
   </head>
+  
   <body>
-    <ol id="session-status" class="actions">
-      <% if logged_in? %>
-        <li>Logged in as <%= link_to(current_user.username, to_watch_path(:username => current_user.username)) %></li>
-        <li><%= link_to 'logout', logout_path %></li>
-      <% else %>
-        <li><%= link_to 'login', '/login' %></li>
-      <% end %>
-    </ol>
+    
+    <header>
+      <h1><a href="/">The Movie App</a></h1>
+    
+      <nav>        
+        <% if logged_in? %>
+          <p>
+            Logged in as <%= link_to(current_user.username, to_watch_path(:username => current_user.username)) %>,
+            <%= link_to 'logout', logout_path %>
+          </p>
+        <% else %>
+          <p><%= link_to 'login', '/login' %></p>
+        <% end %>
+      </nav>
+    
+    </header>
     
     <% if flash[:warning] %>
       <p class="warning"><%= flash[:warning] %></p>
     <% end %>
-    
-    <%= yield %>
+      
+    <article>
+      <%= yield %>
+    </article>
+  
   </body>
+
 </html>
