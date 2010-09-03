@@ -6,7 +6,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 body {
   font: 75%/1.5em geneva,"bitstream vera sans",arial,helvetica,sans-serif;
-  padding:2.5em 4em;
+  padding:1.75em 4em;
   background-color:#FDFDFD; color:#222;
 /*  background-image:url('/images/9_2_grid.png');*/
 }
@@ -14,12 +14,22 @@ body {
 h1 { font-weight:normal; text-shadow:1px 1px 1px rgba(127, 127, 127, 0.5) }
   h1 a { text-decoration:none }
 
-header h1 {
-  font:bold 5em "josefin sans std",geneva,"bitstream vera sans",arial,helvetica,sans-serif;
-  letter-spacing:1px;
-  text-shadow:1px 1px 1px rgba(127, 127, 127, 0.5);
-}
-header nav { margin:-1.4em 0 1.5em 1.2em }
+header { width:38em; float:left }
+  header h1 {
+    font:bold 5em/1.5em "josefin sans std",geneva,"bitstream vera sans",arial,helvetica,sans-serif;
+    letter-spacing:1px;
+    text-shadow:1px 1px 1px rgba(127, 127, 127, 0.5);
+  }
+  header nav { position:absolute; left:42em; top:1.1em }
+  header + form { margin-top:1.8em }
+    header + form label { display:block }
+    header + form input[type="search"] {
+      -moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.25) inset;
+      -moz-border-radius:10px 10px 10px 10px;
+      border:1px solid #aaa;
+      padding:.15em 8px .05em; width:10em;
+      font-size:11px;
+   }
 
 body > article { margin-left:1.2em }
   body > article > h1 {

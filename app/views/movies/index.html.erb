@@ -1,15 +1,8 @@
 <h1><% if @query %>
-  Searched for: <span><%= h @query %></span>
+  Search results for <i><%= h @query %></i>
 <% else %>
   All movies
 <% end %></h1>
-
-<%= form_tag request.path, :method => 'get' do %>
-  <div>
-    <%= label_tag :q, 'Search:' %>
-    <%= text_field_tag :q, @query, :type => 'search' %>
-  </div>
-<% end %>
 
 <ol class="movies" style="counter-reset: item <%#= @movies.offset %>">
 <% for movie in @movies %>

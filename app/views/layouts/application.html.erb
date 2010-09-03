@@ -19,14 +19,20 @@
             <%= link_to 'logout', logout_path %>
           </p>
         <% else %>
-          <p><%= link_to 'login', '/login' %></p>
+          <%= link_to 'Login', '/login' %>
         <% end %>
       </nav>
-    
     </header>
     
     <% if flash[:warning] %>
       <p class="warning"><%= flash[:warning] %></p>
+    <% end %>
+      
+    <%= form_tag root_path, :method => 'get' do %>
+      <div>
+        <%= label_tag :q, 'Movie search:' %>
+        <%= text_field_tag :q, @query, :type => 'search', :results => '5' %>
+      </div>
     <% end %>
       
     <article>
