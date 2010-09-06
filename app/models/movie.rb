@@ -3,13 +3,16 @@ require 'tmdb'
 
 class Movie < Mingo
   property :title
+  property :original_title
+  property :year
+  property :plot
+  property :poster_small_url
+  property :poster_medium_url
+  property :runtime
   
-  # key :original_title, String
-  # key :year, Integer
-  # key :plot, String
-  # key :poster_small_url, String
-  # key :poster_medium_url, String
-  # key :runtime, Integer
+  property :tmdb_id
+  property :tmdb_url
+
   # key :directors, Array
   # key :cast, Array
 

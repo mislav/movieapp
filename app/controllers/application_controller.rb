@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   helper_method :logged_in?
   
   def current_user
-    @current_user ||= twitter_user && User.find_or_create_from_twitter(twitter_user)
+    @current_user ||= twitter_user && User.from_twitter(twitter_user)
   end
   helper_method :current_user
   
