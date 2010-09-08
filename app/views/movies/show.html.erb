@@ -1,8 +1,17 @@
-<h1><%= title_for_movie(@movie) %></h1>
-
 <% if @movie.poster_medium_url %>
   <%= image_tag @movie.poster_medium_url %>
 <% end %>
+
+<h1><%= title_for_movie(@movie) %></h1>
+
+<%= movie_year(@movie) %>
+
+<dl>
+  <% if @movie.language %>
+    <dt>Language:</dt>
+    <dd><%= @movie.language %></dd>
+  <% end %>
+</dl>
 
 <% if @movie.runtime %>
 <p>running time: <%= @movie.runtime / 60 %> minutes</p>

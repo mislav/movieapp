@@ -25,8 +25,9 @@ module Tmdb
   class Movie < NibblerJSON
     element :id, :with => lambda { |id| id.to_i }
     element :name
-    element :alternative_name
     element :original_name
+    element :alternative_name
+    element :language
     element :imdb_id
     element :url
     element 'overview' => :synopsis

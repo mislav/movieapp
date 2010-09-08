@@ -4,6 +4,7 @@ require 'tmdb'
 class Movie < Mingo
   property :title
   property :original_title
+  property :language
   property :year
   property :plot
   property :poster_small_url
@@ -38,6 +39,7 @@ class Movie < Mingo
     first(:tmdb_id => movie.id) || create(
       :title => movie.name,
       :original_title => movie.original_name,
+      :language => movie.language,
       :year => movie.year,
       :poster_small_url => movie.poster_thumb,
       :poster_medium_url => movie.poster_cover,
