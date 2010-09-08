@@ -3,9 +3,10 @@ require 'netflix'
 
 describe Netflix::Title do
 
-  catalog = Netflix.parse read_fixture('netflix-mar_adentro.xml')
-
-  subject { catalog.titles.first }
+  subject {
+    catalog = Netflix.parse read_fixture('netflix-mar_adentro.xml')
+    catalog.titles.first
+  }
 
   its(:id)            { should == 'http://api.netflix.com/catalog/titles/movies/70018295' }
   its(:name)          { should == 'The Sea Inside' }

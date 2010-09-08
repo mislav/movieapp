@@ -21,4 +21,6 @@ end
 
 group :test do
   gem 'webmock'
+  gem 'cucumber-rails', :require => nil
+  gem 'capybara', :require => nil
 end

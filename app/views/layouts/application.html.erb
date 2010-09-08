@@ -32,6 +32,7 @@
       <div>
         <%= label_tag :q, 'Movie search:' %>
         <%= text_field_tag :q, @query, :type => 'search', :results => '5' %>
+        <%= submit_tag "search", :name => nil %>
       </div>
     <% end %>
       
