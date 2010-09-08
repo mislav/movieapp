@@ -18,6 +18,7 @@ class MoviesController < ApplicationController
   end
   
   def show
+    @movie = Movie.tmdb_details(@movie)
   end
   
   def add_to_watch

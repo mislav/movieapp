@@ -32,7 +32,6 @@ class Movie < Mingo
         find_or_create_from_tmdb(movie)
       }
     end
-    
   end
   
   def self.find_or_create_from_tmdb(movie)
@@ -47,6 +46,14 @@ class Movie < Mingo
       :tmdb_id => movie.id,
       :tmdb_url => movie.url
     )
+  end
+  
+  def self.tmdb_details(movie)
+    movie.tap do |mingo_movie|
+      tmdb_movie = Tmdb.movie_details(mingo_movie.tmdb_id)
+      mingo_movie.runtime = tmdb_movie.runtime
+      mingo_movie.save
+    end
   end
   
   def self.netflix_search(term, page = 1)

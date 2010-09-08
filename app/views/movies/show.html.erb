@@ -11,11 +11,11 @@
     <dt>Language:</dt>
     <dd><%= @movie.language %></dd>
   <% end %>
+  <% if @movie.runtime %>
+    <dt>Runtime:</dt>
+    <dd><%= @movie.runtime %></dd>
+  <% end %>
 </dl>
-
-<% if @movie.runtime %>
-<p>running time: <%= @movie.runtime / 60 %> minutes</p>
-<% end %>
 
 <p><%= raw @movie.plot %></p>
 
