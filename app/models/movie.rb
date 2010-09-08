@@ -25,9 +25,13 @@ class Movie < Mingo
   def self.tmdb_search(term)
     result = Tmdb.search(term)
     
-    result.movies.map { |movie|
-      find_or_create_from_tmdb(movie)
-    }
+    if result.class == String then result
+    else    
+      result.movies.map { |movie|
+        find_or_create_from_tmdb(movie)
+      }
+    end
+    
   end
   
   def self.find_or_create_from_tmdb(movie)

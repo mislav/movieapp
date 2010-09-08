@@ -4,23 +4,31 @@
   All movies
 <% end %></h1>
 
-<ol class="movies" style="counter-reset: item <%= @movies.offset %>">
-<% for movie in @movies %>
+<% if @movies %>
 
-  <li>
-    <article>
+  <ol class="movies" style="counter-reset: item <%= @movies.offset %>">
+  <% for movie in @movies %>
 
-      <%= render :partial => 'movie', :locals => { :movie => movie } %>
+    <li>
+      <article>
+
+        <%= render :partial => 'movie', :locals => { :movie => movie } %>
         
-      <ol class="actions">
-        <li><a href="#"><span>✓</span> Watched it!</a></li>
-        <li><a href="<%= add_to_watch_path(:id => movie.id) %>"><span class="toothin">+</span> Want to watch</a></li>
-      </ol>
+        <ol class="actions">
+          <li><a href="#"><span>✓</span> Watched it!</a></li>
+          <li><a href="<%= add_to_watch_path(:id => movie.id) %>"><span class="toothin">+</span> Want to watch</a></li>
+        </ol>
 
-    </article>    
-  </li>
+      </article>    
+    </li>
+
+  <% end %>
+  </ol>
+
+  <%= will_paginate @movies %>
+
+<% elsif @result %>
+
+  <p><%= @result.tr("\"", '') %></p>
 
 <% end %>
-</ol>
-
-<%= will_paginate @movies %>

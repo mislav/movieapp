@@ -12,7 +12,10 @@ module Tmdb
   def self.search query
     url = SEARCH_URL.expand :api_key => Movies::Application.config.tmdb.api_key, :query => query
     json_string = Net::HTTP.get url
-    parse json_string
+    
+    if json_string =~ /nothing found/i then "Nothing found."
+    else parse json_string
+    end
   end
   
   def self.parse json_string

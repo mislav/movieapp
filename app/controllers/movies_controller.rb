@@ -3,11 +3,18 @@ class MoviesController < ApplicationController
   before_filter :find_movie, :only => [:show, :edit, :update, :destroy]
   
   def index
+    
     if @query = params[:q]
-      @movies = Movie.tmdb_search(@query).paginate(:page => params[:page], :per_page => 5)
+      @result = Movie.tmdb_search(@query)
+      
+      if (@result.class == String) then @result
+      else @movies = @result.paginate(:page => params[:page], :per_page => 5)
+      end
+      
     else
       @movies = Movie.paginate(:sort => 'title', :page => params[:page], :per_page => 10)
     end
+    
   end
   
   def show
