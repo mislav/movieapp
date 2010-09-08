@@ -2,6 +2,7 @@ ENV["RAILS_ENV"] ||= 'test'
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'webmock/rspec'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
@@ -16,6 +17,7 @@ end
 RSpec.configure do |config|
   config.extend FixtureLoader
   config.include FixtureLoader
+  config.include WebMock
   config.mock_with :rspec
   config.add_setting :fixtures_path, :default => Rails.root + 'spec/fixtures'
 end

@@ -15,9 +15,7 @@ module Tmdb
     url = SEARCH_URL.expand :api_key => Movies::Application.config.tmdb.api_key, :query => query
     json_string = Net::HTTP.get url
     
-    if json_string =~ /nothing found/i then "Nothing found."
-    else parse json_string
-    end
+    parse json_string
   end
   
   def self.movie_details tmdb_id
@@ -58,11 +56,15 @@ module Tmdb
     
     def self.convert_document(doc)
       super.tap do |converted|
-        File.open(Rails.root + 'tmp/tmdb-last-request.yml', 'w') { |f|
-          f.write YAML.dump(converted)
-        }
+        if Rails.env.development?
+          File.open(Rails.root + 'tmp/tmdb-last-request.yml', 'w') { |f|
+            f.write YAML.dump(converted)
+          }
+        end
+        
+        converted.data.clear if converted.data.first == "Nothing found."
       end
-    end if Rails.env.development?
+    end
   end
   
 end

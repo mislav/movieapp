@@ -4,7 +4,7 @@
   All movies
 <% end %></h1>
 
-<% if @movies %>
+<% unless @movies.empty? %>
 
   <ol class="movies" style="counter-reset: item <%= @movies.offset %>">
   <% for movie in @movies %>
@@ -27,8 +27,8 @@
 
   <%= will_paginate @movies %>
 
-<% elsif @result %>
+<% else %>
 
-  <p><%= @result.tr("\"", '') %></p>
+  <p>Nothing found. I SO SORRY</p>
 
 <% end %>

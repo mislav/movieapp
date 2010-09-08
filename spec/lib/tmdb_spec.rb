@@ -3,9 +3,13 @@ require 'tmdb'
 
 describe Tmdb::Movie do
   
-  result = Tmdb.parse read_fixture('tmdb-black_cat.json')
-  
-  subject { result.movies.first }
+  subject {
+    stub_request(:get, 'api.themoviedb.org/2.1/Movie.search/en/json/TEST/black%20cat').
+      to_return(:body => read_fixture('tmdb-black_cat.json'), :status => 200)
+    
+    result = Tmdb.search('black cat')
+    result.movies.first
+  }
   
   its(:id)                { should == 1075 }
   its(:name)              { should == 'Black Cat, White Cat' }
@@ -21,11 +25,28 @@ describe Tmdb::Movie do
   
 end
 
+describe Tmdb::Movie, "empty" do
+  
+  subject {
+    stub_request(:get, 'api.themoviedb.org/2.1/Movie.search/en/json/TEST/lepa%20brena').
+      to_return(:body => '["Nothing found."]', :status => 200)
+    
+    result = Tmdb.search('lepa brena')
+  }
+  
+  its(:movies) { should be_empty }
+  
+end
+
 describe Tmdb::Movie, "getInfo" do
   
-  result = Tmdb.parse read_fixture('tmdb-an_education.json')
+  subject {
+    stub_request(:get, 'api.themoviedb.org/2.1/Movie.getInfo/en/json/TEST/1234').
+      to_return(:body => read_fixture('tmdb-an_education.json'), :status => 200)
+    
+    Tmdb.movie_details(1234)
+  }
   
-  subject { result.movies.first }
   
   its(:runtime) { should == 95 }
   

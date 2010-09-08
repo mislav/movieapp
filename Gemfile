@@ -18,3 +18,7 @@ group :extras do
   gem 'yajl-ruby', '~> 0.7.7'
   gem 'addressable', '~> 2.1.2'
 end
+
+group :test do
+  gem 'webmock'
+end
