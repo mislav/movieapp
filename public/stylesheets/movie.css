@@ -68,21 +68,18 @@ ol.movies > li { margin-bottom:2em; clear:left; overflow:hidden }
     float:left; margin-right:24px;
   }
 
-  ol.movies .actions { margin:40px 0 0 116px }
+  ol.movies .actions { margin:52px 0 0 116px }
     ol.movies .actions li { }
       ol.movies .actions a {
         display:block;
-        height:21px; width:110px; margin-top:5px;
-        border:1px solid #ccc;
-        -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px;
-        background:#f5f5f5; color:#333;
-        background-image:-moz-linear-gradient(top,white,#d8d8d8);
+        color:#333; background-color:#F5F5F5;
+        background:-moz-linear-gradient(center top , white, #D8D8D8);
         background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d8d8d8));
+        border:1px solid #ddd;
+        -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;
+        margin-top:5px; padding:2px 4px; line-height:11px; width:100px;
       }
       ol.movies .actions a:hover {
         background:#02303F; color:#fdfdfd; border-color:#02303F;
       }
-        ol.movies .actions a span {
-          font-size:1.3em; text-align:center;
-          display:inline-block; width:17px;
-        }
+      ol.movies .actions a span { display:inline-block; width:9px }
