@@ -7,7 +7,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 body {
   font: 75%/1.5em geneva,"bitstream vera sans",arial,helvetica,sans-serif;
   padding:1.75em 4em;
-  background-color:#FDFDFD; color:#222;
+  background-color:#FDFDFD; color:#02303F;
 /*  background-image:url('/images/9_2_grid.png');*/
 }
   
@@ -28,7 +28,7 @@ header { width:38em; float:left }
       -moz-border-radius:10px 10px 10px 10px;
       border:1px solid #aaa;
       padding:.15em 8px .05em; width:10em;
-      font-size:11px;
+      font-size:11px; width:15em;
    }
 
 body > article { margin-left:1.2em }
@@ -37,13 +37,19 @@ body > article { margin-left:1.2em }
     font-size:1.5em;
   }
 
-a:link, a:visited { color:inherit }
-a:hover, a:active { /*color: lemonchiffon;*/ }
-
 .toothin { font-weight:bold }
 
 .actions li { display:inline; border-left:1px solid; padding-left:.8em; margin-left:.5em; }
 .actions li:first-child, ol.movies .actions li { border-left:0 none; padding-left:0; margin-left:0; }
+
+/* anchors */
+
+a:link, a:visited { color:inherit }
+a:hover, a:active { /*color: lemonchiffon;*/ }
+
+header h1 a:active, header h1 a:visited, ol.movies article > a:active, ol.movies article > a:visited {
+  outline:0 none;
+}
 
 /* movie list */
 
