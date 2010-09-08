@@ -48,12 +48,18 @@ class Movie < Mingo
     )
   end
   
-  def self.tmdb_details(movie)
-    movie.tap do |mingo_movie|
-      tmdb_movie = Tmdb.movie_details(mingo_movie.tmdb_id)
-      mingo_movie.runtime = tmdb_movie.runtime
-      mingo_movie.save
+  EXTENDED = [:language, :runtime]
+  
+  def ensure_extended_info
+    if extended_info_missing? and self.tmdb_id
+      tmdb_movie = Tmdb.movie_details(self.tmdb_id)
+      self.runtime = tmdb_movie.runtime
+      self.language = tmdb_movie.language
     end
+  end
+  
+  def extended_info_missing?
+    EXTENDED.any? { |property| self[property].nil? }
   end
   
   def self.netflix_search(term, page = 1)
