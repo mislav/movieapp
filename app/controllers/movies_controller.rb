@@ -4,7 +4,7 @@ class MoviesController < ApplicationController
   
   def index
     if @query = params[:q]
-      @movies = Movie.tmdb_search(@query)
+      @movies = Movie.tmdb_search(@query).paginate(:page => params[:page], :per_page => 5)
     else
       @movies = Movie.paginate(:sort => 'title', :page => params[:page], :per_page => 10)
     end
