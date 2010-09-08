@@ -50,23 +50,18 @@ a:hover, a:active { /*color: lemonchiffon;*/ }
 ol.movies a { text-decoration:none }
 
 ol.movies > li { margin-bottom:2em; clear:left; overflow:hidden } 
-  ol.movies h1, ol.movies article > a span {
-    font-family:"josefin sans std",geneva,arial,sans-serif;
-    text-shadow:1px 1px 1px rgba(0, 0, 0, 0.3);
-  }
-  ol.movies h1 {
-    display:inline;
-    font-size:2.1em; line-height:1.1em;
-  }
-  ol.movies article > a span {
-    display:block; width:20%;
-    font-size:1.3em; line-height:1.5em;
-  }
-  ol.movies img {
-    border:1px solid #777;
-    display:block; width:92px; height:140px;
-    float:left; margin-right:24px;
-  }
+  ol.movies article > a { display:block; min-height:50px }
+    ol.movies h1, ol.movies article > a span {
+      font-family:"josefin sans std",geneva,arial,sans-serif;
+      text-shadow:1px 1px 1px rgba(0, 0, 0, 0.3);
+    }
+    ol.movies h1 { font-size:2.1em; line-height:1.1em }
+    ol.movies article > a span { font-size:1.3em; line-height:1.5em }
+    ol.movies img {
+      border:1px solid #777;
+      display:block; width:92px; height:140px;
+      float:left; margin-right:24px;
+    }
 
   ol.movies .actions { margin:52px 0 0 116px }
     ol.movies .actions li { }
