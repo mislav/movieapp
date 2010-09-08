@@ -9,7 +9,7 @@ describe Tmdb::Movie do
   
   its(:id)                { should == 1075 }
   its(:name)              { should == 'Black Cat, White Cat' }
-  its(:alternative_name)  { should == 'Black Cat, White Cat' }
+  # its(:alternative_name)  { should == 'Black Cat, White Cat' }
   its(:original_name)     { should == 'Crna mačka, beli mačor' }
   its(:imdb_id)           { should == 'tt0118843' }
   its(:url)               { should == 'http://www.themoviedb.org/movie/1075' }
@@ -18,5 +18,15 @@ describe Tmdb::Movie do
   its(:poster_cover) {
     should == 'http://hwcdn.themoviedb.org/posters/64f/4bf41d18017a3c320a00064f/crna-macka-beli-macor-cover.jpg'
   }
+  
+end
+
+describe Tmdb::Movie, "getInfo" do
+  
+  result = Tmdb.parse read_fixture('tmdb-an_education.json')
+  
+  subject { result.movies.first }
+  
+  its(:runtime) { should == 95 }
   
 end

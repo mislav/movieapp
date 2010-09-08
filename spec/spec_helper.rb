@@ -15,6 +15,7 @@ end
 
 RSpec.configure do |config|
   config.extend FixtureLoader
+  config.include FixtureLoader
   config.mock_with :rspec
   config.add_setting :fixtures_path, :default => Rails.root + 'spec/fixtures'
 end

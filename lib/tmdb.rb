@@ -55,6 +55,14 @@ module Tmdb
   
   class Result < NibblerJSON
     elements :movies, :with => Movie
+    
+    def self.convert_document(doc)
+      super.tap do |converted|
+        File.open(Rails.root + 'tmp/tmdb-last-request.yml', 'w') { |f|
+          f.write YAML.dump(converted)
+        }
+      end
+    end if Rails.env.development?
   end
   
 end
