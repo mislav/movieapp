@@ -1,24 +1,28 @@
-<% if @movie.poster_medium_url %>
-  <%= image_tag @movie.poster_medium_url %>
-<% end %>
-
-<h1><%= title_for_movie(@movie) %></h1>
-
-<%= movie_year(@movie) %>
-
-<dl>
-  <% if @movie.runtime %>
-    <dt>Runtime:</dt>
-    <dd><%= @movie.runtime %></dd>
+<article class="movie">
+  
+  <% if @movie.poster_medium_url %>
+    <%= image_tag @movie.poster_medium_url %>
   <% end %>
-  <% if @movie.countries %>
-    <dt>Country:</dt>
-    <dd><%= @movie.countries %></dd>
-  <% end %>
-</dl>
 
-<p><%= raw @movie.plot %></p>
+  <h1><%= title_for_movie(@movie) %></h1>
 
-<ol class="actions">
-  <li><%= link_to("Back to movies list", movies_path) %></li>
-</ol>
+  <%= movie_year(@movie) %>
+
+  <dl>
+    <% if @movie.runtime %>
+      <dt>Runtime:</dt>
+      <dd><%= @movie.runtime %> min</dd>
+    <% end %>
+    <% if @movie.countries %>
+      <dt>Country:</dt>
+      <dd><%= @movie.countries %></dd>
+    <% end %>
+  </dl>
+
+  <p><%= raw @movie.plot %></p>
+
+  <ol class="actions">
+    <li><%= link_to("Back to movies list", movies_path) %></li>
+  </ol>
+  
+</article>

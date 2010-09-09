@@ -1,20 +1,24 @@
-<h1>Movies to see:</h1>
-
-<ol class="movies">
-<% for movie in @movies %>
-
-  <li>
-    <article>
-
-      <%= render :partial => 'movie', :locals => { :movie => movie } %>
-        
-      <ol class="actions">
-        <li><a href="#"><span>✓</span> Watched it!</a></li>
-        <li><a href="#"><span class="toothin">‒</span> Remove</a></li>
-      </ol>
+<article>
   
-    </article>
-  </li>
+  <h1>Movies to see:</h1>
 
-<% end %>
-</ol>
+  <ol class="movies">
+  <% for movie in @movies %>
+
+    <li>
+      <article>
+
+        <%= render :partial => 'movie', :locals => { :movie => movie } %>
+        
+        <ol class="actions">
+          <li><a href="#"><span>✓</span> Watched it!</a></li>
+          <li><a href="#"><span class="toothin">‒</span> Remove</a></li>
+        </ol>
+  
+      </article>
+    </li>
+
+  <% end %>
+  </ol>
+
+</article>
