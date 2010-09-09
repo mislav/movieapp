@@ -15,14 +15,7 @@ class Movie < Mingo
   property :runtime
   # property :language
   property :countries
-  # key :directors, Array
-  # key :cast, Array
 
-  # key :official_website, String
-  # key :netflix_id, String
-  # key :netflix_url, String
-
-  # key :tmdb_id, String
   
   def self.tmdb_search(term)
     result = Tmdb.search(term)
