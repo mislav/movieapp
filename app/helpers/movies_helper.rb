@@ -16,4 +16,14 @@ module MoviesHelper
       movie.title.titleize
     end
   end
+  
+  def movie_poster(movie, size = :small)
+    src = movie.send(:"poster_#{size}_url")
+    width = case size
+      when :small then 92
+      when :medium then 185
+      end
+
+    image_tag src, :width => width, :alt => src.blank? ? 'No cover' : ''
+  end
 end
