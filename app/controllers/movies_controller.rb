@@ -11,7 +11,7 @@ class MoviesController < ApplicationController
   end
   
   def show
-    @movie.ensure_extended_info
+    @movie.ensure_extended_info unless Movies.offline?
   end
   
   def add_to_watch
