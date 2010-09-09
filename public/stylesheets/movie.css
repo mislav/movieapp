@@ -14,11 +14,10 @@ body {
 h1 { font-weight:normal; text-shadow:1px 1px 1px rgba(127, 127, 127, 0.5) }
   h1 a { text-decoration:none }
 
-header { width:38em; float:left }
-  header h1 {
+body > header { width:38em; float:left }
+  body > header h1 {
     font:bold 5em/1.5em "josefin sans std",geneva,"bitstream vera sans",arial,helvetica,sans-serif;
     letter-spacing:1px;
-    text-shadow:1px 1px 1px rgba(127, 127, 127, 0.5);
   }
   header nav { position:absolute; left:42em; top:1.1em }
   header + form { margin-top:1.8em }
@@ -33,7 +32,7 @@ header { width:38em; float:left }
 
 body > article { margin-left:1.2em }
   body > article > h1 {
-    margin:3.3em 0 1.75em;
+    margin:3.1em 0 1.75em;
     font-size:1.5em;
   }
 
@@ -43,7 +42,6 @@ body > article { margin-left:1.2em }
 .actions li:first-child, ol.movies .actions li { border-left:0 none; padding-left:0; margin-left:0; }
 
 /* anchors */
-
 a:link, a:visited { color:inherit }
 a:hover, a:active { /*color: lemonchiffon;*/ }
 
@@ -52,7 +50,6 @@ header h1 a:active, header h1 a:visited, ol.movies article > a:active, ol.movies
 }
 
 /* movie list */
-
 ol.movies a { text-decoration:none }
 
 ol.movies > li { margin-bottom:2em; clear:left; overflow:hidden } 
@@ -84,3 +81,28 @@ ol.movies > li { margin-bottom:2em; clear:left; overflow:hidden }
         background:#02303F; color:#fdfdfd; border-color:#02303F;
       }
       ol.movies .actions a span { display:inline-block; width:9px }
+      
+/* movie details */
+.movie { margin-top:5.2em }
+.movie img {
+  border:1px solid #777;
+  float:left; margin-right:3em;
+}
+.movie h1, .movie header span {
+  font-family:"josefin sans std",geneva,arial,sans-serif;
+}
+.movie h1 {
+  font-size:3em; line-height:1em;
+  margin:0;
+}
+.movie header span {
+  font-size:1.8em; line-height:2em;
+  text-shadow:1px 1px 1px rgba(127, 127, 127, 0.5);
+}
+.movie header div { margin-top:.5em }
+.movie header strong { font-size:1.1em; font-weight:normal; text-shadow:1px 1px 1px #ccc }
+.movie header div, .movie dl, .movie p { margin-left:225px }
+.movie dl { margin-top:3em }
+  .movie dt { float:left; margin-right:.5em }
+.movie dl + a { margin-left:3px }
+.movie p { margin-top:1.5em }

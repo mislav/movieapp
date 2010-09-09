@@ -4,13 +4,15 @@
     <%= image_tag @movie.poster_medium_url %>
   <% end %>
 
-  <h1><%= title_for_movie(@movie) %></h1>
+  <header>
+    <h1><%= title_for_movie(@movie) %></h1>
 
-  <%= movie_year(@movie) %>
+    <%= movie_year(@movie) %>
 
     <% unless @movie.directors.empty? %>
       <div>by <strong><%= @movie.directors %></strong></div>
     <% end %>
+  </header>  
 
   <dl>    
     <% if @movie.countries %>
