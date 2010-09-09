@@ -4,6 +4,10 @@ require 'nibbler/json'
 require 'addressable/template'
 require 'active_support/core_ext/object/blank'
 
+Nibbler::JsonDocument.class_eval do
+  attr_reader :data unless instance_methods.map(&:to_sym).include? :data
+end
+
 module Tmdb
   
   # http://api.themoviedb.org/2.1/methods/Movie.search
