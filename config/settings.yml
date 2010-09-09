@@ -1,0 +1,31 @@
+defaults: &defaults
+  offline: false
+  mongodb:
+    uri: <%= ENV['MONGOHQ_URL'] %>
+  netflix:
+    consumer_key: <%= ENV['NETFLIX_KEY'] %>
+    secret: <%= ENV['NETFLIX_SECRET'] %>
+  twitter:
+    consumer_key: <%= ENV['TWITTER_KEY'] %>
+    secret: <%= ENV['TWITTER_SECRET'] %>
+  facebook:
+    app_id: <%= ENV['FACEBOOK_ID'] %>
+    secret: <%= ENV['FACEBOOK_SECRET'] %>
+  tmdb:
+    api_key: <%= ENV['TMDB_KEY'] %>
+  
+development:
+  <<: *defaults
+
+test: &testing
+  <<: *defaults
+  mongodb:
+    database: movieapp_test
+  tmdb:
+    api_key: TEST
+
+cucumber:
+  <<: *testing
+
+production:
+  <<: *defaults

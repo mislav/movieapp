@@ -1,6 +1,6 @@
 .bundle
 db/*.sqlite3
-config/settings.yml
+config/settings.local.yml
 .idea
 log/*.log
 tmp
