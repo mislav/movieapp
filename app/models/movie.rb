@@ -45,7 +45,7 @@ class Movie < Mingo
     )
   end
   
-  EXTENDED = [:language, :runtime, :countries, :directors, :homepage]
+  EXTENDED = [:runtime, :countries, :directors, :homepage]
   
   def ensure_extended_info
     if extended_info_missing? and self.tmdb_id
@@ -55,6 +55,7 @@ class Movie < Mingo
       self.countries = tmdb_movie.countries
       self.directors = tmdb_movie.directors
       self.homepage = tmdb_movie.homepage
+      self.save
     end
   end
   

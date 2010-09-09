@@ -54,10 +54,10 @@ module Tmdb
     element :runtime, :with => lambda { |minutes| minutes.to_i }
     # element :language
     element :countries, :with => lambda { |countries|
-      countries.map {|c| c["name"]}.join(', ')
+      countries.map {|c| c["name"]}
     }
     element 'cast' => :directors, :with => lambda { |cast|
-      directors = cast.find_all {|c| c["job"] == "Director" }.map{|d| d["name"]}.join(', ')
+      cast.find_all {|c| c["job"] == "Director" }.map{|d| d["name"]}
     }
     element :homepage
   end
