@@ -19,7 +19,7 @@ body > header { width:38em; float:left }
     font:bold 5em/1.5em "josefin sans std",geneva,"bitstream vera sans",arial,helvetica,sans-serif;
     letter-spacing:1px;
   }
-  header nav { position:absolute; left:42em; top:1.1em }
+  header nav { position:absolute; right:4em; top:1.1em }
   header + form { margin-top:1.8em }
     header + form label { display:block }
     header + form input[type="search"] {
@@ -29,10 +29,11 @@ body > header { width:38em; float:left }
       padding:.15em 8px .05em; width:10em;
       font-size:11px; width:15em;
    }
-
+    header + form input[type="submit"] { display:none }
+    
 body > article { margin-left:1.2em }
   body > article > h1 {
-    margin:3.1em 0 1.75em;
+    margin:3.3em 0 1.75em;
     font-size:1.5em;
   }
 
@@ -83,7 +84,7 @@ ol.movies > li { margin-bottom:2em; clear:left; overflow:hidden }
       ol.movies .actions a span { display:inline-block; width:9px }
       
 /* movie details */
-.movie { margin-top:5.2em }
+.movie { margin-top:5.4em }
 .movie img {
   border:1px solid #777;
   float:left; margin-right:3em;
