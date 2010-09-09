@@ -7,10 +7,6 @@
 <%= movie_year(@movie) %>
 
 <dl>
-  <% if @movie.language %>
-    <dt>Language:</dt>
-    <dd><%= @movie.language %></dd>
-  <% end %>
   <% if @movie.runtime %>
     <dt>Runtime:</dt>
     <dd><%= @movie.runtime %></dd>

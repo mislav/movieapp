@@ -52,7 +52,7 @@ module Tmdb
       poster.nil? ? '' : poster["image"]["url"]
     }    
     element :runtime, :with => lambda { |minutes| minutes.to_i }
-    element :language
+    # element :language
     element :countries, :with => lambda { |countries|
       countries.map {|c| c["name"]}.join(', ')
     }

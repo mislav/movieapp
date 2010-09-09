@@ -13,7 +13,7 @@ class Movie < Mingo
   property :tmdb_url
 
   property :runtime
-  property :language
+  # property :language
   property :countries
   # key :directors, Array
   # key :cast, Array
@@ -39,7 +39,7 @@ class Movie < Mingo
     first(:tmdb_id => movie.id) || create(
       :title => movie.name,
       :original_title => movie.original_name,
-      :language => movie.language,
+      # :language => movie.language,
       :year => movie.year,
       :poster_small_url => movie.poster_thumb,
       :poster_medium_url => movie.poster_cover,
@@ -55,7 +55,7 @@ class Movie < Mingo
     if extended_info_missing? and self.tmdb_id
       tmdb_movie = Tmdb.movie_details(self.tmdb_id)
       self.runtime = tmdb_movie.runtime
-      self.language = tmdb_movie.language
+      # self.language = tmdb_movie.language
       self.countries = tmdb_movie.countries
     end
   end
