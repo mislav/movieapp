@@ -9,13 +9,13 @@
 
     <%= movie_year(@movie) %>
 
-    <% unless @movie.directors.empty? %>
+    <% if @movie.directors.present? %>
       <div>by <strong><%= @movie.directors.to_sentence %></strong></div>
     <% end %>
-  </header>  
+  </header>
 
   <dl>    
-    <% unless @movie.countries.empty? %>
+    <% if @movie.countries.present? %>
       <dt>Country:</dt>
       <dd><%= @movie.countries.to_sentence %></dd>
     <% end %>
@@ -26,7 +26,7 @@
     <% end %>
   </dl>
   
-  <% unless @movie.homepage.blank? %>
+  <% if @movie.homepage.present? %>
     <a href="<%= @movie.homepage %>">Official website</a>
   <% end %>
 
