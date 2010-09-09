@@ -56,6 +56,10 @@ module Tmdb
     element :countries, :with => lambda { |countries|
       countries.map {|c| c["name"]}.join(', ')
     }
+    element 'cast' => :directors, :with => lambda { |cast|
+      directors = cast.find_all {|c| c["job"] == "Director" }.map{|d| d["name"]}.join(', ')
+    }
+    element :homepage
   end
   
   class Result < NibblerJSON

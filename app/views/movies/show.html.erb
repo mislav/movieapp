@@ -8,16 +8,25 @@
 
   <%= movie_year(@movie) %>
 
-  <dl>
-    <% if @movie.runtime %>
-      <dt>Runtime:</dt>
-      <dd><%= @movie.runtime %> min</dd>
+    <% unless @movie.directors.empty? %>
+      <div>by <strong><%= @movie.directors %></strong></div>
     <% end %>
+
+  <dl>    
     <% if @movie.countries %>
       <dt>Country:</dt>
       <dd><%= @movie.countries %></dd>
     <% end %>
+    
+    <% if @movie.runtime %>
+      <dt>Runtime:</dt>
+      <dd><%= @movie.runtime %> min</dd>
+    <% end %>
   </dl>
+  
+  <% unless @movie.homepage.empty? %>
+    <a href="<%= @movie.homepage %>">Official website</a>
+  <% end %>
 
   <p><%= raw @movie.plot %></p>
 
