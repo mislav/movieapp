@@ -829,3 +829,7 @@ window.Modernizr = (function(window,doc,undefined){
     return ret;
 
 })(this,this.document);
+
+Modernizr.addTest('inputsearch', function() {
+  return Modernizr.inputtypes.search
+})

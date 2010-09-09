@@ -1,3 +1,9 @@
+@import compass
+
+$default-text-shadow-color: rgba(gray, 0.5)
+$body-type: geneva, "bitstream vera sans", arial, helvetica, sans-serif
+$heading-type: "josefin sans std", $body-type
+
 @font-face
   font-family: "josefin sans std"
   src: url("/fonts/JosefinSansStd-Light.otf")
@@ -13,7 +19,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block
 
 body
-  font: 75% / 1.5em geneva, "bitstream vera sans", arial, helvetica, sans-serif
+  font: 75% / 1.5em $body-type
   padding: 1.75em 4em
   background-color: #FDFDFD
   color: #02303F
@@ -21,7 +27,7 @@ body
 
 h1
   font-weight: normal
-  text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.5)
+  +text-shadow
   a
     text-decoration: none
 
@@ -29,7 +35,7 @@ body > header
   width: 38em
   float: left
   h1
-    font: bold 5em / 1.5em "josefin sans std", geneva, "bitstream vera sans", arial, helvetica, sans-serif
+    font: bold 5em / 1.5em $heading-type
     letter-spacing: 1px
 
 header
@@ -42,13 +48,13 @@ header
     label
       display: block
     input[type="search"]
-      -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) inset
-      -moz-border-radius: 10px 10px 10px 10px
-      border: 1px solid #aaa
-      padding: .15em 8px .05em
-      width: 10em
       font-size: 11px
       width: 15em
+      .no-inputsearch &
+        +box-shadow(rgba(black, 0.25), 0, 1px, 2px, 0, inset)
+        border: 1px solid #aaa
+        +border-radius(10px)
+        padding: .15em 8px .05em
     input[type="submit"]
       display: none
 
@@ -104,8 +110,8 @@ ol.movies
     display: block
     min-height: 50px
   h1, article > a span
-    font-family: "josefin sans std",geneva,arial,sans-serif
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3)
+    font-family: $heading-type
+    +text-shadow(rgba(black, 0.3))
   h1
     font-size: 2.1em
     line-height: 1.1em
@@ -126,18 +132,14 @@ ol.movies
       display: block
       color: #333
       background-color: #F5F5F5
-      background: -moz-linear-gradient(center top, white, #d8d8d8)
-      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d8d8d8))
+      +linear-gradient(color-stops(white, #d8d8d8))
       border: 1px solid #ddd
-      -moz-border-radius: 5px
-      -webkit-border-radius: 5px
-      border-radius: 5px
+      +border-radius
       margin-top: 5px
       padding: 2px 4px
       line-height: 11px
       width: 100px
       &:hover
-        background: #02303F
         color: #fdfdfd
         border-color: #02303F
       span
@@ -153,7 +155,7 @@ ol.movies
     float: left
     margin-right: 3em
   h1, header span
-    font-family: "josefin sans std",geneva,arial,sans-serif
+    font-family: $heading-type
   h1
     font-size: 3em
     line-height: 1em
@@ -162,13 +164,13 @@ ol.movies
     span
       font-size: 1.8em
       line-height: 2em
-      text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.5)
+      +text-shadow
     div
       margin-top: .5em
     strong
       font-size: 1.1em
       font-weight: normal
-      text-shadow: 1px 1px 1px #ccc
+      +text-shadow(#ccc)
     div
       margin-left: 225px
   dl, p
