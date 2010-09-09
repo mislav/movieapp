@@ -41,6 +41,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       selenium-webdriver (>= 0.0.3)
+    compass (0.10.5)
+      haml (>= 3.0.4)
     crack (0.1.8)
     cucumber (0.8.5)
       builder (~> 2.1.2)
@@ -67,6 +69,7 @@ GEM
       rake (>= 0.8.7)
     gherkin (2.1.5)
       trollop (~> 1.16.2)
+    haml (3.0.18)
     hashie (0.4.0)
     i18n (0.4.1)
     json_pure (1.4.6)
@@ -146,8 +149,10 @@ DEPENDENCIES
   addressable (~> 2.1.2)
   bson_ext (>= 1.0.4)
   capybara
+  compass
   cucumber-rails
   facebook-login (~> 0.2.0)
+  haml (~> 3.0.18)
   hashie (>= 0.2.0)
   mingo
   mongo_ext (>= 0.19.3)

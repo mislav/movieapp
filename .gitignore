@@ -2,5 +2,7 @@
 db/*.sqlite3
 config/settings.local.yml
 .idea
+.sass-cache
 log/*.log
+public/stylesheets/*.css
 tmp

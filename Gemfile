@@ -10,6 +10,8 @@ gem 'twitter-login', '~> 0.3.0', :require => 'twitter/login' #, :path => '/Users
 gem 'will_paginate', '3.0.pre2' #, :path => '/Users/mislav/.coral/will_paginate-mislav'
 gem 'facebook-login', '~> 0.2.0', :require => 'facebook/login' #, :path => '/Users/mislav/Projects/facebook'
 gem 'rspec-rails', '~> 2.0.0.beta.19'
+gem 'haml', '~> 3.0.18'
+gem 'compass'
 
 group :extras do
   gem 'nokogiri', '~> 1.4.1'
