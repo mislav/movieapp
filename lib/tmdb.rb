@@ -37,10 +37,8 @@ module Tmdb
     element :id, :with => lambda { |id| id.to_i }
     element :name
     element :original_name
-    element :language
     element :imdb_id
     element :url
-    element :runtime, :with => lambda { |minutes| minutes.to_i }
     element 'overview' => :synopsis
     element 'released' => :year, :with => lambda { |date|
       Date.parse(date).year unless date.blank?
@@ -53,6 +51,11 @@ module Tmdb
       poster = posters.find { |p| p["image"]["size"] == "thumb" }
       poster.nil? ? '' : poster["image"]["url"]
     }    
+    element :runtime, :with => lambda { |minutes| minutes.to_i }
+    element :language
+    element :countries, :with => lambda { |countries|
+      countries.map {|c| c["name"]}.join(', ')
+    }
   end
   
   class Result < NibblerJSON
@@ -65,7 +68,7 @@ module Tmdb
             f.write YAML.dump(converted)
           }
         end
-        
+
         converted.data.clear if converted.data.first == "Nothing found."
       end
     end

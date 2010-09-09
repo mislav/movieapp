@@ -4,16 +4,17 @@ require 'tmdb'
 class Movie < Mingo
   property :title
   property :original_title
-  property :language
   property :year
   property :plot
   property :poster_small_url
   property :poster_medium_url
-  property :runtime
   
   property :tmdb_id
   property :tmdb_url
 
+  property :runtime
+  property :language
+  property :countries
   # key :directors, Array
   # key :cast, Array
 
@@ -48,13 +49,14 @@ class Movie < Mingo
     )
   end
   
-  EXTENDED = [:language, :runtime]
+  EXTENDED = [:language, :runtime, :countries]
   
   def ensure_extended_info
     if extended_info_missing? and self.tmdb_id
       tmdb_movie = Tmdb.movie_details(self.tmdb_id)
       self.runtime = tmdb_movie.runtime
       self.language = tmdb_movie.language
+      self.countries = tmdb_movie.countries
     end
   end
   

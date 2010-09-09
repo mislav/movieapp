@@ -15,6 +15,10 @@
     <dt>Runtime:</dt>
     <dd><%= @movie.runtime %></dd>
   <% end %>
+  <% if @movie.countries %>
+    <dt>Country:</dt>
+    <dd><%= @movie.countries %></dd>
+  <% end %>
 </dl>
 
 <p><%= raw @movie.plot %></p>
