@@ -24,6 +24,6 @@ module MoviesHelper
       when :medium then 185
       end
 
-    image_tag src, :width => width, :alt => src.blank? ? 'No cover' : ''
+    image_tag src, :width => width, :alt => src.blank? ? 'No poster' : ('Poster for ' + movie.title)
   end
 end
