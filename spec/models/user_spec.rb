@@ -96,6 +96,12 @@ describe User do
           subject.watched.should include(@deep_blue)
           should match_selector('watched.movie' => @deep_blue.id, 'watched.liked' => true)
         end
+        
+        it "removes a watched movie" do
+          subject.watched << @deep_blue
+          subject.watched.delete @deep_blue
+          should_not match_selector('watched.movie' => @deep_blue.id)
+        end
       end
       
       context "user with watched movies" do

@@ -45,6 +45,7 @@ GEM
     columnize (0.3.1)
     compass (0.10.5)
       haml (>= 3.0.4)
+    configuration (1.1.0)
     crack (0.1.8)
     cucumber (0.8.5)
       builder (~> 2.1.2)
@@ -78,13 +79,16 @@ GEM
     hashie (0.4.0)
     i18n (0.4.1)
     json_pure (1.4.6)
+    launchy (0.3.7)
+      configuration (>= 0.0.5)
+      rake (>= 0.8.1)
     linecache (0.43)
     mail (2.2.5)
       activesupport (>= 2.3.6)
       mime-types
       treetop (>= 1.4.5)
     mime-types (1.16)
-    mingo (0.1.0)
+    mingo (0.1.1)
       hashie (>= 0.4.0)
       mongo (>= 1.0)
     mongo (1.0.8)
@@ -170,6 +174,7 @@ DEPENDENCIES
   facebook-login (~> 0.2.0)
   haml (~> 3.0.18)
   hashie (>= 0.2.0)
+  launchy
   mingo
   mongo_ext (>= 0.19.3)
   mongrel

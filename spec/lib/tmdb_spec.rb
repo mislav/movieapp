@@ -3,51 +3,71 @@ require 'tmdb'
 
 describe Tmdb::Movie do
   
-  subject {
-    stub_request(:get, 'api.themoviedb.org/2.1/Movie.search/en/json/TEST/black%20cat').
-      to_return(:body => read_fixture('tmdb-black_cat.json'), :status => 200)
-    
-    result = Tmdb.search('black cat')
-    result.movies.first
-  }
-  
-  its(:id)                { should == 1075 }
-  its(:name)              { should == 'Black Cat, White Cat' }
-  # its(:alternative_name)  { should == 'Black Cat, White Cat' }
-  its(:original_name)     { should == 'Crna mačka, beli mačor' }
-  its(:imdb_id)           { should == 'tt0118843' }
-  its(:url)               { should == 'http://www.themoviedb.org/movie/1075' }
-  its(:synopsis)          { should include('Matko is a small time hustler') }
-  its(:year)              { should == 1998 }
-  its(:poster_cover) {
-    should == 'http://hwcdn.themoviedb.org/posters/64f/4bf41d18017a3c320a00064f/crna-macka-beli-macor-cover.jpg'
-  }
-  
-end
+  context "normal one" do
+    subject {
+      stub_request 'black cat', 'black_cat'
+      result = Tmdb.search('black cat')
+      result.movies.first
+    }
 
-describe Tmdb::Movie, "empty" do
+    its(:id)                { should == 1075 }
+    its(:name)              { should == 'Black Cat, White Cat' }
+    its(:original_name)     { should == 'Crna mačka, beli mačor' }
+    its(:imdb_id)           { should == 'tt0118843' }
+    its(:url)               { should == 'http://www.themoviedb.org/movie/1075' }
+    its(:synopsis)          { should include('Matko is a small time hustler') }
+    its(:year)              { should == 1998 }
+    its(:version)           { should == 29 }
+    its(:poster_cover) {
+      should == 'http://hwcdn.themoviedb.org/posters/64f/4bf41d18017a3c320a00064f/crna-macka-beli-macor-cover.jpg'
+    }
+  end
   
-  subject {
-    stub_request(:get, 'api.themoviedb.org/2.1/Movie.search/en/json/TEST/lepa%20brena').
-      to_return(:body => '["Nothing found."]', :status => 200)
+  context "normal many" do
+    before do
+      stub_request 'the terminator', 'terminator'
+      result = Tmdb.search('the terminator')
+      @movies = result.movies
+      @terminator = @movies.find { |m| m.name == 'The Terminator' }
+      @no_overview = @movies.find { |m| m.name == 'The Terminal Man' }
+    end
     
-    result = Tmdb.search('lepa brena')
-  }
+    it "should not have duplicate original name" do
+      @terminator.original_name.should be_nil
+    end
+    
+    it "should erase synopsis if no overview" do
+      @no_overview.synopsis.should be_nil
+    end
+  end  
   
-  its(:movies) { should be_empty }
-  
-end
+  context "empty" do
+    subject {
+      stub_request 'lepa brena', '["Nothing found."]'
+      result = Tmdb.search('lepa brena')
+    }
 
-describe Tmdb::Movie, "getInfo" do
+    its(:movies) { should be_empty }
+  end
   
-  subject {
-    stub_request(:get, 'api.themoviedb.org/2.1/Movie.getInfo/en/json/TEST/1234').
-      to_return(:body => read_fixture('tmdb-an_education.json'), :status => 200)
+  describe "movie details" do
+    subject {
+      stub_request 1234, 'an_education', 'getInfo'
+      Tmdb.movie_details(1234)
+    }
+
+    its(:runtime) { should == 95 }
+  end
+  
+  def stub_request(query, fixture, method = 'search')
+    fixture_body = begin
+      read_fixture "tmdb-#{fixture}.json"
+    rescue
+      fixture
+    end
     
-    Tmdb.movie_details(1234)
-  }
-  
-  
-  its(:runtime) { should == 95 }
+    super(:get, "api.themoviedb.org/2.1/Movie.#{method}/en/json/TEST/" + query.to_s.gsub(' ', '%20')).
+      to_return(:body => fixture_body, :status => 200)
+  end
   
 end

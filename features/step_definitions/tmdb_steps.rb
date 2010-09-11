@@ -13,3 +13,13 @@ Given /^TMDB returns (?:nothing|"([^"]+)") for the terms "([^"]*)"$/ do |fixture
   
   stub_request(:get, url).to_return(:body => body, :status => 200)
 end
+
+Given /^TMDB returns "([^"]+)" for "([^"]+)" movie details$/ do |fixture, title|
+  body = read_fixture("tmdb-#{fixture}")
+  movie = Movie.first :title => title, :tmdb_id => {'$exists'=>true}
+  raise "movie not found" unless movie
+  
+  url = Tmdb::DETAILS_URL.expand :api_key => Movies::Application.config.tmdb.api_key, :tmdb_id => movie.tmdb_id
+  
+  stub_request(:get, url).to_return(:body => body, :status => 200)
+end

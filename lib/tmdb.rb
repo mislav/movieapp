@@ -4,6 +4,12 @@ require 'nibbler/json'
 require 'addressable/template'
 require 'active_support/core_ext/object/blank'
 
+Nibbler.class_eval do
+  def self.rules
+    @rules ||= ActiveSupport::OrderedHash.new
+  end
+end
+
 Nibbler::JsonDocument.class_eval do
   attr_reader :data unless instance_methods.map(&:to_sym).include? :data
 end
@@ -35,11 +41,14 @@ module Tmdb
   
   class Movie < NibblerJSON
     element :id, :with => lambda { |id| id.to_i }
+    element :version, :with => lambda { |num| num.to_i }
     element :name
     element :original_name
     element :imdb_id
     element :url
-    element 'overview' => :synopsis
+    element 'overview' => :synopsis, :with => lambda { |text|
+      text unless text == "No overview found."
+    }
     element 'released' => :year, :with => lambda { |date|
       Date.parse(date).year unless date.blank?
     }
@@ -60,6 +69,10 @@ module Tmdb
       cast.find_all {|c| c["job"] == "Director" }.map{|d| d["name"]}
     }
     element :homepage
+    
+    def original_name=(value)
+      @original_name = value == self.name ? nil : value
+    end
   end
   
   class Result < NibblerJSON
