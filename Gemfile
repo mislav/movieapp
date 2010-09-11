@@ -21,6 +21,11 @@ group :extras do
   gem 'addressable', '~> 2.1.2'
 end
 
+group :development do
+  gem 'mongrel', :require => nil
+  gem 'ruby-debug', :require => nil
+end
+
 group :test do
   gem 'webmock'
   gem 'cucumber-rails', :require => nil
