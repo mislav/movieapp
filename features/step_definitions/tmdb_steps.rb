@@ -16,8 +16,7 @@ end
 
 Given /^TMDB returns "([^"]+)" for "([^"]+)" movie details$/ do |fixture, title|
   body = read_fixture("tmdb-#{fixture}")
-  movie = Movie.first :title => title, :tmdb_id => {'$exists'=>true}
-  raise "movie not found" unless movie
+  movie = find_movie title, :tmdb_id => {'$exists'=>true}
   
   url = Tmdb::DETAILS_URL.expand :api_key => Movies::Application.config.tmdb.api_key, :tmdb_id => movie.tmdb_id
   

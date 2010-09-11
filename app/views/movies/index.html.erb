@@ -2,6 +2,8 @@
 
   <h1><% if @query %>
     Search results for <i><%= h @query %></i>
+  <% elsif @director %>
+    Movies by <%= @director %>
   <% else %>
     All movies
   <% end %></h1>

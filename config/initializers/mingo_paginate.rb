@@ -6,7 +6,7 @@ Mingo.class_eval do
   def self.wp_query(options, pager, args)
     options.update(:skip => pager.offset, :limit => pager.per_page) 
 
-    cursor = find(nil, options)
+    cursor = find(args.first, options)
     pager.replace cursor.to_a
 
     unless pager.total_entries

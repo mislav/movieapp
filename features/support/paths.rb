@@ -9,6 +9,8 @@ module NavigationHelpers
     case page_name
     when /the home\s?page/
       root_path
+    when /the "([^"]+)" movie page/
+      movie_path find_movie($1)
     else
       begin
         page_name =~ /the (.*) page/

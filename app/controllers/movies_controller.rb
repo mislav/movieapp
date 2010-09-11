@@ -5,6 +5,8 @@ class MoviesController < ApplicationController
   def index
     if @query = params[:q]
       @movies = Movie.tmdb_search(@query).paginate(:page => params[:page], :per_page => 30)
+    elsif @director = params[:director]
+      @movies = Movie.paginate({:directors => @director}, :sort => ['year', :desc], :page => params[:page], :per_page => 10)
     else
       @movies = Movie.paginate(:sort => 'title', :page => params[:page], :per_page => 10)
     end

@@ -9,7 +9,9 @@
     <%= movie_runtime(@movie) %>
 
     <% if @movie.directors.present? %>
-      <p class="directors">by <strong><%= @movie.directors.to_sentence %></strong></p>
+      <p class="directors">by <strong><%= @movie.directors.map { |name|
+        link_to(name, director_path(name))
+      }.to_sentence %></strong></p>
     <% end %>
     <% if @movie.countries.present? %>
       <p class="countries">in <%= @movie.countries.to_sentence %></div>

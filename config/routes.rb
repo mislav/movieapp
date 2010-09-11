@@ -2,6 +2,7 @@ Movies::Application.routes.draw do |map|
 
   match 'movies/towatch' => 'movies#add_to_watch', :as => :add_to_watch
   match 'user/:username' => 'movies#to_watch', :as => :to_watch
+  match 'director/:director' => 'movies#index', :as => :director
   resources :movies
 
   match 'login/facebook' => Movies::Application.config.facebook_client.login_handler

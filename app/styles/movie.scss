@@ -141,6 +141,8 @@ ol.movies {
     .directors {
       margin: .8em 0 .4em;
       strong { font-size:1.1em; font-weight:normal; @include text-shadow(#ccc) }
+      a { text-decoration: none; }
+      a:hover { text-decoration: underline; }
     }
   }
   
