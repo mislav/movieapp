@@ -25,7 +25,8 @@ module Movies
     optional_file = File.expand_path('../settings.local.yml', __FILE__)
     if File.exists? optional_file
       optional_settings = ERB.new(IO.read(optional_file)).result
-      mash.update YAML::load(optional_settings)[Rails.env.to_s]
+      optional_values = YAML::load(optional_settings)[Rails.env.to_s]
+      mash.update optional_values if optional_values
     end
     
     mash.each do |key, value|
