@@ -11,6 +11,7 @@ class Movie < Mingo
   
   property :tmdb_id
   property :tmdb_url
+  property :tmdb_version
 
   property :runtime
   # property :language
@@ -21,40 +22,41 @@ class Movie < Mingo
   # key :cast, Array
   
   def self.tmdb_search(term)
-    result = Tmdb.search(term)
-    
-    if result.class == String then result
-    else    
-      result.movies.map { |movie|
-        find_or_create_from_tmdb(movie)
-      }
-    end
+    Tmdb.search(term).movies.map { |movie|
+      find_or_create_from_tmdb(movie)
+    }
   end
   
   def self.find_or_create_from_tmdb(movie)
-    first(:tmdb_id => movie.id) || create(
-      :title => movie.name,
-      :original_title => movie.original_name,
-      # :language => movie.language,
-      :year => movie.year,
-      :poster_small_url => movie.poster_thumb,
-      :poster_medium_url => movie.poster_cover,
-      :plot => movie.synopsis,
-      :tmdb_id => movie.id,
-      :tmdb_url => movie.url
-    )
+    first(:tmdb_id => movie.id) || new.tap { |fresh|
+      fresh.copy_properties_from_tmdb(movie)
+      fresh.save
+    }
+  end
+  
+  def copy_properties_from_tmdb(movie)
+    # renamed properties
+    self.title = movie.name
+    self.original_title = movie.original_name
+    self.poster_small_url = movie.poster_thumb
+    self.poster_medium_url = movie.poster_cover
+    self.plot = movie.synopsis
+    self.tmdb_id = movie.id
+    self.tmdb_url = movie.url
+    self.tmdb_version = movie.version
+    
+    # same name properties
+    [:year, :runtime, :countries, :directors, :homepage].each do |prop|
+      self.send(:"#{prop}=", movie.send(prop))
+    end
   end
   
   EXTENDED = [:runtime, :countries, :directors, :homepage]
   
   def ensure_extended_info
     if extended_info_missing? and self.tmdb_id
-      tmdb_movie = Tmdb.movie_details(self.tmdb_id)
-      self.runtime = tmdb_movie.runtime
-      # self.language = tmdb_movie.language
-      self.countries = tmdb_movie.countries
-      self.directors = tmdb_movie.directors
-      self.homepage = tmdb_movie.homepage
+      movie = Tmdb.movie_details(self.tmdb_id)
+      copy_properties_from_tmdb(movie)
       self.save
     end
   end
