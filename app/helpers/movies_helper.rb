@@ -42,4 +42,8 @@ module MoviesHelper
       %(<span class="runtime">#{parts.join(' ')}</span>).html_safe
     end
   end
+  
+  def movie_actions(movie)
+    render 'movies/actions', :movie => movie if logged_in?
+  end
 end

@@ -84,21 +84,11 @@ ol.movies {
       float:left;
     }
   }
-  
-  .actions {
-    a {
-      display:block; color:#333;
-      background-color:#f5f5f5; @include linear-gradient(color-stops(white, #d8d8d8));
-      border:1px solid #ddd; @include border-radius;
-      margin-top:5px; padding:2px 4px; line-height:11px; width:100px;
-
-      &:hover { color:#fdfdfd; border-color:$body-color; background:$body-color }
-      span { display:inline-block; width:9px }
-    }
-  }
 }
 
 .movie {
+  @include clearfix;
+  
   h1, .year {
     margin: 0;
     font-family: $heading-type;
@@ -110,6 +100,27 @@ ol.movies {
   span.poster {
     background: #999;
     @include radial-gradient(color-stops(rgba(white, .5), rgba(white, 0) 150px), top left)
+  }
+  
+  .actions {
+    .button_to {
+      display: inline-block;
+      input[type=submit] {
+        display:inline-block; color:#333;
+        background-color:#f5f5f5; @include linear-gradient(color-stops(white, #d8d8d8));
+        border:1px solid #ddd; @include border-radius;
+        margin-top:5px; padding:2px 4px; line-height:11px;
+
+        &:hover { color:#fdfdfd; border-color:$body-color; background:$body-color }
+        
+        &.to_watch, &.watched {
+          width: 100px;
+        }
+      }
+    }
+    li.watched { color: gray; font-style: italic; }
+    em.liked { color: green; }
+    em.disliked { color: darkred; }
   }
 }
 

@@ -1,0 +1,19 @@
+<ol class="actions">
+  <% if current_user.watched.include? movie %>
+    <% liked = current_user.watched.rating_for(movie) %>
+    <li class="watched">You watched this movie<% unless liked.nil? %>
+      <% if liked %>and <em class="liked">liked it</em><% else %>, but <em class="disliked">didn't like it</em><% end %><% end %>.
+  <% else %>
+    <li><% if current_user.to_watch.include? movie %>
+      This movie is in your "to watch" list.
+    <% else %>
+      <%= button_to 'Want to watch', add_to_watch_path(movie), :method => :put, :class => 'to_watch' %>
+    <% end %></li>
+    <li>
+      <%= button_to 'I watched this', add_watched_path(movie), :method => :put, :class => 'watched' %><br>
+      <%= button_to 'Yes', add_watched_path(movie), :method => :put, :name => 'liked' %>
+      <%= button_to 'No', add_watched_path(movie), :method => :put, :name => 'liked' %>
+      <%= button_to 'Meh', add_watched_path(movie), :method => :put, :name => 'liked' %>
+    </li>
+  <% end %>
+</ol>

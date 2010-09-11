@@ -18,10 +18,7 @@
 
           <%= render :partial => 'movie', :locals => { :movie => movie } %>
         
-          <ol class="actions">
-            <li><a href="#"><span>✓</span> Watched it!</a></li>
-            <li><a href="<%= add_to_watch_path(:id => movie.id) %>"><span class="toothin">+</span> Want to watch</a></li>
-          </ol>
+          <%= movie_actions(movie) %>
 
         </article>    
       </li>

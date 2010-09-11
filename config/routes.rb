@@ -1,9 +1,12 @@
 Movies::Application.routes.draw do |map|
 
-  match 'movies/towatch' => 'movies#add_to_watch', :as => :add_to_watch
-  match 'user/:username' => 'movies#to_watch', :as => :to_watch
-  match 'director/:director' => 'movies#index', :as => :director
-  resources :movies
+  match 'movies/towatch/:id' => 'movies#add_to_watch', :as => :add_to_watch, :via => :put
+  match 'movies/watched/:id' => 'movies#add_watched', :as => :add_watched, :via => :put
+  
+  match 'user/:username' => 'movies#to_watch', :as => :to_watch, :via => :get
+  match 'director/:director' => 'movies#index', :as => :director, :via => :get
+  
+  resources :movies, :only => [:index, :show]
 
   match 'login/instant' => 'sessions#instant_login', :as => :instant_login
   match 'login/facebook' => Movies::Application.config.facebook_client.login_handler

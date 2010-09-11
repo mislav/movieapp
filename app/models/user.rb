@@ -54,6 +54,11 @@ class User < Mingo
       self << convert(movie).update('liked' => liked)
     end
     
+    def rating_for(movie)
+      metadata = @embedded.find { |e| e['movie'] == movie.id }
+      metadata['liked']
+    end
+    
     # defines an anonymous module that each movie in this collection
     # will be "decorated" (extended) with after being loaded
     decorate_with do
