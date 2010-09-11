@@ -5,6 +5,7 @@ Movies::Application.routes.draw do |map|
   match 'director/:director' => 'movies#index', :as => :director
   resources :movies
 
+  match 'login/instant' => 'sessions#instant_login', :as => :instant_login
   match 'login/facebook' => Movies::Application.config.facebook_client.login_handler
 
   match 'logout' => 'sessions#logout', :as => :logout

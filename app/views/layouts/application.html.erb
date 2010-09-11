@@ -19,6 +19,8 @@
             Logged in as <%= link_to(current_user.username, to_watch_path(:username => current_user.username)) %>,
             <%= link_to 'logout', logout_path %>
           </p>
+        <% elsif Movies.offline? %>
+          <%= link_to 'Instalogin!', instant_login_path %>
         <% else %>
           <%= link_to 'Login', '/login' %>
         <% end %>
