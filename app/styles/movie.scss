@@ -4,6 +4,7 @@ $default-text-shadow-color:rgba(gray, .5);
 $body-type:geneva, "bitstream vera sans", arial, helvetica, sans-serif;
 $heading-type:"josefin sans std", $body-type;
 $body-color:#02303f;
+$lightblue:#ADD8E6;
 
 @font-face { font-family:"josefin sans std"; src:url("/fonts/JosefinSansStd-Light.otf") }
 
@@ -58,28 +59,33 @@ a {
 header h1 a {
   &:active, &:visited { outline:0 none } }
 
+$poster-small-width: 92px;
+$poster-medium-width: 185px;
+$poster-margin: 30px;
+
 /* movie list */
 ol.movies {
-  > li { margin-bottom:2em; clear:left; overflow:hidden }
+  > li { margin-bottom: 3em }
   a { text-decoration:none }
   
-  article > a {
-    display:block; min-height:50px;
+  .movie {
+    padding-left: $poster-small-width + $poster-margin;
+    > a {
+      display:block; min-height:98px;
+      &:active, &:visited { outline:0 none }
+    }
+  
+    h1 { font-size: 2.1em; line-height: 1.1em }
+    .year { font-size: 1.3em; line-height: 1.5em }
 
-    &:active, &:visited { outline:0 none }
+    .poster {
+      display:block;
+      margin-left: -($poster-small-width + $poster-margin);
+      float:left;
+    }
   }
   
-  h1, article > a span { font-family:$heading-type; @include text-shadow(rgba(black, .3)) }
-  h1 { font-size:2.1em; line-height:1.1em }
-  article > a span { font-size:1.3em; line-height:1.5em }
-
-  img {
-    border:1px solid #777;
-    display:block; width:92px; height:140px;
-    float:left; margin-right:24px;
-  }
-  
-  .actions { margin:52px 0 0 116px;
+  .actions {
     a {
       display:block; color:#333;
       background-color:#f5f5f5; @include linear-gradient(color-stops(white, #d8d8d8));
@@ -88,28 +94,55 @@ ol.movies {
 
       &:hover { color:#fdfdfd; border-color:$body-color; background:$body-color }
       span { display:inline-block; width:9px }
-    } } }
+    }
+  }
+}
+
+.movie {
+  h1, .year {
+    margin: 0;
+    font-family: $heading-type;
+    @include text-shadow(rgba(black, .3))
+  }
+  .poster {
+    border:1px solid #777;
+  }
+  span.poster {
+    background: #999;
+    @include radial-gradient(color-stops(rgba(white, .5), rgba(white, 0) 150px), top left)
+  }
+}
 
 /* movie details */
-.movie { margin-top:5.4em;
-  img { border:1px solid #777; float:left; margin-right:3em }
-
-  h1, header span { font-family:$heading-type }
-  h1 {
-    font-size:3em; line-height:1em;
-    margin:0;
+.show .movie {
+  margin-top:5.4em;
+  
+  padding-left: $poster-medium-width + $poster-margin;
+  .poster {
+    display:block;
+    margin-left: -($poster-medium-width + $poster-margin);
+    float:left;
   }
+
+  h1 { font-size: 3em; line-height: 1; margin-bottom: .2em; }
 
   header {
-    span { font-size:1.8em; line-height:2em; @include text-shadow }
-    div { margin-top:.5em }
-    strong { font-size:1.1em; font-weight:normal; @include text-shadow(#ccc) }
+    .year { font-size: 1.8em; line-height: 1.1; }
+    .runtime {
+      margin-left: .5em;
+      padding: .2em .4em .1em;
+      @include border-radius;
+      border: 1px solid rgba($lightblue, .5);
+      font-size: .9em; line-height: 1.3;
+      color: darken($lightblue, 10);
+      vertical-align: top;
+      display: inline-block;
+    }
+    .directors {
+      margin: .8em 0 .4em;
+      strong { font-size:1.1em; font-weight:normal; @include text-shadow(#ccc) }
+    }
   }
-  dl, p, header div { margin-left:225px }
   
-  dl { margin-top:3em;
-    dt { float:left; margin-right:.5em }
-    + a { margin-left:3px }
-  }
-  p { margin-top:1.5em }
+  .plot { margin-top: 3em; max-width: 38em; }
 }

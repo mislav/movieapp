@@ -6,28 +6,20 @@
     <h1><%= title_for_movie(@movie) %></h1>
 
     <%= movie_year(@movie) %>
+    <%= movie_runtime(@movie) %>
 
     <% if @movie.directors.present? %>
-      <div>by <strong><%= @movie.directors.to_sentence %></strong></div>
+      <p class="directors">by <strong><%= @movie.directors.to_sentence %></strong></p>
+    <% end %>
+    <% if @movie.countries.present? %>
+      <p class="countries">in <%= @movie.countries.to_sentence %></div>
     <% end %>
   </header>
 
-  <dl>    
-    <% if @movie.countries.present? %>
-      <dt>Country:</dt>
-      <dd><%= @movie.countries.to_sentence %></dd>
-    <% end %>
-    
-    <% if @movie.runtime %>
-      <dt>Runtime:</dt>
-      <dd><%= @movie.runtime %> min</dd>
-    <% end %>
-  </dl>
-  
-  <% if @movie.homepage.present? %>
-    <a href="<%= @movie.homepage %>">Official website</a>
-  <% end %>
+  <p class="plot"><%= raw @movie.plot %></p>
 
-  <p><%= raw @movie.plot %></p>
+  <% if @movie.homepage.present? %>
+    <p><a href="<%= @movie.homepage %>">Official website</a></p>
+  <% end %>
   
 </article>

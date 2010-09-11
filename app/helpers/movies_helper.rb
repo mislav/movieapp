@@ -5,7 +5,7 @@ module MoviesHelper
   
   def movie_year(movie)
     if movie.year.blank? then ""
-    else " <span>(<time>#{movie.year}</time>)</span>".html_safe
+    else %( <span class="year">(<time>#{movie.year}</time>)</span>).html_safe
     end
   end
   
@@ -19,11 +19,27 @@ module MoviesHelper
   
   def movie_poster(movie, size = :small)
     src = movie.send(:"poster_#{size}_url")
-    width = case size
-      when :small then 92
-      when :medium then 185
+    width, height = case size
+      when :small then [92, 140]
+      when :medium then [185, 274]
       end
 
-    image_tag src, :width => width, :alt => src.blank? ? 'No poster' : ('Poster for ' + movie.title)
+    if Movies.offline?
+      content_tag :span, nil, :class => 'poster', :style => "width:#{width}px; height:#{height}px"
+    else
+      image_tag src, :width => width, :class => 'poster',
+        :alt => src.blank? ? 'No poster' : ('Poster for ' + movie.title)
+    end
+  end
+  
+  def movie_runtime(movie)
+    if movie.runtime
+      hours = movie.runtime / 60
+      minutes = movie.runtime % 60
+      parts = []
+      parts << "<span>#{hours}</span>h" unless hours.zero?
+      parts << "<span>#{minutes}</span>m" unless minutes.zero?
+      %(<span class="runtime">#{parts.join(' ')}</span>).html_safe
+    end
   end
 end
