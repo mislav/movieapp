@@ -57,9 +57,14 @@ describe User do
       
         it "deletes a movie from watchlist" do
           subject.to_watch.delete @deep_blue
-          movies = subject.to_watch.to_a
-          movies.should_not include(@deep_blue)
-          movies.should include(@breakfast)
+          subject.to_watch.should_not include(@deep_blue)
+          subject.to_watch.should include(@breakfast)
+          should_not match_selector(:to_watch => @deep_blue.id)
+        end
+        
+        it "marks movie as watched and that removes it from watchlist" do
+          subject.watched << @deep_blue
+          subject.to_watch.should_not include(@deep_blue)
           should_not match_selector(:to_watch => @deep_blue.id)
         end
       
@@ -97,6 +102,13 @@ describe User do
           should match_selector('watched.movie' => @deep_blue.id, 'watched.liked' => true)
         end
         
+        it "saves a watched movie with string rating" do
+          subject.watched.add_with_rating @deep_blue, 'Yes'
+          subject.watched.add_with_rating @breakfast, 'No'
+          should match_selector('watched.movie' => @deep_blue.id, 'watched.liked' => true)
+          should match_selector('watched.movie' => @breakfast.id, 'watched.liked' => false)
+        end
+        
         it "removes a watched movie" do
           subject.watched << @deep_blue
           subject.watched.delete @deep_blue
@@ -129,6 +141,7 @@ describe User do
         
         it "deletes a watched movie" do
           subject.watched.delete @deep_blue
+          subject.watched.should_not include(@deep_blue)
           subject.watched.should include(@breakfast)
           should_not match_selector(:watched => {:movie => @deep_blue.id})
         end

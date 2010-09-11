@@ -19,13 +19,38 @@ class User < Mingo
     # defines how to convert given object (or document) to a custom
     # construct to be embedded directly in parent document
     def convert(doc)
-      if doc.instance_of?(Hash) then doc
-      else {'movie' => doc.id, 'time' => Time.now.utc}
+      if doc.is_a?(Hash) and not doc.is_a?(Mingo) then doc
+      else
+        raise ArgumentError, "got #{doc.inspect}" unless doc.is_a? Mingo or doc.is_a? BSON::ObjectId
+        {'movie' => doc.id, 'time' => Time.now.utc}
+      end
+    end
+    
+    def include?(doc)
+      @embedded.any? { |e| e['movie'] == doc.id }
+    end
+    
+    # overload delete to find matching embedded value
+    def delete(doc)
+      doc = @embedded.find { |e| e['movie'] == doc.id }
+      super(doc) if doc
+    end
+    
+    # overload push operator to remove matching movie from `to_watch` list
+    def <<(doc)
+      super.tap do |result|
+        @parent.to_watch.delete(doc.instance_of?(Hash) ? doc['movie'] : doc)
       end
     end
     
     # custom method that wraps `<<` to add a movie with rating
     def add_with_rating(movie, liked)
+      liked = case liked.downcase
+        when 'yes', 'true', '1' then true
+        when 'no', 'false', '0' then false
+        else nil
+        end if liked.respond_to? :downcase
+
       self << convert(movie).update('liked' => liked)
     end
     
