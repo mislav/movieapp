@@ -32,6 +32,8 @@ module Movies
     mash.each do |key, value|
       config.send("#{key}=", value)
     end
+    
+    config.heroku = !!ENV['HEROKU_TYPE']
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named
