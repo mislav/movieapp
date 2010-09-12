@@ -29,7 +29,7 @@ module MoviesHelper
       when :medium then [185, 274]
       end
 
-    if Movies.offline?
+    if Movies.offline? or src.blank?
       content_tag :span, nil, :class => 'poster', :style => "width:#{width}px; height:#{height}px"
     else
       image_tag src, :width => width, :class => 'poster',
