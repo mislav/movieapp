@@ -12,6 +12,8 @@ class MoviesController < ApplicationController
       # TODO: decide what to display on the home page
       @movies = Movie.paginate(:sort => 'title', :page => params[:page], :per_page => 10)
     end
+    
+    ajax_pagination
   end
   
   def show
@@ -30,25 +32,20 @@ class MoviesController < ApplicationController
   
   def watched
     @movies = @user.watched.paginate(:page => params[:page], :per_page => 10)
+    ajax_pagination
   end
   
   def liked
     @movies = @user.watched.liked.paginate(:page => params[:page], :per_page => 10)
+    ajax_pagination
   end
   
   def to_watch
     @movies = @user.to_watch.paginate(:page => params[:page], :per_page => 10)
+    ajax_pagination
   end
   
   protected
-  
-  def ajax_actions_or_back
-    if request.xhr?
-      render :partial => 'actions', :locals => {:movie => @movie}
-    else
-      redirect_to :back
-    end
-  end
   
   def find_movie
     @movie = Movie.first(params[:id])
@@ -59,6 +56,22 @@ class MoviesController < ApplicationController
       current_user
     else
       User.first(:username => params[:username])
+    end
+  end
+  
+  private
+  
+  def ajax_actions_or_back
+    if request.xhr?
+      render :partial => 'actions', :locals => {:movie => @movie}
+    else
+      redirect_to :back
+    end
+  end
+  
+  def ajax_pagination
+    if request.xhr?
+      render :partial => 'movie', :collection => @movies
     end
   end
 
