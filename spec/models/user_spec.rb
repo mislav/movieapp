@@ -145,6 +145,12 @@ describe User do
           subject.watched.should include(@breakfast)
           should_not match_selector(:watched => {:movie => @deep_blue.id})
         end
+        
+        it "has liked filter" do
+          movies = subject.watched.liked.to_a
+          movies == [@breakfast]
+          movies.first.should be_liked
+        end
       end
     end
   end

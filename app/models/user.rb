@@ -73,6 +73,11 @@ class User < Mingo
       movie.liked = metadata['liked']
       movie.time_added = metadata['time']
     end
+    
+    def liked
+      liked_ids = @embedded.map { |watched| watched['movie'] if watched['liked'] }.compact
+      @model.find({:_id => {'$in' => liked_ids}}, find_options)
+    end
   end
   
   TwitterFields = %w[name location created_at url utc_offset time_zone id lang protected followers_count screen_name]
