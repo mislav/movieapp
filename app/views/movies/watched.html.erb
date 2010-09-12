@@ -8,7 +8,7 @@
     </p>
     
     <%= render 'paginated', :movies => @movies %>
-  <% elsif my_page? %>
+  <% elsif my_page? and @user.to_watch.count.zero? %>
     <h1>Looks like you're new here.</h1>
     <p>Here's the plan:</p>
     <ol>
@@ -17,6 +17,7 @@
       <li>… profit!</li>
     </ol>
   <% else %>
+    <p><%= link_to "#{count @user.to_watch} to watch", to_watch_path(@user) %></p>
     <p><%= @user.name %> didn't tell us what he/she watched yet.</p>
   <% end %>
 

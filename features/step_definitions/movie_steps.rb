@@ -14,9 +14,15 @@ When /^I search for "([^"]*)"$/ do |query|
 end
 
 When /^(.+) for the movie "([^"]+)"$/ do |step, title|
+  @last_movie_title = title
   within ".movie:has(a h1:contains('#{title}'))" do
-    Then step
+    When step
   end
+end
+
+When /^(.+) for that movie$/ do |step|
+  raise "no last movie" if @last_movie_title.blank?
+  When %(#{step} for the movie "#{@last_movie_title}")
 end
 
 Given /^there are three movies by Lone Scherfig$/ do
@@ -30,10 +36,9 @@ Given /^there are three movies by Lone Scherfig$/ do
 end
 
 Then /^I should see movies: (.+)$/ do |movies|
-  values = movies.scan(/"([^"]+) \((\d+)\)"/)
-  movie_titles = values.map(&:first)
-  movie_years = values.map(&:last)
-  
-  movie_titles.should == all('.movie h1').map(&:text)
-  movie_years.should == all('.movie .year time').map(&:text)
+  titles = movies.scan(/"([^"]+ \(\d+\))"/).flatten
+  raise ArgumentError if titles.empty?
+
+  found = all('.movie h1').zip(all('.movie .year time')).map { |pair| "#{pair.first.text} (#{pair.last.text})" }
+  found.should =~ titles
 end

@@ -22,3 +22,8 @@ Given /^TMDB returns "([^"]+)" for "([^"]+)" movie details$/ do |fixture, title|
   
   stub_request(:get, url).to_return(:body => body, :status => 200)
 end
+
+Given /^the database contains movies from TMDB "([^"]+)"$/ do |fixture|
+  body = read_fixture("tmdb-#{fixture}")
+  Movie.from_tmdb_results Tmdb.parse(body)
+end

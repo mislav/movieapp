@@ -104,7 +104,8 @@ Then /^(?:|I )should see JSON:$/ do |expected_json|
   expected.should == actual
 end
 
-Then /^(?:|I )should see "([^\"]*)"(?: within "([^\"]*)")?$/ do |text, selector|
+Then /^(?:|I )should see (?:"([^"]*)"|'([^']*)')(?: within "([^\"]*)")?$/ do |text1, text2, selector|
+  text = text1 || text2
   with_scope(selector) do
     if Capybara.current_driver == Capybara.javascript_driver
       page.has_xpath?(Capybara::XPath.content(text), :visible => true)
@@ -130,7 +131,8 @@ Then /^(?:|I )should see \/([^\/]*)\/(?: within "([^\"]*)")?$/ do |regexp, selec
   end
 end
 
-Then /^(?:|I )should not see "([^\"]*)"(?: within "([^\"]*)")?$/ do |text, selector|
+Then /^(?:|I )should not see (?:"([^"]*)"|'([^']*)')(?: within "([^\"]*)")?$/ do |text1, text2, selector|
+  text = text1 || text2
   with_scope(selector) do
     if Capybara.current_driver == Capybara.javascript_driver
       page.has_no_xpath?(Capybara::XPath.content(text), :visible => true)

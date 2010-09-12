@@ -22,9 +22,11 @@ class Movie < Mingo
   # key :cast, Array
   
   def self.tmdb_search(term)
-    Tmdb.search(term).movies.map { |movie|
-      find_or_create_from_tmdb(movie)
-    }
+    from_tmdb_results Tmdb.search(term)
+  end
+  
+  def self.from_tmdb_results(tmdb)
+    tmdb.movies.map { |movie| find_or_create_from_tmdb(movie) }
   end
   
   def self.find_or_create_from_tmdb(movie)
