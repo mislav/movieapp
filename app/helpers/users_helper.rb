@@ -14,9 +14,9 @@ module UsersHelper
     "#{who} watched this movie".tap do |out|
       unless liked.nil?
         if liked
-          out << ' and <em class="liked">liked it</em>'
+          out << %( and <em class="liked">#{nobr 'liked it'}</em>)
         else
-          out << ', but <em class="disliked">didn\'t like it</em>'
+          out << %(, but <em class="disliked">#{nobr "didn't like it"}</em>)
         end
       end
       out << '.'
