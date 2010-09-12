@@ -9,25 +9,7 @@
   <% end %></h1>
 
   <% unless @movies.empty? %>
-
-    <ol class="movies" style="counter-reset: item <%= @movies.offset %>">
-    <% for movie in @movies %>
-
-      <li>
-        <article class="movie">
-
-          <%= render :partial => 'movie', :locals => { :movie => movie } %>
-        
-          <%= movie_actions(movie) %>
-
-        </article>    
-      </li>
-
-    <% end %>
-    </ol>
-
-    <%= will_paginate @movies %>
-
+    <%= render 'paginated', :movies => @movies %>
   <% else %>
     <p>Nothing found. I SO SORRY</p>
   <% end %>

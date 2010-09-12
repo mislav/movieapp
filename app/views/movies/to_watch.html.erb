@@ -1,24 +1,12 @@
 <article>
-  
-  <h1>Movies to see:</h1>
 
-  <ol class="movies">
-  <% for movie in @movies %>
-
-    <li>
-      <article>
-
-        <%= render :partial => 'movie', :locals => { :movie => movie } %>
-        
-        <ol class="actions">
-          <li><a href="#"><span>✓</span> Watched it!</a></li>
-          <li><a href="#"><span class="toothin">‒</span> Remove</a></li>
-        </ol>
-  
-      </article>
-    </li>
-
+  <% unless @movies.empty? %>
+    <h1><%= @user.name %> plans to watch <%= count @movies %>.</h1>
+    <p><%= link_to "#{count @user.watched} watched", watched_path(@user) %></p>
+    
+    <%= render 'paginated', :movies => @movies %>
+  <% else %>
+    <p>There are no movies <%= @user.name %> plans to watch.</p>
   <% end %>
-  </ol>
 
 </article>

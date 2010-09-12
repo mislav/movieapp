@@ -1,4 +1,9 @@
 module MoviesHelper
+  def count(collection)
+    method = [:total_entries, :size, :count].find { |m| collection.respond_to? m }
+    pluralize collection.send(method), 'movie'
+  end
+  
   def link_to_movie(movie)
     link_to(title_for_movie(movie), movie) + movie_year(movie)
   end

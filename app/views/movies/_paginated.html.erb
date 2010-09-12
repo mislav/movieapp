@@ -1,0 +1,5 @@
+<ol class="movies" style="counter-reset: item <%= movies.offset %>">
+  <%= render :partial => 'movie', :collection => movies %>
+</ol>
+
+<%= will_paginate movies %>

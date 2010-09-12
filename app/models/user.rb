@@ -6,6 +6,10 @@ class User < Mingo
     self['username'] = self.class.generate_username(value)
   end
   
+  def to_param
+    username
+  end
+  
   # 'to_watch' => [movie_id1, movie_id2, ...]
   many :to_watch, Movie
   

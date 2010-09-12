@@ -13,10 +13,10 @@
     <header>
       <h1><a href="/">The Movie App</a></h1>
     
-      <nav>        
+      <nav>
         <% if logged_in? %>
           <p>
-            Logged in as <%= link_to(current_user.username, to_watch_path(:username => current_user.username)) %>,
+            Logged in as <%= link_to(current_user.username, watched_path(current_user)) %>,
             <%= link_to 'logout', logout_path %>
           </p>
         <% elsif Movies.offline? %>

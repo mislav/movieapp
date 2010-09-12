@@ -1,7 +1,13 @@
-<a href="<%= movie_path(movie.id) %>">
-  <%= movie_poster(movie) %>
+<li>
+  <article class="movie">
+    <%= link_to movie_path(movie.id) do %>
+      <%= movie_poster(movie) %>
 
-  <h1><%= title_for_movie(movie) %></h1>
+      <h1><%= title_for_movie(movie) %></h1>
 
-  <%= movie_year(movie) %>
-</a>
+      <%= movie_year(movie) %>
+    <% end %>
+  
+    <%= movie_actions(movie) %>
+  </article>    
+</li>
