@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js">
   <head>
     <meta charset="UTF-8" />
-    
+    <%= csrf_meta_tag %>
     <title>Movies app!</title>
     <%= stylesheet_link_tag "movie" %>
   </head>
@@ -40,7 +40,8 @@
     <% end %>
       
     <%= yield %>
-  
+    
+    <%= javascript_include_tag 'prototype', 'rails', 'application' %>
   </body>
 
 </html>

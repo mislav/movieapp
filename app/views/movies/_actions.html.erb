@@ -5,16 +5,22 @@
   <% if current_user.watched.include? movie %>
     <li class="watched"><%= watched_liked movie %></li>
   <% else %>
-    <% unless my_watchlist? %><li><% if current_user.to_watch.include? movie %>
-      This movie is in your "to watch" list.
-    <% else %>
-      <%= button_to 'Want to watch', add_to_watch_path(movie), :method => :put, :class => 'to_watch' %>
-    <% end %></li><% end %>
-    <li>
-      <%= button_to 'I watched this', add_watched_path(movie), :method => :put, :class => 'watched' %><br>
-      <%= button_to 'Yes', add_watched_path(movie), :method => :put, :name => 'liked' %>
-      <%= button_to 'No', add_watched_path(movie), :method => :put, :name => 'liked' %>
-      <%= button_to 'Meh', add_watched_path(movie), :method => :put, :name => 'liked' %>
+    <% unless my_watchlist? %>
+      <li class="add-to-watch"><% if current_user.to_watch.include? movie %>
+        <p>This movie is in your "to watch" list.</p>
+      <% else %>
+        <%= button_to 'Want to watch', add_to_watch_path(movie), :remote => true, :method => :put, :class => 'to_watch' %>
+      <% end %></li>
+    <% end %>
+    <li class="add-watched">
+      <%= button_to 'I watched this', add_watched_path(movie), :method => :put, :class => 'watched' %>
+    </li>
+    <li class="question">
+      <p>Did you like it?</p>
+      <%= button_to 'Yes', add_watched_path(movie), :remote => true, :method => :put, :name => 'liked' %>
+      <%= button_to 'No', add_watched_path(movie), :remote => true, :method => :put, :name => 'liked' %>
+      <%= button_to 'Meh', add_watched_path(movie), :remote => true, :method => :put, :name => 'liked' %>
+      <%= link_to 'cancel', '#cancel' %>
     </li>
   <% end %>
 </ol>

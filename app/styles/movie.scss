@@ -74,7 +74,7 @@ ol.movies {
   .movie {
     padding-left: $poster-small-width + $poster-margin;
     > a {
-      display:block; min-height:98px;
+      display:block; min-height:96px;
       &:active, &:visited { outline:0 none }
     }
   
@@ -109,13 +109,17 @@ ol.movies {
     padding-left: 0;
     @include no-bullets;
     
+    font-size: .9em;
+    line-height: 1.4;
+    
     .button_to {
       display: inline-block;
       input[type=submit] {
+        font-size: 1em;
         display:inline-block; color:#333;
         background-color:#f5f5f5; @include linear-gradient(color-stops(white, #d8d8d8));
         border:1px solid #ddd; @include border-radius;
-        margin-top:5px; padding:2px 4px; line-height:11px;
+        padding:2px 4px;
 
         &:hover { color:#fdfdfd; border-color:$body-color; background:$body-color }
         
@@ -127,6 +131,23 @@ ol.movies {
     li.watched { color: gray; font-style: italic; }
     em.liked { color: green; }
     em.disliked { color: darkred; }
+    
+    li > p { padding: 4px 4px;}
+    
+    .no-js & {
+      li.add-watched { display: none; }
+      li.question a[href="#cancel"] { display: none; }
+    }
+    .js & {
+      li.question {
+        display: none;
+        a[href="#cancel"] { text-decoration: underline; color: $lightblue; }
+      }
+      &.asking {
+        li.add-to-watch, li.add-watched { display: none; }
+        li.question { display: block; }
+      }
+    }
   }
 }
 

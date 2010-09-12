@@ -20,12 +20,12 @@ class MoviesController < ApplicationController
   
   def add_to_watch
     current_user.to_watch << @movie
-    redirect_to :back
+    ajax_actions_or_back
   end
   
   def add_watched
     current_user.watched.add_with_rating @movie, params[:liked]
-    redirect_to :back
+    ajax_actions_or_back
   end
   
   def watched
@@ -41,6 +41,14 @@ class MoviesController < ApplicationController
   end
   
   protected
+  
+  def ajax_actions_or_back
+    if request.xhr?
+      render :partial => 'actions', :locals => {:movie => @movie}
+    else
+      redirect_to :back
+    end
+  end
   
   def find_movie
     @movie = Movie.first(params[:id])
