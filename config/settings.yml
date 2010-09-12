@@ -1,5 +1,6 @@
 defaults: &defaults
   offline: false
+  secret_token: <%= ENV['COOKIE_SECRET'] %>
   mongodb:
     uri: <%= ENV['MONGOHQ_URL'] %>
   netflix:
@@ -19,6 +20,7 @@ development:
 
 test: &testing
   <<: *defaults
+  secret_token: <%= "banana" * 5 %>
   mongodb:
     database: movieapp_test
   tmdb:
