@@ -1,6 +1,8 @@
 <article class="movie">
   
   <%= movie_poster(@movie, :medium) %>
+  
+  <%= movie_actions(@movie) %>
 
   <header>
     <h1><%= title_for_movie(@movie) %></h1>

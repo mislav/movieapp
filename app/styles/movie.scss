@@ -184,6 +184,11 @@ ol.movies {
     margin-left: -($poster-medium-width + $poster-margin);
     float:left;
   }
+  .actions {
+    float: left; clear: left;
+    width: $poster-medium-width;
+    margin-left: -($poster-medium-width + $poster-margin);
+  }
 
   h1 { font-size: 3em; line-height: 1; margin-bottom: .2em; }
 
