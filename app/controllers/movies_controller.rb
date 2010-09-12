@@ -6,8 +6,9 @@ class MoviesController < ApplicationController
     if @query = params[:q]
       @movies = Movie.tmdb_search(@query).paginate(:page => params[:page], :per_page => 30)
     elsif @director = params[:director]
-      @movies = Movie.paginate({:directors => @director}, :sort => ['year', :desc], :page => params[:page], :per_page => 10)
+      @movies = Movie.find(:directors => @director).paginate(:sort => ['year', :desc], :page => params[:page], :per_page => 10)
     else
+      # TODO: decide what to display on the home page
       @movies = Movie.paginate(:sort => 'title', :page => params[:page], :per_page => 10)
     end
   end

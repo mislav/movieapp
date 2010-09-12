@@ -1,16 +1,19 @@
 require 'will_paginate/finders/base'
 
 Mingo.class_eval do
-  extend WillPaginate::Finders::Base
+  def self.paginate(options)
+    find.paginate(options)
+  end
+end
+
+Mingo::Cursor.class_eval do
+  include WillPaginate::Finders::Base
   
-  def self.wp_query(options, pager, args)
-    options.update(:skip => pager.offset, :limit => pager.per_page) 
-
-    cursor = find(args.first, options)
-    pager.replace cursor.to_a
-
-    unless pager.total_entries
-      pager.total_entries = cursor.count
-    end
+  def wp_query(options, pager, args)
+    self.limit pager.per_page
+    self.skip pager.offset
+    self.sort options[:sort]
+    pager.replace self.to_a
+    pager.total_entries = self.count unless pager.total_entries
   end
 end

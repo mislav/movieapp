@@ -159,3 +159,20 @@ ol.movies {
   
   .plot { margin-top: 3em; max-width: 38em; }
 }
+
+.pagination {
+  line-height: 1;
+  em {
+    font-style: normal;
+    background: #aaa;
+    @include border-radius(10px);
+    display: inline-block;
+    min-width: 1em;
+    text-align: center;
+    padding: 3px;
+    color: white;
+    @include text-shadow;
+  }
+  a { text-decoration: none; }
+  a:hover { text-decoration: none; border-bottom: 1px solid silver; }
+}
