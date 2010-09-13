@@ -1,3 +1,7 @@
+Modernizr.addTest('inputsearch', function() {
+  return Modernizr.inputtypes.search
+})
+
 document.on('click', '.actions input[type=submit].watched', function(e, button) {
   e.stop()
   button.up('.actions').addClassNameTransition('asking')
