@@ -68,10 +68,10 @@ ol.movies {
   padding-left: 0;
   @include no-bullets;
   
-  > li { margin-bottom: 3em }
   a { text-decoration:none }
   
   .movie {
+    min-height: 184px;
     padding-left: $poster-small-width + $poster-margin;
     > a {
       display:block; min-height:96px;
@@ -106,11 +106,10 @@ ol.movies {
   }
   
   .actions {
-    padding-left: 0;
-    @include no-bullets;
-    
     font-size: .9em;
-    line-height: 1.4;
+    line-height: 1.7;
+    
+    p { margin: 0; padding: 4px 4px; }
     
     .button_to {
       display: inline-block;
@@ -118,56 +117,54 @@ ol.movies {
         cursor: pointer;
         font-size: 1em;
         display:inline-block; color:#333;
+        padding: 0 4px;
+        margin-bottom: 4px;
+        line-height: 1.7;
         background-color:#f5f5f5; @include linear-gradient(color-stops(white, #d8d8d8));
         border:1px solid #ddd; @include border-radius;
-        padding:2px 4px;
 
         &:hover { color:#fdfdfd; border-color:$body-color; background:$body-color }
         
-        &.to_watch, &.watched {
+        &.to-watch, &.watched {
           width: 100px;
         }
       }
     }
-    li.watched { color: gray; font-style: italic; }
+    p.watched, p.to-watch { color: gray; font-style: italic; }
     em.liked { color: green; }
     em.disliked { color: darkred; }
-    
-    li > p { padding: 4px 4px;}
     
     &.fadeout { @include transition(opacity, 0.15s, ease-in); opacity: 0; }
     &.hidden { opacity: 0; }
     &.fadein { @include transition(opacity, 0.25s, ease-out); opacity: 1; }
     
     .no-js & {
-      li.add-watched { display: none; }
-      li.question a[href="#cancel"] { display: none; }
+      .add-watched { display: none; }
+      .question a[href="#cancel"] { display: none; }
     }
     .js & {
-      li { @include transition(opacity, 0.2s, ease-out) }
-      li.question {
+      > div { @include transition(opacity, 0.2s, ease-out) }
+      .question {
         display: none;
         opacity: 0;
         a[href="#cancel"] { text-decoration: underline; color: $lightblue; }
       }
       &.asking {
-        li.add-to-watch, li.add-watched { display: none; }
-        li.question { display: block; opacity: 1; }
+        .primary { display: none; }
+        .question { display: block; opacity: 1; }
       }
       &.asking-transition {
-        li.add-to-watch, li.add-watched { opacity: 0; }
-        li.question {
+        .primary { position: absolute; opacity: 0; }
+        .question {
           display: block;
           opacity: 1;
-          margin-top: -4.3em;
         }
       }
       &.asking-transition-back {
-        li.add-to-watch, li.add-watched { opacity: 1; }
-        li.question {
+        .primary { position: absolute; opacity: 1; }
+        .question {
           display: block;
           opacity: 0;
-          margin-top: -4.3em;
         }
       }
     }
@@ -186,8 +183,10 @@ ol.movies {
   }
   .actions {
     float: left; clear: left;
-    width: $poster-medium-width;
+    margin-top: 1em;
     margin-left: -($poster-medium-width + $poster-margin);
+    width: $poster-medium-width;
+    p { width: $poster-medium-width - (2 * 4px); font-family: Helvetica, sans-serif; }
   }
 
   h1 { font-size: 3em; line-height: 1; margin-bottom: .2em; }
