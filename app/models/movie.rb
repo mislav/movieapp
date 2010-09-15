@@ -48,8 +48,9 @@ class Movie < Mingo
     self.tmdb_version = movie.version
     
     # same name properties
-    [:year, :runtime, :countries, :directors, :homepage].each do |prop|
-      self.send(:"#{prop}=", movie.send(prop))
+    [:year, :runtime, :countries, :directors, :homepage].each do |property|
+      value = movie.send(property)
+      self.send(:"#{property}=", value) if value.present?
     end
   end
   
