@@ -67,9 +67,8 @@ class Movie < Mingo
     EXTENDED.any? { |property| self[property].nil? }
   end
   
-  def self.netflix_search(term, page = 1)
-    page ||= 1
-    catalog = Netflix.search(term, page)
+  def self.netflix_search(term, options = {})
+    catalog = Netflix.search(term, options)
     
     WillPaginate::Collection.create(page, catalog.per_page, catalog.total_entries) do |collection|
       collection.replace catalog.titles.map { |title|

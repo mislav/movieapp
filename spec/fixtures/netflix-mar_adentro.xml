@@ -1,4 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <catalog_titles>
+   <link href="http://api.netflix.com/catalog/titles/index" rel="http://schemas.netflix.com/catalog/titles/index" title="index"/>
+   <link href="http://api.netflix.com/catalog/titles/autocomplete" rel="http://schemas.netflix.com/catalog/titles/autocomplete" title="autocomplete"/>
+   <url_template>http://api.netflix.com/catalog/titles?{-join|&amp;|term|start_index|max_results}</url_template>
+   <number_of_results>1672</number_of_results>
+   <start_index>0</start_index>
+   <results_per_page>5</results_per_page>
    <catalog_title>
       <id>http://api.netflix.com/catalog/titles/movies/70018295</id>
       <title short="The Sea Inside" regular="The Sea Inside"/>
@@ -13,9 +20,6 @@
       <category scheme="http://api.netflix.com/categories/genres" label="Spain" term="Spain"/>
       <category scheme="http://api.netflix.com/categories/genres" label="Foreign Must-See" term="Foreign Must-See"/>
       <category scheme="http://api.netflix.com/categories/genres" label="Spanish Language" term="Spanish Language"/>
-      <category scheme="http://api.netflix.com/categories/genres" label="Foreign Languages" term="Foreign Languages"/>
-      <category scheme="http://api.netflix.com/categories/genres" label="Foreign Regions" term="Foreign Regions"/>
-      <category scheme="http://api.netflix.com/categories/genres" label="Warner Home Video" term="Warner Home Video"/>
       <runtime>7500</runtime>
       <link href="http://api.netflix.com/catalog/titles/movies/70018295/awards" rel="http://schemas.netflix.com/catalog/titles/awards" title="awards"/>
       <link href="http://api.netflix.com/catalog/titles/movies/70018295/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"/>
