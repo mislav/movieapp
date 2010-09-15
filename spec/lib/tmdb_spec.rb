@@ -2,12 +2,15 @@ require 'spec_helper'
 require 'tmdb'
 
 describe Tmdb::Movie do
-  
+
   context "normal one" do
-    subject {
+    before(:all) do
       stub_request 'black cat', 'black_cat'
-      result = Tmdb.search('black cat')
-      result.movies.first
+      @result = Tmdb.search('black cat')
+    end
+  
+    subject {
+      @result.movies.first
     }
 
     its(:id)                { should == 1075 }
@@ -24,7 +27,7 @@ describe Tmdb::Movie do
   end
   
   context "normal many" do
-    before do
+    before(:all) do
       stub_request 'the terminator', 'terminator'
       result = Tmdb.search('the terminator')
       @movies = result.movies
@@ -42,21 +45,27 @@ describe Tmdb::Movie do
   end  
   
   context "empty" do
-    subject {
+    before(:all) do
       stub_request 'lepa brena', '["Nothing found."]'
-      result = Tmdb.search('lepa brena')
-    }
+      @result = Tmdb.search('lepa brena')
+    end
+    
+    subject { @result }
 
     its(:movies) { should be_empty }
   end
   
   describe "movie details" do
-    subject {
+    before(:all) do
       stub_request 1234, 'an_education', 'getInfo'
-      Tmdb.movie_details(1234)
-    }
+      @details = Tmdb.movie_details(1234)
+    end
+    
+    subject { @details }
 
     its(:runtime) { should == 95 }
+    its(:directors) { should == ["Lone Scherfig"] }
+    its(:countries) { should == ["United Kingdom"] }
   end
   
   def stub_request(query, fixture, method = 'search')
