@@ -11,29 +11,31 @@ describe Movie do
   
   describe "extended info" do
     it "movie with complete info" do
-      movie = Movie.new :runtime => 95, :countries => [], :directors => [], :homepage => "", :tmdb_id => 1234
-      movie.save
+      movie = Movie.create :runtime => 95, :countries => [], :directors => [], :homepage => "", :tmdb_id => 1234
+      attributes = movie.to_hash
       movie.ensure_extended_info
-      movie.should_not be_changed
+      attributes.should == movie
     end
     
-    it "movie with missing info" do
+    it "movie with missing info fills the blanks" do
       stub_request(:get, 'api.themoviedb.org/2.1/Movie.getInfo/en/json/TEST/1234').
         to_return(:body => read_fixture('tmdb-an_education.json'), :status => 200)
       
-      movie = Movie.new :tmdb_id => 1234
-      movie.save
+      movie = Movie.create :tmdb_id => 1234
+      attributes = movie.to_hash
       movie.ensure_extended_info
       movie.should_not be_changed
+      attributes.should_not == movie
       movie.runtime.should == 95
       movie.directors.should == ['Lone Scherfig']
     end
     
-    it "movie with missing info" do
-      movie = Movie.new :directors => []
-      movie.save
+    it "movie with missing info but without a TMDB ID can't get details" do
+      movie = Movie.create :directors => []
+      attributes = movie.to_hash
       movie.ensure_extended_info
       movie.should_not be_changed
+      attributes.should == movie
       movie.directors.should == []
     end
   end
