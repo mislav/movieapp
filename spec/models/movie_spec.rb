@@ -39,4 +39,49 @@ describe Movie do
       movie.directors.should == []
     end
   end
+  
+  describe ".normalize_title" do
+    def process(string)
+      described_class.normalize_title(string)
+    end
+    
+    it "transliterates unicode chars" do
+      process('Čćđéñøü').should == 'ccdenou'
+    end
+    
+    it "normalizes roman numerals" do
+      process('Star Bores episode iii: Unwatchable').should == 'star bores episode 3 unwatchable'
+    end
+  end
+  
+  describe "combined search" do
+    before(:all) do
+      stub_request(:get, 'api.themoviedb.org/2.1/Movie.search/en/json/TEST/star%20wars').
+        to_return(:body => read_fixture('tmdb-star_wars-titles.json'), :status => 200)
+      stub_request(:get, 'api.netflix.com/catalog/titles?start_index=0&term=star%20wars&max_results=5').
+        to_return(:body => read_fixture('netflix-star_wars-titles.xml'), :status => 200)
+      
+      @movies = Movie.search 'star wars'
+    end
+    
+    it "should have ordering from Netflix" do
+      @movies.map { |m| "#{m.title} (#{m.year})" }.should == [
+        'Star Wars Episode 4 (1990)',
+        'Star Wars Episode 5 (1991)',
+        'Star Wars: Episode 1 (1993)',
+        'Star Wars: The Making Of (2004)',
+        'Star Wars Episode VI (1982)'
+      ]
+    end
+    
+    it "should have IDs both from Netflix and TMDB" do
+      @movies.map { |m| [m.tmdb_id, m.netflix_id] }.should == [
+        [2004, 1001],
+        [2003, 1002],
+        [2002, 1005],
+        [2001, nil],
+        [2005, nil]
+      ]
+    end
+  end
 end

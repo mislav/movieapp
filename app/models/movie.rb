@@ -13,6 +13,8 @@ class Movie < Mingo
   property :tmdb_url
   property :tmdb_version
 
+  property :netflix_id
+
   property :runtime
   # property :language
   property :countries
@@ -29,8 +31,8 @@ class Movie < Mingo
     tmdb.movies.map { |movie| find_or_create_from_tmdb(movie) }
   end
   
-  def self.find_or_create_from_tmdb(movie)
-    first(:tmdb_id => movie.id) || new.tap { |fresh|
+  def self.find_or_create_from_tmdb(movie, attributes = nil)
+    first(:tmdb_id => movie.id) || new(attributes).tap { |fresh|
       fresh.copy_properties_from_tmdb(movie)
       fresh.save
     }
@@ -52,6 +54,10 @@ class Movie < Mingo
       value = movie.send(property)
       self.send(:"#{property}=", value) if value.present?
     end
+  end
+  
+  def netflix_title=(netflix)
+    self.netflix_id = netflix.id
   end
   
   EXTENDED = [:runtime, :countries, :directors, :homepage]
@@ -92,6 +98,42 @@ class Movie < Mingo
       :netflix_url => title.netflix_url,
       :official_website => title.official_url
     )
+  end
+  
+  RomanNumeralsMap = Hash[%w[i ii iii iv v vi vii viii ix xi xii].each_with_index.map { |s,i| [s, i+1] }]
+  RomanNumerals = /\b(?:i?[vx]|[vx]?i{1,3})\b/
+  
+  def self.normalize_title(original, year = nil)
+    ActiveSupport::Inflector.transliterate(original).tap do |title|
+      title.downcase!
+      title.squish!
+      title.gsub!(/[^\w\s]/, '')
+      title.gsub!(RomanNumerals) { RomanNumeralsMap[$&] }
+      title.gsub!(/\b(episode|season|part) one\b/, '\1 1')
+      title << " (#{year})" if year
+    end
+  end
+  
+  def self.search(term)
+    tmdb_result = Tmdb.search(term)
+    netflix_result = Netflix.search(term)
+    
+    [].tap do |movies|
+      tmdb_map = tmdb_result.movies.each_with_object(ActiveSupport::OrderedHash.new) { |m, map|
+        map[normalize_title(m.name, m.year)] = m
+      }
+      netflix_map = netflix_result.titles.each_with_object(ActiveSupport::OrderedHash.new) { |m, map|
+        map[normalize_title(m.name, m.year)] = m
+      }
+
+      netflix_map.each do |title, netflix_title|
+        if tmdb_movie = tmdb_map.delete(title)
+          movies << find_or_create_from_tmdb(tmdb_movie, :netflix_title => netflix_title)
+        end
+      end
+      
+      movies.concat tmdb_map.values.map { |netflix| find_or_create_from_tmdb(netflix) }
+    end
   end
 
 end
