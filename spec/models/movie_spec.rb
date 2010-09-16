@@ -9,6 +9,20 @@ describe Movie do
     described_class.collection
   end
   
+  it "detects existing movie from TMDB" do
+    existing_id = collection.insert :tmdb_id => 1234
+    tmdb_movie = Tmdb::Movie.new(nil)
+    tmdb_movie.id = 1234
+    tmdb_movie.name = "Where the Wild Things Are"
+    
+    movie = build(:tmdb_movie => tmdb_movie)
+    movie.should be_persisted
+    movie.id.should == existing_id
+    movie.should be_changed
+    movie.save
+    movie.should match_selector(:title => "Where the Wild Things Are")
+  end
+  
   describe "extended info" do
     it "movie with complete info" do
       movie = Movie.create :runtime => 95, :countries => [], :directors => [], :homepage => "", :tmdb_id => 1234
@@ -58,7 +72,7 @@ describe Movie do
     before(:all) do
       stub_request(:get, 'api.themoviedb.org/2.1/Movie.search/en/json/TEST/star%20wars').
         to_return(:body => read_fixture('tmdb-star_wars-titles.json'), :status => 200)
-      stub_request(:get, 'api.netflix.com/catalog/titles?start_index=0&term=star%20wars&max_results=5').
+      stub_request(:get, 'api.netflix.com/catalog/titles?start_index=0&term=star%20wars&max_results=5&expand=synopsis').
         to_return(:body => read_fixture('netflix-star_wars-titles.xml'), :status => 200)
       
       @movies = Movie.search 'star wars'

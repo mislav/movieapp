@@ -25,5 +25,5 @@ end
 
 Given /^the database contains movies from TMDB "([^"]+)"$/ do |fixture|
   body = read_fixture("tmdb-#{fixture}")
-  Movie.from_tmdb_results Tmdb.parse(body)
+  Movie.from_tmdb_movies(Tmdb.parse(body).movies).each { |m| m.save }
 end
