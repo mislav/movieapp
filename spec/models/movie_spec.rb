@@ -66,6 +66,10 @@ describe Movie do
     it "normalizes roman numerals" do
       process('Star Bores episode iii: Unwatchable').should == 'star bores episode 3 unwatchable'
     end
+    
+    it "normalizes whitespace" do
+      process('Star Wars - A New Hope').should == 'star wars a new hope'
+    end
   end
   
   describe "combined search" do

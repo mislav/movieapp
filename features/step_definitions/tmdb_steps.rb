@@ -12,6 +12,7 @@ Given /^TMDB returns (?:nothing|"([^"]+)") for the terms "([^"]*)"$/ do |fixture
   url = Tmdb::SEARCH_URL.expand :api_key => Movies::Application.config.tmdb.api_key, :query => query
   
   stub_request(:get, url).to_return(:body => body, :status => 200)
+  stub_request(:get, /api\.netflix\.com/).to_return(:body => '', :status => 200)
 end
 
 Given /^TMDB returns "([^"]+)" for "([^"]+)" movie details$/ do |fixture, title|

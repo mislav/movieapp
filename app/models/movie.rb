@@ -26,10 +26,6 @@ class Movie < Mingo
   property :directors
   # key :cast, Array
   
-  def self.tmdb_search(term)
-    from_tmdb_movies Tmdb.search(term).movies
-  end
-  
   def self.from_tmdb_movies(movies)
     movies.map { |movie| new(:tmdb_movie => movie) }
   end
@@ -95,15 +91,14 @@ class Movie < Mingo
   def self.normalize_title(original, year = nil)
     ActiveSupport::Inflector.transliterate(original).tap do |title|
       title.downcase!
-      title.squish!
       title.gsub!(/[^\w\s]/, '')
+      title.squish!
       title.gsub!(RomanNumerals) { RomanNumeralsMap[$&] }
       title.gsub!(/\b(episode|season|part) one\b/, '\1 1')
       title << " (#{year})" if year
     end
   end
   
-  # TODO: make this write the netflix_id even for existing TMDB movies
   def self.search(term)
     tmdb_result = Tmdb.search(term)
     netflix_result = Netflix.search(term, :expand => ['synopsis'])
@@ -119,6 +114,8 @@ class Movie < Mingo
       end
       
       movies.concat from_tmdb_movies(tmdb_map.values)
+      
+      movies.each { |m| m.save }
     end
   end
 
