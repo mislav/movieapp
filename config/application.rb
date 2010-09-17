@@ -61,7 +61,7 @@ module Movies
       Mingo.connect(config.mongodb.database || config.mongodb.uri)
     end
     
-    config.middleware.use Twitter::Login,
+    config.twitter_login = Twitter::Login.new \
       :consumer_key => config.twitter.consumer_key, :secret => config.twitter.secret
     
     config.facebook_client = Facebook::Client.new(config.facebook.app_id, config.facebook.secret,

@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
   
   before_filter :find_movie, :only => [:show, :add_to_watch, :add_watched]
-  before_filter :find_user, :only => [:watched, :to_watch, :liked]
+  before_filter :find_user, :only => [:watched, :to_watch, :liked, :friends]
   
   def index
     if @query = params[:q]
@@ -42,6 +42,11 @@ class MoviesController < ApplicationController
   
   def to_watch
     @movies = @user.to_watch.paginate(:page => params[:page], :per_page => 10)
+    ajax_pagination
+  end
+  
+  def friends
+    @movies = @user.movies_from_friends.paginate(:page => params[:page], :per_page => 10)
     ajax_pagination
   end
   

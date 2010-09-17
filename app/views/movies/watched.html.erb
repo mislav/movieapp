@@ -4,7 +4,8 @@
     <h1><%= @user.name %> watched <%= count @movies %>.</h1>
     <p>
       <%= link_to "#{count @user.watched.liked} liked", liked_path(@user) %>,
-      <%= link_to "#{count @user.to_watch} to watch", to_watch_path(@user) %>
+      <%= link_to "#{count @user.to_watch} to watch", to_watch_path(@user) %>,
+      <%= link_to "movies by friends", friends_path(@user) %>
     </p>
     
     <%= render 'paginated', :movies => @movies %>

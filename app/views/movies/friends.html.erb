@@ -1,0 +1,11 @@
+<article>
+
+  <% if not @movies.empty? %>
+    <h1>Friends of <%= @user.name %> watched <%= count @movies %>.</h1>
+    
+    <%= render 'paginated', :movies => @movies %>
+  <% else %>
+    <p>No movies found.</p>
+  <% end %>
+
+</article>

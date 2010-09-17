@@ -10,6 +10,21 @@ class User < Mingo
     username
   end
   
+  def twitter_friends=(ids)
+    self['twitter_friends'] = ids
+  end
+  
+  def friends(query = {}, options = {})
+    query = query.merge('twitter.id' => {'$in' => Array(self['twitter_friends'])})
+    self.class.find(query, options)
+  end
+  
+  def movies_from_friends
+    users = friends({'watched' => {'$exists' => true}}, :fields => :watched)
+    movie_ids = friends.map { |u| u.watched.object_ids }.flatten.uniq
+    Movie.find '_id' => {'$in' => movie_ids}
+  end
+  
   # 'to_watch' => [movie_id1, movie_id2, ...]
   many :to_watch, Movie
   

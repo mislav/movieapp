@@ -156,7 +156,7 @@ GEM
     treetop (1.4.8)
       polyglot (>= 0.3.1)
     trollop (1.16.2)
-    twitter-login (0.3.0)
+    twitter-login (0.4.0)
       hashie (>= 0.2.2)
       oauth (~> 0.4.2)
       yajl-ruby (>= 0.7.7)
@@ -189,7 +189,7 @@ DEPENDENCIES
   rails (~> 3.0.0.rc)
   rspec-rails (~> 2.0.0.beta.19)
   ruby-debug
-  twitter-login (~> 0.3.0)
+  twitter-login (~> 0.4.0)
   webmock
   will_paginate (= 3.0.pre2)
   yajl-ruby (~> 0.7.7)
