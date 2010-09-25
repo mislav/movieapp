@@ -60,7 +60,9 @@ module Tmdb
       poster = posters.find { |p| p["image"]["size"] == "thumb" }
       poster.nil? ? '' : poster["image"]["url"]
     }    
-    element :runtime, :with => lambda { |minutes| minutes.to_i }
+    element :runtime, :with => lambda { |minutes|
+      minutes.to_i unless minutes.to_i.zero?
+    }
     # element :language
     element :countries, :with => lambda { |countries|
       countries.map {|c| c["name"]}

@@ -67,6 +67,7 @@ class Movie < Mingo
   def netflix_title=(netflix)
     self.netflix_id = netflix.id
     self.netflix_url = netflix.url
+    self.runtime ||= netflix.runtime
     if netflix.synopsis.present?
       self.netflix_plot = HTML::FullSanitizer.new.sanitize(netflix.synopsis)
     end
