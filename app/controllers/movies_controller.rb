@@ -67,6 +67,8 @@ class MoviesController < ApplicationController
     else
       User.first(:username => params[:username])
     end
+    
+    render :user_not_found, :status => 404 unless @user
   end
   
   private
