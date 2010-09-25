@@ -211,7 +211,10 @@ ol.movies {
     }
   }
   
-  .plot { margin-top: 3em; max-width: 38em; }
+  .plot {
+    margin-top: 3em; max-width: 38em;
+    + p { margin-top: 1em; }
+  }
 }
 
 body.watched, body.to_watch, body.liked {
