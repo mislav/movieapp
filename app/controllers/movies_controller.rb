@@ -50,6 +50,11 @@ class MoviesController < ApplicationController
     ajax_pagination
   end
   
+  def redirect_user
+    path = "/#{params[:username]}/#{params[:filter]}".chomp('/')
+    redirect_to path, :status => 301
+  end
+  
   protected
   
   def find_movie

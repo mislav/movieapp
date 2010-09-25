@@ -5,11 +5,6 @@ Movies::Application.routes.draw do |map|
   
   resources :movies, :only => [:show]
   
-  match 'user/:username' => 'movies#watched', :as => :watched, :via => :get
-  match 'user/:username/liked' => 'movies#liked', :as => :liked, :via => :get
-  match 'user/:username/to-watch' => 'movies#to_watch', :as => :to_watch, :via => :get
-  match 'user/:username/friends' => 'movies#friends', :as => :friends, :via => :get
-  
   match 'director/*director' => 'movies#index', :as => :director, :via => :get
 
   config = Movies::Application.config
@@ -22,6 +17,13 @@ Movies::Application.routes.draw do |map|
   match 'logout' => 'sessions#logout', :as => :logout
 
   root :to => "movies#index"
+  
+  match 'user/:username(/:filter)' => 'movies#redirect_user'
+  
+  match ':username' => 'movies#watched', :as => :watched, :via => :get
+  match ':username/liked' => 'movies#liked', :as => :liked, :via => :get
+  match ':username/to-watch' => 'movies#to_watch', :as => :to_watch, :via => :get
+  match ':username/friends' => 'movies#friends', :as => :friends, :via => :get
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -9,16 +9,23 @@ describe User do
     described_class.collection
   end
   
-  it "has assignable username" do
-    user = build :username => 'mislav'
-    user.username.should == 'mislav'
-  end
+  context "username" do
+    it "is assignable" do
+      user = build :username => 'mislav'
+      user.username.should == 'mislav'
+    end
   
-  it "cannot take an existing username" do
-    collection.insert :username => 'mislav'
+    it "cannot take existing" do
+      collection.insert :username => 'mislav'
     
-    user = build :username => 'mislav'
-    user.username.should == 'mislav1'
+      user = build :username => 'mislav'
+      user.username.should == 'mislav1'
+    end
+  
+    it "cannot take route" do
+      user = build :username => 'movies'
+      user.username.should == 'movies1'
+    end
   end
   
   context "movies" do

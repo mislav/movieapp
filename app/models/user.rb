@@ -20,7 +20,7 @@ class User < Mingo
   end
   
   def movies_from_friends
-    users = friends({'watched' => {'$exists' => true}}, :fields => :watched)
+    users = friends({'watched' => {'$exists' => true}}, :fields => [:watched])
     movie_ids = friends.map { |u| u.watched.object_ids }.flatten.uniq
     Movie.find '_id' => {'$in' => movie_ids}
   end
@@ -119,9 +119,10 @@ class User < Mingo
     end
   end
   
+  Reserved = %w[following followers favorites timeline search home about login logout signup movies director]
+  
   def self.username_taken?(name)
-    # TODO: take reserved routes into account
-    find(:username => name).has_next?
+    Reserved.include?(name) or find(:username => name).has_next?
   end
   
   def self.get_id(obj)
