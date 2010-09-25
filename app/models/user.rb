@@ -102,11 +102,15 @@ class User < Mingo
   TwitterFields = %w[name location created_at url utc_offset time_zone id lang protected followers_count screen_name]
   
   def self.from_twitter(twitter)
-    user = first('twitter.screen_name' => twitter.screen_name)
-    user ||= new(:username => twitter.screen_name, :name => twitter.name)
-    user['twitter'] = twitter.to_hash.slice(*TwitterFields)
-    user.save
-    user
+    find_or_initialize_from_twitter(twitter).tap do |user|
+      user['twitter'] = twitter.to_hash.slice(*TwitterFields)
+      user.save
+    end
+  end
+  
+  def self.find_or_initialize_from_twitter(twitter)
+    first('twitter.id' => twitter.id) ||
+      new(:username => twitter.screen_name, :name => twitter.name)
   end
   
   def self.generate_username(name)

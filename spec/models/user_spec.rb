@@ -171,11 +171,12 @@ describe User do
     
     it "finds an existing twitter user and updates twitter info" do
       existing_id = collection.insert :name => 'Mislav',
-        :twitter => { :screen_name => 'mislav', :name => 'Oldie Mislav' }
+        :twitter => { :screen_name => 'mislav_old', :name => 'Oldie Mislav', :id => 1234 }
       
       user = User.from_twitter(@twitter_data)
       user.id.should == existing_id
       user.name.should == 'Mislav'
+      user['twitter']['screen_name'].should == 'mislav'
       user['twitter']['name'].should == 'Birdie Mislav'
     end
     
