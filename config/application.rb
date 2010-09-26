@@ -65,7 +65,7 @@ module Movies
       :consumer_key => config.twitter.consumer_key, :secret => config.twitter.secret
     
     config.facebook_client = Facebook::Client.new(config.facebook.app_id, config.facebook.secret,
-      :user_fields => %w[link name email website timezone movies])
+      :user_fields => %w[link name email website timezone])
 
     # Configure sensitive parameters which will be filtered from the log file.
     # config.filter_parameters << :password

@@ -196,4 +196,64 @@ describe User do
       user.username.should == 'mislav1'
     end
   end
+  
+  describe ".from_facebook" do
+    before do
+      @facebook_data = Hashie::Mash.new :link => 'http://facebook.com/mislav', :name => 'Private Mislav', :id => 2345
+    end
+    
+    it "creates a new record" do
+      user = User.from_facebook(@facebook_data)
+      user.should be_persisted
+      user.username.should == 'mislav'
+      user.name.should == 'Private Mislav'
+      user['facebook']['id'].should == 2345
+      user.should match_selector('facebook.id' => 2345)
+    end
+    
+    it "finds an existing twitter user and updates twitter info" do
+      existing_id = collection.insert :name => 'Mislav',
+        :facebook => { :name => 'Oldie Mislav', :id => 2345 }
+      
+      user = User.from_facebook(@facebook_data)
+      user.id.should == existing_id
+      user.name.should == 'Mislav'
+      user['facebook']['name'].should == 'Private Mislav'
+      user['facebook']['link'].should == 'http://facebook.com/mislav'
+    end
+  end
+  
+  describe ".from_twitter_or_facebook" do
+    before do
+      @twitter_data = Hashie::Mash.new :screen_name => 'mislav', :name => 'Birdie Mislav', :id => 1234
+      @facebook_data = Hashie::Mash.new :link => 'http://facebook.com/mislav', :name => 'Private Mislav', :id => 2345
+    end
+    
+    it "merges two user records" do
+      existing_facebook_id = BSON::ObjectId.from_time(5.minutes.ago)
+      collection.save :facebook => { :id => 2345 }, :_id => existing_facebook_id
+      existing_twitter_id = collection.insert :twitter => { :id => 1234 }
+        
+      user = User.login_from_twitter_or_facebook(@twitter_data, @facebook_data)
+      user.id.should == existing_facebook_id
+      user['twitter']['id'].should == 1234
+      
+      User.first(existing_twitter_id).should be_nil
+    end
+  end
+  
+  describe "friends" do
+    it do
+      expected = []
+      expected << collection.insert(:twitter => { :id => 1234 })
+      expected << collection.insert(:facebook => { :id => 2345 })
+      
+      user = build.tap { |u|
+        u['twitter_friends'] = [1234, 1235]
+        u['facebook_friends'] = [2345, 2346]
+      }
+      
+      user.friends.map(&:id) =~ expected
+    end
+  end
 end

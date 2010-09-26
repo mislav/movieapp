@@ -60,7 +60,7 @@ GEM
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
-    facebook-login (0.2.2)
+    facebook-login (0.2.3)
       addressable (~> 2.1)
       hashie (>= 0.2.0)
       oauth2 (>= 0.0.6)

@@ -22,7 +22,9 @@
         <% elsif Movies.offline? %>
           <%= link_to 'Instalogin!', instant_login_path %>
         <% else %>
-          <%= link_to 'Login', twitter_login_path %>
+          Login with
+          <%= link_to 'Twitter', twitter_login_path %> or
+          <%= link_to 'Facebook', facebook_login_path %>
         <% end %>
       </nav>
     </header>

@@ -8,12 +8,14 @@ Movies::Application.routes.draw do |map|
   match 'director/*director' => 'movies#index', :as => :director, :via => :get
 
   config = Movies::Application.config
+  twitter = config.twitter_login.login_handler(:return_to => '/login/finalize')
+  facebook = config.facebook_client.login_handler(:return_to => '/login/finalize')
 
   match 'login/instant' => 'sessions#instant_login', :as => :instant_login
-  mount config.twitter_login.login_handler(:return_to => '/login/after_twitter') => 'login/twitter', :as => :twitter_login
-  mount config.facebook_client.login_handler => 'login/facebook', :as => :facebook_login
+  mount twitter => 'login/twitter', :as => :twitter_login
+  mount facebook => 'login/facebook', :as => :facebook_login
 
-  match 'login/after_twitter' => 'sessions#after_twitter'
+  match 'login/finalize' => 'sessions#finalize'
   match 'logout' => 'sessions#logout', :as => :logout
 
   root :to => "movies#index"

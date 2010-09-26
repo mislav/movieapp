@@ -1,3 +1,5 @@
+require 'yajl'
+
 class User < Mingo
   property :username
   property :name
@@ -10,12 +12,23 @@ class User < Mingo
     username
   end
   
+  def created_at
+    @created_at ||= self.id && self.id.generation_time
+  end
+  
   def twitter_friends=(ids)
     self['twitter_friends'] = ids
   end
   
+  def facebook_friends=(ids)
+    self['facebook_friends'] = ids
+  end
+  
   def friends(query = {}, options = {})
-    query = query.merge('twitter.id' => {'$in' => Array(self['twitter_friends'])})
+    query = query.merge('$or' => [
+      { 'twitter.id' => {'$in' => Array(self['twitter_friends'])} },
+      { 'facebook.id' => {'$in' => Array(self['facebook_friends'])} }
+    ])
     self.class.find(query, options)
   end
   
@@ -101,16 +114,86 @@ class User < Mingo
   
   TwitterFields = %w[name location created_at url utc_offset time_zone id lang protected followers_count screen_name]
   
-  def self.from_twitter(twitter)
-    find_or_initialize_from_twitter(twitter).tap do |user|
-      user['twitter'] = twitter.to_hash.slice(*TwitterFields)
-      user.save
+  def twitter_info=(info)
+    self['twitter'] = info.to_hash.slice(*TwitterFields).tap do |data|
+      self.username ||= data['screen_name']
+      self.name ||= data['name']
     end
   end
   
-  def self.find_or_initialize_from_twitter(twitter)
-    first('twitter.id' => twitter.id) ||
-      new(:username => twitter.screen_name, :name => twitter.name)
+  def self.from_twitter(twitter)
+    login_from_twitter_or_facebook(twitter, nil)
+  end
+  
+  def facebook_info=(info)
+    self['facebook'] = info.to_hash.tap do |data|
+      self.username ||= data['link'].scan(/\w+/).last
+      self.name ||= data['name']
+    end
+  end
+  
+  def self.from_facebook(facebook)
+    login_from_twitter_or_facebook(nil, facebook)
+  end
+  
+  def self.find_from_twitter_or_facebook(twitter_info, facebook_info)
+    if twitter_info or facebook_info
+      first({}.tap { |conditions|
+        conditions['twitter.id'] = twitter_info.id if twitter_info
+        conditions['facebook.id'] = facebook_info.id if facebook_info
+      })
+    end
+  end
+  
+  def self.login_from_twitter_or_facebook(twitter_info, facebook_info)
+    raise ArgumentError unless twitter_info or facebook_info
+    twitter_user = twitter_info && first('twitter.id' => twitter_info.id)
+    facebook_user = facebook_info && first('facebook.id' => facebook_info.id)
+    
+    if twitter_user.nil? and facebook_user.nil?
+      self.new
+    elsif twitter_user == facebook_user or facebook_user.nil?
+      twitter_user
+    elsif twitter_user.nil?
+      facebook_user
+    else
+      merge_accounts(twitter_user, facebook_user)
+    end.
+      tap do |user|
+        user.twitter_info = twitter_info if twitter_info
+        user.facebook_info = facebook_info if facebook_info
+        user.save
+      end
+  end
+  
+  def self.merge_accounts(user1, user2)
+    if user2.created_at < user1.created_at
+      user2.merge_account(user1)
+    else
+      user1.merge_account(user2)
+    end
+  end
+  
+  def merge_account(other)
+    other.each do |key, value|
+      self[key] = value if value and self[key].nil?
+    end
+    other.destroy
+    return self
+  end
+  
+  def fetch_twitter_info(twitter_client)
+    response = twitter_client.get('/1/friends/ids.json')
+    friends_ids = Yajl::Parser.parse response.body
+    self.twitter_friends = friends_ids
+    save
+  end
+  
+  def fetch_facebook_info(facebook_client)
+    response_string = facebook_client.get('/me', :fields => 'movies,friends')
+    user_info = Yajl::Parser.parse response_string
+    self.facebook_friends = user_info['friends']['data'].map { |f| f['id'].to_i }
+    save
   end
   
   def self.generate_username(name)
