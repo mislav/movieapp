@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       current_user.save
     end
     
-    redirect_to root_url
+    redirect_to watched_url(current_user)
   end
 
   def logout
