@@ -110,6 +110,29 @@ class User < Mingo
       liked_ids = @embedded.map { |watched| watched['movie'] if watched['liked'] }.compact
       @model.find({:_id => {'$in' => liked_ids}}, find_options)
     end
+    
+    def import_from_facebook(movies)
+      existing_ids = object_ids
+      facebook_ids = movies.each { |movie| movie['id'].to_i }
+      from_facebook = @model.find(:facebook_id => {'$in' => facebook_ids}).index_by { |m| m['facebook_id'] }
+      
+      movies.each do |movie|
+        unless found = from_facebook[movie['id'].to_i]
+          searched = @model.search movie['name']
+          unless searched.empty?
+            found = searched.first.tap { |m|
+              m['facebook_id'] = movie['id'].to_i
+              m.save
+            }
+          end
+        end
+        
+        if found and not existing_ids.include? found.id
+          time = Time.parse movie['created_time']
+          self << convert(found).update('liked' => true, 'time' => time)
+        end
+      end
+    end
   end
   
   TwitterFields = %w[name location created_at url utc_offset time_zone id lang protected followers_count screen_name]
@@ -193,6 +216,7 @@ class User < Mingo
     response_string = facebook_client.get('/me', :fields => 'movies,friends')
     user_info = Yajl::Parser.parse response_string
     self.facebook_friends = user_info['friends']['data'].map { |f| f['id'].to_i }
+    watched.import_from_facebook user_info['movies']['data']
     save
   end
   
