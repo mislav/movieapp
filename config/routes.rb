@@ -20,7 +20,8 @@ Movies::Application.routes.draw do |map|
 
   root :to => "movies#index"
   
-  match 'user/:username(/:filter)' => 'movies#redirect_user'
+  match 'user/:username' => redirect('/%{username}')
+  match 'user/:username/:more' => redirect('/%{username}/%{more}')
   
   match ':username' => 'movies#watched', :as => :watched, :via => :get
   match ':username/liked' => 'movies#liked', :as => :liked, :via => :get
