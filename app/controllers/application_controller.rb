@@ -21,6 +21,16 @@ class ApplicationController < ActionController::Base
     @current_user = user || :false
   end
   
+  def twitter_user?
+    !!session[:twitter_user]
+  end
+  helper_method :twitter_user?
+  
+  def facebook_user?
+    !!session[:facebook_user]
+  end
+  helper_method :facebook_user?
+  
   protected
   
   def authentication_denied_notice

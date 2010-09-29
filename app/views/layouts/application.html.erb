@@ -16,15 +16,16 @@
       <nav>
         <% if logged_in? %>
           <p>
-            Logged in as <%= link_to(current_user.username, watched_path(current_user)) %>,
-            <%= link_to 'logout', logout_path %>
+            Logged in as <%= link_to(current_user.username, watched_path(current_user)) %>
+            <%= from_where(current_user) %>
+            | <%= link_to 'logout', logout_path %>
           </p>
         <% elsif Movies.offline? %>
           <%= link_to 'Instalogin!', instant_login_path %>
         <% else %>
-          Login with
+          <p>Login with
           <%= link_to 'Twitter', twitter_login_path %> or
-          <%= link_to 'Facebook', facebook_login_path %>
+          <%= link_to 'Facebook', facebook_login_path %></p>
         <% end %>
       </nav>
     </header>

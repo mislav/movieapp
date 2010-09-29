@@ -148,6 +148,14 @@ class User < Mingo
     login_from_twitter_or_facebook(twitter, nil)
   end
   
+  def from_twitter?
+    !!self['twitter']
+  end
+  
+  def from_facebook?
+    !!self['facebook']
+  end
+  
   def facebook_info=(info)
     self['facebook'] = info.to_hash.tap do |data|
       self.username ||= data['link'].scan(/\w+/).last

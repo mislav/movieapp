@@ -22,4 +22,14 @@ module UsersHelper
       out << '.'
     end.html_safe
   end
+  
+  def from_where(user)
+    if twitter_user? and facebook_user?
+      'from Twitter and Facebook'
+    elsif twitter_user?
+      'from Twitter'
+    elsif facebook_user?
+      'from Facebook'
+    end
+  end
 end
