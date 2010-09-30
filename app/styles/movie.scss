@@ -238,3 +238,12 @@ article > h1 + nav {
   a { text-decoration: none; }
   a:hover { text-decoration: none; border-bottom: 1px solid silver; }
 }
+
+.users-list {
+  article h1 { font-size: 2em; }
+  ol {
+    font-size: 1.4em;
+    line-height: 2;
+    li { margin-bottom: .5em; }
+  }
+}

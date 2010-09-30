@@ -2,6 +2,10 @@ class UsersController < ApplicationController
   
   before_filter :find_user, :only => [:show, :to_watch, :liked, :friends]
   
+  def index
+    @users = User.find({}, :sort => ['_id', -1]).to_a
+  end
+  
   def show
     @movies = @user.watched.paginate(:page => params[:page], :per_page => 10)
     ajax_pagination

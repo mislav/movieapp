@@ -1,0 +1,12 @@
+<% body_class 'users-list' %>
+<article>
+  <h1>Our wonderful users</h1>
+  
+  <ol><% for user in @users %>
+    <li>
+      <%= link_to(user.username, watched_path(user)) %>
+      (<%= user.name %>)
+      — <%= user.watched.size %> watched, <%= user.to_watch.size %> to see
+    </li>
+  <% end %></ol>
+</article>

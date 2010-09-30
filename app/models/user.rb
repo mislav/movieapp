@@ -39,10 +39,18 @@ class User < Mingo
   end
   
   # 'to_watch' => [movie_id1, movie_id2, ...]
-  many :to_watch, Movie
+  many :to_watch, Movie do
+    def size
+      @embedded.size
+    end
+  end
   
   # 'watched' => [{ 'movie' => movie_id1, 'liked' => true }, { ... }, ...]
   many :watched, Movie do
+    def size
+      @embedded.size
+    end
+    
     # defines how to collect IDs of movies to load from the databae
     def object_ids
       @embedded.map { |watched| watched['movie'] }
@@ -234,7 +242,7 @@ class User < Mingo
     end
   end
   
-  Reserved = %w[following followers favorites timeline search home about login logout signup movies director]
+  Reserved = %w[following followers favorites timeline search home about login logout signup movies director users]
   
   def self.username_taken?(name)
     Reserved.include?(name) or find(:username => name).has_next?
