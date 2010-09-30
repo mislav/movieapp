@@ -25,7 +25,7 @@ class MoviesController < ApplicationController
   end
   
   def add_watched
-    current_user.watched.add_with_rating @movie, params[:liked]
+    current_user.watched.rate_movie @movie, params[:liked]
     ajax_actions_or_back
   end
   

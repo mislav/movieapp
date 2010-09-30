@@ -88,14 +88,22 @@ class User < Mingo
     end
     
     # custom method that wraps `<<` to add a movie with rating
-    def add_with_rating(movie, liked)
+    def rate_movie(movie, liked)
+      movie_id = movie.id
       liked = case liked.downcase
         when 'yes', 'true', '1' then true
         when 'no', 'false', '0' then false
         else nil
         end if liked.respond_to? :downcase
 
-      self << convert(movie).update('liked' => liked)
+      if @embedded.find { |e| e['movie'] == movie_id }
+        @parent.class.collection.update(
+          { :_id => @parent.id, "#{property}.movie" => movie_id },
+          { '$set' => {"#{property}.$.liked" => liked} }
+        )
+      else
+        self << convert(movie).update('liked' => liked)
+      end
     end
     
     def rating_for(movie)

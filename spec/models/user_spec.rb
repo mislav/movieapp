@@ -104,14 +104,14 @@ describe User do
         end
         
         it "saves a watched movie with rating" do
-          subject.watched.add_with_rating @deep_blue, true
+          subject.watched.rate_movie @deep_blue, true
           subject.watched.should include(@deep_blue)
           should match_selector('watched.movie' => @deep_blue.id, 'watched.liked' => true)
         end
         
         it "saves a watched movie with string rating" do
-          subject.watched.add_with_rating @deep_blue, 'Yes'
-          subject.watched.add_with_rating @breakfast, 'No'
+          subject.watched.rate_movie @deep_blue, 'Yes'
+          subject.watched.rate_movie @breakfast, 'No'
           should match_selector('watched.movie' => @deep_blue.id, 'watched.liked' => true)
           should match_selector('watched.movie' => @breakfast.id, 'watched.liked' => false)
         end
