@@ -1,7 +1,6 @@
 class MoviesController < ApplicationController
   
   before_filter :find_movie, :only => [:show, :add_to_watch, :add_watched]
-  before_filter :find_user, :only => [:watched, :to_watch, :liked, :friends]
   
   def index
     if @query = params[:q]
@@ -30,40 +29,10 @@ class MoviesController < ApplicationController
     ajax_actions_or_back
   end
   
-  def watched
-    @movies = @user.watched.paginate(:page => params[:page], :per_page => 10)
-    ajax_pagination
-  end
-  
-  def liked
-    @movies = @user.watched.liked.paginate(:page => params[:page], :per_page => 10)
-    ajax_pagination
-  end
-  
-  def to_watch
-    @movies = @user.to_watch.paginate(:page => params[:page], :per_page => 10)
-    ajax_pagination
-  end
-  
-  def friends
-    @movies = @user.movies_from_friends.paginate(:page => params[:page], :per_page => 10)
-    ajax_pagination
-  end
-  
   protected
   
   def find_movie
     @movie = Movie.first(params[:id])
-  end
-  
-  def find_user
-    @user = if logged_in? and params[:username] == current_user.username
-      current_user
-    else
-      User.first(:username => params[:username])
-    end
-    
-    render :user_not_found, :status => 404 unless @user
   end
   
   private
@@ -73,12 +42,6 @@ class MoviesController < ApplicationController
       render :partial => 'actions', :locals => {:movie => @movie}
     else
       redirect_to :back
-    end
-  end
-  
-  def ajax_pagination
-    if request.xhr?
-      render :partial => 'movie', :collection => @movies
     end
   end
 

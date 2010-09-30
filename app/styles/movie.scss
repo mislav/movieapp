@@ -172,7 +172,7 @@ ol.movies {
 }
 
 /* movie details */
-.show .movie {
+.movie-show .movie {
   margin-top:5.4em;
   
   padding-left: $poster-medium-width + $poster-margin;
@@ -217,11 +217,9 @@ ol.movies {
   }
 }
 
-body.watched, body.to_watch, body.liked {
-  > article > h1 + p {
-    margin: -2em 0 3em;
-    a { color: gray; }
-  }
+article > h1 + nav {
+  margin: -2em 0 3em;
+  a:link, a:visited { color: gray; }
 }
 
 .pagination {

@@ -2,9 +2,9 @@
 
   <% unless @movies.empty? %>
     <h1><%= @user.name %> liked <%= count @movies %>.</h1>
-    <p><%= link_to "#{count @user.watched} in total", watched_path(@user) %></p>
+    <nav><p><%= link_to "#{count @user.watched} in total", watched_path(@user) %></p></nav>
     
-    <%= render 'paginated', :movies => @movies %>
+    <%= render 'movies/paginated', :movies => @movies %>
   <% else %>
     <p><%= @user.name %> didn't tell us what he/she liked yet.</p>
   <% end %>

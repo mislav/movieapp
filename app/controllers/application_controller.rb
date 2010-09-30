@@ -41,4 +41,12 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+  
+  private
+  
+  def ajax_pagination
+    if request.xhr?
+      render :partial => 'movies/movie', :collection => @movies
+    end
+  end
 end
