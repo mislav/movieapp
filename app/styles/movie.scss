@@ -279,3 +279,17 @@ article > h1 + nav {
     li { margin-bottom: .5em; }
   }
 }
+
+.intro {
+  background: lighten($lightblue, 10%);
+  @include linear-gradient(color-stops(rgba(white, .4), rgba(white, 0)));
+  @include text-shadow(rgba(white, .8));
+  border: 1px solid $lightblue;
+  @include border-radius(10px);
+  padding: 1em 2em;
+  font-size: 1.3em;
+  margin: 1em auto 1em 0;
+  width: 80%;
+  line-height: 1.5;
+  p + p { margin-top: .6em; }
+}
