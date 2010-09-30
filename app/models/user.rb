@@ -38,6 +38,10 @@ class User < Mingo
     Movie.find '_id' => {'$in' => movie_ids}
   end
   
+  def friends_who_watched(movie)
+    friends({'watched.movie' => movie.id}, :fields => [:username, :name])
+  end
+  
   # 'to_watch' => [movie_id1, movie_id2, ...]
   many :to_watch, Movie do
     def size
@@ -169,6 +173,14 @@ class User < Mingo
       self.username ||= data['link'].scan(/\w+/).last
       self.name ||= data['name']
     end
+  end
+  
+  def twitter_url
+    'http://twitter.com/' + self['twitter']['screen_name']
+  end
+  
+  def facebook_url
+    self['facebook']['link']
   end
   
   def self.from_facebook(facebook)

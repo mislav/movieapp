@@ -2,11 +2,20 @@
 
   <% if not @movies.empty? %>
     <h1><%= @user.name %> watched <%= count @movies %>.</h1>
-    <nav><p>
-      <%= link_to "#{count @user.watched.liked} liked", liked_path(@user) %>,
-      <%= link_to "#{count @user.to_watch} to watch", to_watch_path(@user) %>,
-      <%= link_to "movies by friends", friends_path(@user) %>
-    </p></nav>
+    <nav>
+      <p>
+        <%= link_to "#{count @user.watched.liked} liked", liked_path(@user) %>,
+        <%= link_to "#{count @user.to_watch} to watch", to_watch_path(@user) %>,
+        <%= link_to "movies by friends", friends_path(@user) %>
+      </p>
+      <% unless my_page? %>
+        <p><% if @user.from_twitter? %>
+          <%= link_to @user.twitter_url do %><%= twitter_icon(nil) %> <span>@<%= @user['twitter']['screen_name'] %> on Twitter</span><% end %>
+        <% elsif @user.from_facebook? %>
+          <%= link_to @user.facebook_url do %><%= facebook_icon(nil) %> <span>Facebook profile</span><% end %>
+        <% end %></p>
+      <% end %>
+    </nav>
     
     <%= render 'movies/paginated', :movies => @movies %>
   <% elsif my_page? and @user.to_watch.count.zero? %>

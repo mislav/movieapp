@@ -10,6 +10,11 @@ $lightblue:#ADD8E6;
 
 body, h1, h2, h3, p { margin:0; padding:0 }
 
+img {
+  border: none;
+  &.icon { vertical-align: middle; margin-bottom: 4px; }
+}
+
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
   display:block;
 }
@@ -28,8 +33,30 @@ h1 { font-weight:normal; @include text-shadow;
 body > header { width:38em; float:left;
   h1 { font:bold 5em/1.5em $heading-type; letter-spacing:1px } }
 
+@mixin link-icon {
+  a {
+    text-decoration: none;
+    span { text-decoration: underline; }
+  }
+}
+
 header {
-  nav { position:absolute; right:4em; top:1.1em }
+  nav {
+    position: absolute; right: 4em; top: 1.1em;
+    .login {
+      color: darken($lightblue, 30%);
+      @include link-icon;
+      a {
+        img { opacity: .5; @include transition(opacity, 0.15s, ease-out); }
+        span { @include transition(color, 0.15s, ease-out); }
+        &:hover {
+          span { color: $body-color; }
+          img { opacity: 1; }
+        }
+      }
+      
+    }
+  }
 
   + form { margin-top:1.8em;
     label { display:block }
@@ -220,6 +247,11 @@ ol.movies {
 article > h1 + nav {
   margin: -2em 0 3em;
   a:link, a:visited { color: gray; }
+  p + p {
+    margin-top: .5em;
+    &:before { content: '▸ '; line-height: 1; }
+    @include link-icon;
+  }
 }
 
 .pagination {

@@ -12,4 +12,12 @@ module ApplicationHelper
     end
   end
   
+  def twitter_icon(alt = 'Twitter')
+    image_tag('twitter.gif', :alt => alt, :class => 'icon')
+  end
+  
+  def facebook_icon(alt = 'Facebook')
+    image_tag('facebook.gif', :alt => alt, :class => 'icon')
+  end
+  
 end

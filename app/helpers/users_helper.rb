@@ -1,4 +1,12 @@
 module UsersHelper
+  def username_with_icon(user)
+    [].tap { |out|
+      out << twitter_icon if user.from_twitter?
+      out << facebook_icon if user.from_facebook?
+      out << link_to(user.username, watched_path(user))
+    }.join(' ').html_safe
+  end
+  
   def my_page?
     logged_in? and current_user == @user
   end
