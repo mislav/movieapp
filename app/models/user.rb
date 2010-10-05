@@ -47,6 +47,10 @@ class User < Mingo
     def size
       @embedded.size
     end
+    
+    def paginate(options)
+      @model.paginate_ids(self.object_ids.reverse, options, find_options)
+    end
   end
   
   # 'watched' => [{ 'movie' => movie_id1, 'liked' => true }, { ... }, ...]
@@ -57,7 +61,7 @@ class User < Mingo
     
     # defines how to collect IDs of movies to load from the databae
     def object_ids
-      @embedded.map { |watched| watched['movie'] }
+      @embedded.sort_by { |watched| watched['time'] }.map { |watched| watched['movie'] }
     end
     
     # defines how to convert given object (or document) to a custom
@@ -152,6 +156,10 @@ class User < Mingo
           self << convert(found).update('liked' => true, 'time' => time)
         end
       end
+    end
+    
+    def paginate(options)
+      @model.paginate_ids(self.object_ids.reverse, options, find_options)
     end
   end
   
