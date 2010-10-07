@@ -249,14 +249,14 @@ describe User do
       @friends << collection.insert(:twitter => { :id => 1234 })
       
       @mate = create(:username => 'mate') do |user|
-        user.facebook_info = { 'id' => 2345 }
+        user.facebook_info = { 'id' => "2345" }
         user.watched << @movie
       end
       @friends << @mate.id
       
       @user = build.tap { |user|
         user.twitter_friends = [1234, 1235]
-        user.facebook_friends = [2345, 2346]
+        user.facebook_friends = ["2345", "2346"]
       }
     end
     

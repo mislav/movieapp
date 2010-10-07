@@ -24,7 +24,7 @@ module ManyUsernames
     User.create(attributes) do |user|
       user.name ||= 'Sin Nombre'
       user.twitter_info = { 'id' => ManyUsernames.generate_id }
-      user.facebook_info = { 'id' => ManyUsernames.generate_id }
+      user.facebook_info = { 'id' => ManyUsernames.generate_id.to_s }
     end
   end
   

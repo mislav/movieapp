@@ -21,7 +21,7 @@ class User < Mingo
   end
   
   def facebook_friends=(ids)
-    self['facebook_friends'] = ids.map { |id| id.to_i }
+    self['facebook_friends'] = ids.map { |id| id.to_s }
   end
   
   def friends(query = {}, options = {})
