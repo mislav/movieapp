@@ -291,5 +291,10 @@ article > h1 + nav {
   margin: 1em auto 1em 0;
   width: 80%;
   line-height: 1.5;
+  
   p + p { margin-top: .6em; }
+  
+  body > article > &:first-child {
+    position: relative; top: -2em;
+  }
 }
