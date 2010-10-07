@@ -52,6 +52,11 @@ class User < Mingo
     def size
       @embedded.size
     end
+
+    def <<(doc)
+      return self if object_ids.include? doc.id
+      super
+    end
     
     def paginate(options)
       @model.paginate_ids(self.object_ids.reverse, options, find_options)
@@ -91,7 +96,10 @@ class User < Mingo
     
     # overload push operator to remove matching movie from `to_watch` list
     def <<(doc)
-      super.tap do |result|
+      converted = convert(doc)
+      return self if object_ids.include? converted['movie']
+
+      super(converted).tap do |result|
         @parent.to_watch.delete(doc.instance_of?(Hash) ? doc['movie'] : doc)
       end
     end

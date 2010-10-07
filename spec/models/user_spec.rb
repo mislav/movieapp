@@ -62,6 +62,11 @@ describe User do
           subject.to_watch.to_a.should == [@deep_blue, @breakfast]
         end
       
+        it "doesn't add movie twice" do
+          subject.to_watch << @deep_blue
+          subject.reload.to_watch.object_ids.size.should == 2
+        end
+      
         it "deletes a movie from watchlist" do
           subject.to_watch.delete @deep_blue
           subject.to_watch.should_not include(@deep_blue)
@@ -133,6 +138,11 @@ describe User do
             user.reload
           end
         }
+        
+        it "doesn't add a movie twice" do
+          subject.watched << @deep_blue
+          subject.reload.watched.object_ids.size.should == 2
+        end
         
         it "watched movies with rating information" do
           first, second = subject.watched.to_a
