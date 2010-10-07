@@ -7,6 +7,10 @@ module UsersHelper
     }.join(' ').html_safe
   end
   
+  def user_name(user)
+    user.name.presence || user.username
+  end
+  
   def link_to_user(user)
     link_to(user.username, watched_path(user), :title => user.name)
   end

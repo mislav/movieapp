@@ -8,6 +8,12 @@ module MoviesHelper
     link_to(title_for_movie(movie), movie) + movie_year(movie)
   end
   
+  def movie_title_with_year(movie)
+    str = movie.title
+    str += " (#{movie.year})" unless movie.year.blank?
+    str
+  end
+  
   def movie_year(movie)
     if movie.year.blank? then ""
     else %( <span class="year">(<time>#{movie.year}</time>)</span>).html_safe

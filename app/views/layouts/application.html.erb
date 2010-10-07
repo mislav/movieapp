@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <%= csrf_meta_tag %>
-    <title>Movies app!</title>
+    <title><%= @title || 'The Movie App' %></title>
     <%= stylesheet_link_tag "movie" %>
   </head>
   

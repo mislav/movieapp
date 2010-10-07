@@ -1,4 +1,5 @@
 <% body_class 'movie-show' %>
+<% @title = movie_title_with_year(@movie) %>
 <article class="movie">
   
   <%= movie_poster(@movie, :medium) %>

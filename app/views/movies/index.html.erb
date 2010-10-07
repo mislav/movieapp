@@ -10,8 +10,9 @@
 
   <h1><% if @query %>
     Search results for <i><%= h @query %></i>
+    <% @title = "Movie search for #{@query}"%>
   <% elsif @director %>
-    Movies by <%= @director %>
+    <%= @title = "Movies by #{@director}" %>
   <% else %>
     All movies
   <% end %></h1>
