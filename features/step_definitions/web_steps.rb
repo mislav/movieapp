@@ -109,7 +109,7 @@ Then /^(?:|I )should( not)? see ("[^"]*"|'[^']*')(?: within "([^\"]*)")?$/ do |n
     text = text[1..-2]
     
     args = ['/.', {
-      :text => Regexp.new(Regexp.escape(text).gsub('\ ', '(?:\0|\\\302\\\240)')),
+      :text => Regexp.new(Regexp.escape(text).gsub('\ ', '(?:\0|\\\302\\\240|[ \n]+)')),
       :visible => Capybara.current_driver == Capybara.javascript_driver
     }]
     

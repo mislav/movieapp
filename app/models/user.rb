@@ -44,7 +44,7 @@ class User < Mingo
   end
   
   def friends_who_watched(movie)
-    friends({'watched.movie' => movie.id}, :fields => [:username, :name])
+    friends({'watched.movie' => movie.id}, :fields => [:username, :name], :sort => ['_id', -1])
   end
   
   # 'to_watch' => [movie_id1, movie_id2, ...]

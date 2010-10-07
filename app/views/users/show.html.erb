@@ -27,6 +27,12 @@
       <li>???</li>
       <li>… profit!</li>
     </ol>
+    <% if (movies_count = @user.movies_from_friends.count) > 0 %>
+      <p>
+        Your friends have watched <%= pluralize(movies_count, 'movie') %>.
+        See <%= link_to "movies by friends", friends_path(@user) %>
+      </p>
+    <% end %>
     </section>
   <% else %>
     <p><%= link_to "#{count @user.to_watch} to watch", to_watch_path(@user) %></p>

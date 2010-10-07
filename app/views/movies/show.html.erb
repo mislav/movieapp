@@ -26,5 +26,13 @@
   <% if @movie.homepage.present? %>
     <p><a href="<%= @movie.homepage %>">Official website</a></p>
   <% end %>
+
+  <% if logged_in? and not (friends = current_user.friends_who_watched(@movie).to_a).empty? %>
+    <p class="friends">
+      <%= list_of_people(friends, :other => 'other friend') %>
+      <%= friends.length == 1 ? 'has' : 'have' %>
+      watched this.
+    </p>
+  <% end %>
   
 </article>

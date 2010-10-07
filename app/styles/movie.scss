@@ -217,6 +217,7 @@ ol.movies {
   }
 
   h1 { font-size: 3em; line-height: 1; margin-bottom: .2em; }
+  p { margin-top: 1em; }
 
   header {
     .year { font-size: 1.8em; line-height: 1.1; }
@@ -236,12 +237,12 @@ ol.movies {
       a { text-decoration: none; }
       a:hover { text-decoration: underline; }
     }
+    .countries { margin-top: 0; }
   }
   
-  .plot {
-    margin-top: 3em; max-width: 38em;
-    + p { margin-top: 1em; }
-  }
+  .plot { margin-top: 3em; max-width: 38em; }
+  
+  .friends { font-style: italic; }
 }
 
 article > h1 + nav {

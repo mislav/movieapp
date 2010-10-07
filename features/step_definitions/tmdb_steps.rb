@@ -24,7 +24,9 @@ Given /^TMDB returns "([^"]+)" for "([^"]+)" movie details$/ do |fixture, title|
   stub_request(:get, url).to_return(:body => body, :status => 200)
 end
 
-Given /^the database contains movies from TMDB "([^"]+)"$/ do |fixture|
+Given /^the database contains movies from TMDB "([^"]+)"( with full info)?$/ do |fixture, has_info|
   body = read_fixture("tmdb-#{fixture}")
   Movie.from_tmdb_movies(Tmdb.parse(body).movies).each { |m| m.save }
+  # hack: prevents ensure_extended_info from hitting the API
+  Movie.collection.update({}, {'$unset' => {:tmdb_id => 1}}, :multi => true, :safe => true) if has_info
 end

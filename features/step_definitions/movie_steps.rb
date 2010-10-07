@@ -42,3 +42,12 @@ Then /^I should see movies: (.+)$/ do |movies|
   found = all('.movie h1').zip(all('.movie .year time')).map { |pair| "#{pair.first.text} (#{pair.last.text})" }
   found.should =~ titles
 end
+
+Given /^(@.+) watched "([^"]+)"$/ do |users, title|
+  movie = find_movie(title)
+  @last_movie_title = movie.title
+  
+  each_user(users) do |user|
+    user.watched << movie
+  end
+end
