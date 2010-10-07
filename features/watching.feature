@@ -32,10 +32,10 @@ Feature: Marking movies as to-watch or watched
     When I press "No" for that movie
     Then I should see "You watched this movie, but didn't like it." for that movie
     When I press "Yes" for the movie "Terminator 2: Judgment Day"
-    And I press "Meh" for the movie "Terminator 3: Rise Of The Machines"
+    And I press "Meh" for the movie "Terminator 3: Rise of the Machines"
     And I follow "mislav" in the navigation
     
-    Then I should see movies: "Terminator Salvation (2009)", "Terminator 2: Judgment Day (1991)", and "Terminator 3: Rise Of The Machines (2003)"
+    Then I should see movies: "Terminator Salvation (2009)", "Terminator 2: Judgment Day (1991)", and "Terminator 3: Rise of the Machines (2003)"
     Then I should see "You watched this movie and liked it." for the movie "Terminator 2: Judgment Day"
-    Then I should see "You watched this movie." for the movie "Terminator 3: Rise Of The Machines"
+    Then I should see "You watched this movie." for the movie "Terminator 3: Rise of the Machines"
     

@@ -30,4 +30,4 @@ Feature: Movie search
     And I should see "(1984)" for the movie "The Terminator"
     But I should not see "Steven Spielberg gives us a humorous look" for the movie "The Terminator"
     And I should see "Terminator 2: Judgment Day" as a movie title in the results
-    And I should see "Terminator 3: Rise Of The Machines" as a movie title in the results
+    And I should see "Terminator 3: Rise of the Machines" as a movie title in the results

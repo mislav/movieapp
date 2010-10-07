@@ -5,4 +5,4 @@ Feature: Browse by director
     When I am on the "An Education" movie page
     And I follow "Lone Scherfig"
     Then I should see "Movies by Lone Scherfig" in the title
-    And I should see movies: "His Third Movie (2010)", "An Education (2009)", and "Another Lone Scherfig Movie (2008)"
+    And I should see movies: "His third movie (2010)", "An Education (2009)", and "Another Lone Scherfig movie (2008)"
