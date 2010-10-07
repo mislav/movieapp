@@ -128,6 +128,12 @@
     form.submit();
   }
 
+  function disableFormElements(form) {
+    form.select('input[type=submit][data-disable-with]').each(function(input) {
+      input.store('rails:original-value', input.getValue());
+      input.disable().setValue(input.readAttribute('data-disable-with'));
+    });
+  }
 
   document.on("click", "*[data-confirm]", function(event, element) {
     var message = element.readAttribute('data-confirm');
@@ -160,17 +166,19 @@
       return false;
     }
 
-    form.select('input[type=submit][data-disable-with]').each(function(input) {
-      input.store('rails:original-value', input.getValue());
-      input.disable().setValue(input.readAttribute('data-disable-with'));
-    });
-
     if (form.readAttribute('data-remote')) {
       handleRemote(form);
       event.stop();
+    } else {
+      disableFormElements(form);
     }
   });
 
+  document.on("ajax:create", function(event) {
+    var element = event.findElement();
+    if (element.match('form')) disableFormElements(element);
+  });
+  
   document.on("ajax:complete", "form", function(event, form) {
     form.select('input[type=submit][data-disable-with]').each(function(input) {
       input.setValue(input.retrieve('rails:original-value')).enable();
