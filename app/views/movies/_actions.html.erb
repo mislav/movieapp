@@ -20,9 +20,9 @@
     </div>
     <div class="question">
       <p>Did you like it?</p>
-      <%= button_to 'Yes', add_watched_path(movie), :remote => true, :method => :put, :name => 'liked' %>
-      <%= button_to 'No', add_watched_path(movie), :remote => true, :method => :put, :name => 'liked' %>
-      <%= button_to 'Meh', add_watched_path(movie), :remote => true, :method => :put, :name => 'liked' %>
+      <%= button_to 'Yes', add_watched_path(movie), :remote => true, :method => :put, :name => 'liked', :'data-disable-with' => '⋯' %>
+      <%= button_to 'No', add_watched_path(movie), :remote => true, :method => :put, :name => 'liked', :'data-disable-with' => '⋯' %>
+      <%= button_to 'Meh', add_watched_path(movie), :remote => true, :method => :put, :name => 'liked', :'data-disable-with' => '⋯' %>
       <%= link_to 'cancel', '#cancel' %>
     </div>
   <% end %>

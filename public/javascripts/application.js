@@ -16,6 +16,8 @@ document.on('click', '.actions .question a[href="#cancel"]', function(e, link) {
 
 document.on('ajax:success', '.actions .button_to', function(e, form) {
   if (useTransitions) {
+    form.select('input[type=submit][data-disable-with]').invoke('removeAttribute', 'data-disable-with')
+    
     form.up('.actions').addClassName('fadeout').once('webkitTransitionEnd', function() {
       var parent = this.up()
       this.replace(e.memo.responseText)
