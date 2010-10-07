@@ -17,11 +17,11 @@ class User < Mingo
   end
   
   def twitter_friends=(ids)
-    self['twitter_friends'] = ids
+    self['twitter_friends'] = ids.map { |id| id.to_i }
   end
   
   def facebook_friends=(ids)
-    self['facebook_friends'] = ids
+    self['facebook_friends'] = ids.map { |id| id.to_i }
   end
   
   def friends(query = {}, options = {})
@@ -32,10 +32,15 @@ class User < Mingo
     self.class.find(query, options)
   end
   
-  def movies_from_friends
+  def movies_from_friends(options = {})
     users = friends({'watched' => {'$exists' => true}}, :fields => [:watched])
-    movie_ids = friends.map { |u| u.watched.object_ids }.flatten.uniq
-    Movie.find '_id' => {'$in' => movie_ids}
+    movie_ids = friends.map { |u| u.watched.object_ids.reverse }.flatten.uniq
+    
+    if options.key? :page
+      Movie.paginate_ids(movie_ids, options)
+    else
+      Movie.find_by_ids(movie_ids)
+    end
   end
   
   def friends_who_watched(movie)
@@ -259,7 +264,7 @@ class User < Mingo
   def fetch_facebook_info(facebook_client)
     response_string = facebook_client.get('/me', :fields => 'movies,friends')
     user_info = Yajl::Parser.parse response_string
-    self.facebook_friends = user_info['friends']['data'].map { |f| f['id'].to_i }
+    self.facebook_friends = user_info['friends']['data'].map { |f| f['id'] }
     watched.import_from_facebook user_info['movies']['data']
     save
   end

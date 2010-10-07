@@ -3,8 +3,8 @@ module FactoryMethods
     described_class.new(*args)
   end
 
-  def create(*args)
-    described_class.create(*args)
+  def create(*args, &block)
+    described_class.create(*args, &block)
   end
 end
 

@@ -243,17 +243,35 @@ describe User do
   end
   
   describe "friends" do
-    it do
-      expected = []
-      expected << collection.insert(:twitter => { :id => 1234 })
-      expected << collection.insert(:facebook => { :id => 2345 })
+    before do
+      @movie = Movie.create
+      @friends = []
+      @friends << collection.insert(:twitter => { :id => 1234 })
       
-      user = build.tap { |u|
-        u['twitter_friends'] = [1234, 1235]
-        u['facebook_friends'] = [2345, 2346]
+      @mate = create(:username => 'mate') do |user|
+        user.facebook_info = { :id => 2345 }
+        user.watched << @movie
+      end
+      @friends << @mate.id
+      
+      @user = build.tap { |user|
+        user.twitter_friends = [1234, 1235]
+        user.facebook_friends = [2345, 2346]
       }
-      
-      user.friends.map(&:id) =~ expected
+    end
+    
+    it "connects over twitter and facebook" do
+      @user.friends.map(&:id).should =~ @friends
+    end
+    
+    it "filters by watched movie" do
+      friends = @user.friends_who_watched(@movie).to_a
+      friends.should == [@mate]
+      friends.first.username.should == 'mate'
+    end
+    
+    it "finds movies" do
+      @user.movies_from_friends.to_a.should == [@movie]
     end
   end
 end

@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   end
   
   def friends
-    @movies = @user.movies_from_friends.paginate(:page => params[:page], :per_page => 10)
+    @movies = @user.movies_from_friends(:page => params[:page], :per_page => 10)
     ajax_pagination
   end
   
