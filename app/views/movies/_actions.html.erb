@@ -1,5 +1,5 @@
 <aside class="actions">
-  <% if @user and not my_page? %>
+  <% if @user and not my_page? and movie.respond_to? :liked? %>
     <p><%= watched_liked movie, @user %></p>
   <% end %>
   
