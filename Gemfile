@@ -12,6 +12,7 @@ gem 'facebook-login', '~> 0.2.0', :require => 'facebook/login' #, :path => '/Use
 gem 'rspec-rails', '~> 2.0.0.beta.19'
 gem 'haml', '~> 3.0.18'
 gem 'compass'
+gem 'escape_utils'
 
 group :extras do
   gem 'nokogiri', '~> 1.4.1'

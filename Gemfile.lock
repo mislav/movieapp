@@ -60,6 +60,7 @@ GEM
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    escape_utils (0.1.9)
     facebook-login (0.2.3)
       addressable (~> 2.1)
       hashie (>= 0.2.0)
@@ -174,6 +175,7 @@ DEPENDENCIES
   capybara
   compass
   cucumber-rails
+  escape_utils
   facebook-login (~> 0.2.0)
   haml (~> 3.0.18)
   hashie (>= 0.2.0)
