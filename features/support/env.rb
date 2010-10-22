@@ -18,34 +18,6 @@ require 'capybara/session'
 # Lets you click links with onclick javascript handlers without using @culerity or @javascript
 # require 'cucumber/rails/capybara_javascript_emulation'
 
-Capybara::Driver::Selenium.class_eval do
-  class << self
-    alias old_driver driver
-    if false
-      # override firefox driver in favor of chrome
-      def driver
-        @driver ||= begin
-          driver = Selenium::WebDriver.for :chrome
-          at_exit { driver.quit }
-          driver
-        end
-      end
-    else
-      # fix running Firefox while offline
-      # http://groups.google.com/group/ruby-capybara/browse_thread/thread/c012c73aa3ee86
-      def driver
-        @driver ||= begin
-          profile = Selenium::WebDriver::Firefox::Profile.new 
-          profile['network.manage-offline-status'] = false
-          driver = Selenium::WebDriver.for :firefox, :profile => profile
-          at_exit { driver.quit }
-          driver
-        end
-      end
-    end
-  end
-end
-
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your
@@ -76,20 +48,3 @@ ActionController::Base.allow_rescue = false
 # subsequent scenarios. If you do this, we recommend you create a Before
 # block that will explicitly put your database in a known state.
 # Cucumber::Rails::World.use_transactional_fixtures = true
-
-# require 'rack/test' 
-# require 'rack/test/cookie_jar'
-# 
-# # quick fix for Rails 2.3.6+
-# # http://groups.google.com/group/ruby-capybara/browse_thread/thread/3889bda967163eb6
-# Rack::Test::CookieJar.class_eval do 
-#   def merge(raw_cookies, uri = nil) 
-#     return unless raw_cookies 
-#     raw_cookies = raw_cookies.split("\n") if raw_cookies.is_a? String 
-#     raw_cookies.reject! {|raw_cookie| raw_cookie.blank?} 
-#     raw_cookies.each do |raw_cookie| 
-#       cookie = ::Rack::Test::Cookie.new(raw_cookie, uri, @default_host) 
-#       self << cookie if cookie.valid?(uri) 
-#     end 
-#   end 
-# end

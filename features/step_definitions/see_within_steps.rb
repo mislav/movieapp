@@ -13,7 +13,7 @@ each do |within, selector|
 end
 
 Then /^(?:|I )should( not)? see an? "([^\"]*)" button$/ do |negate, text|
-  xpath = Capybara::XPath.from_css %(input[type=submit][value="#{text}"])
+  xpath = XPath.css %(input[type=submit][value="#{text}"])
   options = {}
   options[:visible] = true if Capybara.current_driver == Capybara.javascript_driver
   
