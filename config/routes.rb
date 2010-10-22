@@ -1,4 +1,4 @@
-Movies::Application.routes.draw do |map|
+Movies::Application.routes.draw do
 
   match 'movies/towatch/:id' => 'movies#add_to_watch', :as => :add_to_watch, :via => :put
   match 'movies/watched/:id' => 'movies#add_watched', :as => :add_watched, :via => :put
