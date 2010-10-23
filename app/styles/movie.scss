@@ -27,11 +27,15 @@ body {
 /*  background-image:url('/images/9_2_grid.png');*/
 }
 
-h1 { font-weight:normal; @include text-shadow;
-  a { text-decoration:none } }
+h1 {
+  font-weight: normal; @include text-shadow;
+  a { text-decoration: none }
+}
 
-body > header { width:38em; float:left;
-  h1 { font:bold 5em/1.5em $heading-type; letter-spacing:1px } }
+body > header {
+  width: 38em; float: left;
+  h1 { font: bold 5em/1.5em $heading-type; letter-spacing: 1px }
+}
 
 @mixin link-icon {
   a {
@@ -282,6 +286,16 @@ article > h1 + nav {
     li { margin-bottom: .5em; }
   }
 }
+
+.about > article {
+  max-width: 48em;
+  h2 {
+    font: normal 1.3em $body-type; @include text-shadow;
+    margin: 1.5em 0 1em 0;
+  }
+  p { margin-bottom: .5em; }
+}
+
 
 .intro {
   background: lighten($lightblue, 10%);
