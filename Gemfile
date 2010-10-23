@@ -5,7 +5,6 @@ gem 'rails', '~> 3.0.0.rc' #, :path => '/Users/mislav/.coral/rails-3-0-stable'
 gem 'mingo', '>= 0.1.3' #, :path => '/Users/mislav/Projects/mingo'
 gem 'mongo_ext', '>= 0.19.3', :require => nil
 gem 'bson_ext', '>= 1.1.1', :require => nil
-gem 'hashie', '>= 0.2.0'
 gem 'twitter-login', '~> 0.4.0', :require => 'twitter/login' #, :path => '/Users/mislav/Projects/twitter-login'
 gem 'will_paginate', '3.0.pre2' #, :path => '/Users/mislav/.coral/will_paginate-mislav'
 gem 'facebook-login', '~> 0.2.0', :require => 'facebook/login' #, :path => '/Users/mislav/Projects/facebook'
@@ -13,6 +12,7 @@ gem 'rspec-rails', '~> 2.0.0.beta.19'
 gem 'haml', '~> 3.0.18'
 gem 'compass'
 gem 'escape_utils'
+gem 'choices' #, :path => '/Users/mislav/Projects/choices'
 
 group :extras do
   gem 'nokogiri', '~> 1.4.1'

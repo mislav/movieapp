@@ -7,8 +7,6 @@ require 'action_view/railtie'
 # Auto-require default libraries and those for the current Rails environment.
 Bundler.require :default, Rails.env
 
-require 'erb'
-
 module Movies
   def self.offline?
     Application.config.offline
@@ -18,22 +16,8 @@ module Movies
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    
-    settings = ERB.new(IO.read(File.expand_path('../settings.yml', __FILE__))).result
-    mash = Hashie::Mash.new(YAML::load(settings)[Rails.env.to_s])
-    
-    optional_file = File.expand_path('../settings.local.yml', __FILE__)
-    if File.exists? optional_file
-      optional_settings = ERB.new(IO.read(optional_file)).result
-      optional_values = YAML::load(optional_settings)[Rails.env.to_s]
-      mash.update optional_values if optional_values
-    end
-    
-    mash.each do |key, value|
-      config.send("#{key}=", value)
-    end
-    
-    config.heroku = !!ENV['HEROKU_TYPE']
+
+    config.from_file 'settings.yml'
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named

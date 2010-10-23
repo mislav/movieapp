@@ -1,6 +1,7 @@
 defaults: &defaults
   offline: false
   secret_token: <%= ENV['COOKIE_SECRET'] %>
+  heroku: <%= !!ENV['HEROKU_TYPE'] %>
   mongodb:
     uri: <%= ENV['MONGOHQ_URL'] %>
   netflix:
