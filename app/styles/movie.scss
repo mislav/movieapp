@@ -1,13 +1,17 @@
 @import "compass";
 
-$default-text-shadow-color:rgba(gray, .5);
 $body-type:geneva, "bitstream vera sans", arial, helvetica, sans-serif;
 $heading-type:"american typewriter", georgia, serif;
 
 $body-color:#02303f;
-$lightblue:#ADD8E6;
+$default-text-shadow-color:rgba(gray, .3);
 
-@font-face { font-family:"josefin sans std"; src:url("/fonts/JosefinSansStd-Light.otf") }
+$lightblue:#4A8A9F;
+$top-color-stop:#DEEAEE;
+$bottom-color-stop:#EFF4F6;
+$lightblue-border:#CEDFE5;
+
+$body-padding:40px;
 
 body, h1, h2, h3, p { margin:0; padding:0 }
 
@@ -21,11 +25,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 body {
-  color:$body-color;
-  font:75%/1.5em $body-type;
-  padding:1.75em 4em;
-  background-color:#fdfdfd;
 /*  background-image:url('/images/9_2_grid.png');*/
+  color:$body-color; background-color:#fdfdfd;
+  font:75%/1.5em $body-type;
+  padding:0 $body-padding;
 }
 
 h1 {
@@ -34,8 +37,11 @@ h1 {
 }
 
 body > header {
-  width: 38em; float: left;
-  h1 { font: bold 5em/1.5em $heading-type; letter-spacing: 1px }
+  padding:0 $body-padding; margin:0 (0 - $body-padding);
+  border-bottom:1px solid $lightblue-border;
+  @include linear-gradient(color-stops($top-color-stop, $bottom-color-stop));
+
+  h1 { font:normal 3em/1.85em $heading-type; letter-spacing:1px; }
 }
 
 @mixin link-icon {
@@ -46,40 +52,43 @@ body > header {
 }
 
 header {
+  
+  nav, + form { color:$lightblue; }
+
   nav {
-    position: absolute; right: 4em; top: 1.1em;
+    position:absolute; right:3em; top:1.1em;
+
     .login {
-      color: darken($lightblue, 30%);
       @include link-icon;
+
       a {
         img { opacity: .5; @include transition(opacity, 0.15s, ease-out); }
         span { @include transition(color, 0.15s, ease-out); }
         &:hover {
           span { color: $body-color; }
-          img { opacity: 1; }
-        }
-      }
-      
-    }
-  }
+          img { opacity: 1; } } } } }
 
-  + form { margin-top:1.8em;
-    label { display:block }
+  + form {
+    position:absolute; left:29em; top:1.1em;
+    
+    label { display:block; padding-left:6px; }
+ 
     input[type="search"] { font-size:11px; width:15em;
       .no-inputsearch & {
         @include box-shadow(rgba(black, .25), 0, 1px, 2px, 0, inset);
-        border:1px solid #aaaaaa;
+        border:1px solid #aaa;
         @include border-radius(10px);
         padding:.15em 8px .05em } }
-    input[type="submit"] { display:none } } }
+    input[type="submit"] { display:none }
+  }
+}
 
 body > article {
-  clear: both;
-  padding-top: 3em;
-  margin-left:1.2em;
+  padding-top:2em;
+
   > h1 {
-    margin-bottom: 1.75em;
-    font-size: 1.5em;
+    font-size:1.5em; line-height:2.2em;
+    margin-bottom:1em;
   }
 }
 
@@ -103,19 +112,23 @@ ol.movies {
   a { text-decoration:none }
   
   .movie {
-    min-height: 184px;
+    min-height:180px;
     padding-left: $poster-small-width + $poster-margin;
+    
     > a {
-      display:block; min-height:96px;
+      display:block; min-height:68px; margin-bottom:.7em;
       &:active, &:visited { outline:0 none }
     }
   
-    h1 { font-size: 2.1em; line-height: 1.1em }
-    .year { font-size: 1.3em; line-height: 1.5em }
+    h1 {
+      font-size:2em; line-height:1.15em; letter-spacing:.02em;
+      margin-bottom:.3em;
+    }
+    .year { font-size:1.3em; line-height:1.5em }
 
     .poster {
       display:block;
-      margin-left: -($poster-small-width + $poster-margin);
+      margin-left:-($poster-small-width + $poster-margin); margin-top:.3em;
       float:left;
     }
   }
@@ -124,14 +137,9 @@ ol.movies {
 .movie {
   @include clearfix;
   
-  h1, .year {
-    margin: 0;
-    font-family: $heading-type;
-    @include text-shadow(rgba(black, .3))
-  }
-  .poster {
-    border:1px solid #777;
-  }
+  h1, .year { margin:0; font-family:$heading-type; }
+  
+  .poster { border:1px solid #777; }
   span.poster {
     background: #999;
     @include radial-gradient(color-stops(rgba(white, .5), rgba(white, 0) 150px), top left)
@@ -290,27 +298,26 @@ article > h1 + nav {
 
 .about > article {
   max-width: 48em;
+
   h2 {
-    font: normal 1.3em $body-type; @include text-shadow;
-    margin: 1.5em 0 1em 0;
+    font: normal 1.2em $body-type; @include text-shadow;
+    margin:2.35em 0 .65em;
   }
-  p { margin-bottom: .5em; }
+
+  p { margin-bottom:.8em; padding-top:.7em; }
+  ul { margin:1.5em 0; }
 }
 
-
 .intro {
-  background: lighten($lightblue, 10%);
-  @include linear-gradient(color-stops(rgba(white, .4), rgba(white, 0)));
-  @include text-shadow(rgba(white, .8));
-  border: 1px solid $lightblue;
+  border: 1px solid $lightblue-border;
+  @include linear-gradient(color-stops($top-color-stop, $bottom-color-stop));
   @include border-radius(10px);
-  padding: 1em 2em;
-  font-size: 1.3em;
-  margin: 1em auto 1em 0;
-  width: 80%;
-  line-height: 1.5;
+
+  font-size: 1.1em; line-height: 1.4em;
+  padding:1.1em 1em 1em (10px + $body-padding);
+  margin:2em 0 0 (0 - 10px - $body-padding); width:43.2em;
   
-  p + p { margin-top: .6em; }
+  p + p { margin-top:1em; }
   
   body > article > &:first-child {
     position: relative; top: -2em;
