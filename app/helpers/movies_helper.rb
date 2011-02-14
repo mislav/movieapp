@@ -49,7 +49,7 @@ module MoviesHelper
       minutes = movie.runtime % 60
       parts = []
       parts << "<span>#{hours}</span>h" unless hours.zero?
-      parts << "<span>#{minutes}</span>m" unless minutes.zero?
+      parts << "<span>#{minutes}</span>min" unless minutes.zero?
       %(<span class="runtime">#{parts.join(' ')}</span>).html_safe
     end
   end
