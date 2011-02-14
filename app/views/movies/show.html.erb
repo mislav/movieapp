@@ -3,8 +3,10 @@
 <article class="movie">
   
   <%= movie_poster(@movie, :medium) %>
-  
-  <%= movie_actions(@movie) %>
+
+  <% if @movie.homepage.present? %>
+    <p><a href="<%= @movie.homepage %>">Official website</a></p>
+  <% end %>
 
   <header>
     <h1><%= title_for_movie(@movie) %></h1>
@@ -18,15 +20,13 @@
       }.to_sentence.html_safe %></strong></p>
     <% end %>
     <% if @movie.countries.present? %>
-      <p class="countries">in <%= @movie.countries.to_sentence %></div>
+      <p class="countries">in <%= @movie.countries.to_sentence %></p>
     <% end %>
   </header>
 
   <p class="plot"><%= raw @movie.plot %></p>
-
-  <% if @movie.homepage.present? %>
-    <p><a href="<%= @movie.homepage %>">Official website</a></p>
-  <% end %>
+  
+  <%= movie_actions(@movie) %>
 
   <% if logged_in? and not (friends = current_user.friends_who_watched(@movie).to_a).empty? %>
     <p class="friends">

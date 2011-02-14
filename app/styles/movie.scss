@@ -123,7 +123,7 @@ ol.movies {
     }
   
     h1 {
-      font-size:2em; line-height:1.15em; letter-spacing:.02em;
+      font-size:2em; line-height:1.15em; letter-spacing:.01em;
       margin-bottom:.3em;
     }
     .year { font-size:1.3em; line-height:1.5em }
@@ -217,30 +217,33 @@ ol.movies {
 
 /* movie details */
 .movie-show .movie {
-  margin-top:5.4em;
+  margin-top:1.3em;
   
   padding-left: $poster-medium-width + $poster-margin;
   .poster {
     display:block;
-    margin-left: -($poster-medium-width + $poster-margin);
+    margin:.6em 0 1.2em (0 - $poster-medium-width - $poster-margin);
     float:left;
+    
+    + p {
+      float: left; clear: left;
+      margin-left: -($poster-medium-width + $poster-margin);
+      width: $poster-medium-width;
+    }
   }
   .actions {
-    float: left; clear: left;
-    margin-top: 1em;
-    margin-left: -($poster-medium-width + $poster-margin);
-    width: $poster-medium-width;
-    p { width: $poster-medium-width - (2 * 4px); font-family: Helvetica, sans-serif; }
+    margin-top:1.8em;
+    
+    p { padding:0 4px 4px; }
   }
 
-  h1 { font-size: 3em; line-height: 1; margin-bottom: .2em; }
-  p { margin-top: 1em; }
+  h1 { font-size:2.4em; line-height:1.25em; margin-bottom:.4em; }
 
   header {
-    .year { font-size: 1.8em; line-height: 1.1; }
+    .year { font-size:1.6em; line-height: 1.1; }
     .runtime {
       margin-left: .5em;
-      padding:.1em .4em .2em .3em;
+      padding:.2em .4em .1em .3em;
       line-height:1.3;
       @include border-radius;
       border: 1px solid rgba($lightblue, .5);
@@ -249,22 +252,22 @@ ol.movies {
       display: inline-block;
     }
     .directors {
-      margin: .8em 0 .4em;
-      strong { font-size:1.1em; font-weight:normal; @include text-shadow(#ccc) }
+      margin:1.35em 0 1.5em;
+      strong { font-size:1.2em; font-weight:normal; @include text-shadow }
       a { text-decoration: none; }
       a:hover { text-decoration: underline; }
     }
     .countries { margin-top: 0; }
   }
   
-  .plot { margin-top: 3em; max-width: 38em; }
+  .plot { margin:3em 0 1em; max-width:50em; }
   
-  .friends { font-style: italic; }
+  .friends { font-style:italic; margin-top:1em; }
 }
 
 article > h1 + nav {
   margin: -2em 0 3em;
-  a:link, a:visited { color: gray; }
+  a:link, a:visited { color:$lightblue; }
   p + p {
     margin-top: .5em;
     &:before { content: '▸ '; line-height: 1; }
@@ -320,6 +323,8 @@ article > h1 + nav {
   margin:2em 0 0 (0 - 10px - $body-padding); width:43.2em;
   
   p + p { margin-top:1em; }
+  
+  + p { margin-top:.7em; }
   
   body > article > &:first-child {
     position: relative; top: -2em;
