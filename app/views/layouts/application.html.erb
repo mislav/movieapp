@@ -16,18 +16,20 @@
       <nav>
         <% if logged_in? %>
           <p>
-            Logged in as <%= username_with_icon(current_user) %>
+            logged in as <%= username_with_icon(current_user) %>
             | <%= link_to 'logout', logout_path %>
           </p>
         <% elsif Movies.offline? %>
           <%= link_to 'Instalogin!', instant_login_path %>
         <% else %>
-          <p class="login">Login with
+          <p class="login">login with
             <%= link_to twitter_login_path do %><%= twitter_icon(nil) %> <span>Twitter</span><% end %>
             or
             <%= link_to facebook_login_path do %><%= facebook_icon(nil) %> <span>Facebook</span><% end %>
           </p>
         <% end %>
+        
+        <p><%= link_to 'about The Movie App', about_path %></p>
       </nav>
     </header>
     
@@ -37,7 +39,7 @@
       
     <%= form_tag root_path, :method => 'get' do %>
       <div>
-        <%= label_tag :q, 'Movie search:' %>
+        <%= label_tag :q, 'movie search:' %>
         <%= text_field_tag :q, @query, :type => 'search', :results => '5' %>
         <%= submit_tag "search", :name => nil %>
       </div>
