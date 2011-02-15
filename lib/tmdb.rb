@@ -21,18 +21,16 @@ module Tmdb
   # http://api.themoviedb.org/2.1/methods/Movie.getInfo
   DETAILS_URL = Addressable::Template.new 'http://api.themoviedb.org/2.1/Movie.getInfo/en/json/{api_key}/{tmdb_id}'
   
+  class APIError < RuntimeError; end
+  
   def self.search query
     url = SEARCH_URL.expand :api_key => Movies::Application.config.tmdb.api_key, :query => query
-    json_string = Net::HTTP.get url
-    
-    parse json_string
+    parse get_json(url)
   end
   
   def self.movie_details tmdb_id
     url = DETAILS_URL.expand :api_key => Movies::Application.config.tmdb.api_key, :tmdb_id => tmdb_id
-    json_string = Net::HTTP.get url
-   
-    parse(json_string).movies.first
+    parse(get_json(url)).movies.first
   end
   
   def self.parse json_string
@@ -88,9 +86,23 @@ module Tmdb
           }
         end
 
+        # work around stupid API response ["Nothing found."]
         converted.data.clear if converted.data.first == "Nothing found."
       end
     end
   end
   
+  class << self
+    private
+    def get_json(url)
+      response = Net::HTTP.get_response url
+      response.error! unless Net::HTTPSuccess === response
+      
+      if response.content_type.to_s.include? 'json'
+        response.body
+      else
+        raise APIError, "JSON expected, got: #{response.content_type.inspect}"
+      end
+    end
+  end
 end

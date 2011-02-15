@@ -77,7 +77,7 @@ describe Tmdb::Movie do
     end
     
     super(:get, "api.themoviedb.org/2.1/Movie.#{method}/en/json/TEST/" + query.to_s.gsub(' ', '%20')).
-      to_return(:body => fixture_body, :status => 200)
+      to_return(:body => fixture_body, :status => 200, :headers => {'content-type' => 'application/json'})
   end
   
 end

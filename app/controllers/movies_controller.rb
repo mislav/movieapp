@@ -2,6 +2,10 @@ class MoviesController < ApplicationController
   
   before_filter :find_movie, :only => [:show, :add_to_watch, :add_watched]
   
+  rescue_from 'Tmdb::APIError', 'Net::HTTPExceptions' do |error|
+    render 'shared/error', :status => 500, :locals => {:error => error}
+  end
+  
   def index
     if @query = params[:q]
       @movies = Movie.search(@query).paginate(:page => params[:page], :per_page => 30)
