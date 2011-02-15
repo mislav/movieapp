@@ -7,7 +7,7 @@ Feature: Marking movies as to-watch or watched
   Scenario: Adding movies to to-watch list
     Then I should see "(1984)" for the movie "The Terminator"
     But I should not see a "Want to watch" button for that movie
-    And I should see "Login" in the navigation
+    And I should see "login with Twitter or Facebook" in the navigation
     
     When I login as @mislav with the name "Mislav Marohnić"
     Then I should see "Looks like you're new here." in the title

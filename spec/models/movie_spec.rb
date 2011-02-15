@@ -34,7 +34,11 @@ describe Movie do
     
     it "movie with missing info fills the blanks" do
       stub_request(:get, 'api.themoviedb.org/2.1/Movie.getInfo/en/json/TEST/1234').
-        to_return(:body => read_fixture('tmdb-an_education.json'), :status => 200)
+        to_return(
+          :body => read_fixture('tmdb-an_education.json'),
+          :status => 200,
+          :headers => {'content-type' => 'application/json'}
+        )
       
       movie = Movie.create :tmdb_id => 1234
       attributes = movie.to_hash
@@ -76,7 +80,11 @@ describe Movie do
   describe "combined search" do
     before(:all) do
       stub_request(:get, 'api.themoviedb.org/2.1/Movie.search/en/json/TEST/star%20wars').
-        to_return(:body => read_fixture('tmdb-star_wars-titles.json'), :status => 200)
+        to_return(
+          :body => read_fixture('tmdb-star_wars-titles.json'),
+          :status => 200,
+          :headers => {'content-type' => 'application/json'}
+        )
       stub_request(:get, 'api.netflix.com/catalog/titles?start_index=0&term=star%20wars&max_results=5&expand=synopsis').
         to_return(:body => read_fixture('netflix-star_wars-titles.xml'), :status => 200)
       
