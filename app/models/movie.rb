@@ -18,6 +18,8 @@ class Movie < Mingo
   property :netflix_url
   property :netflix_plot
 
+  property :imdb_id
+
   property :runtime
   # property :language
   property :countries
@@ -56,6 +58,7 @@ class Movie < Mingo
     self.tmdb_id = movie.id
     self.tmdb_url = movie.url
     self.tmdb_version = movie.version
+    self.imdb_id = movie.imdb_id
     
     # same name properties
     [:year, :runtime, :countries, :directors, :homepage].each do |property|
@@ -69,6 +72,7 @@ class Movie < Mingo
     self.netflix_url = netflix.url
     self.runtime ||= netflix.runtime
     if netflix.synopsis.present?
+      # TODO: optimize this so it's skipped if already done
       self.netflix_plot = HTML::FullSanitizer.new.sanitize(netflix.synopsis)
     end
   end
@@ -100,6 +104,10 @@ class Movie < Mingo
       
       movies.concat(from_tmdb_movies(tmdb_movies)).each(&:save)
     end
+  end
+
+  def imdb_url
+    "http://www.imdb.com/title/#{imdb_id}/" if imdb_id
   end
 
 end

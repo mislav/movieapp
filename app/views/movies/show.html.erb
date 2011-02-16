@@ -4,10 +4,6 @@
   
   <%= movie_poster(@movie, :medium) %>
 
-  <% if @movie.homepage.present? %>
-    <p><a href="<%= @movie.homepage %>">Official website</a></p>
-  <% end %>
-
   <header>
     <h1><%= title_for_movie(@movie) %></h1>
 
@@ -25,6 +21,13 @@
   </header>
 
   <p class="plot"><%= raw @movie.plot %></p>
+  
+  <% if elsewhere = movie_elsewhere(@movie).presence %>
+    <p class="elsewhere">
+      Elsewhere:
+      <%= raw elsewhere.map { |label, url| link_to(label, url) }.join(' ∙ ') %>
+    </p>
+  <% end %>
   
   <%= movie_actions(@movie) %>
 

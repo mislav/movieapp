@@ -8,6 +8,15 @@ module MoviesHelper
     link_to(title_for_movie(movie), movie) + movie_year(movie)
   end
   
+  def movie_elsewhere(movie)
+    [ ["official website", :homepage],
+      ["IMDB", :imdb_url],
+      ["Netflix", :netflix_url] ].map { |label, property|
+        url = movie.send(property).presence
+        [label, url] if url
+      }.compact
+  end
+  
   def movie_title_with_year(movie)
     str = movie.title
     str += " (#{movie.year})" unless movie.year.blank?
