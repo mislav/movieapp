@@ -1,4 +1,3 @@
-# encoding: utf-8
 require 'spec_helper'
 
 describe Movie do
@@ -56,24 +55,6 @@ describe Movie do
       movie.should_not be_changed
       attributes.should == movie
       movie.directors.should == []
-    end
-  end
-  
-  describe ".normalize_title" do
-    def process(string)
-      described_class.normalize_title(string)
-    end
-    
-    it "transliterates unicode chars" do
-      process('Čćđéñøü').should == 'ccdenou'
-    end
-    
-    it "normalizes roman numerals" do
-      process('Star Bores episode iii: Unwatchable').should == 'star bores episode 3 unwatchable'
-    end
-    
-    it "normalizes whitespace" do
-      process('Star Wars - A New Hope').should == 'star wars a new hope'
     end
   end
   

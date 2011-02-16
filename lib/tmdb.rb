@@ -3,6 +3,7 @@ require 'yajl/json_gem'
 require 'nibbler/json'
 require 'addressable/template'
 require 'active_support/core_ext/object/blank'
+require 'movie_title'
 
 Nibbler.class_eval do
   def self.rules
@@ -38,6 +39,8 @@ module Tmdb
   end
   
   class Movie < NibblerJSON
+    include MovieTitle
+    
     element :id, :with => lambda { |id| id.to_i }
     element :version, :with => lambda { |num| num.to_i }
     element :name

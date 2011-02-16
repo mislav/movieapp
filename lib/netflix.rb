@@ -2,6 +2,7 @@ require 'active_support/memoizable'
 require 'oauth/consumer'
 require 'nibbler'
 require 'addressable/template'
+require 'movie_title'
 
 module Netflix
 
@@ -56,6 +57,8 @@ module Netflix
   end
   
   class Title < Nibbler
+    include MovieTitle
+    
     element :id, :with => lambda { |url_node|
       url_node.text.scan(/\d+/).last.to_i
     }

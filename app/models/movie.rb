@@ -86,37 +86,19 @@ class Movie < Mingo
     EXTENDED.any? { |property| self[property].nil? }
   end
   
-  RomanNumeralsMap = Hash[%w[i ii iii iv v vi vii viii ix xi xii].each_with_index.map { |s,i| [s, i+1] }]
-  RomanNumerals = /\b(?:i?[vx]|[vx]?i{1,3})\b/
-  
-  def self.normalize_title(original, year = nil)
-    ActiveSupport::Inflector.transliterate(original).tap do |title|
-      title.downcase!
-      title.gsub!(/[^\w\s]/, '')
-      title.squish!
-      title.gsub!(RomanNumerals) { RomanNumeralsMap[$&] }
-      title.gsub!(/\b(episode|season|part) one\b/, '\1 1')
-      title << " (#{year})" if year
-    end
-  end
-  
   def self.search(term)
-    tmdb_result = Tmdb.search(term)
-    netflix_result = Netflix.search(term, :expand => ['synopsis'])
+    tmdb_movies = Tmdb.search(term).movies
+    netflix_titles = Netflix.search(term, :expand => ['synopsis']).titles
     
     [].tap do |movies|
-      tmdb_map = tmdb_result.movies.ordered_index_by { |mov| normalize_title(mov.name, mov.year) }
-      netflix_map = netflix_result.titles.ordered_index_by { |mov| normalize_title(mov.name, mov.year) }
-
-      netflix_map.each do |title, netflix_title|
-        if tmdb_movie = tmdb_map.delete(title)
+      netflix_titles.each do |netflix_title|
+        if tmdb_movie = tmdb_movies.find { |m| m == netflix_title }
+          tmdb_movies.delete(tmdb_movie)
           movies << new(:tmdb_movie => tmdb_movie, :netflix_title => netflix_title)
         end
       end
       
-      movies.concat from_tmdb_movies(tmdb_map.values)
-      
-      movies.each { |m| m.save }
+      movies.concat(from_tmdb_movies(tmdb_movies)).each(&:save)
     end
   end
 
