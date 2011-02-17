@@ -60,5 +60,25 @@ module Movies
         User.apply_reserved_names_from_routes
       end
     end
+    
+    initializer "cache logging" do
+      ActiveSupport::Cache::Store.instrument = true
+      namespaces = [:netflix, :tmdb]
+      
+      ActiveSupport::Notifications.subscribe(/^cache_(\w+).active_support$/) do |name, start, ending, _, payload|
+        if namespaces.include? payload[:namespace]
+          case name.split('.').first
+          when 'cache_reuse_stale'
+            Rails.logger.info "[%s] Error rebuilding cache: %s (%s)" % [
+              payload[:namespace], payload[:key], payload[:exception].message
+            ]
+          when 'cache_generate'
+            Rails.logger.info "[%s] Cache rebuild: %s (%.3f s)" % [
+              payload[:namespace], payload[:key], ending - start
+            ]
+          end
+        end
+      end
+    end
   end
 end

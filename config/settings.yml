@@ -2,6 +2,7 @@ defaults: &defaults
   offline: false
   secret_token: <%= ENV['COOKIE_SECRET'] %>
   heroku: <%= !!ENV['HEROKU_TYPE'] %>
+  api_caching: false
   mongodb:
     uri: <%= ENV['MONGOHQ_URL'] %>
   netflix:
@@ -18,6 +19,7 @@ defaults: &defaults
   
 development:
   <<: *defaults
+  api_caching: true
 
 test: &testing
   <<: *defaults
@@ -32,3 +34,4 @@ cucumber:
 
 production:
   <<: *defaults
+  api_caching: true

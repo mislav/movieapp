@@ -4,6 +4,7 @@ require 'nibbler/json'
 require 'addressable/template'
 require 'active_support/core_ext/object/blank'
 require 'movie_title'
+require 'api_cache'
 
 Nibbler.class_eval do
   def self.rules
@@ -98,13 +99,15 @@ module Tmdb
   class << self
     private
     def get_json(url)
-      response = Net::HTTP.get_response url
-      response.error! unless Net::HTTPSuccess === response
-      
-      if response.content_type.to_s.include? 'json'
+      ApiCache.fetch(:tmdb, url.request_uri) do
+        response = Net::HTTP.start(url.host, url.port) { |http|
+          http.get url.request_uri, 'user-agent' => 'The movie app <http://movi.im>'
+        }
+        response.error! unless Net::HTTPSuccess === response
+        unless response.content_type.to_s.include? 'json'
+          raise APIError, "JSON expected, got: #{response.content_type.inspect}"
+        end
         response.body
-      else
-        raise APIError, "JSON expected, got: #{response.content_type.inspect}"
       end
     end
   end

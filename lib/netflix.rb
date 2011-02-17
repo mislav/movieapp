@@ -3,6 +3,7 @@ require 'oauth/consumer'
 require 'nibbler'
 require 'addressable/template'
 require 'movie_title'
+require 'api_cache'
 
 module Netflix
 
@@ -18,8 +19,8 @@ module Netflix
     extend ActiveSupport::Memoizable
   
     def search(query, options = {})
-      response = perform_search(query, options)
-      parse response.body
+      data = perform_search(query, options)
+      parse data
     end
     
     def perform_search(query, options = {})
@@ -30,9 +31,7 @@ module Netflix
       params = {:term => query, :max_results => per_page, :start_index => offset}
       params[:expand] = options[:expand].join(',') if options[:expand]
       
-      search_uri = SEARCH_URL.expand params
-
-      oauth_client.request(:get, search_uri.request_uri)
+      perform_oauth_request SEARCH_URL.expand(params)
     end
   
     def parse(xml)
@@ -40,13 +39,12 @@ module Netflix
     end
   
     def autocomplete(name)
-      response = perform_autocomplete(name)
-      Autocomplete.parse response.body
+      data = perform_autocomplete(name)
+      Autocomplete.parse data
     end
     
     def perform_autocomplete(name)
-      autocomplete_uri = AUTOCOMPLETE_URL.expand(:term => name)
-      oauth_client.request(:get, autocomplete_uri.request_uri)
+      perform_oauth_request AUTOCOMPLETE_URL.expand(:term => name)
     end
 
     def oauth_client
@@ -54,6 +52,18 @@ module Netflix
       OAuth::Consumer.new(config.consumer_key, config.secret, :site => SITE)
     end
     memoize :oauth_client
+    
+    private
+    
+    def perform_oauth_request(url)
+      path = url.request_uri
+
+      ApiCache.fetch(:netflix, path) do
+        response = oauth_client.request(:get, path)
+        response.error! unless Net::HTTPSuccess === response
+        response.body
+      end
+    end
   end
   
   class Title < Nibbler
