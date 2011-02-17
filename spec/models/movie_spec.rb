@@ -66,7 +66,11 @@ describe Movie do
           :status => 200,
           :headers => {'content-type' => 'application/json'}
         )
-      stub_request(:get, 'api.netflix.com/catalog/titles?start_index=0&term=star%20wars&max_results=5&expand=synopsis').
+      
+      netflix_search = Netflix::SEARCH_URL.expand :term => 'star wars',
+        :start_index => 0, :max_results => 5, :expand => 'synopsis,directors'
+      
+      stub_request(:get, netflix_search).
         to_return(:body => read_fixture('netflix-star_wars-titles.xml'), :status => 200)
       
       @movies = Movie.search 'star wars'

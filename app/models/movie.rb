@@ -72,9 +72,12 @@ class Movie < Mingo
   def netflix_title=(netflix)
     self.netflix_id = netflix.id
     self.netflix_url = netflix.url
-    self.runtime ||= netflix.runtime
-    if netflix.synopsis.present?
-      # TODO: optimize this so it's skipped if already done
+
+    self.runtime = netflix.runtime if netflix.runtime.present?
+    self.homepage = netflix.official_url if netflix.official_url.present?
+    self.directors = netflix.directors if netflix.directors.present?
+    
+    if netflix_plot.blank? and netflix.synopsis.present?
       self.netflix_plot = HTML::FullSanitizer.new.sanitize(netflix.synopsis)
     end
   end
@@ -118,7 +121,7 @@ class Movie < Mingo
   
   def self.search(term)
     tmdb_movies = Tmdb.search(term).movies
-    netflix_titles = Netflix.search(term, :expand => ['synopsis']).titles
+    netflix_titles = Netflix.search(term, :expand => %w[synopsis directors]).titles
     filter = IMDBUniqueFilter.new
     
     [].tap do |movies|
