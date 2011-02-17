@@ -1,11 +1,10 @@
 <li>
   <article class="movie">
     <%= link_to movie_path(movie.id) do %>
+
       <%= movie_poster(movie) %>
 
-      <h1><%= title_for_movie(movie) %></h1>
-
-      <%= movie_year(movie) %>
+      <%= render 'movies/title', :movie => movie %>
     <% end %>
   
     <%= movie_actions(movie) %>

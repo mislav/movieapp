@@ -126,7 +126,7 @@ ol.movies {
       font-size:2em; line-height:1.15em; letter-spacing:.01em;
       margin-bottom:.3em;
     }
-    .year { font-size:1.3em; line-height:1.5em }
+    h1 + .year, h2 { font-size:1.3em; line-height:1.5em }
 
     .poster {
       display:block;
@@ -139,7 +139,9 @@ ol.movies {
 .movie {
   @include clearfix;
   
-  h1, .year { margin:0; font-family:$heading-type; }
+  h1, .year, hgroup { margin:0; font-family:$heading-type; }
+  h2 { font-weight:normal; font-style:italic; }
+  .year { color:darken($lightblue, 5); font-style:normal; }
   
   .poster { border:1px solid #777; }
   span.poster {
@@ -240,24 +242,23 @@ ol.movies {
   h1 { font-size:2.4em; line-height:1.25em; margin-bottom:.4em; }
 
   header {
-    .year { font-size:1.6em; line-height: 1.1; }
+    h1 + .year, h2 { font-size:1.5em; line-height:1.1; }
     .runtime {
       margin-left: .5em;
       padding:.2em .4em .1em .3em;
       line-height:1.3;
       @include border-radius;
       border: 1px solid rgba($lightblue, .5);
-      color: darken($lightblue, 10);
+      color: darken($lightblue, 5);
       vertical-align: top;
-      display: inline-block;
     }
     .directors {
-      margin:1.35em 0 1.5em;
+      margin:1.5em 0;
       strong { font-size:1.2em; font-weight:normal; @include text-shadow }
       a { text-decoration: none; }
       a:hover { text-decoration: underline; }
     }
-    .countries { margin-top: 0; }
+    .countries { margin-top:0; display:inline-block; }
   }
   
   .plot { margin:3em 0 1em; max-width:50em; }

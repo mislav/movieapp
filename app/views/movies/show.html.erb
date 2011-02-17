@@ -5,19 +5,19 @@
   <%= movie_poster(@movie, :medium) %>
 
   <header>
-    <h1><%= title_for_movie(@movie) %></h1>
-
-    <%= movie_year(@movie) %>
-    <%= movie_runtime(@movie) %>
-
+    <%= render 'title', :movie => @movie %>
+    
     <% if @movie.directors.present? %>
       <p class="directors">by <strong><%= @movie.directors.map { |name|
         link_to(name, director_path(name))
       }.to_sentence.html_safe %></strong></p>
     <% end %>
+
     <% if @movie.countries.present? %>
       <p class="countries">in <%= @movie.countries.to_sentence %></p>
     <% end %>
+
+    <%= movie_runtime(@movie) %>
   </header>
 
   <p class="plot"><%= raw @movie.plot %></p>
