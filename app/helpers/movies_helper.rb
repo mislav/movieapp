@@ -10,11 +10,18 @@ module MoviesHelper
   
   def movie_elsewhere(movie)
     [ ["official website", :homepage],
+      ["Wikipedia", :wikipedia_url],
       ["IMDB", :imdb_url],
       ["Netflix", :netflix_url] ].map { |label, property|
         url = movie.send(property).presence
         [label, url] if url
-      }.compact
+      }.compact.tap do |links|
+        unless links.find { |label, url| label == "Wikipedia" }
+          # insert a wikipedia redirect path if regular path isn't present
+          idx = (links.first and links.first.first == "official website") ? 1 : 0
+          links.insert idx, ["Wikipedia", [:wikipedia, movie]]
+        end
+      end
   end
   
   def movie_title_with_year(movie)

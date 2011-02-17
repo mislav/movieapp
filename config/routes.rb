@@ -5,7 +5,12 @@ Movies::Application.routes.draw do
   match 'movies/towatch/:id' => 'movies#add_to_watch', :as => :add_to_watch, :via => :put
   match 'movies/watched/:id' => 'movies#add_watched', :as => :add_watched, :via => :put
   
-  resources :movies, :only => [:show]
+  resources :movies, :only => [:show] do
+    member do
+      get :wikipedia
+    end
+  end
+  
   resources :users, :only => [:index]
   
   match 'director/*director' => 'movies#index', :as => :director, :via => :get

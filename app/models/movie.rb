@@ -1,5 +1,6 @@
 require 'netflix'
 require 'tmdb'
+require 'wikipedia'
 require 'html/sanitizer'
 
 class Movie < Mingo
@@ -19,6 +20,7 @@ class Movie < Mingo
   property :netflix_plot
 
   property :imdb_id
+  property :wikipedia_title
 
   property :runtime
   # property :language
@@ -137,5 +139,14 @@ class Movie < Mingo
   def imdb_url
     "http://www.imdb.com/title/#{imdb_id}/" if imdb_id
   end
-
+  
+  def wikipedia_url
+    'http://en.wikipedia.org/wiki/' + wikipedia_title.tr(' ', '_') if wikipedia_title
+  end
+  
+  def get_wikipedia_title
+    self.wikipedia_title = Wikipedia.find_title("#{self.title} #{self.year}")
+    self.save
+    self.wikipedia_title
+  end
 end
