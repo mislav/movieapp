@@ -73,6 +73,19 @@ module Netflix
     elements './link[@title="cast"]/people/link/@title' => :cast
     element './/link[@title="web page"]/@href' => :url
     element './/link[@title="official webpage"]/@href' => :official_url
+    
+    def name=(value)
+      if value.respond_to?(:sub!) and value.sub!(/(\s*:)?\s+special edition$/i, '')
+        @special_edition = true
+      else
+        @special_edition = false
+      end
+      @name = value
+    end
+    
+    def special_edition?
+      @special_edition
+    end
   end
   
   class Catalog < Nibbler
