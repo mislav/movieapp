@@ -29,7 +29,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 2.3.0'
   gem 'ruby-debug', :platforms => :ruby_18
-  # gem 'ruby-debug19', :platforms => :ruby_19  # GRR: can't compile
+  gem 'ruby-debug19', :platforms => :ruby_19
 end
 
 group :test do
