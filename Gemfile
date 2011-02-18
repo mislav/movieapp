@@ -2,13 +2,13 @@ source :rubygems
 
 gem 'rails', '~> 3.0.0.rc' #, :path => '/Users/mislav/.coral/rails-3-0-stable'
 
+gem 'hashie', '~> 0.4.0'
 gem 'mingo', '>= 0.1.3' #, :path => '/Users/mislav/Projects/mingo'
 gem 'mongo_ext', '>= 0.19.3', :require => nil
 gem 'bson_ext', '>= 1.1.1', :require => nil
 gem 'twitter-login', '~> 0.4.0', :require => 'twitter/login' #, :path => '/Users/mislav/Projects/twitter-login'
 gem 'will_paginate', '3.0.pre2' #, :path => '/Users/mislav/.coral/will_paginate-mislav'
 gem 'facebook-login', '~> 0.2.0', :require => 'facebook/login' #, :path => '/Users/mislav/Projects/facebook'
-gem 'rspec-rails', '~> 2.0.0.beta.19'
 gem 'haml', '~> 3.0.18'
 gem 'compass'
 gem 'escape_utils'
@@ -23,8 +23,13 @@ group :extras do
 end
 
 group :development do
-  # gem 'mongrel', :require => nil
-  # gem 'ruby-debug', :require => nil
+  gem 'mongrel', :require => nil, :platforms => :ruby_18
+end
+
+group :development, :test do
+  gem 'rspec-rails', '~> 2.3.0'
+  gem 'ruby-debug', :platforms => :ruby_18
+  # gem 'ruby-debug19', :platforms => :ruby_19  # GRR: can't compile
 end
 
 group :test do

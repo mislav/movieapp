@@ -53,5 +53,12 @@ module Movies
 
     # Configure sensitive parameters which will be filtered from the log file.
     # config.filter_parameters << :password
+    
+    unless Rails.env.development?
+      # this seems to be the only place to hook into the phase when routes are loaded
+      initializer "User reserved names", :after => :set_routes_reloader do 
+        User.apply_reserved_names_from_routes
+      end
+    end
   end
 end

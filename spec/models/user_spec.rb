@@ -150,11 +150,11 @@ describe User do
           
           first.should == @deep_blue
           first.liked.should == false
-          first.time_added.should be_close(5.days.ago, 1)
+          first.time_added.should be_within(1).of(5.days.ago)
           
           second.should == @breakfast
           second.liked.should == true
-          second.time_added.should be_close(1.month.ago, 1)
+          second.time_added.should be_within(1).of(1.month.ago)
         end
         
         it "deletes a watched movie" do

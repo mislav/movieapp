@@ -283,13 +283,21 @@ class User < Mingo
     end
   end
   
-  Reserved = Movies::Application.routes.routes.map { |route|
-    unless route.defaults[:controller] == "rails/info"
-      route.path.match(/^\/(\w+)/) && $1
-    end
-  }.compact.uniq
+  Reserved = %w[following followers favorites timeline search home signup]
   
-  Reserved.concat %w[following followers favorites timeline search home signup]
+  def self.reserved_names_from_routes
+    Rails.application.routes.routes.map { |route|
+      unless route.defaults[:controller] == "rails/info"
+        route.path.match(/^\/(\w+)/) && $1
+      end
+    }.compact.uniq
+  end
+  
+  def self.apply_reserved_names_from_routes
+    Reserved.concat reserved_names_from_routes
+  end
+  
+  apply_reserved_names_from_routes if Rails.env.development?
   
   def self.username_taken?(name)
     Reserved.include?(name) or find(:username => name).has_next?
