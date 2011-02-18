@@ -132,7 +132,7 @@ class User < Mingo
     # will be "decorated" (extended) with after being loaded
     decorate_with do
       attr_accessor :liked, :time_added
-      def liked?() !!@liked end
+      def liked?() @liked end
     end
     
     # defines a block that will yield for each movie loaded from
