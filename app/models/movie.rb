@@ -120,7 +120,7 @@ class Movie < Mingo
   end
   
   def self.search(term)
-    tmdb_movies = Tmdb.search(term).movies
+    tmdb_movies = Tmdb.search(term).movies.reject { |m| m.year.blank? }
     netflix_titles = Netflix.search(term, :expand => %w[synopsis directors]).titles
     filter = IMDBUniqueFilter.new
     

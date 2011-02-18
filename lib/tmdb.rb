@@ -51,8 +51,8 @@ module Tmdb
     element 'overview' => :synopsis, :with => lambda { |text|
       text unless text == "No overview found."
     }
-    element 'released' => :year, :with => lambda { |date|
-      Date.parse(date).year unless date.blank?
+    element 'released' => :release_date, :with => lambda { |date|
+      Date.parse(date) unless date.blank? or date == "1900-01-01"
     }
     element 'posters' => :poster_cover, :with => lambda { |posters|
       poster = posters.find { |p| p["image"]["size"] == "cover" }
@@ -76,6 +76,13 @@ module Tmdb
     
     def original_name=(value)
       @original_name = value == self.name ? nil : value
+    end
+    
+    attr_accessor :year
+    
+    def release_date=(date)
+      self.year = date.year if date
+      @release_date = date
     end
   end
   
