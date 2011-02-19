@@ -1,13 +1,11 @@
 <% if movie.original_title and movie.original_title != movie.title %>
-  <div> <!-- wrapped in div due to Firefox 3.x bug (html5 element inside a block level link) -->
-    <hgroup>
-      <h1><%= movie.original_title %></h1>
-      <h2><%= movie_year(movie) %> <%= movie.title %></h2>
-    </hgroup>
-  </div>
+  <hgroup>
+    <h1><%= link_to movie.original_title, movie_path(movie.id) %></h1>
+    <h2><%= movie_year(movie) %> <%= link_to movie.title, movie_path(movie.id) %></h2>
+  </hgroup>
 
 <% else %>
-  <h1><%= movie.title %></h1>
+  <h1><%= link_to movie.title, movie_path(movie.id) %></h1>
   <%= movie_year(movie) %>
 
 <% end %>

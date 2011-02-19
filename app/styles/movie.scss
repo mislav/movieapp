@@ -31,10 +31,8 @@ body {
   padding:0 $body-padding;
 }
 
-h1 {
-  font-weight: normal; @include text-shadow;
-  a { text-decoration: none }
-}
+h1 { font-weight: normal; @include text-shadow; }
+h1 a, h2 a { text-decoration:none; }
 
 body > header {
   padding:0 $body-padding; margin:0 (0 - $body-padding);
@@ -118,7 +116,7 @@ ol.movies {
     padding-left: $poster-small-width + $poster-margin;
     
     > a {
-      display:block; min-height:68px; margin-bottom:.7em;
+      min-height:68px; margin-bottom:.7em;
       &:active, &:visited { outline:0 none }
     }
   
@@ -152,8 +150,9 @@ ol.movies {
   .actions {
     font-size: .9em;
     line-height: 1.7;
+    margin-top: 1.6em;
     
-    p { margin: 0; padding: 4px 4px; }
+    p { margin:0; padding-top:5px; }
     
     .button_to {
       display: inline-block;
@@ -235,9 +234,9 @@ ol.movies {
     }
   }
   .actions {
-    margin-top:1.8em;
+    margin-top:1.3em;
     
-    p { padding:0 4px 4px; }
+    p { padding-top:4px; }
   }
 
   h1 { font-size:2.4em; line-height:1.25em; margin-bottom:.4em; }
@@ -262,7 +261,7 @@ ol.movies {
     .countries { margin-top:0; display:inline-block; }
   }
   
-  .plot { margin:3em 0 1em; max-width:50em; }
+  .plot { margin:3em 0 1.5em; max-width:50em; }
   
   .friends { font-style:italic; margin-top:1em; }
 }
