@@ -193,10 +193,11 @@ ol.movies {
       .question {
         display: none;
         opacity: 0;
+        background-color: white;
         a[href="#cancel"] { text-decoration: underline; color: $lightblue; }
       }
       &.asking {
-        .primary { display: none; }
+        .primary { display: none; opacity: 0; }
         .question { display: block; opacity: 1; }
       }
       &.asking-transition {
@@ -207,7 +208,7 @@ ol.movies {
         }
       }
       &.asking-transition-back {
-        .primary { position: absolute; opacity: 1; }
+        .primary { position: absolute; opacity: 1; z-index: -1; }
         .question {
           display: block;
           opacity: 0;

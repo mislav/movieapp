@@ -14,7 +14,7 @@ document.on('ajax:success', '.actions .button_to', function(e, form) {
   if (useTransitions) {
     form.select('input[type=submit][data-disable-with]').invoke('removeAttribute', 'data-disable-with')
     
-    form.up('.actions').addClassName('fadeout').once('webkitTransitionEnd', function() {
+    form.up('.actions').addClassName('fadeout').transitionEnd(function() {
       var parent = this.up()
       this.replace(e.memo.responseText)
       var actions = parent.down('.actions')
@@ -49,14 +49,16 @@ Element.addMethods({
   }
 })
 
-var useTransitions = Modernizr.csstransitions && Prototype.Browser.WebKit
+var useTransitions = Modernizr.csstransitions,
+    transitionEvent = Prototype.Browser.WebKit ? 'webkitTransitionEnd' :
+                      Prototype.Browser.Opera ? 'oTransitionEnd' : 'transitionend'
 
 if (useTransitions) {
   Element.addMethods({
     addClassNameTransition: function(element, name) {
       element = $(element)
       tmpName = name + '-transition'
-      element.addClassName(tmpName).once('webkitTransitionEnd', function() {
+      element.addClassName(tmpName).transitionEnd(function() {
         element.removeClassName(tmpName).addClassName(name)
       })
       return element
@@ -64,9 +66,14 @@ if (useTransitions) {
     removeClassNameTransition: function(element, name) {
       element = $(element)
       tmpName = name + '-transition-back'
-      element.removeClassName(name).addClassName(tmpName).once('webkitTransitionEnd', function() {
+      element.removeClassName(name).addClassName(tmpName).transitionEnd(function() {
         element.removeClassName(tmpName)
       })
+      return element
+    },
+    transitionEnd: function(element, handler) {
+      element = $(element)
+      element.once(transitionEvent, handler)
       return element
     }
   })
