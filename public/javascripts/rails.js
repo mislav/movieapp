@@ -1,4 +1,14 @@
 (function() {
+  Ajax.Responders.register({
+    onCreate: function(request) {
+      var token = $$('meta[name=csrf-token]')[0];
+      if (token) {
+        if (!request.options.requestHeaders) request.options.requestHeaders = {};
+        request.options.requestHeaders['X-CSRF-Token'] = token.readAttribute('content');
+      }
+    }
+  });
+
   // Technique from Juriy Zaytsev
   // http://thinkweb2.com/projects/prototype/detecting-event-support-without-browser-sniffing/
   function isEventSupported(eventName) {
@@ -95,7 +105,7 @@
       parameters: params,
       evalScripts: true,
 
-      onCreate:   function(request)  { element.fire("ajax:create",   request); },
+      onCreate:   function(response) { element.fire("ajax:create",   response); },
       onComplete: function(response) { element.fire("ajax:complete", response); },
       onSuccess:  function(response) { element.fire("ajax:success",  response); },
       onFailure:  function(response) { element.fire("ajax:failure",  response); }
@@ -115,7 +125,7 @@
         csrf_token = $$('meta[name=csrf-token]')[0];
 
     var form = new Element('form', { method: "POST", action: url, style: "display: none;" });
-    element.parentNode.insert(form);
+    $(element.parentNode).insert(form);
 
     if (method !== 'post') {
       insertHiddenField(form, '_method', method);
@@ -131,25 +141,34 @@
   function disableFormElements(form) {
     form.select('input[type=submit][data-disable-with]').each(function(input) {
       input.store('rails:original-value', input.getValue());
-      input.disable().setValue(input.readAttribute('data-disable-with'));
+      input.setValue(input.readAttribute('data-disable-with')).disable();
+    });
+  }
+  
+  function enableFormElements(form) {
+    form.select('input[type=submit][data-disable-with]').each(function(input) {
+      input.setValue(input.retrieve('rails:original-value')).enable();
     });
   }
 
-  document.on("click", "*[data-confirm]", function(event, element) {
+  function allowAction(element) {
     var message = element.readAttribute('data-confirm');
-    if (!confirm(message)) event.stop();
-  });
+    return !message || confirm(message);
+  }
 
-  document.on("click", "a[data-remote]", function(event, element) {
-    if (event.stopped) return;
-    handleRemote(element);
-    event.stop();
-  });
+  document.on('click', 'a[data-confirm], a[data-remote], a[data-method]', function(event, link) {
+    if (!allowAction(link)) {
+      event.stop();
+      return false;
+    }
 
-  document.on("click", "a[data-method]", function(event, element) {
-    if (event.stopped) return;
-    handleMethod(element);
-    event.stop();
+    if (link.readAttribute('data-remote')) {
+      handleRemote(link);
+      event.stop();
+    } else if (link.readAttribute('data-method')) {
+      handleMethod(link);
+      event.stop();
+    }
   });
 
   document.on("click", "form input[type=submit], form button[type=submit], form button:not([type])", function(event, button) {
@@ -158,10 +177,9 @@
   });
 
   document.on("submit", function(event) {
-    var form = event.findElement(),
-        message = form.readAttribute('data-confirm');
+    var form = event.findElement();
 
-    if (message && !confirm(message)) {
+    if (!allowAction(form)) {
       event.stop();
       return false;
     }
@@ -174,14 +192,11 @@
     }
   });
 
-  document.on("ajax:create", function(event) {
-    var element = event.findElement();
-    if (element.match('form')) disableFormElements(element);
+  document.on('ajax:create', 'form', function(event, form) {
+    if (form == event.findElement()) disableFormElements(form);
   });
   
-  document.on("ajax:complete", "form", function(event, form) {
-    form.select('input[type=submit][data-disable-with]').each(function(input) {
-      input.setValue(input.retrieve('rails:original-value')).enable();
-    });
+  document.on('ajax:complete', 'form', function(event, form) {
+    if (form == event.findElement()) enableFormElements(form);
   });
 })();
