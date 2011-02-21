@@ -26,6 +26,10 @@ document.on('ajax:success', '.actions .button_to', function(e, form) {
   }
 })
 
+document.on('ajax:success', 'a.revert', function(e, link) {
+  link.up('.actions').replace(e.memo.responseText)
+})
+
 Element.addMethods({
   getText: function(element) {
     element = $(element)

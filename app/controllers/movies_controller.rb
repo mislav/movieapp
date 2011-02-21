@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   
-  before_filter :find_movie, :only => [:show, :add_to_watch, :add_watched, :wikipedia]
+  before_filter :find_movie, :except => :index
   
   rescue_from 'Tmdb::APIError', 'Net::HTTPExceptions' do |error|
     render 'shared/error', :status => 500, :locals => {:error => error}
@@ -28,8 +28,18 @@ class MoviesController < ApplicationController
     ajax_actions_or_back
   end
   
+  def remove_from_to_watch
+    current_user.to_watch.delete @movie
+    ajax_actions_or_back
+  end
+  
   def add_watched
     current_user.watched.rate_movie @movie, params[:liked]
+    ajax_actions_or_back
+  end
+  
+  def remove_from_watched
+    current_user.watched.delete @movie
     ajax_actions_or_back
   end
   

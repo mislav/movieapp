@@ -35,7 +35,7 @@ module UsersHelper
           out << %(, but <em class="disliked">#{nobr "didn't like it"}</em>)
         end
       end
-      out << '.'
+      # out << '.'
     end.html_safe
   end
   

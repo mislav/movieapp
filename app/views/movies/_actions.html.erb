@@ -5,19 +5,27 @@
   
   <% if current_user.watched.include? movie %>
     <p class="watched"><%= watched_liked movie %></p>
+    <%= link_to '×', remove_from_watched_path(movie), :remote => true, :method => :delete, :class => 'revert', :title => "I didn't watch it", :'data-confirm' => 'Are you sure?' %>
+
   <% else %>
     <div class="primary">
       <% unless my_watchlist? %>
         <% if current_user.to_watch.include? movie %>
-          <p class="to-watch">This movie is in your "to watch" list.</p>
+          <p class="to-watch">This movie is in your "to watch" list</p>
+          <%= link_to '×', remove_from_to_watch_path(movie), :remote => true, :method => :delete, :class => 'revert', :title => 'Remove from "to watch" list' %>
         <% else %>
           <%= button_to 'Want to watch', add_to_watch_path(movie), :remote => true, :method => :put, :class => 'to-watch' %>
         <% end %>
+        
+      <% else %>
+        <%= link_to "I don't want to watch it", remove_from_to_watch_path(movie), :remote => true, :method => :delete, :class => 'revert' %>
       <% end %>
+      
       <div class="add-watched">
         <%= button_to 'I watched this', add_watched_path(movie), :method => :put, :class => 'watched' %>
       </div>
     </div>
+    
     <div class="question">
       <p>Did you like it?</p>
       <%= button_to 'Yes', add_watched_path(movie), :remote => true, :method => :put, :name => 'liked', :'data-disable-with' => '⋯' %>

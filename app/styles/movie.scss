@@ -39,7 +39,7 @@ body > header {
   border-bottom:1px solid $lightblue-border;
   @include linear-gradient(color-stops($top-color-stop, $bottom-color-stop));
 
-  h1 { font:normal 3em/1.85em $heading-type; letter-spacing:1px; }
+  h1 { font:normal 3em/1.85em $heading-type; letter-spacing:.01em; }
 }
 
 @mixin link-icon {
@@ -152,7 +152,7 @@ ol.movies {
     line-height: 1.7;
     margin-top: 1.6em;
     
-    p { margin:0; padding-top:5px; }
+    p { margin:0; padding:5px 0; }
     
     .button_to {
       display: inline-block;
@@ -175,7 +175,19 @@ ol.movies {
         &[disabled] { background-color: #ccc; color: #666; }
       }
     }
-    p.watched, p.to-watch { color: gray; font-style: italic; }
+    
+    p.watched, p.to-watch {
+      color:gray; font-style:italic;
+      display:inline-block;
+      
+      + a.revert { padding:0 5px; }
+    }
+    a.revert { 
+      color:#ccc; text-decoration:none;
+      
+      &:hover { color:firebrick; }
+    }
+    
     em.liked { color: green; }
     em.disliked { color: darkred; }
     
