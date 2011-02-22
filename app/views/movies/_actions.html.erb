@@ -18,7 +18,7 @@
         <% end %>
         
       <% else %>
-        <%= link_to "I don't want to watch it", remove_from_to_watch_path(movie), :remote => true, :method => :delete, :class => 'revert' %>
+        <p><%= link_to "I don't want to watch it", remove_from_to_watch_path(movie), :remote => true, :method => :delete, :class => 'revert' %></p>
       <% end %>
       
       <div class="add-watched">
