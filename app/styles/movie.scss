@@ -328,7 +328,9 @@ article > h1 + nav {
   padding:1.1em 1em 1em (10px + $body-padding);
   margin:2em 0 0 (0 - 10px - $body-padding); width:43.2em;
   
-  p + p { margin-top:1em; }
+  h1 { font-size:18px; margin-bottom:1em; }
+  
+  p + p { margin-top:18px; }
   
   + p { margin-top:.7em; }
   

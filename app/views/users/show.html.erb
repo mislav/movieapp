@@ -22,12 +22,10 @@
   <% elsif my_page? and @user.to_watch.size.zero? %>
     <section class="intro">
     <h1>Looks like you're new here.</h1>
-    <p>Here's the plan:</p>
-    <ol>
-      <li><%= link_to 'Browse the site', root_path %> and mark any movie as watched or to watch.</li>
-      <li>???</li>
-      <li>… profit!</li>
-    </ol>
+    <p>
+      <%= link_to 'Browse the site', root_path %> for movies, mark them as watched, or add them to your "to watch" list.
+      As simple as that.
+    </p>
     <% if (movies_count = @user.movies_from_friends.count) > 0 %>
       <p>
         Your friends have watched <%= pluralize(movies_count, 'movie') %>.
