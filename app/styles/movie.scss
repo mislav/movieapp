@@ -39,7 +39,7 @@ body > header {
   border-bottom:1px solid $lightblue-border;
   @include linear-gradient(color-stops($top-color-stop, $bottom-color-stop));
 
-  h1 { font:normal 3em/1.85em $heading-type; letter-spacing:.01em; }
+  h1 { font:normal 36px/67px $heading-type; letter-spacing:.01em; }
 }
 
 @mixin link-icon {
@@ -78,17 +78,17 @@ header {
         @include box-shadow(rgba(black, .25), 0, 1px, 2px, 0, inset);
         border:1px solid #aaa;
         @include border-radius(10px);
-        padding:.15em 8px .05em } }
+        padding:.15em 8px .05em; margin-top:2px; } }
     input[type="submit"] { display:none }
   }
 }
 
 body > article {
-  padding-top:2em;
+  padding-top:22px;
 
   > h1 {
-    font-size:1.5em; line-height:2.2em;
-    margin-bottom:1em;
+    font-size:18px; line-height:40px;
+    margin-bottom:19px;
   }
 }
 
@@ -121,7 +121,7 @@ ol.movies {
     }
   
     h1 {
-      font-size:2em; line-height:1.15em; letter-spacing:.01em;
+      font-size:24px; line-height:28px; letter-spacing:.01em;
       margin-bottom:.3em;
     }
     h1 + .year, h2 { font-size:1.3em; line-height:1.5em }
@@ -311,12 +311,12 @@ article > h1 + nav {
   max-width: 48em;
 
   h2 {
-    font: normal 1.2em $body-type; @include text-shadow;
-    margin:2.35em 0 .65em;
+    font: normal 15px/18px $body-type; @include text-shadow;
+    margin:35px 0 11px;
   }
 
-  p { margin-bottom:.8em; padding-top:.7em; }
-  ul { margin:1.5em 0; }
+  p { margin-bottom:10px; padding-top:8px; }
+  ul { margin:18px 0 0; }
 }
 
 .intro {
@@ -324,8 +324,8 @@ article > h1 + nav {
   @include linear-gradient(color-stops($top-color-stop, $bottom-color-stop));
   @include border-radius(10px);
 
-  font-size: 1.1em; line-height: 1.4em;
-  padding:1.1em 1em 1em (10px + $body-padding);
+  font-size:13px; line-height:18px;
+  padding:12px 1em 12px (10px + $body-padding);
   margin:2em 0 0 (0 - 10px - $body-padding); width:43.2em;
   
   h1 { font-size:18px; margin-bottom:1em; }
