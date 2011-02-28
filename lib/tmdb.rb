@@ -90,7 +90,10 @@ module Tmdb
     elements :movies, :with => Movie
     
     def self.convert_document(doc)
-      super.tap do |converted|
+      # an empty string as an API response results in nil when parsed as JSON
+      doc = [] if doc.blank?
+      
+      super(doc).tap do |converted|
         if Rails.env.development?
           File.open(Rails.root + 'tmp/tmdb-last-request.yml', 'w') { |f|
             f.write YAML.dump(converted)
