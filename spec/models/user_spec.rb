@@ -4,10 +4,15 @@ require 'spec_helper'
 describe User do
   before do
     [User, Movie].each { |model| model.collection.remove }
+    [User.collection['watched'], User.collection['to_watch']].each(&:remove)
   end
   
   def collection
     described_class.collection
+  end
+
+  def join_collection_create(user, doc)
+    join_collection.save doc.merge('user_id' => user.id)
   end
   
   context "username" do
@@ -36,6 +41,8 @@ describe User do
     end
     
     describe "#to_watch" do
+      let(:join_collection) { User.collection['to_watch'] }
+      
       context "user without watchlist" do
         subject { create }
         
@@ -47,15 +54,14 @@ describe User do
           subject.to_watch << @deep_blue
           should_not be_changed
           subject.to_watch.should include(@deep_blue)
-          should match_selector(:to_watch => @deep_blue.id)
         end
       end
       
       context "user with watchlist" do
         subject {
           create.tap do |user|
-            user.update '$addToSet' => {:to_watch => {'$each' => [@deep_blue.id, @breakfast.id]}}
-            user.reload
+            join_collection_create(user, 'movie_id' => @deep_blue.id)
+            join_collection_create(user, 'movie_id' => @breakfast.id)
           end
         }
       
@@ -64,37 +70,27 @@ describe User do
         end
       
         it "doesn't add movie twice" do
-          subject.to_watch << @deep_blue
-          subject.reload.to_watch.object_ids.size.should == 2
+          subject # trigger creating subject
+          lambda { subject.to_watch << @deep_blue }.should_not change(join_collection, :size)
+          subject.to_watch.size.should == 2
         end
       
         it "deletes a movie from watchlist" do
           subject.to_watch.delete @deep_blue
           subject.to_watch.should_not include(@deep_blue)
           subject.to_watch.should include(@breakfast)
-          should_not match_selector(:to_watch => @deep_blue.id)
         end
         
         it "marks movie as watched and that removes it from watchlist" do
           subject.watched << @deep_blue
           subject.to_watch.should_not include(@deep_blue)
-          should_not match_selector(:to_watch => @deep_blue.id)
-        end
-      
-        it "serializes" do
-          hash = subject.to_hash
-          hash['to_watch'].should == [@deep_blue.id, @breakfast.id]
-        end
-      
-        it "serializes after changes" do
-          subject.to_watch.delete @breakfast
-          hash = subject.to_hash
-          hash['to_watch'].should == [@deep_blue.id]
         end
       end
     end
     
     describe "#watched" do
+      let(:join_collection) { User.collection['watched'] }
+      
       context "user without watched movies" do
         subject { create }
         
@@ -106,43 +102,38 @@ describe User do
           subject.watched << @deep_blue
           should_not be_changed
           subject.watched.should include(@deep_blue)
-          should match_selector('watched.movie' => @deep_blue.id)
         end
         
         it "saves a watched movie with rating" do
           subject.watched.rate_movie @deep_blue, true
           subject.watched.should include(@deep_blue)
-          should match_selector('watched.movie' => @deep_blue.id, 'watched.liked' => true)
         end
         
         it "saves a watched movie with string rating" do
           subject.watched.rate_movie @deep_blue, 'Yes'
           subject.watched.rate_movie @breakfast, 'No'
-          should match_selector('watched.movie' => @deep_blue.id, 'watched.liked' => true)
-          should match_selector('watched.movie' => @breakfast.id, 'watched.liked' => false)
+          subject.watched.rating_for(@deep_blue).should be_true
+          subject.watched.rating_for(@breakfast).should be_false
         end
         
         it "removes a watched movie" do
           subject.watched << @deep_blue
-          subject.watched.delete @deep_blue
-          should_not match_selector('watched.movie' => @deep_blue.id)
+          lambda { subject.watched.delete @deep_blue }.should change(join_collection, :size).by(-1)
         end
       end
       
       context "user with watched movies" do
         subject {
           create.tap do |user|
-            user.update '$addToSet' => {:watched => {'$each' => [
-                {:movie => @deep_blue.id, :liked => false, :time => 5.days.ago.utc},
-                {:movie => @breakfast.id, :liked => true, :time => 1.month.ago.utc}
-              ]}}
-            user.reload
+            join_collection_create(user, 'movie_id' => @deep_blue.id, 'liked' => false, '_id' => BSON::ObjectId.new(5.days.ago))
+            join_collection_create(user, 'movie_id' => @breakfast.id, 'liked' => true, '_id' => BSON::ObjectId.new(1.month.ago))
           end
         }
         
         it "doesn't add a movie twice" do
-          subject.watched << @deep_blue
-          subject.reload.watched.object_ids.size.should == 2
+          subject # trigger creating subject
+          lambda { subject.watched << @deep_blue }.should_not change(join_collection, :size)
+          subject.watched.size.should == 2
         end
         
         it "watched movies with rating information" do
@@ -158,10 +149,10 @@ describe User do
         end
         
         it "deletes a watched movie" do
-          subject.watched.delete @deep_blue
+          subject # trigger creating subject
+          lambda { subject.watched.delete @deep_blue }.should change(join_collection, :size).by(-1)
           subject.watched.should_not include(@deep_blue)
           subject.watched.should include(@breakfast)
-          should_not match_selector(:watched => {:movie => @deep_blue.id})
         end
         
         it "has liked filter" do
@@ -259,10 +250,8 @@ describe User do
       @friends = []
       @friends << collection.insert(:twitter => { :id => 1234 })
       
-      @mate = create(:username => 'mate') do |user|
-        user.facebook_info = { 'id' => "2345" }
-        user.watched << @movie
-      end
+      @mate = create(:username => 'mate', :facebook_info => { 'id' => "2345" })
+      @mate.watched << @movie
       @friends << @mate.id
       
       @user = build.tap { |user|

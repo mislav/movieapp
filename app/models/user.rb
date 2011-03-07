@@ -33,8 +33,11 @@ class User < Mingo
   end
   
   def movies_from_friends(options = {})
-    users = friends({'watched' => {'$exists' => true}}, :fields => [:watched])
-    movie_ids = friends.map { |u| u.watched.object_ids.reverse }.flatten.uniq
+    friends_ids = friends({}, :fields => %w[_id], :convert => nil).map { |f| f['_id'] }
+    watches = watched.send(:join_collection).
+      find({'user_id' => {'$in' => friends_ids}}, :fields => %w[movie_id liked], :sort => [:_id, :desc])
+
+    movie_ids = watches.map { |w| w['movie_id'] }.uniq
     
     if options.key? :page
       Movie.paginate_ids(movie_ids, options)
@@ -44,17 +47,18 @@ class User < Mingo
   end
   
   def friends_who_watched(movie)
-    friends({'watched.movie' => movie.id}, :fields => [:username, :name], :sort => ['_id', -1])
+    watches = watched.send(:join_collection).
+      find({'movie_id' => movie.id}, :fields => %w[user_id liked], :sort => [:_id, :desc])
+
+    user_ids = watches.map { |w| w['user_id'] }
+    # make the result ordered
+    friends_index = friends({:_id => {'$in' => user_ids}}).index_by(&:id)
+    user_ids.map { |id| friends_index[id] }.compact
   end
   
-  # 'to_watch' => [movie_id1, movie_id2, ...]
-  many :to_watch, Movie do
-    def size
-      @embedded.size
-    end
-
+  many :to_watch, self => 'user_id', 'movie_id' => Movie do
     def <<(doc)
-      return self if object_ids.include? doc.id
+      return self if include? doc
       super
     end
     
@@ -63,44 +67,24 @@ class User < Mingo
     end
   end
   
-  # 'watched' => [{ 'movie' => movie_id1, 'liked' => true }, { ... }, ...]
-  many :watched, Movie do
-    def size
-      @embedded.size
-    end
-    
-    # defines how to collect IDs of movies to load from the databae
-    def object_ids
-      @embedded.sort_by { |watched| watched['time'] }.map { |watched| watched['movie'] }
-    end
-    
+  many :watched, self => 'user_id', 'movie_id' => Movie do
     # defines how to convert given object (or document) to a custom
     # construct to be embedded directly in parent document
     def convert(doc)
       if doc.is_a?(Hash) and not doc.is_a?(Mingo) then doc
       else
         raise ArgumentError, "got #{doc.inspect}" unless doc.is_a? Mingo or doc.is_a? BSON::ObjectId
-        {'movie' => doc.id, 'time' => Time.now.utc}
+        super(doc)
       end
-    end
-    
-    def include?(doc)
-      @embedded.any? { |e| e['movie'] == doc.id }
-    end
-    
-    # overload delete to find matching embedded value
-    def delete(doc)
-      doc = @embedded.find { |e| e['movie'] == doc.id }
-      super(doc) if doc
     end
     
     # overload push operator to remove matching movie from `to_watch` list
     def <<(doc)
-      converted = convert(doc)
-      return self if object_ids.include? converted['movie']
+      doc = convert(doc)
+      return self if include? doc['movie_id']
 
-      super(converted).tap do |result|
-        @parent.to_watch.delete(doc.instance_of?(Hash) ? doc['movie'] : doc)
+      super(doc).tap do |result|
+        @parent.to_watch.delete doc['movie_id']
       end
     end
     
@@ -113,19 +97,15 @@ class User < Mingo
         else nil
         end if liked.respond_to? :downcase
 
-      if @embedded.find { |e| e['movie'] == movie_id }
-        @parent.class.collection.update(
-          { :_id => @parent.id, "#{property}.movie" => movie_id },
-          { '$set' => {"#{property}.$.liked" => liked} }
-        )
+      if join_doc = find_join_doc(movie.id)
+        join_collection.update({:_id => join_doc['_id']}, '$set' => {'liked' => liked})
       else
         self << convert(movie).update('liked' => liked)
       end
     end
     
     def rating_for(movie)
-      metadata = @embedded.find { |e| e['movie'] == movie.id }
-      metadata['liked']
+      find_join_doc(movie.id)['liked']
     end
     
     # defines an anonymous module that each movie in this collection
@@ -137,14 +117,13 @@ class User < Mingo
     
     # defines a block that will yield for each movie loaded from
     # the database, useful for decorating movies with extra information
-    decorate_each do |movie, embedded|
-      metadata = embedded.find { |e| e['movie'] == movie.id }
+    decorate_each do |movie, metadata|
       movie.liked = metadata['liked']
-      movie.time_added = metadata['time']
+      movie.time_added = metadata['_id'].generation_time
     end
     
     def liked
-      liked_ids = @embedded.map { |watched| watched['movie'] if watched['liked'] }.compact
+      liked_ids = object_ids { |d| d['liked'] }
       @model.find({:_id => {'$in' => liked_ids}}, find_options)
     end
     
@@ -166,7 +145,7 @@ class User < Mingo
         
         if found and not existing_ids.include? found.id
           time = Time.parse movie['created_time']
-          self << convert(found).update('liked' => true, 'time' => time)
+          self << convert(found).update('liked' => true, '_id' => BSON::ObjectId.new(time))
         end
       end
     end
