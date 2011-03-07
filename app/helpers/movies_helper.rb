@@ -59,6 +59,6 @@ module MoviesHelper
   end
   
   def movie_actions(movie)
-    render 'movies/actions', :movie => movie if logged_in?
+    render 'movies/actions', :movie => movie
   end
 end

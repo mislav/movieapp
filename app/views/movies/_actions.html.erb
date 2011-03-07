@@ -3,6 +3,7 @@
     <p><%= watched_liked movie, @user %></p>
   <% end %>
   
+  <% if logged_in? %>
   <% if current_user.watched.include? movie %>
     <p class="watched"><%= watched_liked movie %></p>
     <%= link_to '×', remove_from_watched_path(movie), :remote => true, :method => :delete, :class => 'revert', :title => "I didn't watch it", :'data-confirm' => 'Are you sure?' %>
@@ -33,5 +34,6 @@
       <%= button_to 'Meh', add_watched_path(movie), :remote => true, :method => :put, :name => 'liked', :'data-disable-with' => '⋯' %>
       <%= link_to 'cancel', '#cancel' %>
     </div>
+  <% end %>
   <% end %>
 </aside>
