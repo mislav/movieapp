@@ -15,7 +15,7 @@ end
 
 When /^(.+) for the movie "([^"]+)"$/ do |step, title|
   @last_movie_title = title
-  within ".movie:has(a h1:contains('#{title}'))" do
+  within ".movie:has(h1 a:contains('#{title}'))" do
     When step
   end
 end
