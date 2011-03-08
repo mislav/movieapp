@@ -249,10 +249,10 @@ class User < Mingo
   end
   
   def fetch_facebook_info(facebook_client)
-    response_string = facebook_client.get('/me', :fields => 'movies,friends')
+    response_string = facebook_client.get('/me', :fields => 'friends') # 'movies,friends'
     user_info = Yajl::Parser.parse response_string
     self.facebook_friends = user_info['friends']['data'].map { |f| f['id'] }
-    watched.import_from_facebook user_info['movies']['data']
+    # watched.import_from_facebook user_info['movies']['data']
     save
   end
   
