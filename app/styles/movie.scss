@@ -109,9 +109,7 @@ $poster-margin: 30px;
 ol.movies {
   padding-left: 0;
   @include no-bullets;
-  
-  a { text-decoration:none }
-  
+    
   .movie {
     min-height:180px;
     padding-left: $poster-small-width + $poster-margin;
