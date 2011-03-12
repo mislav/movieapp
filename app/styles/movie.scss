@@ -146,8 +146,9 @@ ol.movies {
     @include radial-gradient(color-stops(rgba(white, .5), rgba(white, 0) 150px), top left)
   }
   
+  .actions, .friends { font-size:11px; }
+
   .actions {
-    font-size:11px;
     margin-top:1.6em;
     
     p { padding:2px 0 3px; }
