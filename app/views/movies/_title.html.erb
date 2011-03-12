@@ -1,11 +1,35 @@
 <% if movie.original_title and movie.original_title != movie.title %>
+
   <hgroup>
-    <h1><%= link_to movie.original_title, movie_path(movie.id) %></h1>
-    <h2><%= movie_year(movie) %> <%= link_to movie.title, movie_path(movie.id) %></h2>
+    <h1>
+      <% if detail_page? %>
+        <%= movie.original_title %>
+      <% else %>
+        <%= link_to movie.original_title, movie_path(movie.id) %>
+      <% end %>
+    </h1>
+
+    <h2>
+      <%= movie_year(movie) %> 
+      
+      <% if detail_page? %>
+        <%= movie.title %>
+      <% else %>
+        <%= link_to movie.title, movie_path(movie.id) %>
+      <% end %>
+    </h2>
   </hgroup>
 
 <% else %>
-  <h1><%= link_to movie.title, movie_path(movie.id) %></h1>
-  <%= movie_year(movie) %>
 
+  <h1>
+    <% if detail_page? %>
+      <%= movie.title %>
+    <% else %>
+      <%= link_to movie.title, movie_path(movie.id) %>
+    <% end %>
+  </h1>
+
+  <%= movie_year(movie) %>
+  
 <% end %>
