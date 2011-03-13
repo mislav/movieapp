@@ -104,6 +104,10 @@ header h1 a {
 $poster-small-width: 92px;
 $poster-medium-width: 185px;
 $poster-margin: 30px;
+    
+em.liked { color: green; }
+em.disliked { color: darkred; }
+
 
 /* movie list */
 ol.movies {
@@ -184,9 +188,6 @@ ol.movies {
       
       &:hover { color:firebrick; }
     }
-    
-    em.liked { color: green; }
-    em.disliked { color: darkred; }
     
     &.fadeout { @include transition(opacity, 0.15s, ease-in); opacity: 0; }
     &.hidden { opacity: 0; }
@@ -279,6 +280,8 @@ article > h1 + nav {
     &:before { content: '▸ '; line-height: 1; }
     @include link-icon;
   }
+
+  .liked, .disliked { font-style:normal; }
 }
 
 .pagination {

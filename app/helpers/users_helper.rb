@@ -56,4 +56,14 @@ module UsersHelper
     listed << pluralize(rest, options[:other] || 'other') if rest > 0
     listed.to_sentence.html_safe
   end
+  
+  def positive(user)
+    positive = user.watched.liked.count * 100 / user.watched.count
+    %(<em class="liked">#{positive}%</em> positive).html_safe
+  end
+  
+  def hater(user)
+    hater = user.watched.disliked.count * 100 / user.watched.count
+    %(<em class="disliked">#{hater}%</em> hater).html_safe
+  end
 end
