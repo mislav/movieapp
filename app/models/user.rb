@@ -127,6 +127,11 @@ class User < Mingo
       @model.find({:_id => {'$in' => liked_ids}}, find_options)
     end
     
+    def disliked
+      liked_ids = object_ids { |d| d['liked'] == false }
+      @model.find({:_id => {'$in' => liked_ids}}, find_options)
+    end
+    
     def import_from_facebook(movies)
       existing_ids = object_ids
       facebook_ids = movies.each { |movie| movie['id'].to_i }
