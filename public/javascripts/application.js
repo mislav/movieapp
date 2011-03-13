@@ -11,7 +11,7 @@ document.on('click', '.actions .question a[href="#cancel"]', function(e, link) {
 })
 
 document.on('ajax:success', '.actions .button_to', function(e, form) {
-  if (useTransitions) {
+  if (useTransitions && !Prototype.Browser.Opera) {
     form.select('input[type=submit][data-disable-with]').invoke('removeAttribute', 'data-disable-with')
     
     form.up('.actions').addClassName('fadeout').transitionEnd(function() {
@@ -108,8 +108,8 @@ if (pagination) {
       url = window.location.toString(),
       container = $$('ol.movies').first(),
       loading = false
-  
-  var scrollHandler = document.on('scroll', function() {
+
+  var scrollHandler = Element.on(Prototype.Browser.WebKit ? document : window, 'scroll', function() {
     if (loading) return
     var viewportHeight = document.viewport.getHeight()
     

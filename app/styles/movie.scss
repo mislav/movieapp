@@ -37,6 +37,7 @@ h1 a, h2 a { text-decoration:none; }
 body > header {
   padding:0 $body-padding; margin:0 (0 - $body-padding);
   border-bottom:1px solid $lightblue-border;
+  background-color: $top-color-stop;
   @include linear-gradient(color-stops($top-color-stop, $bottom-color-stop));
 
   h1 { font:normal 36px/67px $heading-type; letter-spacing:.01em; }
@@ -321,6 +322,7 @@ article > h1 + nav {
 
 .intro {
   border: 1px solid $lightblue-border;
+  background-color: $top-color-stop;
   @include linear-gradient(color-stops($top-color-stop, $bottom-color-stop));
   @include border-radius(10px);
 
