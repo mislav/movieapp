@@ -58,6 +58,7 @@ class MoviesController < ApplicationController
   
   def ajax_actions_or_back
     if request.xhr?
+      response.content_type = Mime::HTML
       render :partial => 'actions', :locals => {:movie => @movie}
     else
       redirect_to :back
