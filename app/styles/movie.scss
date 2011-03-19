@@ -90,6 +90,12 @@ body > article {
   > h1 {
     font-size:18px; line-height:40px;
     margin-bottom:19px;
+    span {
+      margin-left: .5em;
+      font: italic 12px helvetica;
+      color: gray;
+      text-shadow: none;
+    }
   }
 }
 

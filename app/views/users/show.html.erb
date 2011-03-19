@@ -2,7 +2,13 @@
 <article>
 
   <% if not @movies.empty? %>
-    <h1><%= @user.name %> watched <%= count @movies %>.</h1>
+    <h1><% if my_page? %>
+      Your movie stream
+    <% else %>
+      <%= @user.name %>
+    <% end %>
+      <span><em><%= count @movies %></em> / <%= life_wasted(@user) %> of life spent</span>
+    </h1>
     <nav>
       <p>
         <%= link_to "#{count @user.watched.liked} liked", liked_path(@user) %>,

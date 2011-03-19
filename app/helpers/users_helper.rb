@@ -66,4 +66,14 @@ module UsersHelper
     hater = user.watched.disliked.count * 100 / user.watched.count
     %(<em class="disliked">#{hater}%</em> hater).html_safe
   end
+  
+  def life_wasted(user)
+    minutes = user.watched.sum {|m| m.runtime.nil? ? 0 : m.runtime }
+    hours = (minutes / 60.0).round
+
+    if (hours < 48) then %(#{hours} hours)
+    else %(#{(minutes / 60.0 / 24).round} days)
+    end
+  end
+  
 end
