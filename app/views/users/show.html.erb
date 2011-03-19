@@ -23,22 +23,24 @@
         <% end %></p>
       <% end %>
     </nav>
-    
+
     <%= render 'movies/paginated', :movies => @movies %>
+
   <% elsif my_page? and @user.to_watch.size.zero? %>
     <section class="intro">
-    <h1>Looks like you're new here.</h1>
-    <p>
-      <%= link_to 'Browse the site', root_path %> for movies, mark them as watched, or add them to your "to watch" list.
-      As simple as that.
-    </p>
-    <% if (movies_count = @user.movies_from_friends.count) > 0 %>
+      <h1>Looks like you're new here.</h1>
       <p>
-        Your friends have watched <%= pluralize(movies_count, 'movie') %>.
-        See <%= link_to "movies from friends", friends_path(@user) %>
+        <%= link_to 'Browse the site', root_path %> for movies, mark them as watched, or add them to your "to watch" list.
+        As simple as that.
       </p>
-    <% end %>
+      <% if (movies_count = @user.movies_from_friends.count) > 0 %>
+        <p>
+          Your friends have watched <%= pluralize(movies_count, 'movie') %>.
+          See <%= link_to "movies from friends", friends_path(@user) %>
+        </p>
+      <% end %>
     </section>
+
   <% else %>
     <p><%= link_to "#{count @user.to_watch} to watch", to_watch_path(@user) %></p>
     <p><%= @user.name %> didn't tell us what he/she watched yet.</p>
