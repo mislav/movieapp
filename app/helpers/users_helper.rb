@@ -68,7 +68,7 @@ module UsersHelper
   end
   
   def life_wasted(user)
-    minutes = user.watched.sum {|m| m.runtime.nil? ? 0 : m.runtime }
+    minutes = user.watched.minutes_spent
     hours = (minutes / 60.0).round
 
     if (hours < 48) then %(#{hours} hours)

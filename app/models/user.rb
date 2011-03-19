@@ -158,6 +158,15 @@ class User < Mingo
     def paginate(options)
       @model.paginate_ids(self.object_ids.reverse, options, find_options)
     end
+    
+    def minutes_spent
+      result = @model.collection.group \
+        :cond => {:_id => {'$in' => self.object_ids}},
+        :initial => {:minutes => 0},
+        :reduce => 'function(doc, prev) { if(doc.runtime) prev.minutes += doc.runtime; return prev }'
+      
+      result.first['minutes']
+    end
   end
   
   TwitterFields = %w[name location created_at url utc_offset time_zone id lang protected followers_count screen_name]
