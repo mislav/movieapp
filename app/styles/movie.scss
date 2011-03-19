@@ -250,7 +250,7 @@ ol.movies {
   header {
     h1 + .year, h2 { font-size:1.5em; line-height:1.1; }
     .runtime {
-      margin-left: .5em;
+      margin:15px 0 0 .5em;
       padding:.2em .4em .1em .3em;
       line-height:1.3;
       @include border-radius;
@@ -259,12 +259,13 @@ ol.movies {
       vertical-align: top;
     }
     .directors {
-      margin:1.5em 0;
+      margin-top:1.5em;
       strong { font-size:1.2em; font-weight:normal; @include text-shadow }
       a { text-decoration: none; }
       a:hover { text-decoration: underline; }
     }
-    .countries { margin-top:0; display:inline-block; }
+    .countries, .runtime { display:inline-block; }
+    .countries { margin-top:1.5em; }
   }
   
   .plot { margin:3em 0 1.5em; max-width:50em; }
