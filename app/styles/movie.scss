@@ -274,6 +274,10 @@ ol.movies {
     }
     .countries, .runtime { display:inline-block; }
     .countries { margin-top:1.5em; }
+    
+    /* special cases */
+    .year + .countries, .year + .countries + .runtime, .year + .runtime { margin-top:0; }
+    .directors + .runtime { margin-left:0; }
   }
   
   .plot { margin:3em 0 1.5em; max-width:50em; }
