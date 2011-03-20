@@ -7,7 +7,7 @@
     <% else %>
       <%= @user.name %>
     <% end %>
-      <span><em><%= count @movies %></em> / <%= life_wasted(@user) %> of life spent</span>
+      <span><em><%= @user.watched.count %></em> movies ~ <em><%= life_wasted(@user) %></em> of life spent</span>
     </h1>
     <nav>
       <p>
