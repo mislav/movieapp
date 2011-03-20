@@ -6,3 +6,4 @@ config/settings.local.yml
 log/*.log
 public/stylesheets/*.css
 tmp
+script/server
