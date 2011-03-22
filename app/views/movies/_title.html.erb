@@ -2,7 +2,7 @@
 
   <hgroup>
     <h1>
-      <% if detail_page? %>
+      <% if movie_show_page? %>
         <%= movie.original_title %>
       <% else %>
         <%= link_to movie.original_title, movie_path(movie.id) %>
@@ -12,7 +12,7 @@
     <h2>
       <%= movie_year(movie) %> 
       
-      <% if detail_page? %>
+      <% if movie_show_page? %>
         <%= movie.title %>
       <% else %>
         <%= link_to movie.title, movie_path(movie.id) %>
@@ -23,7 +23,7 @@
 <% else %>
 
   <h1>
-    <% if detail_page? %>
+    <% if movie_show_page? %>
       <%= movie.title %>
     <% else %>
       <%= link_to movie.title, movie_path(movie.id) %>

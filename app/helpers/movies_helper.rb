@@ -62,8 +62,8 @@ module MoviesHelper
     render 'movies/actions', :movie => movie
   end
   
-  def detail_page?
-    controller.action_name == 'show'
+  def movie_show_page?
+    controller.controller_name == 'movies' and controller.action_name == 'show'
   end
   
 end
