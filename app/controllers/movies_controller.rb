@@ -14,8 +14,7 @@ class MoviesController < ApplicationController
     elsif @director = params[:director]
       @movies = Movie.find(:directors => @director).paginate(:sort => ['year', :desc], :page => params[:page], :per_page => 10)
     else
-      # TODO: decide what to display on the home page
-      @movies = Movie.paginate(:sort => 'title', :page => params[:page], :per_page => 10)
+      @movies = Movie.last_watched
     end
     
     ajax_pagination

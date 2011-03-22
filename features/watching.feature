@@ -2,6 +2,7 @@ Feature: Marking movies as to-watch or watched
 
   Background:
     Given the database contains movies from TMDB "terminator.json"
+    And these movies are last watched
     And I am on the home page
   
   Scenario: Adding movies to to-watch list

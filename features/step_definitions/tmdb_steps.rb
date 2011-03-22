@@ -33,3 +33,10 @@ Given /^the database contains movies from TMDB "([^"]+)"( with full info)?$/ do 
   # hack: prevents ensure_extended_info from hitting the API
   Movie.collection.update({}, {'$unset' => {:tmdb_id => 1}}, :multi => true, :safe => true) if has_info
 end
+
+Given /^these movies are last watched$/ do
+  watched = User.collection['watched']
+  Movie.collection.find({}, :sort => [:_id, :desc]).limit(10).to_a.reverse.each do |movie_doc|
+    watched.save 'movie_id' => movie_doc['_id']
+  end
+end

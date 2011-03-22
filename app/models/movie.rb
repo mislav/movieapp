@@ -45,6 +45,14 @@ class Movie < Mingo
     save
   end
   
+  def self.last_watched
+    watches = User.collection['watched'].find({}, :sort => [:_id, :desc]).limit(10)
+    movie_ids = watches.map { |w| w['movie_id'] }
+    # make the result ordered
+    movie_index = find_by_ids(movie_ids).index_by(&:id)
+    movie_ids.map { |id| movie_index[id] }.compact
+  end
+  
   def self.from_tmdb_movies(movies)
     movies.map { |movie| new(:tmdb_movie => movie) }
   end

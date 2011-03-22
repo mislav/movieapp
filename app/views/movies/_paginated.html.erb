@@ -1,5 +1,5 @@
-<ol class="movies" style="counter-reset: item <%= movies.offset %>">
+<ol class="movies"<%= " style='counter-reset: item #{movies.offset}'" if movies.respond_to? :offset %>>
   <%= render :partial => 'movies/movie', :collection => movies %>
 </ol>
 
-<%= will_paginate movies %>
+<%= will_paginate movies if movies.respond_to? :current_page %>
