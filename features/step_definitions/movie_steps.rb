@@ -39,7 +39,7 @@ Then /^I should see movies: (.+)$/ do |movies|
   titles = movies.scan(/"([^"]+ \(\d+\))"/).flatten
   raise ArgumentError if titles.empty?
 
-  found = all('.movie h1').zip(all('.movie .year time')).map { |pair| "#{pair.first.text} (#{pair.last.text})" }
+  found = all('.movie h1').zip(all('.movie .year time')).map { |pair| "#{pair.first.text.strip} (#{pair.last.text.strip})" }
   found.should =~ titles
 end
 
