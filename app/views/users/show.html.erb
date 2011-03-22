@@ -15,13 +15,14 @@
         <%= link_to "#{count @user.to_watch} to watch", to_watch_path(@user) %>,
         <%= link_to "movies from friends", friends_path(@user) %>
       </p>
-      <% unless my_page? %>
-        <p><% if @user.from_twitter? %>
-          <%= link_to @user.twitter_url do %><%= twitter_icon(nil) %> <span>@<%= @user['twitter']['screen_name'] %> on Twitter</span><% end %>
-        <% elsif @user.from_facebook? %>
+      <ul class="profiles">
+        <% if @user.from_twitter? %><li><%= link_to @user.twitter_url do %><%= twitter_icon(nil) %>
+          <span>@<%= @user['twitter']['screen_name'] %> on Twitter</span><% end %>
+        </li><% end %>
+        <% if @user.from_facebook? %><li>
           <%= link_to @user.facebook_url do %><%= facebook_icon(nil) %> <span>Facebook profile</span><% end %>
-        <% end %></p>
-      <% end %>
+        </li><% end %>
+      </ul>
     </nav>
 
     <%= render 'movies/paginated', :movies => @movies %>

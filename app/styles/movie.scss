@@ -1,6 +1,6 @@
 @import "compass";
 
-$body-type:geneva, "bitstream vera sans", arial, helvetica, sans-serif;
+$body-type:geneva, "bitstream vera sans", helvetica, arial, sans-serif;
 $heading-type:"american typewriter", georgia, serif;
 
 $body-color:#02303f;
@@ -297,11 +297,8 @@ ol.movies {
 article > h1 + nav {
   margin: -2em 0 3em;
   a:link, a:visited { color:$lightblue; }
-  p + p {
-    margin-top: .5em;
-    &:before { content: '▸ '; line-height: 1; }
-    @include link-icon;
-  }
+  ul { @include no-bullets; padding: 0; }
+  ul.profiles { margin: .5em 0 0 0; @include link-icon; }
 
   .liked, .disliked { font-style:normal; }
 }
