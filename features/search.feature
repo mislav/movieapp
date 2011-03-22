@@ -12,15 +12,10 @@ Feature: Movie search
     And I should see "Nothing found."
 
   Scenario: One result
+    Given TMDB returns "black_cat-full.json" for movie details
     When I search for "Black Cat"
-    Then I should see "Search results for Black Cat" in the title
-    And I should see "Black Cat, White Cat" as a movie title in the results
-    But I should not see "Nothing found."
-    
-    Given TMDB returns "black_cat-full.json" for "Black Cat, White Cat" movie details
-    
-    When I follow "Black Cat, White Cat"
-    Then I should see "Crna mačka, beli mačor" in the title
+    Then I should not see "Search results for Black Cat" in the title
+    But I should see "Crna mačka, beli mačor" in the title
     And I should see "Dadan has a sister, Afrodita, that he desperately wants to see get married"
     And I should see "by Emir Kusturica"
 
