@@ -283,6 +283,15 @@ ol.movies {
   .plot { margin:3em 0 1.5em; max-width:50em; }
   
   .friends { font-style:italic; margin-top:1em; }
+  
+  section.admin {
+    max-width: 50em;
+    margin-top: 1.5em;
+    border-top: 1px solid #eee;
+    padding-top: .5em;
+    color: #666;
+    a { color: inherit; }
+  }
 }
 
 article > h1 + nav {

@@ -30,6 +30,21 @@ class Movie < Mingo
   property :directors
   # key :cast, Array
   
+  def to_param
+    self.id.to_s
+  end
+  
+  property :chosen_plot_field
+
+  def chosen_plot
+    send(chosen_plot_field || 'plot')
+  end
+  
+  def toggle_plot_field!
+    self.chosen_plot_field = chosen_plot_field == 'netflix_plot' ? 'plot' : 'netflix_plot'
+    save
+  end
+  
   def self.from_tmdb_movies(movies)
     movies.map { |movie| new(:tmdb_movie => movie) }
   end

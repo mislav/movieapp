@@ -10,6 +10,7 @@ Movies::Application.routes.draw do
   resources :movies, :only => [:show] do
     member do
       get :wikipedia
+      put :change_plot_field
     end
   end
   

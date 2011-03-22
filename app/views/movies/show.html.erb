@@ -20,7 +20,7 @@
     <%= movie_runtime(@movie) %>
   </header>
 
-  <p class="plot"><%= raw @movie.plot %></p>
+  <p class="plot"><%= raw @movie.chosen_plot %></p>
   
   <% if elsewhere = movie_elsewhere(@movie).presence %>
     <p class="elsewhere">
@@ -37,6 +37,13 @@
       <%= friends.length == 1 ? 'has' : 'have' %>
       watched this.
     </p>
+  <% end %>
+  
+  <% if admin? %>
+    <section class="admin">
+      <% provider = @movie.chosen_plot_field != 'netflix_plot' ? 'Netflix' : 'TMDB' %>
+      <%= link_to "switch to #{provider} plot", [:change_plot_field, @movie], :method => 'put' %>
+    </section>
   <% end %>
   
 </article>

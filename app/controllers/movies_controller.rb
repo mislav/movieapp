@@ -1,6 +1,7 @@
 class MoviesController < ApplicationController
   
   before_filter :find_movie, :except => :index
+  admin_actions :only => :change_plot_field
   
   rescue_from 'Tmdb::APIError', 'Net::HTTPExceptions' do |error|
     render 'shared/error', :status => 500, :locals => {:error => error}
@@ -46,6 +47,11 @@ class MoviesController < ApplicationController
   def wikipedia
     @movie.get_wikipedia_title unless @movie.wikipedia_title
     redirect_to @movie.wikipedia_url
+  end
+  
+  def change_plot_field
+    @movie.toggle_plot_field!
+    redirect_to movie_url(@movie)
   end
   
   protected
