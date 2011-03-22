@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
   
   before_filter :authentication_denied_notice
   
+  def self.admin_actions(options)
+    before_filter :check_admin, options
+  end
+  
   def logged_in?
     !!current_user
   end
@@ -39,6 +43,12 @@ class ApplicationController < ActionController::Base
         session.delete(:"#{service}_error")
         flash.now[:warning] = "You have refused to connect with #{service.titleize}"
       end
+    end
+  end
+  
+  def check_admin
+    unless logged_in? and current_user.admin?
+      head :forbidden
     end
   end
   

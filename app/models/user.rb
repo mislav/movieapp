@@ -12,6 +12,10 @@ class User < Mingo
     username
   end
   
+  def admin?
+    Movies::Application.config.admins.include? username
+  end
+  
   def created_at
     @created_at ||= self.id && self.id.generation_time
   end

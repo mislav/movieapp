@@ -1,4 +1,8 @@
 module ApplicationHelper
+
+  def admin?
+    logged_in? and current_user.admin?
+  end
   
   def nobr(str)
     str.gsub(/ +/, '&nbsp;')
