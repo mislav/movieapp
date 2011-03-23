@@ -1,6 +1,6 @@
 <aside class="actions">
   <% if @user and not my_page? and movie.respond_to? :liked? %>
-    <p><%= watched_liked movie, @user %></p>
+    <p class="other-info js-preserve"><%= watched_liked movie, @user %></p>
   <% end %>
   
   <% if logged_in? %>

@@ -16,18 +16,18 @@ document.on('ajax:success', '.actions .button_to', function(e, form) {
     
     form.up('.actions').addClassName('fadeout').transitionEnd(function() {
       var parent = this.up()
-      this.replace(e.memo.responseText)
+      this.replaceActions(e.memo.responseText)
       var actions = parent.down('.actions')
       actions.addClassName('hidden')
       ;(function() { actions.removeClassName('hidden').addClassName('fadein') }).defer()
     })
   } else {
-    form.up('.actions').replace(e.memo.responseText)
+    form.up('.actions').replaceActions(e.memo.responseText)
   }
 })
 
 document.on('ajax:success', 'a.revert', function(e, link) {
-  link.up('.actions').replace(e.memo.responseText)
+  link.up('.actions').replaceActions(e.memo.responseText)
 })
 
 Element.addMethods({
@@ -50,6 +50,14 @@ Element.addMethods({
     else handler = element.on(event, wrapper)
     
     return handler
+  },
+  // preserve the ".other-info" element while replacing ".actions"
+  replaceActions: function(element, content) {
+    element = $(element)
+    var parent = element.up()
+    element.replace(content)
+    parent.down('.actions').insert({ top: element.down('.js-preserve') })
+    return element
   }
 })
 
