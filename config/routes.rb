@@ -1,16 +1,15 @@
 Movies::Application.routes.draw do
 
   match 'about' => 'movies#about', :as => :about, :via => :get
-
-  match 'movies/towatch/:id' => 'movies#add_to_watch', :as => :add_to_watch, :via => :put
-  match 'movies/towatch/:id' => 'movies#remove_from_to_watch', :as => :remove_from_to_watch, :via => :delete
-  match 'movies/watched/:id' => 'movies#add_watched', :as => :add_watched, :via => :put
-  match 'movies/watched/:id' => 'movies#remove_from_watched', :as => :remove_from_watched, :via => :delete
   
   resources :movies, :only => [:show] do
     member do
       get :wikipedia
       put :change_plot_field
+      put :add_to_watch
+      delete :remove_from_to_watch
+      put :add_watched
+      delete :remove_from_watched
     end
   end
   
