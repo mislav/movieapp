@@ -71,8 +71,8 @@ module UsersHelper
     minutes = user.watched.minutes_spent
     hours = (minutes / 60.0).round
 
-    if (hours < 48) then %(#{hours} hours)
-    else %(#{(minutes / 60.0 / 24).round} days)
+    if (hours < 48) then %(<em>#{hours}</em> hours).html_safe
+    else %(<em>#{(minutes / 60.0 / 24).round}</em> days).html_safe
     end
   end
   
