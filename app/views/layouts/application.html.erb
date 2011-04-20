@@ -44,8 +44,7 @@
       
     <%= form_tag root_path, :method => 'get' do %>
       <div>
-        <%= label_tag :q, 'movie search:' %>
-        <%= text_field_tag :q, @query, :type => 'search', :results => '5' %>
+        <%= text_field_tag :q, @query, :type => 'search', :results => '5', :placeholder => 'search movies by title' %>
         <%= submit_tag "search", :name => nil %>
       </div>
     <% end %>
