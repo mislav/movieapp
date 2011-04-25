@@ -9,7 +9,7 @@ module Wikipedia
     url = SearchUrl.dup
     url.query_values = url.query_values.update :srsearch => query
     response = Net::HTTP.start(url.host, url.port) { |http|
-      http.get url.request_uri, 'User-agent' => 'The Movie App <mislav.marohnic@gmail.com>'
+      http.get url.request_uri, 'User-agent' => 'Movi.im <mislav.marohnic@gmail.com>'
     }
     response.error! unless Net::HTTPSuccess === response
     data = Yajl::Parser.parse response.body

@@ -111,7 +111,7 @@ module Tmdb
     def get_json(url)
       ApiCache.fetch(:tmdb, url.request_uri) do
         response = Net::HTTP.start(url.host, url.port) { |http|
-          http.get url.request_uri, 'user-agent' => 'The movie app <http://movi.im>'
+          http.get url.request_uri, 'user-agent' => 'Movi.im <http://movi.im>'
         }
         response.error! unless Net::HTTPSuccess === response
         unless response.content_type.to_s.include? 'json'
