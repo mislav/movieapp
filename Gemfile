@@ -9,7 +9,7 @@ gem 'bson_ext', '>= 1.1.1', :require => nil
 gem 'twitter-login', '~> 0.4.0', :require => 'twitter/login' #, :path => '/Users/mislav/Projects/twitter-login'
 gem 'will_paginate', '3.0.pre2' #, :path => '/Users/mislav/.coral/will_paginate-mislav'
 gem 'facebook-login', '~> 0.2.0', :require => 'facebook/login' #, :path => '/Users/mislav/Projects/facebook'
-gem 'haml', '~> 3.0.18'
+gem 'haml', '~> 3.1'
 gem 'compass'
 gem 'escape_utils'
 gem 'choices' #, :path => '/Users/mislav/Projects/choices'
