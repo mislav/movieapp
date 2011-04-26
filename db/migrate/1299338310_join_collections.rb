@@ -20,7 +20,7 @@ Mingo::Migration.define do
       user_watched.each do |watched_data|
         doc = {'movie_id' => watched_data['movie'], 'liked' => watched_data['liked'], 'user_id' => user['_id']}
         time = watched_data['time']
-        doc[:_id] = BSON::ObjectId.new(time || user_created_at)
+        doc[:_id] = BSON::ObjectId.from_time(time || user_created_at, :unique => true)
         watched.save doc
       end
       

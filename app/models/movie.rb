@@ -30,6 +30,8 @@ class Movie < Mingo
   property :directors
   # key :cast, Array
   
+  include Mingo::Timestamps
+  
   def to_param
     self.id.to_s
   end

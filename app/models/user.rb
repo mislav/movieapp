@@ -4,6 +4,8 @@ class User < Mingo
   property :username
   property :name
   
+  include Mingo::Timestamps
+  
   def username=(value)
     self['username'] = self.class.generate_username(value)
   end
@@ -14,10 +16,6 @@ class User < Mingo
   
   def admin?
     Movies::Application.config.admins.include? username
-  end
-  
-  def created_at
-    @created_at ||= self.id && self.id.generation_time
   end
   
   def twitter_friends=(ids)
@@ -154,7 +152,7 @@ class User < Mingo
         
         if found and not existing_ids.include? found.id
           time = Time.parse movie['created_time']
-          self << convert(found).update('liked' => true, '_id' => BSON::ObjectId.new(time))
+          self << convert(found).update('liked' => true, '_id' => BSON::ObjectId.from_time(time, :unique => true))
         end
       end
     end

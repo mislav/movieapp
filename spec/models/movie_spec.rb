@@ -39,6 +39,16 @@ describe Movie do
     Movie.last_watched.should == [movie1, movie3, movie2]
   end
   
+  it "remembers updated_at" do
+    Movie.collection.save '_id' => BSON::ObjectId.from_time(5.minutes.ago)
+    movie = Movie.first
+    movie.updated_at.should be_within(1).of(5.minutes.ago)
+    movie.title = "Tales of Database Timestamps"
+    movie.save
+    movie.reload
+    movie.updated_at.should be_within(1).of(Time.now)
+  end
+  
   describe "extended info" do
     it "movie with complete info" do
       movie = Movie.create :runtime => 95, :countries => [], :directors => [], :homepage => "", :tmdb_id => 1234

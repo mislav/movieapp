@@ -125,8 +125,8 @@ describe User do
       context "user with watched movies" do
         subject {
           create.tap do |user|
-            join_collection_create(user, 'movie_id' => @deep_blue.id, 'liked' => false, '_id' => BSON::ObjectId.new(5.days.ago))
-            join_collection_create(user, 'movie_id' => @breakfast.id, 'liked' => true, '_id' => BSON::ObjectId.new(1.month.ago))
+            join_collection_create(user, 'movie_id' => @deep_blue.id, 'liked' => false, '_id' => BSON::ObjectId.from_time(5.days.ago))
+            join_collection_create(user, 'movie_id' => @breakfast.id, 'liked' => true, '_id' => BSON::ObjectId.from_time(1.month.ago))
           end
         }
         
