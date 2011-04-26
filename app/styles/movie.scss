@@ -38,6 +38,7 @@ h1 a, h2 a { text-decoration:none; }
 body > header {
   padding:0 $body-padding; margin:0 (0 - $body-padding);
   height:60px;
+  @include border-radius(0 0 3px 3px);
 
   border:1px solid $lightblue-border;
   background-color: $top-color-stop;
@@ -354,7 +355,7 @@ article > h1 + nav {
   border: 1px solid $lightblue-border;
   background-color: $top-color-stop;
   @include linear-gradient(color-stops($top-color-stop, $bottom-color-stop));
-  @include border-radius(10px);
+  @include border-radius(3px);
 
   padding:12px 1em 12px $body-padding;
   margin:2em 0 0 (0 - $body-padding);
