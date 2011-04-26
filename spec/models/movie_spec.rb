@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Movie do
   before do
     Movie.collection.remove
+    User.collection.remove
   end
   
   def collection
@@ -21,6 +22,21 @@ describe Movie do
     movie.should be_changed
     movie.save
     movie.should match_selector(:title => "Where the Wild Things Are")
+  end
+  
+  it "last watched" do
+    user1 = User.create
+    user2 = User.create
+    movie1 = Movie.create
+    movie2 = Movie.create
+    movie3 = Movie.create
+    
+    user1.watched << movie2
+    user2.watched << movie2
+    user2.watched << movie3
+    user1.watched << movie1
+    
+    Movie.last_watched.should == [movie1, movie3, movie2]
   end
   
   describe "extended info" do
