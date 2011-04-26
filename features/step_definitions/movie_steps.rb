@@ -9,7 +9,7 @@ end
 World(MovieFinder)
 
 When /^I search for "([^"]*)"$/ do |query|
-  When %(I fill in "#{query}" for "movie search")
+  When %(I fill in "#{query}" for "q")
   When %(I press "search")
 end
 
