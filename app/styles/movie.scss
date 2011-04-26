@@ -11,7 +11,7 @@ $top-color-stop:#DEEAEE;
 $bottom-color-stop:#EFF4F6;
 $lightblue-border:#CEDFE5;
 
-$body-padding:40px;
+$body-padding:30px;
 
 body, h1, h2, h3, p { margin:0; padding:0 }
 
@@ -29,7 +29,7 @@ body {
   color:$body-color; background-color:#fdfdfd;
   font:75%/1.5em $body-type; text-rendering:optimizeLegibility;
   padding:0 $body-padding;
-  max-width:800px; margin:0 auto;
+  max-width:780px; margin:0 auto;
 }
 
 h1 { font-weight: normal; @include text-shadow; }
@@ -43,9 +43,7 @@ body > header {
   background-color: $top-color-stop;
   @include linear-gradient(color-stops($top-color-stop, $bottom-color-stop));
 
-  h1 {
-    font:normal 24px/32px $heading-type;
-  }
+  h1 { font:normal 24px/32px $heading-type; }
 }
 
 @mixin link-icon {
