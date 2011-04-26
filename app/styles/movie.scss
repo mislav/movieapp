@@ -59,8 +59,8 @@ header {
   nav, + form { color:$lightblue; }
 
   nav {
-    font-size:11px;
-    position:absolute; right:228px; top:10px;
+    font-size:11px; line-height:22px;
+    float:right;
     
     p { text-align:right; display:inline; }
 
