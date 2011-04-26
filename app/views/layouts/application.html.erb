@@ -23,8 +23,8 @@
 
         <% if logged_in? %>
           <p>
+            <%= link_to 'logout', logout_path %> ∙
             logged in as <%= username_with_icon(current_user) %>
-            | <%= link_to 'logout', logout_path %>
           </p>
         <% elsif Movies.offline? %>
           <%= link_to 'Instalogin!', instant_login_path %>

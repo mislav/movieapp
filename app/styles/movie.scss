@@ -29,6 +29,7 @@ body {
   color:$body-color; background-color:#fdfdfd;
   font:75%/1.5em $body-type;
   padding:0 $body-padding;
+  max-width:800px; margin:0 auto;
 }
 
 h1 { font-weight: normal; @include text-shadow; }
@@ -36,11 +37,15 @@ h1 a, h2 a { text-decoration:none; }
 
 body > header {
   padding:0 $body-padding; margin:0 (0 - $body-padding);
-  border-bottom:1px solid $lightblue-border;
+  height:60px;
+
+  border:1px solid $lightblue-border;
   background-color: $top-color-stop;
   @include linear-gradient(color-stops($top-color-stop, $bottom-color-stop));
 
-  h1 { font:normal 36px/67px $heading-type; letter-spacing:.01em; }
+  h1 {
+    font:normal 24px/32px $heading-type;
+  }
 }
 
 @mixin link-icon {
@@ -55,9 +60,10 @@ header {
   nav, + form { color:$lightblue; }
 
   nav {
-    position:absolute; right:3em; top:10px;
+    font-size:11px;
+    position:absolute; right:228px; top:10px;
     
-    p { text-align:right; }
+    p { text-align:right; display:inline; }
 
     .login {
       @include link-icon;
@@ -70,16 +76,16 @@ header {
           img { opacity: 1; } } } } }
 
   + form {
-    position:absolute; left:29em; top:25px;
+    position:absolute; top:31px;
  
     input[type="search"] {
-      font-size:11px; width:15em;
+      font-size:11px; width:190px;
       
       .no-inputsearch & {
         @include box-shadow(rgba(black, .5), 1px, 1px, 1px, 0, inset);
         border:1px solid #ddd;
         @include border-radius(10px);
-        padding:.15em 10px .1em; margin-top:2px; width:145px;
+        padding:.15em 10px .1em; margin-top:2px; width:165px;
       }
       
       &.placeholder { color:gray; }
@@ -285,7 +291,7 @@ ol.movies {
     .directors + .runtime { margin-left:0; }
   }
   
-  .plot { margin:3em 0 1.5em; max-width:50em; }
+  .plot { margin:3em 0 1.5em }
   
   .friends { font-style:italic; margin-top:1em; }
   
@@ -352,9 +358,9 @@ article > h1 + nav {
   @include linear-gradient(color-stops($top-color-stop, $bottom-color-stop));
   @include border-radius(10px);
 
-  font-size:13px; line-height:18px;
-  padding:12px 1em 12px (10px + $body-padding);
-  margin:2em 0 0 (0 - 10px - $body-padding); width:43.2em;
+  padding:12px 1em 12px $body-padding;
+  margin:2em 0 0 (0 - $body-padding);
+  width:540px;
   
   h1 { font-size:18px; margin-bottom:1em; }
   
