@@ -129,27 +129,26 @@ em.disliked { color: darkred; }
 
 /* movie list */
 ol.movies {
-  padding-left: 0;
+  padding-left:0;
   @include no-bullets;
+
+  li { width:380px; min-height:170px; float:left; margin:0 10px 10px 0; }
     
   .movie {
-    min-height:180px;
     padding-left: $poster-small-width + $poster-margin;
     
     > a {
-      min-height:68px; margin-bottom:.7em;
       &:active, &:visited { outline:0 none }
     }
   
-    h1 {
-      font-size:24px; line-height:28px; letter-spacing:.01em;
-      margin-bottom:.3em;
-    }
-    h1 + .year, h2 { font-size:1.3em; line-height:1.5em }
+    h1, h2 { letter-spacing:.01em }
+    h1, h2, h1 + .year { line-height:1.5em }
+    h1 { font-size:18px; margin-top:-5px; }
+    h1 + .year, h2 { font-size:16px }
 
     .poster {
       display:block;
-      margin-left:-($poster-small-width + $poster-margin); margin-top:.3em;
+      margin-left:-($poster-small-width + $poster-margin);
       float:left;
     }
   }
@@ -171,7 +170,7 @@ ol.movies {
   .actions, .friends { font-size:11px; }
 
   .actions {
-    margin-top:1.6em;
+    margin-top:1em;
     
     p { padding:2px 0 3px; }
     
