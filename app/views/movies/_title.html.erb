@@ -10,8 +10,6 @@
     </h1>
 
     <h2>
-      <%= movie_year(movie) %> 
-      
       <% if movie_show_page? %>
         <%= movie.title %>
       <% else %>
@@ -29,7 +27,7 @@
       <%= link_to movie.title, movie_path(movie.id) %>
     <% end %>
   </h1>
-
-  <%= movie_year(movie) %>
   
 <% end %>
+  
+<%= movie_year(movie) %> 
