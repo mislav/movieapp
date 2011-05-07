@@ -1,10 +1,11 @@
 source :rubygems
 
-gem 'rails', '~> 3.0.0.rc' #, :path => '/Users/mislav/.coral/rails-3-0-stable'
+gem 'railties', '~> 3.0.7'
 
 gem 'hashie', '~> 0.4.0'
 gem 'mingo', '>= 0.3.0' #, :path => '/Users/mislav/Projects/mingo'
 gem 'mongo_ext', '>= 0.19.3', :require => nil
+gem 'mongo-rails-instrumentation'
 gem 'bson_ext', '>= 1.1.1', :require => nil
 gem 'twitter-login', '~> 0.4.0', :require => 'twitter/login' #, :path => '/Users/mislav/Projects/twitter-login'
 gem 'will_paginate', '3.0.pre2' #, :path => '/Users/mislav/.coral/will_paginate-mislav'
@@ -18,8 +19,8 @@ group :extras do
   gem 'nokogiri', '~> 1.4.1'
   gem 'oauth', '~> 0.4.0'
   gem 'nibbler', '~> 1.1' #, :path => '/Users/mislav/Projects/scraper'
-  gem 'yajl-ruby', '~> 0.7.7'
-  gem 'addressable', '~> 2.1.2'
+  gem 'yajl-ruby', '~> 0.7'
+  gem 'addressable', '~> 2.1'
 end
 
 group :development do

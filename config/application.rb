@@ -41,8 +41,6 @@ module Movies
       g.test_framework  :rspec, :fixture => false
     end
     
-    require 'mongo_instrumentation'
-    
     initializer "MongoDB connect" do
       Mingo.connect(config.mongodb.database || config.mongodb.uri)
     end
