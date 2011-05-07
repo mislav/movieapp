@@ -108,7 +108,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
-    mingo (0.2.0)
+    mingo (0.3.0)
       hashie (>= 0.4.0)
       mongo (>= 1.3)
     mongo (1.3.0)
@@ -218,7 +218,7 @@ DEPENDENCIES
   haml (~> 3.1)
   hashie (~> 0.4.0)
   launchy
-  mingo (>= 0.2.0)
+  mingo (>= 0.3.0)
   mongo_ext (>= 0.19.3)
   mongrel
   nibbler (~> 1.1)

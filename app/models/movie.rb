@@ -2,6 +2,7 @@ require 'netflix'
 require 'tmdb'
 require 'wikipedia'
 require 'html/sanitizer'
+require 'mingo/pagination'
 
 class Movie < Mingo
   property :title
@@ -50,9 +51,7 @@ class Movie < Mingo
   def self.last_watched
     watches = User.collection['watched'].find({}, :sort => [:_id, :desc]).limit(20)
     movie_ids = watches.map { |w| w['movie_id'] }.uniq.first(10)
-    # make the result ordered
-    movie_index = find_by_ids(movie_ids).index_by(&:id)
-    movie_ids.map { |id| movie_index[id] }.compact
+    find(movie_ids)
   end
   
   def self.from_tmdb_movies(movies)

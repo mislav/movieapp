@@ -27,6 +27,7 @@ class User < Mingo
   end
   
   def friends(query = {}, options = {})
+    query = {:_id => {"$in" => query}} if Array === query
     query = query.merge('$or' => [
       { 'twitter.id' => {'$in' => Array(self['twitter_friends'])} },
       { 'facebook.id' => {'$in' => Array(self['facebook_friends'])} }
@@ -35,37 +36,26 @@ class User < Mingo
   end
   
   def movies_from_friends(options = {})
-    friends_ids = friends({}, :fields => %w[_id], :convert => nil).map { |f| f['_id'] }
-    watches = watched.send(:join_collection).
+    friends_ids = friends({}, :fields => %w[_id], :transformer => nil).map { |f| f['_id'] }
+    watches = self.class.collection['watched'].
       find({'user_id' => {'$in' => friends_ids}}, :fields => %w[movie_id liked], :sort => [:_id, :desc])
 
     movie_ids = watches.map { |w| w['movie_id'] }.uniq
-    
-    if options.key? :page
-      Movie.paginate_ids(movie_ids, options)
-    else
-      Movie.find_by_ids(movie_ids)
-    end
+    Movie.find(movie_ids)
   end
   
   def friends_who_watched(movie)
-    watches = watched.send(:join_collection).
+    watches = self.class.collection['watched'].
       find({'movie_id' => movie.id}, :fields => %w[user_id liked], :sort => [:_id, :desc])
 
     user_ids = watches.map { |w| w['user_id'] }
-    # make the result ordered
-    friends_index = friends({:_id => {'$in' => user_ids}}).index_by(&:id)
-    user_ids.map { |id| friends_index[id] }.compact
+    friends(user_ids)
   end
   
   many :to_watch, self => 'user_id', 'movie_id' => Movie do
     def <<(doc)
       return self if include? doc
       super
-    end
-    
-    def paginate(options)
-      @model.paginate_ids(self.object_ids.reverse, options, find_options)
     end
   end
   
@@ -155,10 +145,6 @@ class User < Mingo
           self << convert(found).update('liked' => true, '_id' => BSON::ObjectId.from_time(time, :unique => true))
         end
       end
-    end
-    
-    def paginate(options)
-      @model.paginate_ids(self.object_ids.reverse, options, find_options)
     end
     
     def minutes_spent

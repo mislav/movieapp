@@ -36,7 +36,7 @@ describe Movie do
     user2.watched << movie3
     user1.watched << movie1
     
-    Movie.last_watched.should == [movie1, movie3, movie2]
+    Movie.last_watched.to_a.should == [movie1, movie3, movie2]
   end
   
   it "remembers updated_at" do

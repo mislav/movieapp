@@ -139,13 +139,13 @@ describe User do
         it "watched movies with rating information" do
           first, second = subject.watched.to_a
           
-          first.should == @deep_blue
-          first.liked.should == false
-          first.time_added.should be_within(1).of(5.days.ago)
+          first.should == @breakfast
+          first.liked.should == true
+          first.time_added.should be_within(1).of(1.month.ago)
           
-          second.should == @breakfast
-          second.liked.should == true
-          second.time_added.should be_within(1).of(1.month.ago)
+          second.should == @deep_blue
+          second.liked.should == false
+          second.time_added.should be_within(1).of(5.days.ago)
         end
         
         it "deletes a watched movie" do

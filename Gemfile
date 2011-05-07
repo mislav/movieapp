@@ -3,7 +3,7 @@ source :rubygems
 gem 'rails', '~> 3.0.0.rc' #, :path => '/Users/mislav/.coral/rails-3-0-stable'
 
 gem 'hashie', '~> 0.4.0'
-gem 'mingo', '>= 0.2.0' #, :path => '/Users/mislav/Projects/mingo'
+gem 'mingo', '>= 0.3.0' #, :path => '/Users/mislav/Projects/mingo'
 gem 'mongo_ext', '>= 0.19.3', :require => nil
 gem 'bson_ext', '>= 1.1.1', :require => nil
 gem 'twitter-login', '~> 0.4.0', :require => 'twitter/login' #, :path => '/Users/mislav/Projects/twitter-login'
