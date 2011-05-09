@@ -21,6 +21,7 @@ group :extras do
   gem 'nibbler', '~> 1.1' #, :path => '/Users/mislav/Projects/scraper'
   gem 'yajl-ruby', '~> 0.7'
   gem 'addressable', '~> 2.1'
+  gem 'faraday-stack' #, :path => '/Users/mislav/Projects/faraday-stack'
 end
 
 group :development do

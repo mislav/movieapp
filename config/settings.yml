@@ -4,6 +4,7 @@ defaults: &defaults
   heroku: <%= !!ENV['HEROKU_TYPE'] %>
   api_caching: false
   admins: <%= ENV['ADMINS'].to_s.split(',') %>
+  user_agent: <%= ENV['USER_AGENT'] %>
   mongodb:
     uri: <%= ENV['MONGOHQ_URL'] %>
   netflix:

@@ -1,19 +1,24 @@
-require 'addressable/uri'
-require 'net/http'
-require 'yajl'
+require 'faraday_stack'
 
 module Wikipedia
-  SearchUrl = Addressable::URI.parse 'http://en.wikipedia.org/w/api.php?format=json&action=query&list=search'
+  def self.client
+    @client ||= FaradayStack.build('http://en.wikipedia.org/w/api.php?format=json',
+        :headers => {:user_agent => Movies::Application.config.user_agent}).tap do |conn|
+      conn.builder.insert_before Faraday::Adapter::NetHttp, FaradayStack::Instrumentation
+    end
+  end
+  
+  def self.perform_search(query)
+    client.get do |req|
+      req.params[:action] = 'query'
+      req.params[:list] = 'search'
+      req.params[:srsearch] = query
+    end
+  end
   
   def self.search(query)
-    url = SearchUrl.dup
-    url.query_values = url.query_values.update :srsearch => query
-    response = Net::HTTP.start(url.host, url.port) { |http|
-      http.get url.request_uri, 'User-agent' => 'Movi.im <mislav.marohnic@gmail.com>'
-    }
-    response.error! unless Net::HTTPSuccess === response
-    data = Yajl::Parser.parse response.body
-    data['query']['search']
+    response = perform_search(query)
+    response.body['query']['search']
   end
   
   def self.find_title(query)
