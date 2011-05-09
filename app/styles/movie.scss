@@ -126,7 +126,7 @@ header h1 a {
 
 $poster-small-width: 92px;
 $poster-medium-width: 185px;
-$poster-margin: 30px;
+$poster-margin: 20px;
     
 em.liked { color: green; }
 em.disliked { color: darkred; }
@@ -137,7 +137,7 @@ ol.movies {
   padding-left:0;
   @include no-bullets;
 
-  li { width:380px; min-height:170px; float:left; margin:0 10px 10px 0; }
+  li { width:370px; min-height:170px; float:left; margin:0 20px 10px 0; }
     
   .movie {
     padding-left: $poster-small-width + $poster-margin;
