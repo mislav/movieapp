@@ -61,6 +61,8 @@ module Movies
       end
     end
     
+    require 'api_runtime_stats'
+    
     initializer "cache logging" do
       ActiveSupport::Cache::Store.instrument = true
       namespaces = [:netflix, :tmdb]
