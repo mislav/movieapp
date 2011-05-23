@@ -2,7 +2,8 @@ css_dir = Rails.configuration.heroku ? 'tmp' : 'public'
 location = Rails.root + 'app/styles'
 
 unless Sass::Plugin.template_location_array.any? { |pair| pair.first.to_s == location.to_s }
-  Sass::Plugin.add_template_location(location, Rails.root + css_dir + 'stylesheets')
+  css_location = Rails.root + css_dir + 'stylesheets'
+  Sass::Plugin.add_template_location(location.to_s, css_location.to_s)
 end
 
 if Rails.configuration.heroku
