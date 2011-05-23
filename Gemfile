@@ -17,11 +17,12 @@ gem 'choices' #, :path => '/Users/mislav/Projects/choices'
 
 group :extras do
   gem 'nokogiri', '~> 1.4.1'
-  gem 'oauth', '~> 0.4.0'
   gem 'nibbler', '~> 1.1' #, :path => '/Users/mislav/Projects/scraper'
   gem 'yajl-ruby', '~> 0.7'
   gem 'addressable', '~> 2.1'
   gem 'faraday-stack' #, :path => '/Users/mislav/Projects/faraday-stack'
+  gem 'faraday_middleware'
+  gem 'simple_oauth'
 end
 
 group :development do

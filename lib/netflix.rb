@@ -1,71 +1,29 @@
-require 'active_support/memoizable'
-require 'oauth/consumer'
-require 'nibbler'
-require 'addressable/template'
+require 'nibble_spec'
+require 'faraday_middleware'
+require 'failsafe_store'
 require 'movie_title'
-require 'api_cache'
 
 module Netflix
-
-  SITE = 'http://api.netflix.com'
-
-  SEARCH_URL = Addressable::Template.new \
-    "#{SITE}/catalog/titles?{-join|&|term,max_results,start_index,expand}"
-
-  AUTOCOMPLETE_URL = Addressable::Template.new \
-    "#{SITE}/catalog/titles/autocomplete?term={term}"
-
-  class << self
-    extend ActiveSupport::Memoizable
+  extend NibbleSpec
   
-    def search(query, options = {})
-      data = perform_search(query, options)
-      parse data
-    end
-    
-    def perform_search(query, options = {})
-      page = options[:page] || 1
-      per_page = options[:per_page] || 5
-      offset = per_page * (page.to_i - 1)
-
-      params = {:term => query, :max_results => per_page, :start_index => offset}
-      params[:expand] = options[:expand].join(',') if options[:expand]
-      
-      perform_oauth_request SEARCH_URL.expand(params)
-    end
+  build_stack 'http://api.netflix.com', :headers => {:user_agent => Movies::Application.config.user_agent}
   
-    def parse(xml)
-      Catalog.parse(xml)
-    end
-  
-    def autocomplete(name)
-      data = perform_autocomplete(name)
-      Autocomplete.parse data
-    end
-    
-    def perform_autocomplete(name)
-      perform_oauth_request AUTOCOMPLETE_URL.expand(:term => name)
-    end
+  # instrumentation
+  faraday.builder.insert_before Faraday::Adapter::NetHttp, FaradayStack::Instrumentation
 
-    def oauth_client
-      config = Movies::Application.config.netflix
-      OAuth::Consumer.new(config.consumer_key, config.secret, :site => SITE)
-    end
-    memoize :oauth_client
-    
-    private
-    
-    def perform_oauth_request(url)
-      path = url.request_uri
+  # OAuth
+  config = Movies::Application.config.netflix
+  faraday.builder.insert_before Faraday::Request::UrlEncoded, Faraday::Request::OAuth,
+    :consumer_key => config.consumer_key, :consumer_secret => config.secret
 
-      ApiCache.fetch(:netflix, path) do
-        response = oauth_client.request(:get, path)
-        response.error! unless Net::HTTPSuccess === response
-        response.body
-      end
+  # caching
+  if Movies::Application.config.api_caching
+    faraday.builder.insert_before FaradayStack::ResponseJSON, FaradayStack::Caching do
+      FailsafeStore.new Rails.root + 'tmp/cache', :namespace => 'netflix', :expires_in => 1.day,
+        :exceptions => ['Faraday::Error::ClientError']
     end
   end
-  
+
   class Title < Nibbler
     include MovieTitle
     
@@ -97,17 +55,30 @@ module Netflix
       @special_edition
     end
   end
-  
-  class Catalog < Nibbler
+
+  get(:search_titles, '/catalog/titles?{-join|&|term,max_results,start_index,expand}') do
     elements 'catalog_title' => :titles, :with => Title
-    
     element 'number_of_results' => :total_entries
     element 'results_per_page' => :per_page
     element 'start_index' => :offset
   end
-  
-  class Autocomplete < Nibbler
+
+  def self.search(query, options = {})
+    page = options[:page] || 1
+    per_page = options[:per_page] || 5
+    offset = per_page * (page.to_i - 1)
+    
+    params = {:term => query, :max_results => per_page, :start_index => offset}
+    params[:expand] = options[:expand].join(',') if options[:expand]
+    
+    search_titles(params)
+  end
+
+  get(:autocomplete_titles, '/catalog/titles/autocomplete?term={term}') do
     elements './/autocomplete_item/title/@short' => :titles
   end
 
+  def self.autocomplete(term)
+    autocomplete_titles(:term => term)
+  end
 end

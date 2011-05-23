@@ -74,6 +74,8 @@ GEM
       rack (>= 1.1.0, < 2)
     faraday-stack (0.1.1)
       faraday (~> 0.6)
+    faraday_middleware (0.6.3)
+      faraday (~> 0.6.0)
     fastthread (1.0.7)
     ffi (1.0.7)
       rake (>= 0.8.7)
@@ -159,6 +161,7 @@ GEM
       ffi (>= 1.0.7)
       json_pure
       rubyzip
+    simple_oauth (0.1.5)
     term-ansicolor (1.0.5)
     thin (1.2.11)
       daemons (>= 1.0.9)
@@ -191,6 +194,7 @@ DEPENDENCIES
   escape_utils
   facebook-login (~> 0.2.0)
   faraday-stack
+  faraday_middleware
   haml (~> 3.1)
   hashie (~> 0.4.0)
   launchy
@@ -200,11 +204,11 @@ DEPENDENCIES
   mongrel
   nibbler (~> 1.1)
   nokogiri (~> 1.4.1)
-  oauth (~> 0.4.0)
   railties (~> 3.0.7)
   rspec-rails (~> 2.3.0)
   ruby-debug
   ruby-debug19
+  simple_oauth
   thin
   twitter-login (~> 0.4.0)
   webmock

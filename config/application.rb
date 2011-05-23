@@ -64,22 +64,8 @@ module Movies
     require 'api_runtime_stats'
     
     initializer "cache logging" do
-      ActiveSupport::Cache::Store.instrument = true
-      namespaces = [:netflix, :tmdb]
-      
-      ActiveSupport::Notifications.subscribe(/^cache_(\w+).active_support$/) do |name, start, ending, _, payload|
-        if namespaces.include? payload[:namespace]
-          case name.split('.').first
-          when 'cache_reuse_stale'
-            Rails.logger.info "[%s] Error rebuilding cache: %s (%s)" % [
-              payload[:namespace], payload[:key], payload[:exception].message
-            ]
-          when 'cache_generate'
-            Rails.logger.info "[%s] Cache rebuild: %s (%.3f s)" % [
-              payload[:namespace], payload[:key], ending - start
-            ]
-          end
-        end
+      ActiveSupport::Notifications.subscribe('request.faraday') do |name, start, ending, _, payload|
+        Rails.logger.debug "[Faraday] #{payload[:method].to_s.upcase} #{payload[:url]}"
       end
     end
   end

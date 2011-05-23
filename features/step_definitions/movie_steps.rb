@@ -26,8 +26,7 @@ When /^(.+) for that movie$/ do |step|
 end
 
 Given /^there are three movies by Lone Scherfig$/ do
-  data = read_fixture 'tmdb-an_education.json'
-  movie = Movie.from_tmdb_movies(Tmdb.parse(data).movies).first
+  movie = Movie.from_tmdb_movies(movies_from_tmdb_fixture('an_education.json')).first
   movie.save
   movie2 = Movie.create movie.to_hash.except('_id').update('title' => 'Another Lone Scherfig movie', 'year' => 2008)
   movie3 = Movie.create movie.to_hash.except('_id').update('title' => 'His third movie', 'year' => 2010)

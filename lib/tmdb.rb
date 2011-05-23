@@ -1,10 +1,7 @@
-require 'net/http'
-require 'yajl/json_gem'
-require 'nibbler/json'
-require 'addressable/template'
+require 'nibble_spec'
+require 'failsafe_store'
 require 'active_support/core_ext/object/blank'
 require 'movie_title'
-require 'api_cache'
 
 Nibbler.class_eval do
   def self.rules
@@ -12,32 +9,32 @@ Nibbler.class_eval do
   end
 end
 
-Nibbler::JsonDocument.class_eval do
-  attr_reader :data unless instance_methods.map(&:to_sym).include? :data
-end
-
 module Tmdb
+  extend NibbleSpec
   
-  # http://api.themoviedb.org/2.1/methods/Movie.search
-  SEARCH_URL = Addressable::Template.new 'http://api.themoviedb.org/2.1/Movie.search/en/json/{api_key}/{query}'
-  # http://api.themoviedb.org/2.1/methods/Movie.getInfo
-  DETAILS_URL = Addressable::Template.new 'http://api.themoviedb.org/2.1/Movie.getInfo/en/json/{api_key}/{tmdb_id}'
+  build_stack 'http://api.themoviedb.org/2.1', :headers => {:user_agent => Movies::Application.config.user_agent}
   
-  class APIError < RuntimeError; end
-  
-  def self.search query
-    url = SEARCH_URL.expand :api_key => Movies::Application.config.tmdb.api_key, :query => query
-    parse get_json(url)
+  # instrumentation
+  faraday.builder.insert_before Faraday::Adapter::NetHttp, FaradayStack::Instrumentation
+
+  # caching
+  if Movies::Application.config.api_caching
+    faraday.builder.insert_before FaradayStack::ResponseJSON, FaradayStack::Caching do
+      FailsafeStore.new Rails.root + 'tmp/cache', :namespace => 'tmdb', :expires_in => 1.day,
+        :exceptions => ['Faraday::Error::ClientError']
+    end
   end
   
-  def self.movie_details tmdb_id
-    url = DETAILS_URL.expand :api_key => Movies::Application.config.tmdb.api_key, :tmdb_id => tmdb_id
-    parse(get_json(url)).movies.first
+  class ResponseNormalizer < FaradayStack::ResponseMiddleware
+    define_parser { |b| Array.new }
+
+    def parse_response?(env)
+      body = env[:body]
+      body.nil? or body.empty? or body.first == "Nothing found."
+    end
   end
   
-  def self.parse json_string
-    Result.parse json_string
-  end
+  faraday.builder.insert_before FaradayStack::ResponseJSON, ResponseNormalizer, :content_type => 'application/json'
   
   class Movie < NibblerJSON
     include MovieTitle
@@ -86,39 +83,22 @@ module Tmdb
     end
   end
   
-  class Result < NibblerJSON
+  # http://api.themoviedb.org/2.1/methods/Movie.search
+  get(:search_movies, 'Movie.search/en/json/{api_key}/{query}') do
     elements :movies, :with => Movie
-    
-    def self.convert_document(doc)
-      # an empty string as an API response results in nil when parsed as JSON
-      doc = [] if doc.blank?
-      
-      super(doc).tap do |converted|
-        if Rails.env.development?
-          File.open(Rails.root + 'tmp/tmdb-last-request.yml', 'w') { |f|
-            f.write YAML.dump(converted)
-          }
-        end
-
-        # work around stupid API response ["Nothing found."]
-        converted.data.clear if converted.data.first == "Nothing found."
-      end
-    end
   end
   
-  class << self
-    private
-    def get_json(url)
-      ApiCache.fetch(:tmdb, url.request_uri) do
-        response = Net::HTTP.start(url.host, url.port) { |http|
-          http.get url.request_uri, 'user-agent' => 'Movi.im <http://movi.im>'
-        }
-        response.error! unless Net::HTTPSuccess === response
-        unless response.content_type.to_s.include? 'json'
-          raise APIError, "JSON expected, got: #{response.content_type.inspect}"
-        end
-        response.body
-      end
-    end
+  def self.search query
+    search_movies :api_key => Movies::Application.config.tmdb.api_key, :query => query
+  end
+  
+  # http://api.themoviedb.org/2.1/methods/Movie.getInfo
+  get(:get_movie_details, 'Movie.getInfo/en/json/{api_key}/{tmdb_id}') do
+    elements :movies, :with => Movie
+  end
+  
+  def self.movie_details tmdb_id
+    result = get_movie_details :api_key => Movies::Application.config.tmdb.api_key, :tmdb_id => tmdb_id
+    result.movies.first
   end
 end

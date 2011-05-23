@@ -28,7 +28,7 @@ describe Netflix::Title do
 
 end
 
-describe Netflix::Autocomplete do
+describe Netflix, "autocomplete" do
 
   before(:all) do
     stub_request(:get, 'http://api.netflix.com/catalog/titles/autocomplete?term=step').
