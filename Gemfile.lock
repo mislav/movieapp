@@ -83,7 +83,6 @@ GEM
     gem_plugin (0.2.3)
     gherkin (2.3.7)
       json (>= 1.4.6)
-    haml (3.1.1)
     hashie (0.4.0)
     i18n (0.5.0)
     json (1.5.1)
@@ -195,7 +194,6 @@ DEPENDENCIES
   facebook-login (~> 0.2.0)
   faraday-stack
   faraday_middleware
-  haml (~> 3.1)
   hashie (~> 0.4.0)
   launchy
   mingo (>= 0.3.0)
