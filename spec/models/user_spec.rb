@@ -235,10 +235,28 @@ describe User do
       existing_facebook_id = BSON::ObjectId.from_time(5.minutes.ago)
       collection.save :facebook => { :id => 2345 }, :_id => existing_facebook_id
       existing_twitter_id = collection.insert :twitter => { :id => 1234 }
-        
+      
+      facebook_user = User.first existing_facebook_id
+      facebook_user.watched << Movie.create
+      facebook_user.watched << Movie.create
+      facebook_user.to_watch << Movie.create
+      
+      twitter_user = User.first existing_twitter_id
+      twitter_user.watched << Movie.create
+      twitter_user.to_watch << Movie.create
+      twitter_user.to_watch << Movie.create
+      
+      total_watched = facebook_user.watched.to_a + twitter_user.watched.to_a
+      total_to_watch = facebook_user.to_watch.to_a + twitter_user.to_watch.to_a
+      
       user = User.login_from_twitter_or_facebook(@twitter_data, @facebook_data)
       user.id.should == existing_facebook_id
       user['twitter']['id'].should == 1234
+      
+      user.watched.size.should == 3
+      user.watched.to_a.should == total_watched
+      user.to_watch.size.should == 3
+      user.to_watch.to_a.should == total_to_watch
       
       User.first(existing_twitter_id).should be_nil
     end

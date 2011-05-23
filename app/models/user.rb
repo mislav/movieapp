@@ -239,8 +239,17 @@ class User < Mingo
     other.each do |key, value|
       self[key] = value if value and self[key].nil?
     end
+    [self.class.collection['watched'], self.class.collection['to_watch']].each do |collection|
+      collection.update({'user_id' => other.id}, {'$set' => {'user_id' => self.id}}, :multi => true)
+    end
+    self.reset_counter_caches
     other.destroy
     return self
+  end
+  
+  def reset_counter_caches
+    self['watched_count'] = watched.send(:join_cursor).count
+    self['to_watch_count'] = to_watch.send(:join_cursor).count
   end
   
   def fetch_twitter_info(twitter_client)
