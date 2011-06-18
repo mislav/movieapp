@@ -39,7 +39,7 @@
     </p>
   <% end %>
   
-  <% if admin? %>
+  <% if admin? and @movie.netflix_plot.present? %>
     <section class="admin">
       <% provider = @movie.chosen_plot_field != 'netflix_plot' ? 'Netflix' : 'TMDB' %>
       <%= link_to "switch to #{provider} plot", [:change_plot_field, @movie], :method => 'put' %>
