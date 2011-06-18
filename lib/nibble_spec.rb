@@ -19,7 +19,7 @@ module NibbleSpec
       if parser
         data = response.body
         type = response.headers['content-type'].to_s.split(';').first
-        data = Nibbler::JsonDocument.new(data) if 'application/json' == type
+        data = Nibbler::JsonDocument.new(data) if type =~ /\/json$/
         parser.parse(data)
       else
         response.body
