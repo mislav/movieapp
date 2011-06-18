@@ -26,6 +26,6 @@ module MovieTitle
   
   def ==(other)
     other.respond_to? :normalized_title and other.respond_to? :year and
-      self.normalized_title == other.normalized_title and (self.year - other.year).abs <= 1
+      self.normalized_title == other.normalized_title and self.year == other.year
   end
 end

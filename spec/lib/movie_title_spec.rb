@@ -41,8 +41,8 @@ describe MovieTitle do
       wars.should == wars2
     end
     
-    it "tolerates difference of 1 in year" do
-      wars.should == wars_wrong_year
+    it "doesn't tolerate difference of 1 in year" do
+      wars.should_not == wars_wrong_year
     end
     
     it "doesn't tolerate larger difference in year" do
