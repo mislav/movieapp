@@ -64,8 +64,14 @@ module Movies
     require 'api_runtime_stats'
     
     initializer "cache logging" do
-      ActiveSupport::Notifications.subscribe('request.faraday') do |name, start, ending, _, payload|
-        Rails.logger.debug "[Faraday] #{payload[:method].to_s.upcase} #{payload[:url]}"
+      if "script/rails" == $0
+        ActiveSupport::Notifications.subscribe('request.faraday') do |name, start, ending, _, payload|
+          puts "[Faraday] #{payload[:method].to_s.upcase} #{payload[:url]}"
+        end
+      else
+        ActiveSupport::Notifications.subscribe('request.faraday') do |name, start, ending, _, payload|
+          Rails.logger.debug "[Faraday] #{payload[:method].to_s.upcase} #{payload[:url]}"
+        end
       end
     end
   end
