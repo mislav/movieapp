@@ -20,7 +20,7 @@ module User::Social
 
   def facebook_info=(info)
     self['facebook'] = info.to_hash.tap do |data|
-      self.username ||= data['link'].scan(/\w+/).last
+      self.username ||= data['link'].scan(/[\w.]+/).last
       self.name ||= data['name']
     end
   end
