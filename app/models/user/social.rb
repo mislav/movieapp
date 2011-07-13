@@ -1,3 +1,6 @@
+require 'net/http'
+require 'yajl'
+
 module User::Social
   extend ActiveSupport::Concern
 
@@ -44,8 +47,37 @@ module User::Social
     'http://twitter.com/' + self['twitter']['screen_name']
   end
 
+  # 73x73 px
+  def twitter_picture
+    self['twitter_picture'] || begin
+      name = self['twitter']['screen_name']
+      img = get_redirect_target "http://api.twitter.com/1/users/profile_image/#{name}?size=bigger"
+      if img and img !~ /default_profile_/
+        self['twitter_picture'] = img
+        self.save
+        img
+      end
+    end
+  end
+
   def facebook_url
     self['facebook']['link']
+  end
+
+  # 100x? px
+  def facebook_picture
+    "http://graph.facebook.com/#{self['facebook']['id']}/picture?type=normal"
+  end
+
+  # either Twitter of Facebook picture
+  def picture_url
+    url = from_twitter? && twitter_picture
+    url ||= from_facebook? && facebook_picture
+    url.presence
+  end
+
+  def picture?
+    picture_url.present?
   end
 
   module ClassMethods
@@ -86,5 +118,17 @@ module User::Social
           user.save
         end
     end
+  end
+
+  private
+
+  def get_redirect_target(url)
+    return nil if Movies.offline?
+    # TODO: cache results for 1 day
+    url = URI.parse url unless url.respond_to? :request_uri
+    response = Net::HTTP.start(url.host, open_timeout: 2) {|http| http.get url.request_uri }
+    response['location'] if response.is_a? Net::HTTPRedirection
+  rescue Timeout::Error
+    return nil
   end
 end

@@ -23,5 +23,9 @@ module ApplicationHelper
   def facebook_icon(alt = 'Facebook')
     image_tag('facebook.gif', :alt => alt, :class => 'icon')
   end
+
+  def compare_page?
+    request.path.start_with? '/compare/'
+  end
   
 end

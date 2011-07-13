@@ -1,5 +1,3 @@
-require 'yajl'
-
 class User < Mingo
   property :username
   property :name

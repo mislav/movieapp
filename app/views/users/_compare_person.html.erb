@@ -1,0 +1,17 @@
+<section class="person">
+  <p>
+    <% if compare.user.picture? %>
+    <span class="avatar" style="background-image:url(<%= compare.user.picture_url %>)"></span>
+    <% end %>
+    <span class="name"><%= user_name compare.user %></span>
+    <span class="watched"><%= pluralize_movies compare.watched_count %></span>
+  </p>
+  <% if compare.fav_directors.any? %>
+  <section class="directors">
+    <p>Favorite directors:</p>
+    <ol><% compare.fav_directors.each do |name| %>
+      <li><%= name %>
+    <% end %></ol>
+  </section>
+  <% end %>
+</section>

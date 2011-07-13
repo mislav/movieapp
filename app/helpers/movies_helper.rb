@@ -3,6 +3,11 @@ module MoviesHelper
     method = [:total_entries, :size, :count].find { |m| collection.respond_to? m }
     pluralize collection.send(method), 'movie'
   end
+
+  def pluralize_movies(num, suffix = nil)
+    suffix = ' ' + suffix if suffix
+    (pluralize(num, 'movie') + suffix.to_s).sub(/\d+/, '<span class="num">\0</span>').html_safe
+  end
   
   def movie_elsewhere(movie)
     [ ["official website", :homepage],

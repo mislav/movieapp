@@ -5,8 +5,10 @@
   
   <% if logged_in? %>
   <% if current_user.watched.include? movie %>
+    <% unless compare_page? %>
     <p class="watched"><%= watched_liked movie %></p>
     <%= link_to '×', [:remove_from_watched, movie], :remote => true, :method => :delete, :class => 'revert', :title => "I didn't watch it", :'data-confirm' => 'Are you sure?' %>
+    <% end %>
 
   <% else %>
     <div class="primary">
