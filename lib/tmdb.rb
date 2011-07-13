@@ -34,7 +34,7 @@ module Tmdb
     end
   end
   
-  faraday.builder.insert_before FaradayStack::ResponseJSON, ResponseNormalizer, :content_type => 'application/json'
+  faraday.builder.insert_before FaradayStack::ResponseJSON, ResponseNormalizer, :content_type => %r{(application|text)/json}
   
   class Movie < NibblerJSON
     include MovieTitle
