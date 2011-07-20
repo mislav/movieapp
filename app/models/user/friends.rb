@@ -1,4 +1,15 @@
 module User::Friends
+  
+  def add_friend(user_or_id)
+    id = BSON::ObjectId.from_object(user_or_id)
+    self.update '$addToSet' => {'friends_added' => id}, '$pull' => {'friends_removed' => id}
+  end
+  
+  def remove_friend(user_or_id)
+    id = BSON::ObjectId.from_object(user_or_id)
+    self.update '$addToSet' => {'friends_removed' => id}, '$pull' => {'friends_added' => id}
+  end
+  
   def twitter_friends=(ids)
     self['twitter_friends'] = ids.map { |id| id.to_i }
   end
@@ -11,7 +22,8 @@ module User::Friends
     query = {:_id => {"$in" => query}} if Array === query
     query = query.merge('$or' => [
       { 'twitter.id' => {'$in' => Array(self['twitter_friends'])} },
-      { 'facebook.id' => {'$in' => Array(self['facebook_friends'])} }
+      { 'facebook.id' => {'$in' => Array(self['facebook_friends'])} },
+      { '_id' => {'$in' => Array(self['friends_added'])} }
     ])
     self.class.find(query, options)
   end

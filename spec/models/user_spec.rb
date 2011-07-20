@@ -291,5 +291,13 @@ describe User do
     it "finds movies" do
       @user.movies_from_friends.to_a.should == [@movie]
     end
+    
+    it "adds an extra friend" do
+      user1 = create
+      user2 = create
+      
+      user1.add_friend(user2)
+      user1.reload.friends.to_a.should include(user2)
+    end
   end
 end
