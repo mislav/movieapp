@@ -297,7 +297,22 @@ describe User do
       user2 = create
       
       user1.add_friend(user2)
-      user1.reload.friends.to_a.should include(user2)
+      user1.friends.to_a.should include(user2)
+    end
+    
+    it "removes a friend" do
+      user1 = create
+      user2 = create
+      
+      user1.add_friend(user2)
+      user1.remove_friend(user2)
+      user1.friends.to_a.should_not include(user2)
+    end
+
+    it "removes a twitter friend" do
+      friend_id = @friends.first
+      @user.remove_friend(friend_id)
+      @user.friends.to_a.should_not include(User.first(friend_id))
     end
   end
 end

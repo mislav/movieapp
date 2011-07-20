@@ -1,13 +1,26 @@
+require 'mingo_set_property'
+
 module User::Friends
-  
+  extend ActiveSupport::Concern
+
+  included do
+    extend Mingo::SetProperty
+    # the values of these properties are dynamic Set objects that automatically
+    # update the database when elements are added or removed
+    property :friends_added, :type => :set
+    property :friends_removed, :type => :set
+  end
+
   def add_friend(user_or_id)
     id = BSON::ObjectId.from_object(user_or_id)
-    self.update '$addToSet' => {'friends_added' => id}, '$pull' => {'friends_removed' => id}
+    friends_added << id
+    friends_removed.delete id
   end
   
   def remove_friend(user_or_id)
     id = BSON::ObjectId.from_object(user_or_id)
-    self.update '$addToSet' => {'friends_removed' => id}, '$pull' => {'friends_added' => id}
+    friends_removed << id
+    friends_added.delete id
   end
   
   def twitter_friends=(ids)
@@ -18,13 +31,38 @@ module User::Friends
     self['facebook_friends'] = ids.map { |id| id.to_s }
   end
 
+  # Returns a cursor representing people who this user follows.
+  #
+  # Extra conditions can be passed through the `query` parameter.
+  # This parameter can also be an array of user ids to scope the search to.
+  # The `options` hash is forwarded to the `Mingo.find` method.
+  #
+  # "Friends" are those connected through Twitter or Facebook or those
+  # explicitly added via `add_friend`.
+  #
+  # The collection excludes people explicitly removed via `remove_friend`.
   def friends(query = {}, options = {})
-    query = {:_id => {"$in" => query}} if Array === query
+    query = {:_id => {'$in' => query.to_a}} if query.respond_to? :<<
+
+    # initial condition matches friends by twitter/facebook ids
     query = query.merge('$or' => [
       { 'twitter.id' => {'$in' => Array(self['twitter_friends'])} },
-      { 'facebook.id' => {'$in' => Array(self['facebook_friends'])} },
-      { '_id' => {'$in' => Array(self['friends_added'])} }
+      { 'facebook.id' => {'$in' => Array(self['facebook_friends'])} }
     ])
+
+    # add conditions for explicit follows
+    query['$or'] << { '_id' => {'$in' => friends_added.to_a} } if friends_added?
+
+    # explicit unfollows
+    if friends_removed?
+      if query.has_key? :_id
+        # case in which find is scoped to a set of user ids
+        query[:_id]['$in'] = query[:_id]['$in'] - friends_removed.to_a
+      else
+        query[:_id] = {'$nin' => friends_removed.to_a} 
+      end
+    end
+
     self.class.find(query, options)
   end
 
