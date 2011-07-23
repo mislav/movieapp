@@ -136,6 +136,7 @@ em.disliked { color: darkred; }
 ol.movies {
   padding-left:0;
   @include no-bullets;
+  @include clearfix;
 
   li { width:370px; min-height:170px; float:left; margin:0 20px 10px 0; }
     
