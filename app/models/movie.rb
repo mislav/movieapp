@@ -76,9 +76,8 @@ class Movie < Mingo
 
   def self.directors_of_movies(movie_ids)
     find(movie_ids, transformer: nil, fields: 'directors').
-      each_with_object([]) {|m, all| all.concat m['directors'] if m['directors'] }.
-      each_with_object(Hash.new(0)) { |n, all| all[n] += 1 }.
-      to_a.sort_by(&:last).reverse
+      map { |m| m['directors'] }.compact.flatten.
+      histogram.to_a.sort_by(&:last).reverse
   end
   
   def tmdb_movie=(movie)

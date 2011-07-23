@@ -16,4 +16,7 @@
 
   <h2>Movies both liked:</h2>
   <%= render 'movies/paginated', :movies => @compare.movies_both_liked.limit(6) %>
+
+  <h2>Movies both want to watch:</h2>
+  <%= render 'movies/paginated', :movies => @compare.movies_to_watch.limit(6) %>
 </article>
