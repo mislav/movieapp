@@ -2,7 +2,6 @@ source :rubygems
 
 gem 'railties', '~> 3.0.7'
 
-gem 'hashie', '~> 0.4.0'
 gem 'mingo', '>= 0.3.0' #, :path => '/Users/mislav/Projects/mingo'
 gem 'mongo_ext', '>= 0.19.3', :require => nil
 gem 'mongo-rails-instrumentation'
