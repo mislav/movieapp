@@ -17,4 +17,21 @@ describe User::Compare do
     
     compare.movies_to_watch.to_a =~ [white, purple]
   end
+
+  it "finds favorite directors" do
+    white  = movie_by_directors 'Tim Burton'
+    red    = movie_by_directors 'Tim Burton', 'Quentin Tarantino'
+    blue   = movie_by_directors 'Quentin Tarantino'
+    purple = movie_by_directors 'Quentin Tarantino', 'Steven Spielberg'
+    gray   = movie_by_directors 'Steven Spielberg', 'David Fincher'
+    
+    [white, red, blue, purple].each { |movie| user1.watched.rate_movie(movie, true) }
+    user1.watched.rate_movie(gray, false)
+    
+    compare.fav_directors1.should == ['Quentin Tarantino', 'Tim Burton']
+  end
+
+  def movie_by_directors(*names)
+    Movie.create { |m| m['directors'] = names }
+  end
 end

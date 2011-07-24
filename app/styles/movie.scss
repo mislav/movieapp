@@ -422,6 +422,8 @@ $compare-box-width: 780px / 3;
     .watched { display: block }
     .directors {
       margin-top: 1.6em;
+      a { text-decoration: none; }
+      a:hover { text-decoration: underline; }
       p { text-transform: uppercase; margin: 0 0 .3em; color: lighten($body-color, 20) }
       ol { list-style: none; padding: 0; margin: 0; font-size: 1.2em; line-height: 1.6 }
     }

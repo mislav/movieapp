@@ -80,14 +80,14 @@ class User < Mingo
       movie.time_added = metadata['_id'].generation_time
     end
     
-    def liked
-      liked_ids = object_ids { |d| d['liked'] }
-      @model.find({:_id => {'$in' => liked_ids}}, find_options)
+    def liked(options = {})
+      liked_ids = object_ids { |d| d['liked'] == true }
+      @model.find({:_id => {'$in' => liked_ids}}, find_options.merge(options))
     end
     
-    def disliked
+    def disliked(options = {})
       liked_ids = object_ids { |d| d['liked'] == false }
-      @model.find({:_id => {'$in' => liked_ids}}, find_options)
+      @model.find({:_id => {'$in' => liked_ids}}, find_options.merge(options))
     end
     
     def import_from_facebook(movies)

@@ -101,21 +101,17 @@ class User::Compare
   memoize :movie_intersection
 
   def fav_directors1
-    find_directors movie_intersection.map { |movie_id, (liked, _)|
-      movie_id unless liked == false
-    }.compact
+    find_directors user1.watched.liked(:transformer => nil, :fields => 'directors')
   end
   memoize :fav_directors1
 
   def fav_directors2
-    find_directors movie_intersection.map { |movie_id, (_, liked)|
-      movie_id unless liked == false
-    }.compact
+    find_directors user2.watched.liked(:transformer => nil, :fields => 'directors')
   end
   memoize :fav_directors2
 
-  def find_directors(ids)
-    Movie.directors_of_movies(ids).
+  def find_directors(cursor)
+    Movie.directors_of_movies(cursor).
       select {|name, count| count > 1 }.map(&:first).first(3)
   end
 end
