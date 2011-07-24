@@ -7,7 +7,10 @@
 
   <section id="in-common">
     <p class="movies"><%= pluralize_movies @compare.in_common_count, 'in common' %></p>
-    <p class="percent">Compatibility: <span class="num"><%= number_to_percentage @compare.compatibility, precision: 0 %></span></p>
+    <p class="percent">
+      Compatibility:
+      <span class="num"><%= @compare.compatibility ? number_to_percentage(@compare.compatibility, precision: 0) : 'none' %></span>
+    </p>
   </section>
 
   <% @compare.scoped(2) do |compare| %>

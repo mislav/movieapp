@@ -31,6 +31,10 @@ describe User::Compare do
     compare.fav_directors1.should == ['Quentin Tarantino', 'Tim Burton']
   end
 
+  it "calculates compatibility when no movies in common" do
+    compare.compatibility.should be_nil
+  end
+
   def movie_by_directors(*names)
     Movie.create { |m| m['directors'] = names }
   end

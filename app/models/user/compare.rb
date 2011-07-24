@@ -79,8 +79,10 @@ class User::Compare
 
   def compatibility
     total = in_common_count
+    return nil if total.zero?
     (score + total) / (total * 2).to_f * 100
   end
+  memoize :compatibility
 
   def movie_intersection
     watched1 = user1.watched.send :load_join
