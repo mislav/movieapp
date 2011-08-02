@@ -31,13 +31,15 @@ Movies::Application.routes.draw do
 
   root :to => "movies#index"
   
-  match 'user/:username' => redirect('/%{username}')
-  match 'user/:username/:more' => redirect('/%{username}/%{more}')
-  
-  match ':username' => 'users#show', :as => :watched, :via => :get
-  match ':username/liked' => 'users#liked', :as => :liked, :via => :get
-  match ':username/to-watch' => 'users#to_watch', :as => :to_watch, :via => :get
-  match ':username/friends' => 'users#friends', :as => :friends, :via => :get
+  with_options :username => /[^\/]+/ do |user|
+    user.match 'user/:username' => redirect('/%{username}')
+    user.match 'user/:username/:more' => redirect('/%{username}/%{more}')
+
+    user.match ':username' => 'users#show', :as => :watched, :via => :get
+    user.match ':username/liked' => 'users#liked', :as => :liked, :via => :get
+    user.match ':username/to-watch' => 'users#to_watch', :as => :to_watch, :via => :get
+    user.match ':username/friends' => 'users#friends', :as => :friends, :via => :get
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
