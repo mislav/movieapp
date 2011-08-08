@@ -9,6 +9,18 @@ module User::Friends
     # update the database when elements are added or removed
     property :friends_added, :type => :set
     property :friends_removed, :type => :set
+    property :twitter_friends, :type => :set
+    property :facebook_friends, :type => :set
+
+    # cast twitter ids to integers
+    def twitter_friends=(ids)
+      super ids.map { |id| id.to_i }
+    end
+
+    # cast facebook ids to strings
+    def facebook_friends=(ids)
+      super ids.map { |id| id.to_s }
+    end
   end
 
   def add_friend(user_or_id)
@@ -22,14 +34,6 @@ module User::Friends
     friends_removed << id
     friends_added.delete id
   end
-  
-  def twitter_friends=(ids)
-    self['twitter_friends'] = ids.map { |id| id.to_i }
-  end
-
-  def facebook_friends=(ids)
-    self['facebook_friends'] = ids.map { |id| id.to_s }
-  end
 
   # Returns true if the receiver is following the given user by any means
   # (Twitter following, Facebook friendship, explicit following here on the site).
@@ -39,11 +43,11 @@ module User::Friends
   end
 
   def following_on_facebook?(user)
-    self['facebook_friends'] && user.from_facebook? && self['facebook_friends'].include?(user['facebook']['id'])
+    facebook_friends? && user.from_facebook? && facebook_friends.include?(user['facebook']['id'])
   end
 
   def following_on_twitter?(user)
-    self['twitter_friends'] && user.from_twitter? && self['twitter_friends'].include?(user['twitter']['id'])
+    twitter_friends? && user.from_twitter? && twitter_friends.include?(user['twitter']['id'])
   end
 
   def following_directly?(user)
@@ -69,8 +73,8 @@ module User::Friends
 
     # initial condition matches friends by twitter/facebook ids
     query = query.merge('$or' => [
-      { 'twitter.id' => {'$in' => Array(self['twitter_friends'])} },
-      { 'facebook.id' => {'$in' => Array(self['facebook_friends'])} }
+      { 'twitter.id' => {'$in' => twitter_friends.to_a} },
+      { 'facebook.id' => {'$in' => facebook_friends.to_a} }
     ])
 
     # add conditions for explicit follows

@@ -273,8 +273,8 @@ describe User do
       @friends << @mate.id
       
       @user = build.tap { |user|
-        user.twitter_friends = [1234, 1235]
-        user.facebook_friends = ["2345", "2346"]
+        user.twitter_friends = ["1234", 1235]
+        user.facebook_friends = [2345, "2346"]
       }
     end
     
