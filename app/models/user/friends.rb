@@ -31,6 +31,29 @@ module User::Friends
     self['facebook_friends'] = ids.map { |id| id.to_s }
   end
 
+  # Returns true if the receiver is following the given user by any means
+  # (Twitter following, Facebook friendship, explicit following here on the site).
+  def following?(user)
+    ( following_on_facebook?(user) or following_on_twitter?(user) or following_directly?(user) ) and
+      not unfollowed?(user)
+  end
+
+  def following_on_facebook?(user)
+    self['facebook_friends'] && user.from_facebook? && self['facebook_friends'].include?(user['facebook']['id'])
+  end
+
+  def following_on_twitter?(user)
+    self['twitter_friends'] && user.from_twitter? && self['twitter_friends'].include?(user['twitter']['id'])
+  end
+
+  def following_directly?(user)
+    friends_added? && friends_added.include?(user.id)
+  end
+
+  def unfollowed?(user)
+    friends_removed? && friends_removed.include?(user.id)
+  end
+
   # Returns a cursor representing people who this user follows.
   #
   # Extra conditions can be passed through the `query` parameter.
