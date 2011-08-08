@@ -126,7 +126,7 @@ header h1 a {
 
 $poster-small-width: 92px;
 $poster-medium-width: 185px;
-$poster-margin: 30px;
+$poster-margin: 20px;
     
 em.liked { color: green; }
 em.disliked { color: darkred; }
@@ -136,8 +136,9 @@ em.disliked { color: darkred; }
 ol.movies {
   padding-left:0;
   @include no-bullets;
+  @include clearfix;
 
-  li { width:380px; min-height:170px; float:left; margin:0 10px 10px 0; }
+  li { width:370px; min-height:170px; float:left; margin:0 20px 10px 0; }
     
   .movie {
     padding-left: $poster-small-width + $poster-margin;
@@ -421,6 +422,8 @@ $compare-box-width: 780px / 3;
     .watched { display: block }
     .directors {
       margin-top: 1.6em;
+      a { text-decoration: none; }
+      a:hover { text-decoration: underline; }
       p { text-transform: uppercase; margin: 0 0 .3em; color: lighten($body-color, 20) }
       ol { list-style: none; padding: 0; margin: 0; font-size: 1.2em; line-height: 1.6 }
     }

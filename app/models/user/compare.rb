@@ -58,6 +58,12 @@ class User::Compare
     }.compact
     Movie.find ids.sample(60)
   end
+  
+  def movies_to_watch
+    to_watch = User.collection['to_watch'].find('user_id' => {'$in' => [user1.id, user2.id]})
+    ids = to_watch.map { |doc| doc['movie_id'] }.select_occurring(2)
+    Movie.find ids.sample(60)
+  end
 
   def score
     movie_intersection.inject(0) do |s, (movie, (like1, like2))|
@@ -73,8 +79,10 @@ class User::Compare
 
   def compatibility
     total = in_common_count
+    return nil if total.zero?
     (score + total) / (total * 2).to_f * 100
   end
+  memoize :compatibility
 
   def movie_intersection
     watched1 = user1.watched.send :load_join
@@ -95,21 +103,17 @@ class User::Compare
   memoize :movie_intersection
 
   def fav_directors1
-    find_directors movie_intersection.map { |movie_id, (liked, _)|
-      movie_id unless liked == false
-    }.compact
+    find_directors user1.watched.liked(:transformer => nil, :fields => 'directors')
   end
   memoize :fav_directors1
 
   def fav_directors2
-    find_directors movie_intersection.map { |movie_id, (_, liked)|
-      movie_id unless liked == false
-    }.compact
+    find_directors user2.watched.liked(:transformer => nil, :fields => 'directors')
   end
   memoize :fav_directors2
 
-  def find_directors(ids)
-    Movie.directors_of_movies(ids).
+  def find_directors(cursor)
+    Movie.directors_of_movies(cursor).
       select {|name, count| count > 1 }.map(&:first).first(3)
   end
 end
