@@ -176,7 +176,7 @@ GEM
     webmock (1.3.5)
       addressable (>= 2.1.1)
       crack (>= 0.1.7)
-    will_paginate (3.0.pre2)
+    will_paginate (3.0.0)
     xpath (0.1.4)
       nokogiri (~> 1.3)
     yajl-ruby (0.8.2)
@@ -210,5 +210,5 @@ DEPENDENCIES
   thin
   twitter-login (~> 0.4.0)
   webmock
-  will_paginate (= 3.0.pre2)
+  will_paginate (~> 3.0)
   yajl-ruby (~> 0.7)

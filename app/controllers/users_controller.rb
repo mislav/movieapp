@@ -7,22 +7,22 @@ class UsersController < ApplicationController
   end
   
   def show
-    @movies = @user.watched.reverse.paginate(:page => params[:page], :per_page => 10)
+    @movies = @user.watched.reverse.page(params[:page])
     ajax_pagination
   end
   
   def liked
-    @movies = @user.watched.liked.reverse.paginate(:page => params[:page], :per_page => 10)
+    @movies = @user.watched.liked.reverse.page(params[:page])
     ajax_pagination
   end
   
   def to_watch
-    @movies = @user.to_watch.reverse.paginate(:page => params[:page], :per_page => 10)
+    @movies = @user.to_watch.reverse.page(params[:page])
     ajax_pagination
   end
   
   def friends
-    @movies = @user.movies_from_friends.reverse.paginate(:page => params[:page], :per_page => 10)
+    @movies = @user.movies_from_friends.reverse.page(params[:page])
     ajax_pagination
   end
 

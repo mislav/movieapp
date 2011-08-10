@@ -2,7 +2,6 @@ require 'netflix'
 require 'tmdb'
 require 'wikipedia'
 require 'html/sanitizer'
-require 'mingo/pagination'
 
 class Movie < Mingo
   property :title

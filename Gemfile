@@ -7,7 +7,7 @@ gem 'mongo_ext', '>= 0.19.3', :require => nil
 gem 'mongo-rails-instrumentation'
 gem 'bson_ext', '>= 1.1.1', :require => nil
 gem 'twitter-login', '~> 0.4.0', :require => 'twitter/login' #, :path => '/Users/mislav/Projects/twitter-login'
-gem 'will_paginate', '3.0.pre2' #, :path => '/Users/mislav/.coral/will_paginate-mislav'
+gem 'will_paginate', '~> 3.0' #, :path => '/Users/mislav/.coral/will_paginate-mislav'
 gem 'facebook-login', '~> 0.2.0', :require => 'facebook/login' #, :path => '/Users/mislav/Projects/facebook'
 gem 'compass'
 gem 'escape_utils'
