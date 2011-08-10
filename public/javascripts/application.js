@@ -1,3 +1,17 @@
+if ('createTouch' in document) {
+  try {
+    $A(document.styleSheets).each(function(stylesheet){
+      var ignore = /:hover\b/, idxs = []
+      $A(stylesheet.cssRules).each(function(rule, idx) {
+        if (rule.type == CSSRule.STYLE_RULE && ignore.test(rule.selectorText)) {
+          idxs.push(idx)
+        }
+      })
+      idxs.reverse().each(function(idx) { stylesheet.deleteRule(idx) })
+    })
+  } catch (e) {}
+}
+
 document.on('click', '.actions input[type=submit].watched', function(e, button) {
   e.stop()
   button.up('.actions').addClassNameTransition('asking')
