@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   
-  before_filter :load_user, :only => [:show, :to_watch, :liked, :friends]
+  before_filter :load_user, :only => [:show, :to_watch, :liked, :friends, :befriend, :unfriend]
   
   def index
     @users = User.find({}, :sort => ['_id', -1]).to_a
@@ -31,6 +31,16 @@ class UsersController < ApplicationController
     @compare = User::Compare.new(*users)
   end
 
+  def befriend
+    current_user.add_friend(@user)
+    redirect_to :back
+  end
+  
+  def unfriend
+    current_user.remove_friend(@user)
+    redirect_to :back
+  end
+  
   protected
   
   def load_user

@@ -38,6 +38,8 @@ Movies::Application.routes.draw do
   match ':username/liked' => 'users#liked', :as => :liked, :via => :get
   match ':username/to-watch' => 'users#to_watch', :as => :to_watch, :via => :get
   match ':username/friends' => 'users#friends', :as => :friends, :via => :get
+  match ':username/befriend' => 'users#befriend', :as => :befriend, :via => :put
+  match ':username/unfriend' => 'users#unfriend', :as => :unfriend, :via => :delete
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

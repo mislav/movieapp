@@ -14,6 +14,15 @@
         <%= link_to "#{count @user.watched.liked} liked", liked_path(@user) %>,
         <%= link_to "#{count @user.to_watch} to watch", to_watch_path(@user) %>,
         <%= link_to "movies from friends", friends_path(@user) %>
+
+        <% if @user != current_user %>
+          <% if not current_user.friends.include? @user %>
+          ∙ <%= link_to 'add as friend', befriend_path(@user), :method => :put %>
+          <% else %>
+          ∙ <%= link_to 'remove as friend', unfriend_path(@user), :method => :delete %>
+          <% end %>
+        <% end %>
+
       </p>
       <ul class="profiles">
         <% if @user.from_twitter? %><li><%= link_to @user.twitter_url do %><%= twitter_icon(nil) %>
