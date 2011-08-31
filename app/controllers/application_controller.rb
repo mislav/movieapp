@@ -1,10 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  include Twitter::Login::Helpers
-  include Facebook::Login::Helpers
-  
-  before_filter :authentication_denied_notice
+  before_filter :login_from_token, :authentication_denied_notice
   
   def self.admin_actions(options)
     before_filter :check_admin, options
@@ -16,27 +13,32 @@ class ApplicationController < ActionController::Base
   helper_method :logged_in?
   
   def current_user
-    self.current_user = User.find_from_twitter_or_facebook(twitter_user, facebook_user) unless @current_user
+    self.current_user = User.first(session[:user_id]) if !defined?(@current_user) and session[:user_id]
     @current_user == :false ? nil : @current_user
   end
   helper_method :current_user
   
   def current_user=(user)
-    @current_user = user || :false
+    if user
+      session[:user_id] = user.id.to_s
+      @current_user = user
+    else
+      session.delete :user_id
+      @current_user = :false
+      nil
+    end
   end
-  
-  def twitter_user?
-    !!session[:twitter_user]
-  end
-  helper_method :twitter_user?
-  
-  def facebook_user?
-    !!session[:facebook_user]
-  end
-  helper_method :facebook_user?
   
   protected
-  
+
+  def login_from_token
+    if session[:user_id].blank? and cookies[:login_token].present?
+      unless self.current_user = User.find_by_login_token(cookies[:login_token])
+        cookies.delete :login_token
+      end
+    end
+  end
+
   def authentication_denied_notice
     %w[twitter facebook].detect do |service|
       if session[:"#{service}_error"] == 'user_denied'

@@ -174,4 +174,24 @@ class User < Mingo
   def self.username_taken?(name)
     Reserved.include?(name) or find(:username => name).has_next?
   end
+
+  property :login_tokens, :type => :set
+
+  def generate_login_token
+    token = SecureRandom.urlsafe_base64
+    login_tokens << token
+    token
+  end
+
+  def has_login_token?(token)
+    login_tokens.include? token
+  end
+
+  def self.find_by_login_token(token)
+    first(:login_tokens => token)
+  end
+
+  def delete_login_token(token)
+    login_tokens.delete token
+  end
 end
