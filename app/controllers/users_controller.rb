@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   
-  before_filter :load_user, :only => [:show, :to_watch, :liked, :friends]
+  before_filter :load_user, :only => [:show, :to_watch, :liked]
   
   def index
     @users = User.find({}, :sort => ['_id', -1]).to_a
@@ -21,16 +21,26 @@ class UsersController < ApplicationController
     ajax_pagination
   end
   
-  def friends
-    @movies = @user.movies_from_friends.reverse.page(params[:page])
+  def following
+    @movies = current_user.movies_from_friends.reverse.page(params[:page])
     ajax_pagination
+  end
+
+  def follow
+    current_user.add_friend(params[:id])
+    redirect_to :back
+  end
+  
+  def unfollow
+    current_user.remove_friend(params[:id])
+    redirect_to :back
   end
 
   def compare
     users = params[:users].split('+', 2).map {|name| find_user name }
     @compare = User::Compare.new(*users)
   end
-
+  
   protected
   
   def load_user

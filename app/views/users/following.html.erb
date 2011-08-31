@@ -1,10 +1,10 @@
-<% @title = "Movies from #{user_name(@user)}'s friends" %>
+<% @title = "Movies from people you're following" %>
 <article>
 
   <% if not @movies.empty? %>
-    <h1>Friends of <%= @user.name %> watched <%= count @movies %>.</h1>
+    <h1>People you're following watched <%= count @movies %>.</h1>
     <nav><p>
-      <%= raw @user.friends.map { |friend| link_to friend.name, watched_path(friend) }.join ', ' %>
+      <%= raw current_user.friends.map { |friend| link_to friend.name, watched_path(friend) }.join ', ' %>
     </p></nav>
     
     <%= render 'movies/paginated', :movies => @movies %>

@@ -12,8 +12,16 @@
     <nav>
       <p>
         <%= link_to "#{count @user.watched.liked} liked", liked_path(@user) %>,
-        <%= link_to "#{count @user.to_watch} to watch", to_watch_path(@user) %>,
-        <%= link_to "movies from friends", friends_path(@user) %>
+        <%= link_to "#{count @user.to_watch} to watch", to_watch_path(@user) %><% if my_page? %>,
+        <%= link_to "people you're following", following_path %>
+        <% elsif logged_in? %>
+          <% if not current_user.following? @user %>
+          ∙ <%= link_to 'follow person', follow_path(@user.id), :method => :post %>
+          <% else %>
+          ∙ <%= link_to 'unfollow', unfollow_path(@user.id), :method => :delete %>
+          <% end %>
+        <% end %>
+
       </p>
       <ul class="profiles">
         <% if @user.from_twitter? %><li><%= link_to @user.twitter_url do %><%= twitter_icon(nil) %>
@@ -37,7 +45,7 @@
       <% if (movies_count = @user.movies_from_friends.count) > 0 %>
         <p>
           Your friends have watched <%= pluralize(movies_count, 'movie') %>.
-          See <%= link_to "movies from friends", friends_path(@user) %>
+          See <%= link_to "people you're following", following_path %>
         </p>
       <% end %>
     </section>
