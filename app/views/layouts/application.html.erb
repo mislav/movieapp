@@ -52,7 +52,7 @@
     <%= yield %>
     
     <script type="text/javascript">
-      (function() {
+      if (!/\.dev$|local/.test(location.host)) (function() {
         var t = document.createElement('script'); t.type = 'text/javascript'; t.async = true;
         t.id = 'gauges-tracker'; t.setAttribute('data-site-id', '4e1d99d1f5a1f57523000004');
         t.src = '//secure.gaug.es/track.js';
