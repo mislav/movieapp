@@ -31,6 +31,10 @@ Movies::Application.routes.draw do
 
   root :to => "movies#index"
   
+  match 'following' => 'users#following', :as => :following, :via => :get
+  match 'following/:id' => 'users#follow', :as => :follow, :via => :post
+  match 'following/:id' => 'users#unfollow', :as => :unfollow, :via => :delete
+
   with_options :username => /[^\/]+/ do |user|
     user.match 'user/:username' => redirect('/%{username}')
     user.match 'user/:username/:more' => redirect('/%{username}/%{more}')
@@ -38,9 +42,7 @@ Movies::Application.routes.draw do
     user.match ':username' => 'users#show', :as => :watched, :via => :get
     user.match ':username/liked' => 'users#liked', :as => :liked, :via => :get
     user.match ':username/to-watch' => 'users#to_watch', :as => :to_watch, :via => :get
-    user.match ':username/friends' => 'users#friends', :as => :friends, :via => :get
-    user.match ':username/befriend' => 'users#befriend', :as => :befriend, :via => :put
-    user.match ':username/unfriend' => 'users#unfriend', :as => :unfriend, :via => :delete
+    user.match ':username/friends' => redirect('/following')
   end
 
   # The priority is based upon order of creation:
