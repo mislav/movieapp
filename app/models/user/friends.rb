@@ -98,7 +98,7 @@ module User::Friends
     watches = self.class.collection['watched'].
       find({'user_id' => {'$in' => friends_ids}}, :fields => %w[movie_id liked], :sort => [:_id, :desc])
 
-    movie_ids = watches.map { |w| w['movie_id'] }.uniq
+    movie_ids = watches.map { |w| w['movie_id'] }.uniq.reverse
     Movie.find(movie_ids)
   end
 
