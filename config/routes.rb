@@ -14,7 +14,7 @@ Movies::Application.routes.draw do
   end
   
   resources :users, :only => [:index]
-  match 'compare/:users' => 'users#compare', :as => :compare, :via => :get
+  match 'compare/:users' => 'users#compare', :as => :compare, :via => :get, :users => /[^\/]+/
   
   match 'director/*director' => 'movies#index', :as => :director, :via => :get
 
