@@ -10,6 +10,10 @@ group :assets do
   gem 'compass', '~> 0.12.alpha'
 end
 
+group :production do
+  gem 'therubyracer-heroku', '~> 0.8.1.pre3', :require => nil
+end
+
 gem 'mingo', '>= 0.3.0' #, :path => '/Users/mislav/Projects/mingo'
 gem 'mongo_ext', '>= 0.19.3', :require => nil
 gem 'mongo-rails-instrumentation'
