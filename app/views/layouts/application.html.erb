@@ -2,9 +2,9 @@
 <html class="no-js">
   <head>
     <meta charset="UTF-8" />
-    <%= csrf_meta_tag %>
+    <%= csrf_meta_tags %>
     <title><%= @title || 'Movi.im' %></title>
-    <%= stylesheet_link_tag "movie" %>
+    <%= stylesheet_link_tag 'application' %>
   </head>
   
   <body class="<%= body_class %>">
@@ -59,7 +59,7 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(t, s);
       })();
     </script>
-    <%= javascript_include_tag 'prototype', 'rails', 'application' %>
+    <%= javascript_include_tag 'application' %>
   </body>
 
 </html>

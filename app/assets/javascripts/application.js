@@ -1,3 +1,7 @@
+//= require prototype
+//= require rails
+//*= require_tree .
+
 if ('createTouch' in document) {
   try {
     $A(document.styleSheets).each(function(stylesheet){

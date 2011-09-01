@@ -9,6 +9,6 @@ require 'webmock/rspec'
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 RSpec.configure do |config|
-  config.include WebMock
+  config.include WebMock::API
   config.mock_with :rspec
 end

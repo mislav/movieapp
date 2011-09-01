@@ -1,6 +1,14 @@
 source :rubygems
 
-gem 'railties', '~> 3.0.7'
+gem 'railties', '~> 3.1.0'
+gem 'tzinfo'
+
+group :assets do
+  gem 'sass-rails', '~> 3.1.0'
+  gem 'coffee-rails', '~> 3.1.0'
+  gem 'uglifier'
+  gem 'compass', '~> 0.12.alpha'
+end
 
 gem 'mingo', '>= 0.3.0' #, :path => '/Users/mislav/Projects/mingo'
 gem 'mongo_ext', '>= 0.19.3', :require => nil
@@ -9,7 +17,6 @@ gem 'bson_ext', '>= 1.1.1', :require => nil
 gem 'twitter-login', '~> 0.4.0', :require => 'twitter/login' #, :path => '/Users/mislav/Projects/twitter-login'
 gem 'will_paginate', '~> 3.0' #, :path => '/Users/mislav/.coral/will_paginate-mislav'
 gem 'facebook-login', '~> 0.2.0', :require => 'facebook/login' #, :path => '/Users/mislav/Projects/facebook'
-gem 'compass'
 gem 'escape_utils'
 gem 'choices' #, :path => '/Users/mislav/Projects/choices'
 
@@ -29,9 +36,9 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.3.0'
-  gem 'ruby-debug', :platforms => :ruby_18
-  gem 'ruby-debug19', :platforms => :ruby_19
+  gem 'rspec-rails', '~> 2.6.1'
+  gem 'ruby-debug', :platforms => :mri_18
+  gem 'ruby-debug19', :platforms => :mri_19
 end
 
 group :test do

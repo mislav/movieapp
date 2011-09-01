@@ -1,10 +1,6 @@
-require 'webmock'
 require 'rspec'
+require 'webmock/rspec'
 
-require 'webmock/adapters/rspec/request_pattern_matcher'
-require 'webmock/adapters/rspec/webmock_matcher'
-require 'webmock/adapters/rspec/matchers'
-  
 RSpec.configure do |config|
   config.include WebMock::Matchers
 
@@ -13,14 +9,8 @@ RSpec.configure do |config|
   end
 end
 
-module WebMock
-  def assertion_failure(message)
-    raise RSPEC_NAMESPACE::Expectations::ExpectationNotMetError.new(message)
-  end
-end
-
 module WebMockWorld
-  include WebMock
+  include WebMock::API
   include WebMock::Matchers
 end
 
