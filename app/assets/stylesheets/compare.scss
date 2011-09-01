@@ -1,0 +1,60 @@
+@import 'base';
+
+$avatar-size: 24px;
+$compare-box-width: 780px / 3;
+
+.compare > article {
+  padding-top: 5em;
+  > h2 { clear: both; }
+  .avatar {
+    display: inline-block;
+    width: $avatar-size; height: $avatar-size;
+    background-size: $avatar-size + 1px auto;
+    background-color: silver;
+    @include border-radius(4px);
+    border: 1px solid silver;
+    margin-right: 6px;
+  }
+  .num {
+    font: 900 3em "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: lighten($body-color, 10);
+  }
+  > section {
+    float: left;
+    text-align: center;
+  }
+  #in-common {
+    background-color: $bottom-color-stop;
+    font-size: 1.1em;
+    padding: 1em;
+    width: 170px;
+    @include border-radius(10px);
+    border: 1px solid $lightblue-border;
+    margin: 0 20px;
+    p { margin-bottom: 1em }
+    .movies .num { font-size: 1.4em }
+    .percent {
+      text-transform: uppercase;
+      color: lighten($body-color, 20);
+      .num { display: block }
+    }
+  }
+  .person {
+    width: $compare-box-width;
+    min-height: 22em;
+    // background-color: ghostwhite;
+
+    > p:first-child {
+      font-size: 1.6em;
+    }
+    .name { line-height: $avatar-size * 1.3; vertical-align: top }
+    .watched { display: block }
+    .directors {
+      margin-top: 1.6em;
+      a { text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      p { text-transform: uppercase; margin: 0 0 .3em; color: lighten($body-color, 20) }
+      ol { list-style: none; padding: 0; margin: 0; font-size: 1.2em; line-height: 1.6 }
+    }
+  }
+}
