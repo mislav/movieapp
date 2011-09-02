@@ -10,11 +10,9 @@ handleRemote = (element) ->
     url = element.attr('action')
     data = element.serializeArray()
     # memoized value from clicked submit button
-    # TODO: revisit when Zepto data() method supports JS objects
-    button = element.get(0)._submitButton
-    if button
-      data.push button
-      element.get(0)._submitButton = null
+    element.data 'ujs:submit-button', (i, button) ->
+      data.push button if button
+      null
   else
    method = element.data('method')
    url = element.attr('href')
@@ -26,7 +24,7 @@ handleRemote = (element) ->
     headers:
       Accept: '*/*;q=0.5, ' + $.ajaxSettings.accepts.script
     beforeSend: (xhr, settings) ->
-      element.trigger('ajax:beforeSend', [xhr, settings])
+      return fire(element, 'ajax:beforeSend', [xhr, settings])
     success: (data, status, xhr) ->
       element.trigger('ajax:success', [data, status, xhr])
     complete: (xhr, status) ->
@@ -82,15 +80,18 @@ $(document).delegate 'form[data-remote]', 'submit', (e) ->
   handleRemote element if allowAction element
   false
 
+$(document).delegate 'form:not([data-remote])', 'submit', (e) ->
+  disableFormElements $(this)
+
 $(document).delegate 'form', 'ajax:beforeSend', (e) ->
   disableFormElements $(this) if this is e.target
 
 $(document).delegate 'form', 'ajax:complete', (e) ->
   enableFormElements $(this) if this is e.target
 
-submitSelector = 'form input[type=submit], form input[type=image], form button[type=submit], form button:not([type])'
+buttonSelector = 'form input[type=submit], form input[type=image], form button[type=submit], form button:not([type])'
 
-$(document).delegate submitSelector, 'click', ->
+$(document).delegate buttonSelector, 'click', ->
   button = $(this)
   name = button.attr('name')
   data =
@@ -98,13 +99,12 @@ $(document).delegate submitSelector, 'click', ->
       name: name
       value: button.val()
 
-  # TODO: revisit when Zepto data() method supports JS objects
-  button.closest('form').get(0)._submitButton = data
+  button.closest('form').data('ujs:submit-button', data)
 
 $(document).delegate 'a[data-remote], a[data-method]', 'click', (e) ->
   element = $(this)
   if allowAction element
-    if element.data('remote')
+    if element.data('remote') isnt null
       handleRemote element
     else
       handleMethod element

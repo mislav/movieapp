@@ -330,9 +330,12 @@ var Zepto = (function() {
         this.each(function(){ this.textContent = text });
     },
     attr: function(name, value){
+      var res;
       return (typeof name == 'string' && value === undefined) ?
-        (this.length > 0 && this[0].nodeName == 'INPUT' && this[0].type == 'text' && name == 'value') ? (this.val()) :
-        (this.length > 0 ? this[0].getAttribute(name) || (name in this[0] ? this[0][name] : undefined) : undefined) :
+        (this.length == 0 ? undefined :
+          (name == 'value' && this[0].nodeName == 'INPUT') ? this.val() :
+          (!(res = this[0].getAttribute(name)) && name in this[0]) ? this[0][name] : res
+        ) :
         this.each(function(idx){
           if (isO(name)) for (key in name) this.setAttribute(key, name[key])
           else this.setAttribute(name, funcArg(this, value, idx, this.getAttribute(name)));
@@ -347,8 +350,8 @@ var Zepto = (function() {
     val: function(value){
       return (value === undefined) ?
         (this.length > 0 ? this[0].value : null) :
-        this.each(function(){
-          this.value = value;
+        this.each(function(idx){
+          this.value = funcArg(this, value, idx, this.value);
         });
     },
     offset: function(){
@@ -1253,4 +1256,37 @@ var Zepto = (function() {
   ['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown', 'doubleTap', 'tap', 'longTap'].forEach(function(m){
     $.fn[m] = function(callback){ return this.bind(m, callback) }
   });
+})(Zepto);
+//     Zepto.js
+//     (c) 2010, 2011 Thomas Fuchs
+//     Zepto.js may be freely distributed under the MIT license.
+
+// The following code is heavily inspired by jQuery's $.fn.data()
+
+(function($) {
+  var data = {}, dataAttr = $.fn.data;
+    uuid = $.uuid = +new Date(),
+    exp  = $.expando = 'Zepto' + uuid;
+
+  function getData(node, name) {
+    var id = node[exp], store = id && data[id];
+    return name === undefined ? store || setData(node) :
+      (store && store[name]) || dataAttr.call($(node), name);
+  }
+
+  function setData(node, name, value) {
+    var id = node[exp] || (node[exp] = ++uuid),
+      store = data[id] || (data[id] = {});
+    if (name !== undefined) store[name] = value;
+    return store;
+  };
+
+  $.fn.data = function(name, value) {
+    return value === undefined ?
+      this.length == 0 ? undefined : getData(this[0], name) :
+      this.each(function(idx){
+        setData(this, name, $.isFunction(value) ?
+                value.call(this, idx, getData(this, name)) : value);
+      });
+  };
 })(Zepto);
