@@ -5,6 +5,7 @@
     <%= csrf_meta_tags %>
     <title><%= @title || 'Movi.im' %></title>
     <%= stylesheet_link_tag 'application' %>
+    <% if ios? and Rails.env.development? %><%= javascript_include_tag 'livereload' %><% end %>
   </head>
   
   <body class="<%= body_class %>">

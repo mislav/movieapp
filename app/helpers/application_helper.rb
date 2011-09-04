@@ -27,5 +27,9 @@ module ApplicationHelper
   def compare_page?
     request.path.start_with? '/compare/'
   end
+
+  def ios?
+    request.user_agent =~ /\bMobile\/.*\bSafari\b/
+  end
   
 end
