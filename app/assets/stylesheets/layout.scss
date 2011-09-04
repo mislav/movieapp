@@ -31,7 +31,7 @@ body > header {
 
   border:1px solid $lightblue-border;
   background-color: $top-color-stop;
-  @include linear-gradient(color-stops($top-color-stop, $bottom-color-stop));
+  @include background-image(linear-gradient($top-color-stop, $bottom-color-stop));
 
   h1 { font:normal 24px/32px $heading-type; }
 }
@@ -50,8 +50,8 @@ header {
       @include link-icon;
 
       a {
-        img { opacity: .5; @include transition(opacity, 0.15s, ease-out); }
-        span { @include transition(color, 0.15s, ease-out); }
+        img { opacity: .5; @include transition(opacity 0.15s ease-out); }
+        span { @include transition(color 0.15s ease-out); }
         &:hover {
           span { color: $body-color; }
           img { opacity: 1; } } } } }
@@ -63,7 +63,7 @@ header {
       font-size:11px; width:190px;
       
       .no-inputsearch & {
-        @include box-shadow(rgba(black, .5), 1px, 1px, 1px, 0, inset);
+        @include box-shadow(rgba(black, .5) 1px 1px 1px 0 inset);
         border:1px solid #ddd;
         @include border-radius(10px);
         padding:.15em 10px .1em; margin-top:2px; width:165px;
@@ -86,7 +86,7 @@ body > article {
     span {
       margin-left:.5em; color:gray;
       font-size:11px; line-height:1.5em;
-      @include text-shadow(rgba(gray, .1), 1px, 1px, 1px);
+      @include text-shadow(rgba(gray, .1) 1px 1px 1px);
       
       em { font-style:normal; font-size:12px; }
     }
@@ -132,7 +132,7 @@ header h1 a {
 .intro {
   border: 1px solid $lightblue-border;
   background-color: $top-color-stop;
-  @include linear-gradient(color-stops($top-color-stop, $bottom-color-stop));
+  @include background-image(linear-gradient($top-color-stop, $bottom-color-stop));
   @include border-radius(3px);
 
   padding:12px 1em 12px $body-padding;

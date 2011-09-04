@@ -46,7 +46,7 @@ ol.movies {
   .poster { border:1px solid #777; }
   span.poster {
     background: #999;
-    @include radial-gradient(color-stops(rgba(white, .5), rgba(white, 0) 150px), top left)
+    @include background-image(radial-gradient(top left, rgba(white, .5), rgba(white, 0) 150px));
   }
   
   .actions, .friends { font-size:11px; }
@@ -62,7 +62,7 @@ ol.movies {
       input[type=submit] {
         cursor: pointer;
         display:inline-block; color:#333;
-        background-color:#e5e5e5; @include linear-gradient(color-stops(rgba(white, .6), rgba(white, 0)));
+        background-color:#e5e5e5; @include background-image(linear-gradient(rgba(white, .6), rgba(white, 0)));
         border:1px solid #ddd; @include border-radius;
 
         height:18px; line-height:16px;
@@ -88,16 +88,16 @@ ol.movies {
       &:hover { color:firebrick; }
     }
     
-    &.fadeout { @include transition(opacity, 0.15s, ease-in); opacity: 0; }
+    &.fadeout { @include transition(opacity 0.15s ease-in); opacity: 0; }
     &.hidden { opacity: 0; }
-    &.fadein { @include transition(opacity, 0.25s, ease-out); opacity: 1; }
+    &.fadein { @include transition(opacity 0.25s ease-out); opacity: 1; }
     
     .no-js & {
       .add-watched { display: none; }
       .question a[href="#cancel"] { display: none; }
     }
     .js & {
-      > div { @include transition(opacity, 0.2s, ease-out) }
+      > div { @include transition(opacity 0.2s ease-out) }
       .question {
         display: none;
         opacity: 0;
