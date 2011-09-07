@@ -14,7 +14,7 @@
     <div class="primary">
       <% unless my_watchlist? %>
         <% if current_user.to_watch.include? movie %>
-          <p class="to-watch">This movie is in your "<%= link_to 'to watch', to_watch_path(current_user) %>" list</p>
+          <p class="to-watch">In your <%= link_to 'to watch', to_watch_path(current_user) %> list</p>
           <%= link_to '×', [:remove_from_to_watch, movie], :remote => true, :method => :delete, :class => 'revert', :title => 'Remove from "to watch" list' %>
         <% else %>
           <%= button_to 'Want to watch', [:add_to_watch, movie], :remote => true, :method => :put, :class => 'to-watch' %>
@@ -25,7 +25,7 @@
       <% end %>
       
       <div class="add-watched">
-        <%= button_to 'I watched this', [:add_watched, movie], :method => :put, :class => 'watched' %>
+        <%= button_to 'I watched it', [:add_watched, movie], :method => :put, :class => 'watched' %>
       </div>
     </div>
     

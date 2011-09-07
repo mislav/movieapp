@@ -11,8 +11,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display:block;
 }
 
+a {
+  &:link, &:visited { color:$lightblue }
+  &:hover, &:active { /*color:lemonchiffon; */ } }
+
 body {
-/*  background-image:url('/images/9_2_grid.png');*/
+/*  background-image:url('9_2_grid.png');*/
   color:$body-color; background-color:#fdfdfd;
   font:75%/1.5em $body-type; text-rendering:optimizeLegibility;
   padding:0 $body-padding;
@@ -20,7 +24,12 @@ body {
 }
 
 h1 { font-weight: normal; @include text-shadow; }
-h1 a, h2 a { text-decoration:none; }
+h1 a, h2 a { text-decoration:none;
+  &:link, &:visited { color:$body-color; }
+}
+
+header h1 a { 
+  &:active, &:visited { outline:0 none } }
 
 body > header {
   padding:0 $body-padding; margin:0 (0 - $body-padding);
@@ -31,21 +40,13 @@ body > header {
   background-color: $top-color-stop;
   @include background-image(linear-gradient($top-color-stop, $bottom-color-stop));
 
-  h1 { font:normal 24px/32px $heading-type; }
-}
+  h1 { font:normal 24px/32px $heading-type; float:left; }
 
-header {
-  
-  nav, + form { color:$lightblue; }
-
-  nav {
-    font-size:11px; line-height:22px;
-    float:right;
+  nav { font-size:11px; line-height:22px; margin-top:8px;
     
-    p { text-align:right; display:inline; }
+    p { text-align:right; }
 
-    .login {
-      @include link-icon;
+    .login { @include link-icon;
 
       a {
         img { opacity: .5; @include transition(opacity 0.15s ease-out); }
@@ -54,11 +55,9 @@ header {
           span { color: $body-color; }
           img { opacity: 1; } } } } }
 
-  + form {
-    position:absolute; top:31px;
+  + form { position:absolute; top:31px;
  
-    input[type="search"] {
-      font-size:11px; width:190px;
+    input[type="search"] { font-size:11px; width:190px;
       
       .no-inputsearch & {
         @include box-shadow(rgba(black, .5) 1px 1px 1px 0 inset);
@@ -74,58 +73,43 @@ header {
   }
 }
 
-body > article {
-  padding-top:22px;
+body > article { padding-top:22px;
+  
+  header, > h1 { margin-bottom:30px; }
 
-  > h1 {
-    font-size:18px; line-height:40px;
-    margin-bottom:19px;
+  h1 { font-size:18px; line-height:37px; }
 
-    span {
-      margin-left:.5em; color:gray;
-      font-size:11px; line-height:1.5em;
-      @include text-shadow(rgba(gray, .1) 1px 1px 1px);
-      
-      em { font-style:normal; font-size:12px; }
+  nav { text-align:right; margin-top:10px; font-size:11px;
+    
+    ol { list-style:none; margin:0; padding:0;
+      li:first-child { margin-bottom:9px; }
     }
-  }
-  > h2 {
-    font-weight: normal;
-    font-size:16px; line-height:40px;
-    margin-bottom:19px;
+    ul { @include no-bullets; padding: 0; }
+    ul.profiles { margin: .5em 0 0 0; @include link-icon; }
+
+    .liked, .disliked { font-style:normal; }
   }
 }
+body.default > article {
+  header, > h1 { float:left; }
+}
+body.default > article h1 ~ p {
+  font-size:11px; line-height:18px;
+  @include text-shadow(rgba(gray, .1) 1px 1px 1px);
 
-article > h1 + nav {
-  margin: -2em 0 3em;
-  a:link, a:visited { color:$lightblue; }
-  ul { @include no-bullets; padding: 0; }
-  ul.profiles { margin: .5em 0 0 0; @include link-icon; }
-
-  .liked, .disliked { font-style:normal; }
+  em { font-style:normal; font-size:12px; }
+  
+  &.stats { color:gray; }
 }
 
 .users-list ol { margin-left: -1.5em; }
 
-.about > article {
-  max-width: 48em;
-
-  h2 {
-    font: normal 15px/18px $body-type; @include text-shadow;
-    margin:35px 0 11px;
-  }
-
+.about > article { max-width: 48em;
+  h1 { margin-bottom:0; }
+  h2 { font: normal 15px/18px $body-type; @include text-shadow; margin:35px 0 11px; }
   p { margin-bottom:10px; padding-top:8px; }
   ul { margin:18px 0 0; }
 }
-
-/* anchors */
-a {
-  &:link, &:visited { color:inherit }
-  &:hover, &:active { /*color:lemonchiffon; */ } }
-
-header h1 a {
-  &:active, &:visited { outline:0 none } }
 
 .intro {
   border: 1px solid $lightblue-border;
@@ -133,13 +117,13 @@ header h1 a {
   @include background-image(linear-gradient($top-color-stop, $bottom-color-stop));
   @include border-radius(3px);
 
-  padding:12px 1em 12px $body-padding;
+  padding:12px 12px 12px $body-padding;
   margin:2em 0 0 (0 - $body-padding);
-  width:540px;
+  width:472px;
   
   h1 { font-size:18px; margin-bottom:1em; }
   
-  p + p { margin-top:18px; }
+  p + p { margin-top:12px; }
   
   + p { margin-top:.7em; }
   

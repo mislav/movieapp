@@ -1,14 +1,15 @@
 $poster-small-width: 92px;
 $poster-medium-width: 185px;
 $poster-margin: 20px;
-
+$poster-small-height:140px;
+$poster-medium-height:274px;
+    
 em.liked { color: green; }
 em.disliked { color: darkred; }
 
 
 /* movie list */
-ol.movies {
-  padding-left:0;
+ol.movies { clear:left; padding-left:0;
   @include no-bullets;
   @include clearfix;
 
@@ -21,10 +22,10 @@ ol.movies {
       &:active, &:visited { outline:0 none }
     }
   
-    h1, h2, .year { line-height:1.5em }
     h1, h2 { letter-spacing:.01em }
-    h1 { font-size:18px; margin-top:-5px; }
-    h2, .year { font-size:15px; }
+    h1 { font-size:18px; margin-top:-4px; line-height:24px; }
+    h2 { margin-bottom:2px; }
+    h2, .year { font-size:15px; line-height:21px; }
 
     .poster {
       display:block;
@@ -43,6 +44,7 @@ ol.movies {
   
   .poster { border:1px solid #777; }
   span.poster {
+    width:$poster-small-width; height:$poster-small-height;
     background: #999;
     @include background-image(radial-gradient(top left, rgba(white, .5), rgba(white, 0) 150px));
   }
@@ -125,14 +127,9 @@ ol.movies {
 }
 
 /* movie details */
-.movie-show .movie {
-  margin-top:1.3em;
+.movie-show .movie { margin-top:1.3em; padding-left: $poster-medium-width + $poster-margin;
   
-  padding-left: $poster-medium-width + $poster-margin;
-  .poster {
-    display:block;
-    margin:.6em 0 1.2em (0 - $poster-medium-width - $poster-margin);
-    float:left;
+  .poster { display:block; float:left; margin:.6em 0 1.2em (0 - $poster-medium-width - $poster-margin);
     
     + p {
       float: left; clear: left;
@@ -140,41 +137,43 @@ ol.movies {
       width: $poster-medium-width;
     }
   }
+  span.poster { width:$poster-medium-width; height:$poster-medium-height; }
+
   .actions { margin-top:1.3em; }
 
-  h1 { font-size:28px; line-height:36px; }
+  h1 { font-size:28px; line-height:34px; margin-bottom:3px; }
+  h2, .year { font-size:18px; line-height:27px; margin-bottom:2px; }
 
-  header {
-    h2, .year { font-size:18px; line-height:27px; }
+  header { float:none; }
     
-    .runtime {
-      margin:15px 0 0 .5em;
-      padding:.2em .4em .1em .3em;
-      line-height:16px;
-      @include border-radius;
-      border: 1px solid rgba($lightblue, .5);
-      color: darken($lightblue, 5);
-      vertical-align: top;
-    }
-    .directors {
-      margin-top:12px;
-      strong { font-size:1.2em; font-weight:normal; @include text-shadow }
-      a { text-decoration: none; }
-      a:hover { text-decoration: underline; }
-    }
-    .countries, .runtime { display:inline-block; }
-    .countries { margin-top:1.5em; }
-    
-    /* special cases */
-    .year + .countries, .year + .countries + .runtime, .year + .runtime { margin-top:0; }
-    .directors + .runtime { margin-left:0; }
+  .runtime {
+    margin-top:6px;
+    padding:.2em .4em .1em .3em;
+    line-height:16px;
+    @include border-radius;
+    border: 1px solid rgba($lightblue, .5);
+    color: darken($lightblue, 5);
+    vertical-align: top;
   }
+  .directors {
+    margin-top:12px;
+    strong { font-size:1.2em; font-weight:normal; @include text-shadow }
+    a { text-decoration:none; color:$body-color; }
+    a:hover { text-decoration: underline; }
+  }
+  .countries, .runtime { display:inline-block; }
+  .countries, .directors { font-size:12px; }
+  .countries { margin:9px 6px 0 0; }
   
-  .plot { margin:3em 0 1.5em; text-align:justify; }
+  /* special cases */
+  .year + .countries, .year + .countries + .runtime, .year + .runtime { margin-top:0; }
+  .directors + .runtime { margin-left:0; }
+  
+  .plot { margin:30px 0 1.5em; text-align:justify; }
   
   .friends { font-style:italic; margin-top:1em; }
   
-  section.admin {
+  .admin {
     max-width: 50em;
     margin-top: 1.5em;
     border-top: 1px solid #eee;

@@ -2,27 +2,33 @@
 <article>
 
   <% if not @movies.empty? %>
-    <h1><% if my_page? %>
-      Your movie stream
-    <% else %>
-      <%= @user.name %>
-    <% end %>
-      <span><em><%= @user.watched.count %></em> movies &asymp; <%= life_wasted(@user) %> of life spent</span>
-    </h1>
+    <header>
+      <h1><% if my_page? %>
+        Your movie stream
+      <% else %>
+        <%= @user.name %>
+      <% end %>
+      </h1>
+
+      <p class="stats"><em><%= @user.watched.count %></em> movies &asymp; <%= life_wasted(@user) %> of life spent</p>
+      <p class="stats"><%= positive(@user) %>, <%= hater(@user) %></p>
+    </header>
+    
     <nav>
-      <p>
-        <%= link_to "#{count @user.watched.liked} liked", liked_path(@user) %>,
-        <%= link_to "#{count @user.to_watch} to watch", to_watch_path(@user) %><% if my_page? %>,
-        <%= link_to "people you're following", following_path %>
+      <ol>
+        <li><% if my_page? %>
+          <%= link_to "following", following_path %>
         <% elsif logged_in? %>
           <% if not current_user.following? @user %>
-          ∙ <%= link_to 'follow person', follow_path(@user.id), :method => :post %>
+            <%= link_to 'follow person', follow_path(@user.id), :method => :post %>
           <% else %>
-          ∙ <%= link_to 'unfollow', unfollow_path(@user.id), :method => :delete %>
+            <%= link_to 'unfollow', unfollow_path(@user.id), :method => :delete %>
           <% end %>
-        <% end %>
+        <% end %></li>
+        <li><%= link_to "#{@user.to_watch.count} to watch", to_watch_path(@user) %></li>
+        <li><%= link_to "#{@user.watched.liked.count} liked", liked_path(@user) %></li>
+      </ol>
 
-      </p>
       <ul class="profiles">
         <% if @user.from_twitter? %><li><%= link_to @user.twitter_url do %><%= twitter_icon(nil) %>
           <span>@<%= @user['twitter']['screen_name'] %> on Twitter</span><% end %>

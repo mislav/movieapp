@@ -27,15 +27,15 @@ module UsersHelper
     who = user ? user.name : 'You'
     liked = user ? movie.liked? : current_user.watched.rating_for(movie)
     
-    "#{who} watched this movie".tap do |out|
+    "#{who} ".tap do |out|
       unless liked.nil?
         if liked
-          out << %( and <em class="liked">#{nobr 'liked it'}</em>)
+          out << %(<em class="liked">#{nobr 'liked it'}</em>)
         else
-          out << %(, but <em class="disliked">#{nobr "didn't like it"}</em>)
+          out << %(<em class="disliked">#{nobr "didn't like it"}</em>)
         end
+      else out << %(watched it)
       end
-      # out << '.'
     end.html_safe
   end
   

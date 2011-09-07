@@ -8,7 +8,7 @@
     <% if ios? and Rails.env.development? %><%= javascript_include_tag 'livereload' %><% end %>
   </head>
   
-  <body class="<%= body_class %>">
+  <body class="<%= body_class ? body_class : 'default' %>">
     <%= javascript_include_tag 'modernizr' %>
     <script>
       Modernizr.addTest('inputsearch', function() {
@@ -20,22 +20,23 @@
       <h1><a href="/">movi.im</a></h1>
     
       <nav>
-        <p><%= link_to 'about', about_path %> ∙</p>
+        <p>
+          <% if logged_in? %><%= link_to 'Logout', logout_path %> ∙<% end %>
+          <%= link_to 'About', about_path %>
+        </p>
 
         <% if logged_in? %>
-          <p>
-            <%= link_to 'logout', logout_path %> ∙
-            logged in as <%= username_with_icon(current_user) %>
-          </p>
+          <p><%= username_with_icon(current_user) %></p>
         <% elsif Movies.offline? %>
-          <%= link_to 'Instalogin!', instant_login_path %>
+          <p><%= link_to 'Instalogin!', instant_login_path %></p>
         <% else %>
-          <p class="login">login with
+          <p class="login">Login with
             <%= link_to twitter_login_path do %><%= twitter_icon(nil) %> <span>Twitter</span><% end %>
             or
             <%= link_to facebook_login_path do %><%= facebook_icon(nil) %> <span>Facebook</span><% end %>
           </p>
         <% end %>
+
       </nav>
     </header>
     

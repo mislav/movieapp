@@ -2,8 +2,10 @@
 <article>
 
   <% unless @movies.empty? %>
-    <h1><%= @user.name %> liked <%= count @movies %> <span><%= positive(@user) %>, <%= hater(@user) %></span></h1>
-    <nav><p><%= link_to "#{count @user.watched} in total", watched_path(@user) %></p></nav>
+    <header>
+      <h1><%= @user.name %> liked <%= count @movies %></h1>
+      <p><%= link_to "#{count @user.watched} watched", watched_path(@user) %></p>
+    </header>
     
     <%= render 'movies/paginated', :movies => @movies %>
   <% else %>

@@ -2,10 +2,10 @@
 <article>
 
   <% if not @movies.empty? %>
-    <h1>People you're following watched <%= count @movies %>.</h1>
-    <nav><p>
-      <%= raw current_user.friends.map { |friend| link_to friend.name, watched_path(friend) }.join ', ' %>
-    </p></nav>
+    <header>    
+      <h1>People you're following watched <%= count @movies %>.</h1>
+      <p><%= raw current_user.friends.map { |friend| link_to friend.name, watched_path(friend) }.join ', ' %></p>
+    </header>
     
     <%= render 'movies/paginated', :movies => @movies %>
   <% else %>
