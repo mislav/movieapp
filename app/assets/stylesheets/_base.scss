@@ -11,9 +11,7 @@ $top-color-stop:#DEEAEE;
 $bottom-color-stop:#EFF4F6;
 $lightblue-border:#CEDFE5;
 
-@mixin link-icon {
-  a {
-    text-decoration: none;
-    span { text-decoration: underline; }
-  }
+@mixin link-with-icon {
+  text-decoration: none;
+  span { text-decoration: underline; }
 }

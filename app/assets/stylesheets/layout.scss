@@ -46,14 +46,18 @@ body > header {
     
     p { text-align:right; }
 
-    .login { @include link-icon;
-
-      a {
+    .login {
+      a.icon {
+        @include link-with-icon;
         img { opacity: .5; @include transition(opacity 0.15s ease-out); }
         span { @include transition(color 0.15s ease-out); }
         &:hover {
           span { color: $body-color; }
-          img { opacity: 1; } } } } }
+          img { opacity: 1; }
+        }
+      }
+    }
+  }
 
   + form { position:absolute; top:31px;
  
@@ -85,7 +89,10 @@ body > article { padding-top:22px;
       li:first-child { margin-bottom:9px; }
     }
     ul { @include no-bullets; padding: 0; }
-    ul.profiles { margin: .5em 0 0 0; @include link-icon; }
+    ul.profiles {
+      margin: .5em 0 0 0;
+      a { @include link-with-icon; }
+    }
 
     .liked, .disliked { font-style:normal; }
   }

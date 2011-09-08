@@ -23,20 +23,19 @@
       <h1><a href="/">movi.im</a></h1>
     
       <nav>
-        <p>
-          <% if logged_in? %><%= link_to 'Logout', logout_path %> ∙<% end %>
-          <%= link_to 'About', about_path %>
-        </p>
+        <p><%= link_to 'About', about_path %></p>
 
         <% if logged_in? %>
-          <p><%= username_with_icon(current_user) %></p>
-        <% elsif Movies.offline? %>
-          <p><%= link_to 'Instalogin!', instant_login_path %></p>
+          <p><%= username_with_icon(current_user) %>
+            ∙ <%= link_to 'Logout', logout_path %>
+          </p>
         <% else %>
           <p class="login">Login with
-            <%= link_to twitter_login_path do %><%= twitter_icon(nil) %> <span>Twitter</span><% end %>
+            <%= link_to twitter_login_path, class: 'icon' do %><%= twitter_icon(nil) %> <span>Twitter</span><% end %>
             or
-            <%= link_to facebook_login_path do %><%= facebook_icon(nil) %> <span>Facebook</span><% end %>
+            <%= link_to facebook_login_path, class: 'icon' do %><%= facebook_icon(nil) %> <span>Facebook</span><% end %>
+
+            <% if Rails.env.development? %>∙ <%= link_to 'Instalogin!', instant_login_path %><% end %>
           </p>
         <% end %>
 
