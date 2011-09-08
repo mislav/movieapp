@@ -182,3 +182,49 @@ ol.movies { clear:left; padding-left:0;
     a { color: inherit; }
   }
 }
+
+/* mobile */
+@media only screen and (max-device-width:480px) {
+  ol.movies {
+    li { min-height:0; width:100%; float:none; margin-right:0; margin-bottom:20px; }
+
+    .movie { padding-left:$poster-small-width / 2 + 14px;
+
+      h1 { font-size:16px; margin:-4px 0 4px; }
+      h2 { margin-bottom:3px; line-height:1.3; }
+      h1, .year { line-height:1.2 }
+      h2, .year { font-size:14px; }
+
+      .poster, span.poster { width:$poster-small-width / 2; }
+      span.poster { height:$poster-small-height / 2; }
+      .actions { margin-top:5px; }
+      .poster { margin-left:-($poster-small-width / 2 + 14px); }
+    }
+  }
+
+  .movie {
+    .actions, .friends { font-size:12px; }
+  }
+
+  .movie-show .movie { padding-left:7px;
+
+    header { margin:-4px 0 14px; padding-left:$poster-medium-width / 2 + 14px; }
+    h1 { font-size:18px; line-height:22px; margin-bottom:3px;}
+    h2 { line-height:20px; margin-bottom:3px; }
+    .year { line-height:18px; }
+    h2, .year { font-size:15px; }
+
+    .directors { margin-top:5px; line-height:18px;
+      strong { font-size:13px;}
+    }
+    .countries { margin:5px 0 -2px;}
+    .runtime { margin-top:3px; }
+
+    .poster { margin:0 10px 10px 0; }
+    .poster, span.poster { width:$poster-medium-width / 2; }
+    span.poster { height:$poster-medium-height / 2; }
+
+    .plot { clear:left; margin-bottom:10px; }
+    .actions { margin-top:7px; }
+  }
+}
