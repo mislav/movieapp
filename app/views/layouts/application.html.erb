@@ -11,7 +11,7 @@
     <% if ios? and Rails.env.development? %><%= javascript_include_tag 'livereload' %><% end %>
   </head>
   
-  <body class="<%= body_class ? body_class : 'default' %>">
+  <body class="<%= body_class %>">
     <%= javascript_include_tag 'modernizr' %>
     <script>
       Modernizr.addTest('inputsearch', function() {

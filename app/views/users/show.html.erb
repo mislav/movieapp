@@ -1,8 +1,10 @@
 <% @title = "#{user_name(@user)} on Movi.im" %>
+<% body_class 'user-show' %>
 <article>
 
   <% if not @movies.empty? %>
     <header>
+      <div class="main">
       <h1><% if my_page? %>
         Your movie stream
       <% else %>
@@ -12,8 +14,7 @@
 
       <p class="stats"><em><%= @user.watched.count %></em> movies &asymp; <%= life_wasted(@user) %> of life spent</p>
       <p class="stats"><%= positive(@user) %>, <%= hater(@user) %></p>
-    </header>
-    
+      </div>
     <nav>
       <ol>
         <li><% if my_page? %>
@@ -29,6 +30,7 @@
         <li><%= link_to "#{@user.watched.liked.count} liked", liked_path(@user) %></li>
       </ol>
     </nav>
+    </header>
 
     <%= render 'movies/paginated', :movies => @movies %>
 

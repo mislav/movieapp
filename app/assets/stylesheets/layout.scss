@@ -77,36 +77,32 @@ body > header {
   }
 }
 
-body > article { padding-top:22px;
-  
+body > article {
+  padding-top:22px;
   header, > h1 { margin-bottom:30px; }
-
   h1 { font-size:18px; line-height:37px; }
+}
 
-  nav { text-align:right; margin-top:10px; font-size:11px;
-    
+.user-show > article {
+  header {
+    @include clearfix;
+    .main { float: left; }
+    .liked, .disliked { font-style:normal; font-size:12px; }
+    p {
+      font-size:11px; line-height:18px;
+      &.stats { color:gray; }
+      em { font-style:normal; }
+    }
+  }
+  nav {
+    float: right; clear: none;
+    text-align:right; font-size:11px;
+    margin-top: 10px;
+
     ol { list-style:none; margin:0; padding:0;
       li:first-child { margin-bottom:9px; }
     }
-    ul { @include no-bullets; padding: 0; }
-    ul.profiles {
-      margin: .5em 0 0 0;
-      a { @include link-with-icon; }
-    }
-
-    .liked, .disliked { font-style:normal; }
   }
-}
-body.default > article {
-  header, > h1 { float:left; }
-}
-body.default > article h1 ~ p {
-  font-size:11px; line-height:18px;
-  @include text-shadow(rgba(gray, .1) 1px 1px 1px);
-
-  em { font-style:normal; font-size:12px; }
-  
-  &.stats { color:gray; }
 }
 
 .users-list ol { margin-left: -1.5em; }
@@ -183,14 +179,18 @@ body.default > article h1 ~ p {
   body > article { padding:7px;
     header, > h1 { margin-bottom:20px; }
     h1 { font-size:15px; line-height:22px; }
+  }
 
+  .user-show > article {
+    header {
+      p { line-height:14px; }
+    }
     nav { margin-top:3px;
       ol li { line-height:14px;
         &:first-child { margin-bottom:6px;}
       }
     }
   }
-  body.default > article h1 ~ p { line-height:14px; }
 
   .about > article {
     p { margin-bottom:0; }
