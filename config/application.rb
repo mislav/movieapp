@@ -72,5 +72,10 @@ module Movies
         end
       end
     end
+
+    if config.store_exceptions
+      require 'never_forget'
+      config.middleware.use NeverForget::ExceptionHandler
+    end
   end
 end

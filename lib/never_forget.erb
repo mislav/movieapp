@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Exceptions</title>
+<style>
+  body {
+    margin: 2em;
+    font: medium/1.6 Helvetica, sans-serif;
+  }
+  a:link, a:visited { color: darkblue; }
+  a:hover { color: crimson; }
+  .url, .ua { margin: .2em 0; }
+  .ua { color: gray; font-size: 85%; }
+  ol.trace {
+    margin: .5em 0;
+    padding: 0;
+    list-style: none;
+    font-size: 85%;
+    line-height: 1.2;
+  }
+  .trace .sys { display: none; }
+  .trace .expand a {
+    font-size: 80%; text-transform: uppercase;
+  }
+  .trace.expanded .sys { display: list-item; }
+  .trace.expanded .expand { display: none; }
+  
+  h1 { margin: 0; padding: 0; }
+  time {
+    font: 80% "American Typewriter", monospace;
+    color: gray;
+    display: inline-block;
+    float: left;
+    width: 7.5em; padding-top: 3.2em;
+  }
+  h2 {
+    border-top: 2px solid #eee;
+    margin: .5em 0 .2em 0;
+    padding: .5em 0 .1em 0;
+  }
+  h2 span { font-weight: normal; }
+  h3 { margin: .5em 0 .2em 0; padding: .1em 0; font-size: 1.1em; }
+  pre { margin: .2em; }
+</style>
+<h1>Exceptions</h1>
+<% for ex in @recent %>
+<time><%== ex.created_at.to_s(:short) %></time>
+<h2><%= ex['name'] %>: <span><%== ex['message'] %></span></h2>
+<% url = ex['env']['rack::url_scheme'] + '://' + File.join(ex['env']['HTTP_HOST'], ex['env']['SCRIPT_NAME'], ex['env']['PATH_INFO']) %>
+<p class="url">
+  <%= ex['env']['REQUEST_METHOD'] %>
+  <a href="<%== url %>"><%== url.split('://').last %></a>
+  for <%= ex['env']['action_dispatch::remote_ip'] %>
+</p>
+<p class="ua"><%== ex['env']['HTTP_USER_AGENT'] %></p>
+
+<h3>Params:</h3>
+<pre class="params"><%== YAML.dump ex['params'] %></pre>
+
+<h3>Session:</h3>
+<pre class="params"><%== YAML.dump ex['session'] %></pre>
+
+<h3>Backtrace:</h3>
+<ol class="trace">
+  <% for line in ex['backtrace'].split("\n") %>
+  <li<%= (line =~ %r{/lib/ruby/|/Pow/}) ? ' class="sys"' : '' %>><%== line %></li>
+  <% end %>
+  <li class="expand"><a href="#expand">full trace</a></li>
+</ol>
+<% end %>
+
+<script>
+  document.addEventListener('click', function(e) {
+    var el = e.target
+    if (el.nodeName == 'A' && el.getAttribute('href') == '#expand') {
+      e.preventDefault()
+      el.parentNode.parentNode.className += " expanded"
+    }
+  }, false)
+</script>
