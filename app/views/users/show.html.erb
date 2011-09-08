@@ -28,15 +28,6 @@
         <li><%= link_to "#{@user.to_watch.count} to watch", to_watch_path(@user) %></li>
         <li><%= link_to "#{@user.watched.liked.count} liked", liked_path(@user) %></li>
       </ol>
-
-      <ul class="profiles">
-        <% if @user.from_twitter? %><li><%= link_to @user.twitter_url do %><%= twitter_icon(nil) %>
-          <span>@<%= @user['twitter']['screen_name'] %> on Twitter</span><% end %>
-        </li><% end %>
-        <% if @user.from_facebook? %><li>
-          <%= link_to @user.facebook_url do %><%= facebook_icon(nil) %> <span>Facebook profile</span><% end %>
-        </li><% end %>
-      </ul>
     </nav>
 
     <%= render 'movies/paginated', :movies => @movies %>
