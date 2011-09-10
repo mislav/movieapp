@@ -1,8 +1,10 @@
+require 'rbconfig'
 require 'mingo'
 require 'erubis'
 require 'active_support/core_ext/kernel/singleton_class'
 require 'active_support/core_ext/enumerable'
 require 'active_support/core_ext/hash'
+require 'rack/request'
 
 module NeverForget
   def self.log(error, env)
@@ -24,6 +26,7 @@ module NeverForget
         @app.call(env)
       rescue StandardError, ScriptError => error
         NeverForget.log(error, env)
+        raise error
       end
     end
 
@@ -39,12 +42,65 @@ module NeverForget
     def render_exceptions_view
       template = Erubis::Eruby.new(exceptions_template)
       context = Erubis::Context.new(:recent => Exception.recent)
+      context.extend TemplateHelpers
       template.evaluate(context)
     end
     
     def exceptions_template
       File.read(TEMPLATE_FILE)
     end
+  end
+
+  module TemplateHelpers
+    include RbConfig
+    extend ActiveSupport::Memoizable
+
+    def gem_path
+      paths = []
+      paths << Bundler.bundle_path << Bundler.user_bundle_path if defined? Bundler
+      paths << Gem.path if defined? Gem
+      paths.flatten.uniq
+    end
+
+    SYSDIRS = %w[ vendor site rubylib arch sitelib sitearch vendorlib vendorarch top ]
+
+    def system_path
+      SYSDIRS.map { |name| CONFIG["#{name}dir"] }.compact
+    end
+
+    def external_path
+      ['/usr/ruby1.9.2', '/home/heroku_rack', gem_path, system_path].flatten.uniq
+    end
+    memoize :external_path
+
+    def collapse_line?(line)
+      external_path.any? {|p| line.start_with? p }
+    end
+
+    def ignore_line?(line)
+      line.include? '/Library/Application Support/Pow/'
+    end
+
+    def strip_root(line)
+      if line =~ %r{/gems/([^/]+)-(\d[\w.]*)/}
+        gem_name, gem_version = $1, $2
+        path = line.split($&, 2).last
+        "#{gem_name} (#{gem_version}) #{path}"
+      elsif path = "#{root_path}/" and line.start_with? path
+        line.sub(path, '')
+      else
+        line
+      end
+    end
+
+    def root_path
+      if defined? Bundler then Bundler.root
+      elsif defined? Rails then Rails.root
+      elsif defined? Sinatra::Application then Sinatra::Application.root
+      else Dir.pwd
+      end
+    end
+    memoize :root_path
   end
 
   module ControllerRescue
@@ -110,15 +166,41 @@ module NeverForget
       self
     end
 
+    def request
+      @request ||= Rack::Request.new(env)
+    end
+
+    def request_url
+      env = self['env']
+      scheme = env['rack::url_scheme']
+      host, port = env['HTTP_HOST'], env['SERVER_PORT'].to_i
+      host += ":#{port}" if 'http' == scheme && port != 80 or 'https' == scheme && port != 443
+
+      url = scheme + '://' + File.join(host, env['SCRIPT_NAME'], env['PATH_INFO'])
+      url << '?' << Rack::Utils::build_nested_query(self['params']) if get_request? and self['params'].present?
+      url
+    end
+
+    def request_method
+      self['env']['REQUEST_METHOD']
+    end
+
+    def get_request?
+      'GET' == request_method
+    end
+
+    def xhr?
+      self['env']['HTTP_X_REQUESTED_WITH'] =~ /XMLHttpRequest/i
+    end
+
+    def remote_ip
+      self['env']['action_dispatch::remote_ip'] || self['env']['REMOTE_ADDR']
+    end
+
     def tag_modules
       Array(exception.singleton_class.included_modules).map(&:to_s) - KNOWN_MODULES
     end
     memoize :tag_modules
-
-    def exclude_params
-      Array(env['action_dispatch.parameter_filter']).map(&:to_s)
-    end
-    memoize :exclude_params
 
     def unwrap_exception(exception)
       if exception.respond_to?(:original_exception)
@@ -137,11 +219,13 @@ module NeverForget
       end
     end
 
-    # action_dispatch.request.path_parameters
-    # action_dispatch.request.request_parameters
-    # rack.request.query_hash
+    def exclude_params
+      Array(env['action_dispatch.parameter_filter']).map(&:to_s)
+    end
+    memoize :exclude_params
+
     def extract_params
-      if params = env['action_dispatch.request.parameters']
+      if params = request.params and params.any?
         filtered = params.each_with_object({}) { |(key, value), keep|
           keep[key] = exclude_params.include?(key.to_s) ? '[FILTERED]' : value
         }

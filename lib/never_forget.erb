@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <title>Exceptions</title>
 <style>
   body {
@@ -17,6 +18,7 @@
     font-size: 85%;
     line-height: 1.2;
   }
+  .trace .num { font-weight: bold; }
   .trace .sys { display: none; }
   .trace .expand a {
     font-size: 80%; text-transform: uppercase;
@@ -25,47 +27,71 @@
   .trace.expanded .expand { display: none; }
   
   h1 { margin: 0; padding: 0; }
-  time {
-    font: 80% "American Typewriter", monospace;
-    color: gray;
-    display: inline-block;
-    float: left;
-    width: 7.5em; padding-top: 3.2em;
+  article {
+    margin-top: 1.5em;
+    padding-top: 1em;
+    border-top: 2px solid #eee;
   }
   h2 {
-    border-top: 2px solid #eee;
-    margin: .5em 0 .2em 0;
-    padding: .5em 0 .1em 0;
+    margin: 0 0 .2em 0;
+    padding: 0 0 .1em 0;
+    display: inline-block;
+  }
+  time {
+    display: inline-block;
+    font: 80% "American Typewriter", monospace;
+    color: gray;
+    margin-left: 1em;
   }
   h2 span { font-weight: normal; }
   h3 { margin: .5em 0 .2em 0; padding: .1em 0; font-size: 1.1em; }
   pre { margin: .2em; }
+  
+  @media only screen and (max-device-width:480px) {
+    body { margin: 7px; font-size: small; }
+    h1 { font-size: 22px; text-align: center; margin: 0; padding: 0; }
+    h2 { font-size: 18px; }
+    article { margin-top: .2em; padding-top: .2em; padding-bottom: .5em; }
+  }
 </style>
-<h1>Exceptions</h1>
-<% for ex in @recent %>
-<time><%== ex.created_at.to_s(:short) %></time>
-<h2><%= ex['name'] %>: <span><%== ex['message'] %></span></h2>
-<% url = ex['env']['rack::url_scheme'] + '://' + File.join(ex['env']['HTTP_HOST'], ex['env']['SCRIPT_NAME'], ex['env']['PATH_INFO']) %>
-<p class="url">
-  <%= ex['env']['REQUEST_METHOD'] %>
-  <a href="<%== url %>"><%== url.split('://').last %></a>
-  for <%= ex['env']['action_dispatch::remote_ip'] %>
-</p>
-<p class="ua"><%== ex['env']['HTTP_USER_AGENT'] %></p>
 
+<h1>Exceptions</h1>
+
+<% for ex in @recent %>
+<article>
+<header><h2><%= ex['name'] %>: <span><%== ex['message'] %></span></h2>
+<time><%== ex.created_at.strftime('%a, %b %e %T') %></time>
+</header>
+
+<% url = ex.request_url %>
+<p class="url">
+  <% if ex.xhr? %>Ajax<% end %> <%= ex.request_method %>
+  <a href="<%== url %>"><%== url.split('://').last %></a>
+</p>
+<p class="ua">
+  <span class="ip"><%= ex.remote_ip %></span> &mdash;
+  <%== ex['env']['HTTP_USER_AGENT'] %>
+</p>
+
+<% if ex['params'].present? %>
 <h3>Params:</h3>
 <pre class="params"><%== YAML.dump ex['params'] %></pre>
+<% end %>
 
+<% if ex['session'].present? %>
 <h3>Session:</h3>
-<pre class="params"><%== YAML.dump ex['session'] %></pre>
+<pre class="session"><%== YAML.dump ex['session'] %></pre>
+<% end %>
 
 <h3>Backtrace:</h3>
 <ol class="trace">
   <% for line in ex['backtrace'].split("\n") %>
-  <li<%= (line =~ %r{/lib/ruby/|/Pow/}) ? ' class="sys"' : '' %>><%== line %></li>
+    <% next if ignore_line? line %>
+    <li<%= collapse_line?(line) ? ' class="sys"' : '' %>><%= strip_root(line).sub(/:(\d+):/, ' <span class="num">\1</span> ') %></li>
   <% end %>
   <li class="expand"><a href="#expand">full trace</a></li>
 </ol>
+</article>
 <% end %>
 
 <script>
