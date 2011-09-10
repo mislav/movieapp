@@ -1,9 +1,10 @@
 $avatar-size: 24px;
 $compare-box-width: 780px / 3;
 
-.compare > article {
-  padding-top: 5em;
-  > h2 { clear: both; }
+.compare > article { padding-top:30px;
+
+  > h2 { clear:both; font-size:18px; font-weight:normal; line-height:37px; margin-bottom:20px; }
+  
   .avatar {
     display: inline-block;
     width: $avatar-size; height: $avatar-size;

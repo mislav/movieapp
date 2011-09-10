@@ -8,7 +8,7 @@
   </p>
   <% if compare.fav_directors.any? %>
   <section class="directors">
-    <p>Favorite directors:</p>
+    <p>Top directors:</p>
     <ol><% compare.fav_directors.each do |name| %>
       <li><%= link_to name, director_path(name) %>
     <% end %></ol>
