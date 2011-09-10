@@ -6,7 +6,7 @@ $poster-medium-height:274px;
     
 em.liked { color: green; }
 em.disliked { color: darkred; }
-
+.other-info em { font-style:normal; }
 
 /* movie list */
 ol.movies { clear:left; padding-left:0;
