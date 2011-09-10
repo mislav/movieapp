@@ -87,7 +87,7 @@ body > article {
   header {
     @include clearfix;
     .main { float: left; }
-    .liked, .disliked { font-style:normal; font-size:12px; }
+    .liked, .disliked { font-style:normal; }
     p {
       font-size:11px; line-height:18px;
       &.stats { color:gray; }
@@ -187,7 +187,7 @@ body > article {
     }
     nav { margin-top:3px;
       ol li { line-height:14px;
-        &:first-child { margin-bottom:6px;}
+        &:first-child { margin-bottom:5px;}
       }
     }
   }
