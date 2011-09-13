@@ -66,4 +66,8 @@ module UsersHelper
     end
   end
   
+  def link_to_compare(user1, user2)
+    link_to 'compare us', compare_path("#{user1.username}+#{user2.username}")
+  end
+  
 end
