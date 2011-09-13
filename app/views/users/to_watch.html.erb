@@ -8,15 +8,14 @@
     </header>
     
     <%= render 'movies/paginated', :movies => @movies %>
+
   <% else %>
     <% if my_page? and @user.watched.size.zero? %>
-      <section class="intro">
-        <p>
-          This is a list of movies you want to watch.<br>
-          Build up this list by using the "to watch" button on any movie on the site.
-        </p>
+      <h1>This is a list of movies you want to watch</h1>
+      <aside class="intro">
+        <p>Build up this list by using the "to watch" button on any movie on the site.</p>
         <p>When you eventually mark some movies as "watched", they will disappear from this list.</p>
-      </section>
+      </aside>
     <% end %>
     
     <p>There are no movies <%= @user.name %> plans to watch.</p>

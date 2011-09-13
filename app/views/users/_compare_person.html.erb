@@ -1,17 +1,19 @@
 <section class="person">
-  <p>
+  <h1>
     <% if compare.user.picture? %>
     <span class="avatar" style="background-image:url(<%= compare.user.picture_url %>)"></span>
     <% end %>
     <span class="name"><%= user_name compare.user %></span>
-    <span class="watched"><%= pluralize_movies compare.watched_count %></span>
-  </p>
+  </h1>
+  <p class="watched"><%= pluralize_movies compare.watched_count %></p>
+
   <% if compare.fav_directors.any? %>
   <section class="directors">
-    <p>Top directors:</p>
+    <h1>Top directors:</h1>
     <ol><% compare.fav_directors.each do |name| %>
       <li><%= link_to name, director_path(name) %>
     <% end %></ol>
   </section>
   <% end %>
+  
 </section>

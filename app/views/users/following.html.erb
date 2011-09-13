@@ -9,16 +9,10 @@
     
     <%= render 'movies/paginated', :movies => @movies %>
   <% else %>
-    <% if my_page? %>
-      <section class="intro">
-        <p>
-          When someone of your Twitter or Facebook connections uses this site,<br>
-          movies they watched will be listed here.
-        </p>
-      </section>
-    <% end %>
-    
-    <p>No movies found.</p>
+    <h1>No movies found.</h1>
+    <p class="intro">
+      When someone of your Twitter or Facebook connections uses this site, movies they watched will be listed here.
+    </p>
   <% end %>
 
 </article>

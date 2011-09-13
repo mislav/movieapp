@@ -1,17 +1,17 @@
 <% @title = "#{@compare.username1} & #{@compare.username2} on Movi.im" %>
 <% body_class 'compare' %>
 <article>
-  <% @compare.scoped(1) do |compare| %>
-    <%= render 'compare_person', compare: compare %>
-  <% end %>
-
-  <section id="in-common">
-    <p class="movies"><%= pluralize_movies @compare.in_common_count, 'in common' %></p>
+  <div id="in-common">
+    <h1><span class="movies"><%= pluralize_movies @compare.in_common_count, 'in common' %></span></h1>
     <p class="percent">
       Compatibility:
       <span class="num"><%= @compare.compatibility ? number_to_percentage(@compare.compatibility, precision: 0) : 'none' %></span>
     </p>
-  </section>
+  </div>
+  
+  <% @compare.scoped(1) do |compare| %>
+    <%= render 'compare_person', compare: compare %>
+  <% end %>
 
   <% @compare.scoped(2) do |compare| %>
     <%= render 'compare_person', compare: compare %>

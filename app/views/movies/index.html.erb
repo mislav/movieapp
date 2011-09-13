@@ -1,12 +1,12 @@
 <article>
 
-  <% unless logged_in? or @query or @director %><section class="intro">
+  <% unless logged_in? or @query or @director %><aside class="intro">
     <p>
       This is a micro web app for keeping track of movies you watched or want to watch.
       You can also see what your friends are watching and discover good movies that way.
     </p>
     <p>Movi.im is delightfully easy to use: there is no registration, just log in and explore.</p>
-  </section><% end %>
+  </aside><% end %>
 
   <h1><% if @query %>
     Search results for <i><%= h @query %></i>
