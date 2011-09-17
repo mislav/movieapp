@@ -7,20 +7,22 @@ $compare-box-width: 780px / 3;
     width: $avatar-size; height: $avatar-size;
     background-size: $avatar-size auto;
     @include border-radius(3px);
+    vertical-align: bottom;
   }
   .num {
     font: 900 3em "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: lighten($body-color, 10);
   }
-  > header { float:right; position:relative; right:34.5%;
+  > header, .person { position: relative; }
+  > header { float:right; right:34.5%;
     background-color: $bottom-color-stop; @include border-radius(10px); border: 1px solid $lightblue-border;
     font-size:1.1em; text-align:center;
     padding: 1em;
     width: 170px;
     margin: 0 20px;
 
-    h1 { margin-bottom:5px; font-size:13px; }
-    .movies .num { font-size:18px }
+    h1 { margin-bottom:5px; font-size:1em; }
+    .movies .num { font-size:1.3em }
     .percent {
       text-transform: uppercase;
       color: lighten($body-color, 20);
@@ -29,15 +31,42 @@ $compare-box-width: 780px / 3;
   }
   > section { clear: left; }
   .person { width:$compare-box-width; min-height:220px; float:left; clear: none; text-align:center;
-    
-    + .person { position:relative; left:34%; }
+    margin-bottom: 3em;
+
+    + .person { left:34%; }
 
     > h1, .watched { font-size:1.6em; }
+    > h1 { line-height:$avatar-size; padding:0; }
     .directors { margin-top:1.5em;
       a { text-decoration: none; }
       a:hover { text-decoration: underline; }
-      h1 { text-transform:uppercase; font-size:14px; }
+      h1 { text-transform:uppercase; font-size:1.2em; }
       ol { list-style: none; padding: 0; margin: 0; font-size: 1.2em; line-height: 1.6 }
+    }
+  }
+}
+
+/* mobile */
+@media only screen and (max-device-width:480px) {
+  .compare > article { padding-top:4px;
+    > header, .person { position:static; }
+    > header { float:none; width:auto; font-size:13px; margin:0 0 1em;
+      padding: .3em 10px; @include border-radius(5px);
+
+      h1 { text-align:left; float:left; margin-bottom:0; line-height:18px;}
+      .num { font-size:18px;}
+      .percent { text-align:right; font-variant:small-caps; text-transform:none;
+        .num { display:inline; }
+      }
+    }
+
+    .person { width:45%; text-align:right; min-height:150px; margin-bottom:2em;
+      + .person { text-align:left; border-left:1px solid $lightblue-border; margin-left:4%; padding-left:4%; }
+      h1 { font-size:1em; }
+      .watched { font-size:1em;
+        .num { font-size:2.6em; }
+      }
+      .directors { margin-top:.5em; font-size:85%; }
     }
   }
 }
