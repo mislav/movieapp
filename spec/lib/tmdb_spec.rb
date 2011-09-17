@@ -5,13 +5,13 @@ require 'tmdb'
 describe Tmdb::Movie do
 
   context "normal one" do
-    before(:all) do
+    let(:result) {
       stub_request 'black cat', 'black_cat'
-      @result = Tmdb.search('black cat')
-    end
-  
+      Tmdb.search 'black cat'
+    }
+
     subject {
-      @result.movies.first
+      result.movies.first
     }
 
     its(:id)                { should == 1075 }
@@ -28,22 +28,51 @@ describe Tmdb::Movie do
   end
   
   context "normal many" do
-    before(:all) do
+    let(:result) {
       stub_request 'the terminator', 'terminator'
-      result = Tmdb.search('the terminator')
-      @movies = result.movies
-      @terminator = @movies.find { |m| m.name == 'The Terminator' }
-      @no_overview = @movies.find { |m| m.name == 'The Terminal Man' }
+      Tmdb.search 'the terminator'
+    }
+    let(:movies) { result.movies }
+
+    it "includes The Terminal" do
+      movies.first.name.should == "The Terminal"
     end
-    
+
     it "should not have duplicate original name" do
-      @terminator.original_name.should be_nil
+      terminator = movies.find { |m| m.name == 'The Terminator' }
+      terminator.original_name.should be_nil
     end
     
     it "should erase synopsis if no overview" do
-      @no_overview.synopsis.should be_nil
+      no_overview = movies.find { |m| m.name == 'The Terminal Man' }
+      no_overview.synopsis.should be_nil
     end
   end  
+
+  it "can ignore a specific movie" do
+    Tmdb.ignore_ids << 594
+    begin
+      stub_request 'the terminator', 'terminator'
+      results = Tmdb.search 'the terminator'
+      results.movies.should_not be_empty
+      results.movies.map(&:name).should_not include("The Terminal")
+    ensure
+      Tmdb.ignore_ids.delete 594
+    end
+  end
+
+  it "can override movie attributes" do
+    Tmdb.override_values[594] = {year: 2006}
+    begin
+      stub_request 'the terminator', 'terminator'
+      results = Tmdb.search 'the terminator'
+      movie = results.movies.first
+      movie.year.should == 2006
+      movie.imdb_id.should == 'tt0362227'
+    ensure
+      Tmdb.override_values.delete 594
+    end
+  end
   
   context "empty" do
     before(:all) do

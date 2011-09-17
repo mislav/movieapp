@@ -35,6 +35,26 @@ module Tmdb
   end
   
   faraday.builder.insert_before FaradayStack::ResponseJSON, ResponseNormalizer, :content_type => %r{(application|text)/json}
+
+  class << self
+    attr_accessor :ignore_ids
+    attr_accessor :override_values
+
+    private
+
+    def process_movie(movie)
+      unless ignore_ids.include? movie.id
+        if values = override_values[movie.id]
+          values.each do |key, value|
+            movie.send("#{key}=", value)
+          end
+        end
+        movie
+      end
+    end
+  end
+  self.ignore_ids = []
+  self.override_values = {}
   
   class Movie < NibblerJSON
     include MovieTitle
@@ -89,7 +109,9 @@ module Tmdb
   end
   
   def self.search query
-    search_movies :api_key => Movies::Application.config.tmdb.api_key, :query => query
+    result = search_movies :api_key => Movies::Application.config.tmdb.api_key, :query => query
+    result.movies.map! {|mov| process_movie mov }.compact!
+    result
   end
   
   # http://api.themoviedb.org/2.1/methods/Movie.getInfo
@@ -99,6 +121,8 @@ module Tmdb
   
   def self.movie_details tmdb_id
     result = get_movie_details :api_key => Movies::Application.config.tmdb.api_key, :tmdb_id => tmdb_id
-    result.movies.first
+    process_movie result.movies.first
   end
 end
+
+require 'tmdb_ignores'
