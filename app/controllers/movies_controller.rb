@@ -3,7 +3,7 @@ class MoviesController < ApplicationController
   before_filter :find_movie, :except => :index
   admin_actions :only => :change_plot_field
   
-  rescue_from 'Net::HTTPExceptions' do |error|
+  rescue_from 'Net::HTTPExceptions', 'Faraday::Error::ClientError' do |error|
     render 'shared/error', :status => 500, :locals => {:error => error}
   end
   
