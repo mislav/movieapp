@@ -31,6 +31,7 @@ class Movie < Mingo
   # key :cast, Array
   
   include Mingo::Timestamps
+  extend Merge
   
   def to_param
     self.id.to_s

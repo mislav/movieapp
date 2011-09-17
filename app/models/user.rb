@@ -23,6 +23,12 @@ class User < Mingo
       return self if include? doc
       super
     end
+
+    # TODO: move to mingo
+    def reload
+      @loaded = @join_loaded = nil
+      self
+    end
   end
   
   many :watched, self => 'user_id', 'movie_id' => Movie do
@@ -121,6 +127,12 @@ class User < Mingo
       
       result.first['minutes']
     end
+
+    # TODO: move to mingo
+    def reload
+      @loaded = @join_loaded = nil
+      self
+    end
   end
   
   
@@ -144,9 +156,17 @@ class User < Mingo
     return self
   end
   
+  # TODO: move to mingo
   def reset_counter_caches
     self['watched_count'] = watched.send(:join_cursor).count
     self['to_watch_count'] = to_watch.send(:join_cursor).count
+  end
+
+  def reset_counter_caches!
+    update '$inc' => {
+      'watched_count' => watched.send(:join_cursor).count - self['watched_count'].to_i,
+      'to_watch_count' => to_watch.send(:join_cursor).count - self['to_watch_count'].to_i
+    }
   end
   
   def self.generate_username(name)
