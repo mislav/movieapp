@@ -3,8 +3,8 @@ $compare-box-width: 780px / 3;
 
 .compare > article { padding-top:24px;
 
-  h1 { line-height:30px; }
-  .person ~ section > h1 { clear:both; font-size:18px; font-weight:normal; line-height:37px; margin-bottom:20px; }
+  h1 { line-height:34px; }
+  .in-common > h1 { clear:both; font-size:18px; font-weight:normal; line-height:37px; margin-bottom:20px; }
   
   .avatar {
     display: inline-block;
@@ -36,7 +36,6 @@ $compare-box-width: 780px / 3;
     + .person { position:relative; left:34%; }
 
     > h1, .watched { font-size:1.6em; }
-    .name { vertical-align:top }
     .directors { margin-top:1.5em;
       a { text-decoration: none; }
       a:hover { text-decoration: underline; }
