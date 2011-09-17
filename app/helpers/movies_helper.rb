@@ -70,5 +70,8 @@ module MoviesHelper
   def movie_show_page?
     controller.controller_name == 'movies' and controller.action_name == 'show'
   end
-  
+
+  def unless_empty(movies)
+    yield movies unless movies.empty?
+  end
 end

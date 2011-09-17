@@ -7,10 +7,10 @@
   </h1>
   <p class="watched"><%= pluralize_movies compare.watched_count %></p>
 
-  <% if compare.fav_directors.any? %>
+  <% unless_empty compare.fav_directors do |directors| %>
   <section class="directors">
     <h1>Top directors:</h1>
-    <ol><% compare.fav_directors.each do |name| %>
+    <ol><% directors.each do |name| %>
       <li><%= link_to name, director_path(name) %>
     <% end %></ol>
   </section>

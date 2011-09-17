@@ -2,10 +2,6 @@ $avatar-size: 25px;
 $compare-box-width: 780px / 3;
 
 .compare > article { padding-top:24px;
-
-  h1 { line-height:34px; }
-  .in-common > h1 { clear:both; font-size:18px; font-weight:normal; line-height:37px; margin-bottom:20px; }
-  
   .avatar {
     display: inline-block;
     width: $avatar-size; height: $avatar-size;
@@ -16,7 +12,7 @@ $compare-box-width: 780px / 3;
     font: 900 3em "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: lighten($body-color, 10);
   }
-  #in-common { float:right; position:relative; right:34.5%;
+  > header { float:right; position:relative; right:34.5%;
     background-color: $bottom-color-stop; @include border-radius(10px); border: 1px solid $lightblue-border;
     font-size:1.1em; text-align:center;
     padding: 1em;
@@ -31,7 +27,8 @@ $compare-box-width: 780px / 3;
       .num { display: block }
     }
   }
-  .person { width:$compare-box-width; min-height:220px; float:left; text-align:center;
+  > section { clear: left; }
+  .person { width:$compare-box-width; min-height:220px; float:left; clear: none; text-align:center;
     
     + .person { position:relative; left:34%; }
 

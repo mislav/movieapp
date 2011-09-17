@@ -1,13 +1,13 @@
 <% @title = "#{@compare.username1} & #{@compare.username2} on Movi.im" %>
 <% body_class 'compare' %>
 <article>
-  <div id="in-common">
+  <header>
     <h1><span class="movies"><%= pluralize_movies @compare.in_common_count, 'in common' %></span></h1>
     <p class="percent">
       Compatibility:
       <span class="num"><%= @compare.compatibility ? number_to_percentage(@compare.compatibility, precision: 0) : 'none' %></span>
     </p>
-  </div>
+  </header>
   
   <% @compare.scoped(1) do |compare| %>
     <%= render 'compare_person', compare: compare %>
@@ -17,15 +17,15 @@
     <%= render 'compare_person', compare: compare %>
   <% end %>
 
-  <% unless (both_liked = @compare.movies_both_liked.limit(6)).empty? %>
-  <section class="in-common">
+  <% unless_empty @compare.movies_both_liked.limit(6) do |both_liked| %>
+  <section>
     <h1>Movies both liked:</h2>
     <%= render 'movies/paginated', :movies => both_liked %>
   </section>
   <% end %>
 
-  <% unless (to_watch = @compare.movies_to_watch.limit(6)).empty? %>
-  <section class="in-common">
+  <% unless_empty @compare.movies_to_watch.limit(6) do |to_watch| %>
+  <section>
     <h1>Movies both want to watch:</h2>
     <%= render 'movies/paginated', :movies => to_watch %>
   </section>
