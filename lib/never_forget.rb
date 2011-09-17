@@ -108,6 +108,7 @@ module NeverForget
       if super
         # the exception was handled, but we still want to save it
         NeverForget.log(exception, request.env)
+        true
       end
     end
   end
