@@ -18,12 +18,16 @@
   <% end %>
 
   <% unless (both_liked = @compare.movies_both_liked.limit(6)).empty? %>
-  <h2>Movies both liked:</h2>
-  <%= render 'movies/paginated', :movies => both_liked %>
+  <section>
+    <h1>Movies both liked:</h2>
+    <%= render 'movies/paginated', :movies => both_liked %>
+  </section>
   <% end %>
 
   <% unless (to_watch = @compare.movies_to_watch.limit(6)).empty? %>
-  <h2>Movies both want to watch:</h2>
-  <%= render 'movies/paginated', :movies => to_watch %>
+  <section>
+    <h1>Movies both want to watch:</h2>
+    <%= render 'movies/paginated', :movies => to_watch %>
+  </section>
   <% end %>
 </article>

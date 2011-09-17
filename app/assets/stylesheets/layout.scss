@@ -109,7 +109,7 @@ body > article {
 
 .about > article { max-width: 48em;
   h1 { margin-bottom:0; }
-  h2 { font: normal 15px/18px $body-type; @include text-shadow; margin:35px 0 11px; }
+  section h1 { font: normal 15px/18px $body-type; @include text-shadow; margin:35px 0 11px; }
   p { margin-bottom:10px; padding-top:8px; }
   ul { margin:18px 0 0; }
 }
@@ -194,7 +194,7 @@ body > article {
 
   .about > article {
     p { margin-bottom:0; }
-    h2 { margin:20px 0 5px;}
+    section h1 { margin:20px 0 5px;}
     ul { margin-top:5px; }
   }
 }
