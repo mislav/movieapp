@@ -1,0 +1,15 @@
+<h1 style="margin-top: 1em">
+  Netflix search results for
+  <b><%= @query %></b>
+</h1>
+
+<% for movie in @movies %>
+<article style="float:left; width:100%">
+  <%= image_tag movie.poster_large, style: 'float:left; margin:0 1.5em 1em' %>
+  <h1><%= movie.name %> (<%= movie.year %>)</h1>
+
+  <% if movie.synopsis.present? %><p><%= raw movie.synopsis %></p><% end %>
+  <p>Director: <%= movie.directors.to_sentence %></p>
+  <p>Netflix ID: <%= movie.id %></p>
+</article>
+<% end %>

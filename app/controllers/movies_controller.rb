@@ -9,8 +9,15 @@ class MoviesController < ApplicationController
   
   def index
     if @query = params[:q]
-      @movies = Movie.search(@query).paginate(:page => params[:page], :per_page => 30)
-      redirect_to movie_url(@movies.first) if @movies.size == 1
+      if params[:local]
+        @movies = Movie.find({:title => Regexp.new(@query, 'i')}, :sort => :title).page(params[:page])
+      elsif params[:netflix]
+        @movies = Netflix.search(@query, :expand => %w'directors').titles
+        render :netflix_search
+      else
+        @movies = Movie.search(@query).paginate(:page => params[:page], :per_page => 30)
+        redirect_to movie_url(@movies.first) if @movies.size == 1
+      end
     elsif @director = params[:director]
       @movies = Movie.find(:directors => @director).sort(:year, :desc).page(params[:page])
     else

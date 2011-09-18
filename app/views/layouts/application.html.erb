@@ -48,6 +48,8 @@
       
     <%= form_tag root_path, :method => 'get' do %>
       <div>
+        <%= hidden_field_tag :local, params[:local], :id => nil if params[:local] %>
+        <%= hidden_field_tag :netflix, params[:netflix], :id => nil if params[:netflix] %>
         <%= text_field_tag :q, @query, :type => 'search', :results => '5', :placeholder => 'search movies by title' %>
         <%= submit_tag "search", :name => nil %>
       </div>
