@@ -137,6 +137,8 @@ class Movie < Mingo
       self.tmdb_movie = Tmdb.movie_details(self.tmdb_id)
       self.save
     end
+  rescue Net::HTTPExceptions, Faraday::Error::ClientError
+    Rails.logger.warn "An HTTP error occured while trying to get data for Tmdb movie #{self.tmdb_id}"
   end
   
   def extended_info_missing?
