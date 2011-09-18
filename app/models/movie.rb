@@ -2,6 +2,7 @@ require 'netflix'
 require 'tmdb'
 require 'wikipedia'
 require 'html/sanitizer'
+require 'movie_title'
 
 class Movie < Mingo
   property :title
@@ -32,9 +33,28 @@ class Movie < Mingo
   
   include Mingo::Timestamps
   extend Merge
-  
+  extend ActiveSupport::Memoizable
+
   def to_param
     self.id.to_s
+  end
+
+  def normalized_title
+    ::MovieTitle::normalize_title(title)
+  end
+  memoize :normalized_title
+
+  # warning: db-heavy
+  def self.find_duplicate_titles
+    # get all movies that someone watched or wants to watch
+    ids = User.collection['watched'].find({}, fields: :movie_id).map { |doc| doc['movie_id'] }
+    ids.concat User.collection['to_watch'].find({}, fields: :movie_id).map { |doc| doc['movie_id'] }
+
+    hash = Hash.new { |h,k| h[k] = [] }
+    fields = %w[ title original_title year poster_small_url ]
+    find(ids.uniq, fields: fields, sort: '$natural').each_with_object(hash) { |movie, map|
+      map[movie.normalized_title] << movie
+    }.reject { |_, movies| movies.size < 2 }
   end
   
   property :chosen_plot_field

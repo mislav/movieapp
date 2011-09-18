@@ -1,6 +1,8 @@
 Movies::Application.routes.draw do
 
   match 'about' => 'movies#about', :as => :about, :via => :get
+
+  match 'movies/_dups' => 'movies#dups', :via => :get
   
   resources :movies, :only => [:show] do
     member do

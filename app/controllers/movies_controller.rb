@@ -54,6 +54,10 @@ class MoviesController < ApplicationController
     redirect_to movie_url(@movie)
   end
   
+  def dups
+    @duplicate_titles = Movie.find_duplicate_titles
+  end
+  
   protected
   
   def find_movie

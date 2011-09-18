@@ -1,0 +1,10 @@
+<article>
+
+  <h1>Movies sharing the same title</h1>
+
+  <% for title, movies in @duplicate_titles %>
+    <h2><%= title %></h2>
+    <%= render 'paginated', :movies => movies %>
+  <% end %>
+
+</article>
