@@ -3,7 +3,7 @@
     <% if compare.user.picture? %>
     <span class="avatar" style="background-image:url(<%= compare.user.picture_url %>)"></span>
     <% end %>
-    <span class="name"><%= user_name compare.user %></span>
+    <%= link_to user_name(compare.user), watched_path(compare.user) %>
   </h1>
   <p class="watched"><%= pluralize_movies compare.watched_count %></p>
 
@@ -11,7 +11,7 @@
   <section class="directors">
     <h1>Top directors:</h1>
     <ol><% directors.each do |name| %>
-      <li><%= link_to name, director_path(name) %>
+      <li><%= link_to name, director_path(name) %></li>
     <% end %></ol>
   </section>
   <% end %>
