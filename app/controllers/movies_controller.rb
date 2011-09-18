@@ -68,7 +68,8 @@ class MoviesController < ApplicationController
   protected
   
   def find_movie
-    @movie = Movie.first(params[:id])
+    @movie = Movie.first(params[:id]) or
+      render_not_found("This movie couldn't be found.")
   end
   
   private

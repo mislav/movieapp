@@ -152,6 +152,24 @@ body > article {
   a:hover { text-decoration: none; border-bottom: 1px solid silver; }
 }
 
+.error article {
+  h1 {
+    color: crimson;
+    margin-bottom: 1.5em;
+  }
+}
+p.not-found {
+  text-transform: uppercase;
+  font-size: 90%;
+  font-style: italic;
+  letter-spacing: .05em;
+  display: inline-block;
+  background: #eee;
+  @include border-radius(8px);
+  padding: .2em 1.2em;
+  @include text-shadow(rgba(white, .8) 1px 1px 1px);
+}
+
 /* mobile */
 @media only screen and (max-device-width:480px) {
   body { font-size:10px/1.5; padding:0 7px;

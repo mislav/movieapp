@@ -20,7 +20,7 @@
   <% unless @movies.empty? %>
     <%= render 'paginated', :movies => @movies %>
   <% else %>
-    <p>Nothing found. I SO SORRY</p>
+    <p class="not-found">No movies found</p>
   <% end %>
 
 </article>

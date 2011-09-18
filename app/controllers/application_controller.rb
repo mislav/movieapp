@@ -55,7 +55,12 @@ class ApplicationController < ActionController::Base
   end
   
   private
-  
+
+  def render_not_found(message = nil)
+    @message = message
+    render 'shared/not_found', :status => 404
+  end
+
   def ajax_pagination
     if request.xhr?
       render :partial => 'movies/movie', :collection => @movies.to_a

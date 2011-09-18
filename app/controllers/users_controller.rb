@@ -44,8 +44,8 @@ class UsersController < ApplicationController
   protected
   
   def load_user
-    @user = find_user params[:username]
-    render :user_not_found, :status => 404 unless @user
+    @user = find_user(params[:username]) or
+      render_not_found(%(A user named "#{params[:username]}" doesn't exist.))
   end
 
   def find_user(username)

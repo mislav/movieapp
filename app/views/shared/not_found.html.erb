@@ -1,0 +1,12 @@
+<% @title = "(404) Movie not found" %>
+<% body_class 'error' %>
+<article>
+  <h1>Not found</h1>
+  
+  <p class="not-found">
+    <% if @message.present? %><%= @message %>
+    <% else %>
+    The requested page is not found.
+    <% end %>
+  </p>
+</article>
