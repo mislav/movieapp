@@ -43,7 +43,7 @@ module Tmdb
     private
 
     def process_movie(movie)
-      unless ignore_ids.include? movie.id
+      if movie
         if values = override_values[movie.id]
           values.each do |key, value|
             movie.send("#{key}=", value)
@@ -110,7 +110,7 @@ module Tmdb
   
   def self.search query
     result = search_movies :api_key => Movies::Application.config.tmdb.api_key, :query => query
-    result.movies.map! {|mov| process_movie mov }.compact!
+    result.movies.map! {|mov| process_movie mov unless ignore_ids.include? mov.id }.compact!
     result
   end
   
