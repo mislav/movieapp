@@ -3,6 +3,7 @@ Tmdb.ignore_ids.tap do |ignored|
   ignored << 58418 # The Ring
   ignored << 70305 # The Simpsons Movie
   ignored << 72906 # "9" 2005 short movie
+  ignored << 64430 # Bad Timing (German version)
 end
 
 # Sweeney Todd
