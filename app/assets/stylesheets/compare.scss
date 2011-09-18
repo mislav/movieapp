@@ -53,9 +53,9 @@ $compare-box-width: 780px / 3;
     > header { float:none; width:auto; font-size:13px; margin:0 0 1em;
       padding: .3em 10px; @include border-radius(5px);
 
-      h1 { text-align:left; float:left; margin-bottom:0; line-height:18px;}
+      h1 { text-align:left; float:left; margin-bottom:0; }
       .num { font-size:18px;}
-      .percent { text-align:right; font-variant:small-caps; text-transform:none;
+      .percent { text-align:right; font-variant:small-caps; text-transform:none; margin-top:-1px;
         .num { display:inline; }
       }
     }
