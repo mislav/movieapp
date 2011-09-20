@@ -9,7 +9,7 @@ Feature: Movie search
   Scenario: No results
     When I search for "Lepa Brena"
     Then I should see "Search results for Lepa Brena" in the title
-    And I should see "Nothing found."
+    And I should see "No movies found"
 
   Scenario: One result
     Given TMDB returns "black_cat-full.json" for movie details
