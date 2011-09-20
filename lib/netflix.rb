@@ -43,10 +43,9 @@ module Netflix
     element './/link[@title="official webpage"]/@href' => :official_url
     
     def name=(value)
-      if value.respond_to?(:sub!) and value.sub!(/(\s*:)?\s+special edition$/i, '')
-        @special_edition = true
-      else
-        @special_edition = false
+      if value.respond_to?(:sub)
+        value = value.sub(/(\s*:)?\s+(the movie|unrated)$/i, '')
+        @special_edition = !!value.sub!(/(\s*:)?\s+(special|collector's) edition$/i, '')
       end
       @name = value
     end

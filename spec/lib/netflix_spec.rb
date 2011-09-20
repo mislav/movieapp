@@ -26,6 +26,35 @@ describe Netflix::Title do
   its(:official_url)  { should == 'http://www.mar-adentro.com/' }
   its(:synopsis)      { should include("this moving film based on a true story as Ramon Sampedro") }
 
+  its(:special_edition?) { should be_false }
+
+  it "detects special editions" do
+    movie = subject.dup
+    movie.name = "Mar Adentro: Special Edition"
+    movie.name.should == 'Mar Adentro'
+    movie.should be_special_edition
+    movie.name = "Mar Adentro: Collector's Edition"
+    movie.name.should == 'Mar Adentro'
+    movie.should be_special_edition
+  end
+
+  it "strips away 'Unrated'" do
+    movie = subject.dup
+    movie.name = "Unrated Dirtiness"
+    movie.name.should == "Unrated Dirtiness"
+    movie.name = "Dirty Movie: Unrated"
+    movie.name.should == "Dirty Movie"
+    movie.should_not be_special_edition
+  end
+
+  it "strips away 'The Movie'" do
+    movie = subject.dup
+    movie.name = "The Movie About Tings"
+    movie.name.should == "The Movie About Tings"
+    movie.name = "Minesweeper: The Movie"
+    movie.name.should == "Minesweeper"
+    movie.should_not be_special_edition
+  end
 end
 
 describe Netflix, "autocomplete" do

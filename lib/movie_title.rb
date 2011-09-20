@@ -13,6 +13,7 @@ module MovieTitle
       title.gsub!(/[^\w\s]/, '')
       title.squish!
       title.sub!(/^(the|a) /, '')
+      title.sub!(' the ', ' ')
       title.gsub!(RomanNumerals) { RomanNumeralsMap[$&] }
       title.gsub!(/\b(episode|season|part) one\b/, '\1 1')
       title << " (#{year})" if year

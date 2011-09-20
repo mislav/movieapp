@@ -19,6 +19,10 @@ describe MovieTitle do
     it "normalizes whitespace" do
       process('Star Wars - A New Hope').should == 'star wars a new hope'
     end
+    
+    it "strips away 'the's" do
+      process('The Honor of the Men').should == 'honor of men'
+    end
   end
   
   describe "comparing" do
