@@ -1,3 +1,4 @@
+viewport = $(window)
 pagination = $('.pagination').eq(0)
 
 viewportOffset = (el) ->
@@ -9,11 +10,10 @@ if pagination.size()
   url = window.location.toString()
   container = $('ol.movies').eq(0)
   loading = false
-  scrollElement = if Zepto.browser.webkit then document else window
 
-  $(scrollElement).bind 'scroll', ->
+  scrollHandler = ->
     return if loading
-    viewportHeight = document.documentElement.clientHeight
+    viewportHeight = viewport.height()
     paginationOffset = viewportOffset(pagination) - viewportHeight
 
     if paginationOffset < viewportHeight/2
@@ -25,6 +25,8 @@ if pagination.size()
         success: (data) ->
           container.append data
           if page is lastPage
-            $(scrollElement).unbind 'scroll'
+            $(document).unbind 'scroll', scrollHandler
             pagination.hide()
           loading = false
+
+  $(document).bind 'scroll', scrollHandler
