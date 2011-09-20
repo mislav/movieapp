@@ -61,9 +61,17 @@ class ApplicationController < ActionController::Base
     render 'shared/not_found', :status => 404
   end
 
+  def already_rendered?
+    response_body.present?
+  end
+
   def ajax_pagination
-    if request.xhr? and params[:page]
+    if not already_rendered? and request.xhr?
       render :partial => 'movies/movie', :collection => @movies.to_a
     end
+  end
+
+  def freshness_from_cursor(cursor)
+    fresh_when :etag => cursor.first_selector_id
   end
 end

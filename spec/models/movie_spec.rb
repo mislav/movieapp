@@ -38,7 +38,20 @@ describe Movie do
     
     Movie.last_watched.to_a.should == [movie1, movie3, movie2]
   end
-  
+
+  it "last watched timestamp" do
+    watched = User.collection['watched']
+    watched.remove
+    Movie.last_watch_created_at.should be_nil
+
+    t1 = 5.minutes.ago
+    t2 = 10.minutes.ago
+    watched.insert :_id => BSON::ObjectId.from_time(t1, unique: true)
+    watched.insert :_id => BSON::ObjectId.from_time(t2, unique: true)
+
+    Movie.last_watch_created_at.should be_within(1).of(t1)
+  end
+
   it "remembers updated_at" do
     Movie.collection.save '_id' => BSON::ObjectId.from_time(5.minutes.ago)
     movie = Movie.first

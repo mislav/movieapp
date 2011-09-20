@@ -8,27 +8,40 @@ class MoviesController < ApplicationController
   end
   
   def index
-    if @query = params[:q]
-      if params[:local]
-        @movies = Movie.find({:title => Regexp.new(@query, 'i')}, :sort => :title).page(params[:page])
-      elsif params[:netflix]
-        @movies = Netflix.search(@query, :expand => %w'directors').titles
-        render :netflix_search, :layout => !request.xhr?
-      else
-        @movies = Movie.search(@query).paginate(:page => params[:page], :per_page => 30)
-        redirect_to movie_url(@movies.first) if @movies.size == 1
-      end
+    if query = params[:q]
+      perform_search query
     elsif @director = params[:director]
+      expires_in 30.minutes
       @movies = Movie.find(:directors => @director).sort(:year, :desc).page(params[:page])
+      freshness_from_cursor @movies
     else
-      @movies = Movie.last_watched.to_a
+      expires_in 5.minutes
+      if stale?(:last_modified => Movie.last_watch_created_at)
+        @movies = Movie.last_watched.to_a
+      end
     end
-    
+
     ajax_pagination
+  end
+
+  def perform_search(query)
+    @query = query
+
+    if params[:local]
+      @movies = Movie.find({:title => Regexp.new(@query, 'i')}, :sort => :title).page(params[:page])
+    elsif params[:netflix]
+      @movies = Netflix.search(@query, :expand => %w'directors').titles
+      render :netflix_search, :layout => !request.xhr?
+    else
+      @movies = Movie.search(@query).paginate(:page => params[:page], :per_page => 30)
+      redirect_to movie_url(@movies.first) if @movies.size == 1
+    end
   end
   
   def show
-    @movie.ensure_extended_info unless Movies.offline?
+    if stale?(:last_modified => @movie.updated_at.utc, :etag => @movie)
+      @movie.ensure_extended_info unless Movies.offline?
+    end
   end
   
   def add_to_watch

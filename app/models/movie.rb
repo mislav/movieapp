@@ -89,7 +89,12 @@ class Movie < Mingo
     movie_ids = watches.map { |w| w['movie_id'] }.uniq.first(10)
     find(movie_ids)
   end
-  
+
+  def self.last_watch_created_at
+    last_watch = User.collection['watched'].find_one({}, :sort => [:_id, :desc], :fields => :_id)
+    last_watch['_id'].generation_time if last_watch
+  end
+
   def self.from_tmdb_movies(movies)
     movies.map { |movie| new(:tmdb_movie => movie) }
   end

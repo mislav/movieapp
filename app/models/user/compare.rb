@@ -9,6 +9,10 @@ class User::Compare
     @scope = nil
   end
 
+  def cache_key
+    [@user1.watched.cache_key, :compare, @user2.watched.cache_key].to_param
+  end
+
   def scoped(num)
     @scope = num
     begin
