@@ -20,7 +20,11 @@
     <%= movie_runtime(@movie) %>
   </header>
 
+  <% if @movie.chosen_plot.present? %>
   <p class="plot"><%= raw @movie.chosen_plot %></p>
+  <% else %>
+  <p class="plot not-found">Movie plot not available.</p>
+  <% end %>
   
   <% if elsewhere = movie_elsewhere(@movie).presence %>
     <p class="elsewhere">
@@ -39,11 +43,15 @@
     </p>
   <% end %>
   
-    <% if admin? and @movie.netflix_plot.present? %>
-      <div class="admin">
-        <% provider = @movie.chosen_plot_field != 'netflix_plot' ? 'Netflix' : 'TMDB' %>
-        <%= link_to "switch to #{provider} plot", [:change_plot_field, @movie], :method => 'put' %>
-      </div>
+    <% if admin? %>
+      <aside class="admin">
+        <% if @movie.customizable_plot? %>
+        <%= link_to "switch to #{@movie.next_plot_source} plot", [:change_plot_field, @movie], :method => 'put' %>
+        <% end %>
+        <% if @movie.netflix_id.blank? %>
+        <%= link_to "link to Netflix", root_path(netflix: true, q: @movie.title), :rel => 'facebox.netflix_picker' %>
+        <% end %>
+      </aside>
     <% end %>
   </div>
   

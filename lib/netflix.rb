@@ -69,9 +69,18 @@ module Netflix
     offset = per_page * (page.to_i - 1)
     
     params = {:term => query, :max_results => per_page, :start_index => offset}
-    params[:expand] = options[:expand].join(',') if options[:expand]
+    params[:expand] = Array(options[:expand]).join(',') if options[:expand]
     
     search_titles(params)
+  end
+
+  get(:title_details, '/catalog/titles/movies/{title_id}?{-join|&|expand}') do
+    element 'catalog_title' => :title, :with => Title
+  end
+
+  def self.movie_info(movie_id, options = {})
+    fields = Array(options.fetch(:expand, 'synopsis'))
+    title_details(title_id: movie_id, expand: fields.join(',')).title
   end
 
   get(:autocomplete_titles, '/catalog/titles/autocomplete?term={term}') do

@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
   
   before_filter :find_movie, :except => :index
-  admin_actions :only => :change_plot_field
+  admin_actions :only => [:change_plot_field, :link_to_netflix]
   
   rescue_from 'Net::HTTPExceptions', 'Faraday::Error::ClientError' do |error|
     render 'shared/error', :status => 500, :locals => {:error => error}
@@ -13,7 +13,7 @@ class MoviesController < ApplicationController
         @movies = Movie.find({:title => Regexp.new(@query, 'i')}, :sort => :title).page(params[:page])
       elsif params[:netflix]
         @movies = Netflix.search(@query, :expand => %w'directors').titles
-        render :netflix_search
+        render :netflix_search, :layout => !request.xhr?
       else
         @movies = Movie.search(@query).paginate(:page => params[:page], :per_page => 30)
         redirect_to movie_url(@movies.first) if @movies.size == 1
@@ -61,8 +61,20 @@ class MoviesController < ApplicationController
     redirect_to movie_url(@movie)
   end
   
+  def link_to_netflix
+    @movie.update_netflix_info(params[:netflix_id])
+    redirect_to movie_url(@movie)
+  end
+  
   def dups
     @duplicate_titles = Movie.find_duplicate_titles
+  end
+  
+  def without_netflix
+    @movies = Movie.find_no_netflix.page(params[:page])
+    @query = "no Netflix"
+    render :index unless request.xhr?
+    ajax_pagination
   end
   
   protected

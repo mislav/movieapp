@@ -3,11 +3,13 @@ Movies::Application.routes.draw do
   match 'about' => 'movies#about', :as => :about, :via => :get
 
   match 'movies/_dups' => 'movies#dups', :via => :get
+  match 'movies/_netflix' => 'movies#without_netflix', :via => :get
   
   resources :movies, :only => [:show] do
     member do
       get :wikipedia
       put :change_plot_field
+      put :link_to_netflix
       put :add_to_watch
       delete :remove_from_to_watch
       put :add_watched

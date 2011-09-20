@@ -46,28 +46,44 @@ class Movie < Mingo
 
   # warning: db-heavy
   def self.find_duplicate_titles
-    # get all movies that someone watched or wants to watch
-    ids = User.collection['watched'].find({}, fields: :movie_id).map { |doc| doc['movie_id'] }
-    ids.concat User.collection['to_watch'].find({}, fields: :movie_id).map { |doc| doc['movie_id'] }
-
     hash = Hash.new { |h,k| h[k] = [] }
     fields = %w[ title original_title year poster_small_url ]
-    find(ids.uniq, fields: fields, sort: '$natural').each_with_object(hash) { |movie, map|
+    find(ids_of_relevant_titles, fields: fields, sort: '$natural').each_with_object(hash) { |movie, map|
       map[movie.normalized_title] << movie
     }.reject { |_, movies| movies.size < 2 }
   end
-  
+
+  def self.find_no_netflix
+    fields = %w[ title original_title year poster_small_url ]
+    find({_id: {'$in' => ids_of_relevant_titles}, netflix_id: {'$exists' => false}}, fields: fields, sort: :_id)
+  end
+
+  # all movies that someone watched or wants to watch
+  def self.ids_of_relevant_titles
+    ids = User.collection['watched'].find({}, fields: :movie_id).map { |doc| doc['movie_id'] }
+    ids.concat User.collection['to_watch'].find({}, fields: :movie_id).map { |doc| doc['movie_id'] }
+    ids.uniq
+  end
+
   property :chosen_plot_field
 
   def chosen_plot
     send(chosen_plot_field || 'plot')
   end
-  
+
+  def customizable_plot?
+    netflix_plot.present?
+  end
+
   def toggle_plot_field!
     self.chosen_plot_field = chosen_plot_field == 'netflix_plot' ? 'plot' : 'netflix_plot'
     save
   end
-  
+
+  def next_plot_source
+    chosen_plot_field == 'netflix_plot' ? 'TMDB' : 'Netflix'
+  end
+
   def self.last_watched
     watches = User.collection['watched'].find({}, :sort => [:_id, :desc]).limit(20)
     movie_ids = watches.map { |w| w['movie_id'] }.uniq.first(10)
@@ -137,6 +153,13 @@ class Movie < Mingo
       self.tmdb_movie = Tmdb.movie_details(self.tmdb_id)
       self.save
     end
+  rescue Net::HTTPExceptions, Faraday::Error::ClientError
+    Rails.logger.warn "An HTTP error occured while trying to get data for Tmdb movie #{self.tmdb_id}"
+  end
+  
+  def update_netflix_info(netflix_id = self.netflix_id)
+    self.netflix_title = Netflix.movie_info(netflix_id)
+    self.save
   rescue Net::HTTPExceptions, Faraday::Error::ClientError
     Rails.logger.warn "An HTTP error occured while trying to get data for Tmdb movie #{self.tmdb_id}"
   end

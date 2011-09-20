@@ -170,6 +170,19 @@ p.not-found {
   @include text-shadow(rgba(white, .8) 1px 1px 1px);
 }
 
+#facebox {
+  h1 { font-size: 1.4em; }
+  .content > h1 { margin-bottom: 1em; }
+  h2 { font-size: 1.1em; }
+  .netflix_picker article {
+    padding: .5em 0;
+    cursor: pointer;
+    background: white;
+    @include transition(background-color 0.25s);
+    &:hover { background:lemonchiffon; }
+  }
+}
+
 /* mobile */
 @media only screen and (max-device-width:480px) {
   body { font-size:10px/1.5; padding:0 7px;
