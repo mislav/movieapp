@@ -40,7 +40,8 @@ module Movies
     end
     
     initializer "MongoDB connect" do
-      Mingo.connect(config.mongodb.database || config.mongodb.uri)
+      Mingo.connect config.mongodb.database || config.mongodb.uri,
+        logger: Rails.env.development? && Rails.logger
     end
     
     config.twitter_login = Twitter::Login.new \

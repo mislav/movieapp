@@ -23,12 +23,6 @@ class User < Mingo
       return self if include? doc
       super
     end
-
-    # TODO: move to mingo
-    def reload
-      @loaded = @join_loaded = nil
-      self
-    end
   end
   
   many :watched, self => 'user_id', 'movie_id' => Movie do
@@ -127,14 +121,7 @@ class User < Mingo
       
       result.first['minutes']
     end
-
-    # TODO: move to mingo
-    def reload
-      @loaded = @join_loaded = nil
-      self
-    end
   end
-  
   
   def self.merge_accounts(user1, user2)
     if user2.created_at < user1.created_at
@@ -151,22 +138,15 @@ class User < Mingo
     [self.class.collection['watched'], self.class.collection['to_watch']].each do |collection|
       collection.update({'user_id' => other.id}, {'$set' => {'user_id' => self.id}}, :multi => true)
     end
-    self.reset_counter_caches
+    self.reset_counter_caches!
     other.destroy
     return self
   end
-  
-  # TODO: move to mingo
-  def reset_counter_caches
-    self['watched_count'] = watched.send(:join_cursor).count
-    self['to_watch_count'] = to_watch.send(:join_cursor).count
-  end
 
   def reset_counter_caches!
-    update '$inc' => {
-      'watched_count' => watched.send(:join_cursor).count - self['watched_count'].to_i,
-      'to_watch_count' => to_watch.send(:join_cursor).count - self['to_watch_count'].to_i
-    }
+    watched.reset_counter_cache
+    to_watch.reset_counter_cache
+    true
   end
   
   def self.generate_username(name)
