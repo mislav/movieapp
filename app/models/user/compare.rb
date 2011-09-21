@@ -1,6 +1,11 @@
 class User::Compare
   extend ActiveSupport::Memoizable
 
+  def self.compatibility(*users)
+    users = users.sort_by { |u| u.id.to_s }
+    new(*users).compatibility
+  end
+
   attr_reader :user1, :user2
 
   def initialize(user1, user2)
@@ -82,9 +87,11 @@ class User::Compare
   end
 
   def compatibility
-    total = in_common_count
-    return nil if total.zero?
-    (score + total) / (total * 2).to_f * 100
+    Cache.fetch [self, :compatibility], expires_in: 1.day do
+      total = in_common_count
+      return nil if total.zero?
+      (score + total) / (total * 2).to_f * 100
+    end
   end
   memoize :compatibility
 

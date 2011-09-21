@@ -12,6 +12,7 @@ end
 
 group :production do
   gem 'therubyracer-heroku', '~> 0.8.1.pre3', :require => nil
+  gem 'dalli'
 end
 
 gem 'mingo', '>= 0.3.0' #, :path => '/Users/mislav/Projects/mingo'

@@ -60,6 +60,11 @@ module Movies
       end
     end
     
+    initializer "model cache" do
+      require 'cache'
+      Cache.perform_caching = Rails.env.production?
+    end
+    
     require 'api_runtime_stats'
     
     initializer "cache logging" do
