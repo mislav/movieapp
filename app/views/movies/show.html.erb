@@ -21,7 +21,7 @@
   </header>
 
   <% if @movie.chosen_plot.present? %>
-  <p class="plot"><%= raw @movie.chosen_plot %></p>
+  <p class="plot"><%= movie_plot @movie %></p>
   <% else %>
   <p class="plot not-found">Movie plot not available.</p>
   <% end %>

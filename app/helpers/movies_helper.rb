@@ -37,6 +37,10 @@ module MoviesHelper
     end
   end
   
+  def movie_plot(movie)
+    raw movie.chosen_plot.gsub('...', '&#8230;').gsub('--', '&#8212;')
+  end
+  
   def movie_poster(movie, size = :small)
     src = movie.send(:"poster_#{size}_url")
     width, height = case size
