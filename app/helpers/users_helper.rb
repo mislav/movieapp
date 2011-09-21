@@ -61,13 +61,20 @@ module UsersHelper
     minutes = user.watched.minutes_spent
     hours = (minutes / 60.0).round
 
-    if (hours < 48) then %(<em>#{hours}</em> hours).html_safe
-    else %(<em>#{(minutes / 60.0 / 24).round}</em> days).html_safe
+    amount = if (hours < 48) then %(<em>#{hours}</em> hours)
+    else %(<em>#{(minutes / 60.0 / 24).round}</em> days)
     end
+
+    %(<span title="Total time spent watching these movies">#{amount}</span>).html_safe
   end
   
   def link_to_compare(user1, user2)
-    link_to 'compare us', compare_path("#{user1.username}+#{user2.username}")
+    compat = User::Compare.compatibility(user1, user2)
+    link_to "<span>compatibility: </span><em>#{show_compatibility(compat)}</em>".html_safe,
+      compare_path("#{user1.username}+#{user2.username}"), class: 'compare'
   end
-  
+
+  def show_compatibility(num)
+    num ? number_to_percentage(num, precision: 0) : 'none'
+  end
 end

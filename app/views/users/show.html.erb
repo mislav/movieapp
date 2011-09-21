@@ -12,25 +12,32 @@
       <% end %>
       </h1>
 
-      <p class="stats"><em><%= @user.watched.count %></em> movies &asymp; <%= life_wasted(@user) %></p>
-      <p class="stats"><%= positive(@user) %>, <%= hater(@user) %></p>
+      <nav><% if my_page? %>
+        <%= link_to "following", following_path %>
+      <% elsif logged_in? %>
+          <%= link_to_compare(current_user, @user) %> ∙
+        <% if not current_user.following? @user %>
+          <%= link_to 'follow person', follow_path(@user.id), :method => :post %>
+        <% else %>
+          <%= link_to 'unfollow', unfollow_path(@user.id), :method => :delete,
+            :confirm => "Are you sure you want to unfollow #{@user.username}?" %>
+        <% end %>
+      <% end %></nav>
       </div>
-    <nav>
-      <ol>
-        <li><% if my_page? %>
-          <%= link_to "following", following_path %>
-        <% elsif logged_in? %>
-            <%= link_to_compare(current_user, @user) %> ∙
-          <% if not current_user.following? @user %>
-            <%= link_to 'follow person', follow_path(@user.id), :method => :post %>
-          <% else %>
-            <%= link_to 'unfollow', unfollow_path(@user.id), :method => :delete %>
-          <% end %>
-        <% end %></li>
-        <li><%= link_to "#{@user.to_watch.count} to watch", to_watch_path(@user) %></li>
-        <li><%= link_to "#{@user.watched.liked.count} liked", liked_path(@user) %></li>
-      </ol>
-    </nav>
+      
+      <% cache [@user.watched, :stats] do %>
+      <ul class="stats">
+        <li><em><%= @user.watched.size %></em> movies &asymp; <%= life_wasted(@user) %></li>
+        <li><%= positive(@user) %>, <%= hater(@user) %></li>
+      </ul>
+      <% end %>
+      
+      <nav>
+        <ol>
+          <li><%= link_to "#{@user.to_watch.size} to watch", to_watch_path(@user) %></li>
+          <li><%= link_to "#{@user.watched.liked.count} liked", liked_path(@user) %></li>
+        </ol>
+      </nav>
     </header>
 
     <%= render 'movies/paginated', :movies => @movies %>

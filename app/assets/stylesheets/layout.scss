@@ -83,30 +83,6 @@ body > article {
   h1 { font-size:18px; line-height:37px; }
 }
 
-.user-show > article {
-  header {
-    @include clearfix;
-    .main { float: left; }
-    .liked, .disliked { font-style:normal; }
-    p {
-      font-size:11px; line-height:18px;
-      &.stats { color:gray; }
-      em { font-style:normal; }
-    }
-  }
-  nav {
-    float: right; clear: none;
-    text-align:right; font-size:11px;
-    margin-top: 10px;
-
-    ol { list-style:none; margin:0; padding:0;
-      li:first-child { margin-bottom:9px; }
-    }
-  }
-}
-
-.users-list ol { margin-left: -1.5em; }
-
 .about > article { max-width: 48em;
   h1 { margin-bottom:0; }
   section h1 { font: normal 15px/18px $body-type; @include text-shadow; margin:35px 0 11px; }
@@ -210,17 +186,6 @@ p.not-found {
   body > article { padding:7px;
     header, > h1 { margin-bottom:20px; }
     h1 { font-size:15px; line-height:22px; }
-  }
-
-  .user-show > article {
-    header {
-      p { line-height:14px; }
-    }
-    nav { margin-top:3px;
-      ol li { line-height:14px;
-        &:first-child { margin-bottom:5px;}
-      }
-    }
   }
 
   .about > article {

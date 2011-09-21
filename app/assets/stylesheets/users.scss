@@ -1,0 +1,53 @@
+.user-show > article {
+  header {
+    @include clearfix;
+    ul, ol { list-style:none; margin:0; padding:0; }
+
+    nav {
+      float: right;
+      text-align: right;
+    }
+    .main {
+      @include clearfix;
+      border-bottom: 1px solid #e8e8e8;
+      h1 { float: left; line-height: 1.4; }
+      margin-bottom: .6em;
+      nav { margin-top: .2em; }
+    }
+
+    .stats {
+      float: left;
+      font-size:11px; line-height:18px;
+      color:gray;
+      em { font-style:normal; }
+    }
+    .liked, .disliked { font-style:normal; }
+  }
+}
+
+a.compare {
+  @include border-radius(6px);
+  background: #eee;
+  padding: .5em .7em .3em;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 80%;
+  color: #888;
+  em { font-style: normal; font-size: 1.3em; color: #555; }
+  &:hover {
+    background: darken(#eee, 5);
+    color: #666;
+  }
+}
+
+.users-list ol { margin-left: -1.5em; }
+
+@media only screen and (max-device-width:480px) {
+  .user-show > article header {
+    .main { padding-bottom: 2px; margin-bottom: 3px }
+  }
+  a.compare {
+    padding: 3px 6px 1px;
+    span { display:none }
+  }
+}
