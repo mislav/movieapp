@@ -16,6 +16,8 @@ class Movie < Mingo
   property :tmdb_url
   property :tmdb_version
 
+  collection.ensure_index :tmdb_id
+
   property :netflix_id
   property :netflix_url
   property :netflix_plot

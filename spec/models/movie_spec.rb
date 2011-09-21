@@ -11,8 +11,8 @@ describe Movie do
   end
   
   it "last watched" do
-    user1 = User.create
-    user2 = User.create
+    user1 = user_create
+    user2 = user_create
     movie1 = Movie.create
     movie2 = Movie.create
     movie3 = Movie.create

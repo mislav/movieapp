@@ -233,8 +233,8 @@ describe User do
     
     it "merges two user records" do
       existing_facebook_id = BSON::ObjectId.from_time(5.minutes.ago)
-      collection.save :facebook => { :id => 2345 }, :_id => existing_facebook_id
-      existing_twitter_id = collection.insert :twitter => { :id => 1234 }
+      collection.save :facebook => { :id => 2345 }, :_id => existing_facebook_id, :username => 'facebooker'
+      existing_twitter_id = collection.insert :twitter => { :id => 1234 }, :username => 'twat'
       
       facebook_user = User.first existing_facebook_id
       facebook_user.watched << Movie.create

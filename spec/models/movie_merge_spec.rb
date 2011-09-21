@@ -7,9 +7,9 @@ describe Movie do
   end
 
   it "merges movies" do
-    user1 = User.create
-    user2 = User.create
-    user3 = User.create
+    user1 = user_create
+    user2 = user_create
+    user3 = user_create
     movie1 = Movie.create imdb_id: 't1234', title: 'Ed Wood'
     movie2 = Movie.create imdb_id: 't2345', tmdb_id: 8888
     movie3 = Movie.create netflix_id: 1212

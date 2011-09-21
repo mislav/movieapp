@@ -2,6 +2,8 @@ class User < Mingo
   property :username
   property :name
   
+  collection.ensure_index :username, unique: true
+  
   include Mingo::Timestamps
   include Social
   include Friends
