@@ -95,26 +95,6 @@ class Movie < Mingo
     last_watch['_id'].generation_time if last_watch
   end
 
-  def self.from_tmdb_movies(movies)
-    movies.map { |movie| new(:tmdb_movie => movie) }
-  end
-
-  # TODO: make this not hit Mongo N times for N records
-  def self.new(attributes = nil)
-    existing = if attributes and attributes[:tmdb_movie]
-      first(:tmdb_id => attributes[:tmdb_movie].id)
-    end
-    
-    if existing
-      attributes.each do |property, value|
-        existing.send(:"#{property}=", value)
-      end
-      existing
-    else
-      super
-    end
-  end
-
   def self.directors_of_movies(movies)
     movies.map { |m| m['directors'] }.compact.flatten.histogram.to_a.sort_by(&:last).reverse
   end
@@ -173,48 +153,67 @@ class Movie < Mingo
     EXTENDED.any? { |property| self[property].nil? }
   end
   
-  # filters out duplicate TMDB results by "imdb_id"
-  class IMDBUniqueFilter
-    def initialize
+  # creates Movie instances by first checking for existing records in the db
+  class RecordSpawner
+    attr_reader :tmdb_ids, :made_movies, :imdb_ids
+
+    def initialize(tmdb_movies)
+      @tmdb_movies = tmdb_movies
+      @tmdb_ids = @tmdb_movies.map(&:id)
+      @made_movies = []
       @imdb_ids = []
     end
-    
-    def register(movie)
-      if movie.imdb_id.blank? or not registered? movie
-        yield movie
-        @imdb_ids << movie.imdb_id if movie.imdb_id.present?
+
+    def existing
+      @existing ||= Movie.find(:tmdb_id => {'$in' => tmdb_ids}).index_by(&:tmdb_id)
+    end
+
+    def find_linked_to_netflix(netflix_title)
+      if movie = existing.values.find { |mov| mov.netflix_id == netflix_title.id }
+        @tmdb_movies.find { |tmdb| movie.tmdb_id == tmdb.id }
+      else
+        @tmdb_movies.find { |tmdb| tmdb == netflix_title }
       end
     end
-    
-    def registered?(movie)
-      @imdb_ids.include? movie.imdb_id
+
+    def make(tmdb_movie, netflix_title = nil)
+      return if tmdb_movie.imdb_id.present? and imdb_ids.include? tmdb_movie.imdb_id
+      movie = existing[tmdb_movie.id] || Movie.new
+      movie.tmdb_movie = tmdb_movie
+      movie.netflix_title = netflix_title if netflix_title
+      made_movies << movie
+      imdb_ids << movie.imdb_id if movie.imdb_id
+      movie
     end
-    
-    def process(movies)
-      movies.each_with_object([]) do |movie, all|
-        register(movie) { all << movie }
-      end
+
+    def make_all
+      @tmdb_movies.each { |mov| make(mov) }
     end
   end
-  
+
+  def self.from_tmdb_movies(tmdb_movies)
+    spawner = RecordSpawner.new(tmdb_movies)
+    block_given? ? yield(spawner) : spawner.make_all
+    spawner.made_movies
+  end
+
   def self.search(term)
     tmdb_movies = Tmdb.search(term).movies.reject { |m| m.year.blank? }
-    netflix_titles = Netflix.search(term, :expand => %w[synopsis directors]).titles
-    filter = IMDBUniqueFilter.new
-    
-    [].tap do |movies|
+    netflix_titles = if tmdb_movies.any?
+      Netflix.search(term, :expand => %w[synopsis directors]).titles
+    else []
+    end
+
+    from_tmdb_movies(tmdb_movies) do |spawner|
       netflix_titles.each do |netflix_title|
-        if tmdb_movie = tmdb_movies.find { |m| m == netflix_title }
+        if tmdb_movie = spawner.find_linked_to_netflix(netflix_title)
           tmdb_movies.delete(tmdb_movie)
-          filter.register(tmdb_movie) do
-            movies << new(:tmdb_movie => tmdb_movie, :netflix_title => netflix_title)
-          end
+          spawner.make(tmdb_movie, netflix_title)
         end
       end
-      
-      other_movies = from_tmdb_movies filter.process(tmdb_movies)
-      movies.concat(other_movies).each(&:save)
-    end
+
+      tmdb_movies.each { |tmdb| spawner.make(tmdb) }
+    end.each(&:save)
   end
 
   def imdb_url

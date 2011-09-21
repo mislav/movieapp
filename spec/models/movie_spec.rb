@@ -10,20 +10,6 @@ describe Movie do
     described_class.collection
   end
   
-  it "detects existing movie from TMDB" do
-    existing_id = collection.insert :tmdb_id => 1234
-    tmdb_movie = Tmdb::Movie.new(nil)
-    tmdb_movie.id = 1234
-    tmdb_movie.name = "Where the Wild Things Are"
-    
-    movie = build(:tmdb_movie => tmdb_movie)
-    movie.should be_persisted
-    movie.id.should == existing_id
-    movie.should be_changed
-    movie.save
-    movie.should match_selector(:title => "Where the Wild Things Are")
-  end
-  
   it "last watched" do
     user1 = User.create
     user2 = User.create
