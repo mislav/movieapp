@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
   
   before_filter :find_movie, :except => :index
-  admin_actions :only => [:change_plot_field, :link_to_netflix]
+  admin_actions :only => [:edit, :update, :change_plot_field, :link_to_netflix]
   
   rescue_from 'Net::HTTPExceptions', 'Faraday::Error::ClientError' do |error|
     render 'shared/error', :status => 500, :locals => {:error => error}
@@ -44,6 +44,16 @@ class MoviesController < ApplicationController
     elsif stale?(:last_modified => @movie.updated_at.utc, :etag => @movie)
       @movie.ensure_extended_info unless Movies.offline?
     end
+  end
+  
+  def edit
+    render :layout => !request.xhr?
+  end
+  
+  def update
+    @movie.update_and_lock params[:movie]
+    @movie.save
+    redirect_to movie_url(@movie)
   end
   
   def add_to_watch

@@ -1,6 +1,5 @@
-<h1>Edit "<%= @movie.title %>"</h1>
-
-<%= form_for(@movie) do |f| %>
+<%= form_tag movie_path(@movie.id), method: 'put' do %>
+<%= fields_for(@movie) do |f| %>
   <div class="field">
     <%= f.label(:title) %>
     <%= f.text_field(:title) %>
@@ -10,16 +9,20 @@
     <%= f.text_field(:original_title) %>
   </div>
   <div class="field">
-    <%= f.label(:year) %>
-    <%= f.text_field(:year) %>
+    <%= f.label(:permalink) %>
+    <%= f.text_field(:permalink, type: 'url') %>
   </div>
   <div class="field">
-    <%= f.label(:length, "Duration") %>
-    <%= f.text_field(:length) %>
+    <%= f.label(:wikipedia_title) %>
+    <%= f.text_field(:wikipedia_title, type: 'url') %>
+  </div>
+  <div class="field">
+    <%= f.label(:year) %>
+    <%= f.text_field(:year, type: 'number', min: '1880', max: Time.now.year, step: 1) %>
   </div>
   
   <div class="actions">
     <%= f.submit("Save") %>
-    <%= link_to("cancel", @movie) %>
   </div>
+<% end %>
 <% end %>

@@ -159,6 +159,18 @@ p.not-found {
   }
 }
 
+form {
+  .field label { display:block; font-weight:bold; margin: .6em 0 .1em; }
+  input[type=text], input[type=url] { width: 20em; }
+  input[type=number] { width: 6em; }
+  .actions { max-width: 20em; margin-top: 1em; padding-top: .5em; border-top: 1px solid silver; }
+
+  #facebox & {
+    input[type=text], input[type=url] { width: 98%; }
+    .actions { max-width: none; }
+  }
+}
+
 /* mobile */
 @media only screen and (max-device-width:480px) {
   body { font-size:10px/1.5; padding:0 7px;

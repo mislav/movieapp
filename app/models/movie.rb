@@ -35,6 +35,7 @@ class Movie < Mingo
   
   include Mingo::Timestamps
   include Permalink
+  include LockedValues
   extend Merge
   extend ActiveSupport::Memoizable
 
@@ -99,21 +100,22 @@ class Movie < Mingo
   end
   
   def tmdb_movie=(movie)
-    # renamed properties
-    self.title = movie.name
-    self.original_title = movie.original_name
-    self.poster_small_url = movie.poster_thumb
-    self.poster_medium_url = movie.poster_cover
-    self.plot = movie.synopsis
     self.tmdb_id = movie.id
     self.tmdb_url = movie.url
     self.tmdb_version = movie.version
     self.imdb_id = movie.imdb_id.presence
-    
+
+    # renamed properties
+    set_unless_locked(:title, movie.name)
+    set_unless_locked(:original_title, movie.original_name)
+    set_unless_locked(:poster_small_url, movie.poster_thumb)
+    set_unless_locked(:poster_medium_url, movie.poster_cover)
+    set_unless_locked(:plot, movie.synopsis)
+
     # same name properties
     [:year, :runtime, :countries, :directors, :homepage].each do |property|
       value = movie.send(property)
-      self.send(:"#{property}=", value) if value.present?
+      set_unless_locked(property, value) if value.present?
     end
   end
   
@@ -121,10 +123,12 @@ class Movie < Mingo
     self.netflix_id = netflix.id
     self.netflix_url = netflix.url
 
-    self.runtime = netflix.runtime if netflix.runtime.present?
-    self.homepage = netflix.official_url if netflix.official_url.present?
-    self.directors = netflix.directors if netflix.directors.present?
-    
+    set_and_lock(:year, netflix.year) if netflix.year.present? and not locked_value?(:year)
+    set_and_lock(:runtime, netflix.runtime) if netflix.runtime.present?
+
+    self.homepage ||= netflix.official_url if netflix.official_url.present?
+    self.directors ||= netflix.directors if netflix.directors.present?
+
     if netflix_plot.blank? and netflix.synopsis.present?
       self.netflix_plot = HTML::FullSanitizer.new.sanitize(netflix.synopsis)
     end

@@ -38,26 +38,21 @@ module Tmdb
 
   class << self
     attr_accessor :ignore_ids
-    attr_accessor :override_values
 
     private
 
     def process_movie(movie)
-      if movie
-        if values = override_values[movie.id]
-          values.each do |key, value|
-            movie.send("#{key}=", value)
-          end
-        end
-        movie
-      end
+      movie
     end
   end
   self.ignore_ids = []
-  self.override_values = {}
-  
+
   class Movie < NibblerJSON
     include MovieTitle
+    
+    def ==(other)
+      other.is_a?(Movie) ? id == other.id : super
+    end
     
     element :id, :with => lambda { |id| id.to_i }
     element :version, :with => lambda { |num| num.to_i }

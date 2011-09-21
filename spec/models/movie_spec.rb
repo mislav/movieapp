@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'ostruct'
 
 describe Movie do
   before do
@@ -81,6 +82,22 @@ describe Movie do
       attributes.should == movie
       movie.directors.should == []
     end
+    
+    it "has locked values" do
+      tmdb = OpenStruct.new name: "Mr. Nobody", year: 2010
+      netflix = OpenStruct.new title: "Mr Nobody", year: 2009
+
+      movie = build tmdb_movie: tmdb
+      movie.title.should == "Mr. Nobody"
+      movie.year.should == 2010
+
+      movie.netflix_title = netflix
+      movie.title.should == "Mr. Nobody"
+      movie.year.should == 2009
+
+      movie.tmdb_movie = tmdb
+      movie.year.should == 2009
+    end
   end
   
   describe "combined search" do
@@ -150,7 +167,7 @@ describe Movie do
     end
 
     def create(attributes)
-      Movie.create({tmdb_id: 1234, netflix_id: 2345}.update(attributes))
+      Movie.create(tmdb_id: 1234) { |m| m.update_and_lock attributes }
     end
   end
 end

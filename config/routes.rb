@@ -5,7 +5,7 @@ Movies::Application.routes.draw do
   match 'movies/_dups' => 'movies#dups', :via => :get
   match 'movies/_netflix' => 'movies#without_netflix', :via => :get
   
-  resources :movies, :only => [:show] do
+  resources :movies, :only => [:show, :edit, :update] do
     member do
       get :wikipedia
       put :change_plot_field

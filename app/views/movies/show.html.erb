@@ -45,12 +45,14 @@
   
     <% if admin? %>
       <aside class="admin">
+        <ul>
         <% if @movie.customizable_plot? %>
-        <%= link_to "switch to #{@movie.next_plot_source} plot", [:change_plot_field, @movie], :method => 'put' %>
+        <li><%= link_to "switch to #{@movie.next_plot_source} plot", change_plot_field_movie_path(@movie.id), :method => 'put' %></li>
         <% end %>
         <% if @movie.netflix_id.blank? %>
-        <%= link_to "link to Netflix", root_path(netflix: true, q: @movie.title), :rel => 'facebox.netflix_picker' %>
+        <li><%= link_to "link to Netflix", root_path(netflix: true, q: @movie.title), :rel => 'facebox.netflix_picker' %></li>
         <% end %>
+        <li><%= link_to "edit movie", edit_movie_path(@movie.id), :rel => 'facebox.edit' %></li>
       </aside>
     <% end %>
   </div>

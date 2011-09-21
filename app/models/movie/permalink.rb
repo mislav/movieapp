@@ -36,7 +36,7 @@ module Movie::Permalink
   private
 
   def eligible_for_permalink?
-    title.present? and year.present? and netflix_id
+    title.present? and year.present? and (locked_value?(:year) || netflix_id)
   end
 
   def permalink_taken?(name)

@@ -61,19 +61,6 @@ describe Tmdb::Movie do
     end
   end
 
-  it "can override movie attributes" do
-    Tmdb.override_values[594] = {year: 2006}
-    begin
-      stub_request 'the terminator', 'terminator'
-      results = Tmdb.search 'the terminator'
-      movie = results.movies.first
-      movie.year.should == 2006
-      movie.imdb_id.should == 'tt0362227'
-    ensure
-      Tmdb.override_values.delete 594
-    end
-  end
-  
   context "empty" do
     before(:all) do
       stub_request 'lepa brena', '["Nothing found."]'
