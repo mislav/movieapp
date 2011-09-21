@@ -18,6 +18,10 @@ class User < Mingo
     Movies::Application.config.admins.include? username
   end
   
+  def self.[](username)
+    first(username: username)
+  end
+  
   many :to_watch, self => 'user_id', 'movie_id' => Movie do
     def <<(doc)
       return self if include? doc
