@@ -146,7 +146,11 @@ class Movie < Mingo
   end
   
   def update_netflix_info(netflix_id = self.netflix_id)
-    self.netflix_title = Netflix.movie_info(netflix_id)
+    if netflix_id
+      self.netflix_title = Netflix.movie_info(netflix_id)
+    else
+      self.netflix_id = self.netflix_url = self.netflix_plot = nil
+    end
     self.save
   rescue Net::HTTPExceptions, Faraday::Error::ClientError
     Rails.logger.warn "An HTTP error occured while trying to get data for Tmdb movie #{self.tmdb_id}"

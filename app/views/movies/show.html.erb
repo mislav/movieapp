@@ -51,6 +51,8 @@
         <% end %>
         <% if @movie.netflix_id.blank? %>
         <li><%= link_to "link to Netflix", root_path(netflix: true, q: @movie.title), :rel => 'facebox.netflix_picker' %></li>
+        <% else %>
+        <li><%= link_to "unlink from Netflix", link_to_netflix_movie_path(@movie.id), :method => 'put' %></li>
         <% end %>
         <li><%= link_to "edit movie", edit_movie_path(@movie.id), :rel => 'facebox.edit' %></li>
       </aside>
