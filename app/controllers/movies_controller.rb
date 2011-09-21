@@ -39,7 +39,9 @@ class MoviesController < ApplicationController
   end
   
   def show
-    if stale?(:last_modified => @movie.updated_at.utc, :etag => @movie)
+    if redirect_to_permalink? @movie
+      redirect_to movie_url(@movie.permalink), status: 301
+    elsif stale?(:last_modified => @movie.updated_at.utc, :etag => @movie)
       @movie.ensure_extended_info unless Movies.offline?
     end
   end
@@ -93,12 +95,17 @@ class MoviesController < ApplicationController
   protected
   
   def find_movie
-    @movie = Movie.first(params[:id]) or
+    @movie = Movie.find_by_permalink(params[:id]) or
       render_not_found("This movie couldn't be found.")
   end
   
   private
-  
+
+  def redirect_to_permalink?(movie)
+    (movie.permalink.present? and params[:id] != movie.permalink) or
+      (movie.no_permalink? and movie.generate_permalink and movie.save)
+  end
+
   def ajax_actions_or_back
     if request.xhr?
       response.content_type = Mime::HTML

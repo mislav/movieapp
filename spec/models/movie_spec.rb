@@ -118,4 +118,39 @@ describe Movie do
       ]
     end
   end
+
+  describe "permalink" do
+    it "doesn't generate without sufficient data" do
+      movie = create title: "Children of Men", year: nil
+      movie.permalink.should be_nil
+      movie.to_param.should == movie.id.to_s
+    end
+
+    it "generates on create" do
+      movie = create title: "The Terminal", year: 2004
+      movie.permalink.should == "Terminal_(2004)"
+      movie.to_param.should == movie.permalink
+    end
+
+    it "doesn't regenerate more than needed" do
+      movie = create title: "Very Long Engagement", year: 2004
+      movie.permalink.should == "Very_Long_Engagement_(2004)"
+      movie.title = "A Very Long Engagement"
+      movie.save
+      movie.permalink.should == "Very_Long_Engagement_(2004)"
+    end
+
+    it "generates unique permalink" do
+      movie = create title: "Super 8", year: 2011
+      movie.permalink.should == "Super_8_(2011)"
+      movie = create title: "Super 8", year: 2011
+      movie.permalink.should == "Super_8_(2011)_2"
+      movie = create title: "Super 8", year: 2011
+      movie.permalink.should == "Super_8_(2011)_3"
+    end
+
+    def create(attributes)
+      Movie.create({tmdb_id: 1234, netflix_id: 2345}.update(attributes))
+    end
+  end
 end

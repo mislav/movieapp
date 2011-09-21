@@ -21,7 +21,45 @@ describe MovieTitle do
     end
     
     it "strips away 'the's" do
-      process('The Honor of the Men').should == 'honor of men'
+      process('The Honor of the Men Who The Hell Come to Thee').should == 'honor of men who hell come to thee'
+    end
+    
+    it "converts ampersand" do
+      process("Starsky&Hutch").should == "starsky and hutch"
+    end
+  end
+  
+  describe ".parameterize" do
+    def process(string, year = nil)
+      described_class.parameterize(string, year)
+    end
+    
+    it "strips away 'the's in a smart way" do
+      process("The Ones in The Field: The Legend of Wolves - The Sequel").should == "Ones_in_The_Field:_Legend_of_Wolves_Sequel"
+    end
+    
+    it "converts ampersand" do
+      process("Starsky&Hutch").should == "Starsky_and_Hutch"
+    end
+    
+    it "adds a year" do
+      process("Fracture", 2007).should == "Fracture_(2007)"
+    end
+    
+    it "preserves apostrophes" do
+      process("Boys Don't Cry").should == "Boys_Don't_Cry"
+    end
+    
+    it "transliterates unicode" do
+      process("WALL·E").should == "WALLE"
+    end
+    
+    it "converts roman numerals" do
+      process("Star Bores Episode III").should == 'Star_Bores_Episode_3'
+    end
+    
+    it "converts ep. one" do
+      process("Star Bores Episode One").should == 'Star_Bores_Episode_1'
     end
   end
   

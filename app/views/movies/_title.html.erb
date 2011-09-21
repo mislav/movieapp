@@ -2,30 +2,18 @@
 
   <hgroup>
     <h1>
-      <% if movie_show_page? %>
-        <%= movie.original_title %>
-      <% else %>
-        <%= link_to movie.original_title, movie_path(movie.id) %>
-      <% end %>
+      <%= link_to_unless movie_show_page?, movie.original_title, movie_path(movie) %>
     </h1>
 
     <h2>
-      <% if movie_show_page? %>
-        <%= movie.title %>
-      <% else %>
-        <%= link_to movie.title, movie_path(movie.id) %>
-      <% end %>
+      <%= link_to_unless movie_show_page?, movie.title, movie_path(movie) %>
     </h2>
   </hgroup>
 
 <% else %>
 
   <h1>
-    <% if movie_show_page? %>
-      <%= movie.title %>
-    <% else %>
-      <%= link_to movie.title, movie_path(movie.id) %>
-    <% end %>
+    <%= link_to_unless movie_show_page?, movie.title, movie_path(movie) %>
   </h1>
   
 <% end %>

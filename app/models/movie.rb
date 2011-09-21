@@ -32,12 +32,9 @@ class Movie < Mingo
   # key :cast, Array
   
   include Mingo::Timestamps
+  include Permalink
   extend Merge
   extend ActiveSupport::Memoizable
-
-  def to_param
-    self.id.to_s
-  end
 
   def normalized_title
     ::MovieTitle::normalize_title(title)
