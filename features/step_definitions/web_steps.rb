@@ -1,7 +1,6 @@
 # encoding: utf-8
 require 'uri'
 require 'cgi'
-require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 
 module WithinHelpers
   def with_scope(locator)
@@ -217,4 +216,8 @@ end
 
 Then /^show me the page$/ do
   save_and_open_page
+end
+
+When /^I go back$/ do
+  page.driver.go_back
 end
