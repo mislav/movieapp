@@ -2,9 +2,11 @@ require 'faraday_stack'
 
 module Wikipedia
   def self.client
-    @client ||= FaradayStack.build('http://en.wikipedia.org/w/api.php?format=json',
-        :headers => {:user_agent => Movies::Application.config.user_agent}).tap do |conn|
-      conn.builder.insert_before Faraday::Adapter::NetHttp, FaradayStack::Instrumentation
+    @client ||= FaradayStack.build('http://en.wikipedia.org/w/api.php?format=json').tap do |client|
+      if user_agent = Movies::Application.config.user_agent
+        client.headers[:user_agent] = Movies::Application.config.user_agent
+      end
+      client.builder.insert_before Faraday::Adapter::NetHttp, FaradayStack::Instrumentation
     end
   end
   

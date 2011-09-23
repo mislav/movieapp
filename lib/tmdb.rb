@@ -12,8 +12,12 @@ end
 module Tmdb
   extend NibbleSpec
   
-  build_stack 'http://api.themoviedb.org/2.1', :headers => {:user_agent => Movies::Application.config.user_agent}
-  
+  build_stack 'http://api.themoviedb.org/2.1'
+
+  if user_agent = Movies::Application.config.user_agent
+    faraday.headers[:user_agent] = user_agent
+  end
+
   # instrumentation
   faraday.builder.insert_before Faraday::Adapter::NetHttp, FaradayStack::Instrumentation
 

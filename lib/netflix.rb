@@ -6,8 +6,12 @@ require 'movie_title'
 module Netflix
   extend NibbleSpec
   
-  build_stack 'http://api.netflix.com', :headers => {:user_agent => Movies::Application.config.user_agent}
-  
+  build_stack 'http://api.netflix.com'
+
+  if user_agent = Movies::Application.config.user_agent
+    faraday.headers[:user_agent] = user_agent
+  end
+
   # instrumentation
   faraday.builder.insert_before Faraday::Adapter::NetHttp, FaradayStack::Instrumentation
 
