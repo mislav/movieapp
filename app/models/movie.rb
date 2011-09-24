@@ -226,9 +226,15 @@ class Movie < Mingo
   def imdb_url
     "http://www.imdb.com/title/#{imdb_id}/" if imdb_id
   end
-  
+
+  WIKIPEDIA_PREFIX = 'http://en.wikipedia.org/wiki/'
+
+  def wikipedia_title=(str)
+    super(str.present? ? str.strip.sub(WIKIPEDIA_PREFIX, '') : nil)
+  end
+
   def wikipedia_url
-    'http://en.wikipedia.org/wiki/' + wikipedia_title.tr(' ', '_') if wikipedia_title
+    WIKIPEDIA_PREFIX + wikipedia_title.tr(' ', '_') if wikipedia_title
   end
   
   def get_wikipedia_title

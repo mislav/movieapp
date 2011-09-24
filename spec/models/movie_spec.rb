@@ -170,4 +170,30 @@ describe Movie do
       Movie.create(tmdb_id: 1234) { |m| m.update_and_lock attributes }
     end
   end
+  
+  describe "wikipedia" do
+    it "isn't linked to wikipedia" do
+      movie = build
+      movie.wikipedia_url.should be_nil
+    end
+
+    it "manually linked to wikipedia" do
+      movie = build wikipedia_title: 'http://en.wikipedia.org/wiki/It_(1990_film)'
+      movie.wikipedia_title.should == 'It_(1990_film)'
+      movie.wikipedia_url.should == 'http://en.wikipedia.org/wiki/It_(1990_film)'
+    end
+
+    it "automatically linked to wikipedia" do
+      stub_request(:get, 'en.wikipedia.org/w/api.php?format=json&action=query&list=search&srsearch=Misery%201990').
+        to_return(
+          body: {query: {search:[{title: 'Misery (1990 film)'}]}}.to_json,
+          status: 200,
+          headers: {'content-type' => 'application/json'}
+        )
+
+      movie = build title: 'Misery', year: 1990
+      movie.get_wikipedia_title.should == 'Misery (1990 film)'
+      movie.wikipedia_url.should == 'http://en.wikipedia.org/wiki/Misery_(1990_film)'
+    end
+  end
 end
