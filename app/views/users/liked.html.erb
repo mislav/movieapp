@@ -1,7 +1,7 @@
 <% @title = "Movies that #{user_name(@user)} liked" %>
 <article>
 
-  <% unless @movies.empty? %>
+  <% if not blank_slate? %>
     <header>
       <h1><%= @user.name %> liked <%= count @movies %></h1>
       <p><%= link_to "#{count @user.watched} watched", watched_path(@user) %></p>

@@ -78,4 +78,12 @@ module MoviesHelper
   def unless_empty(movies)
     yield movies unless movies.empty?
   end
+
+  def blank_slate?
+    forced_blank_slate? or @movies.empty?
+  end
+
+  def forced_blank_slate?
+    params[:blank].present? and Rails.env.development?
+  end
 end

@@ -2,7 +2,7 @@
 <% body_class 'user-show' %>
 <article>
 
-  <% if not @movies.empty? %>
+  <% if not blank_slate? %>
     <header>
       <div class="main">
       <h1><% if my_page? %>
@@ -42,7 +42,7 @@
 
     <%= render 'movies/paginated', :movies => @movies %>
 
-  <% elsif my_page? and @user.to_watch.size.zero? %>
+  <% elsif my_page? and (forced_blank_slate? or @user.to_watch.size.zero?) %>
     <section class="intro">
       <h1>Looks like you're new here.</h1>
       <p>
