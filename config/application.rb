@@ -79,8 +79,8 @@ module Movies
       end
     end
 
-    if config.store_exceptions
-      require 'never_forget'
+    require 'never_forget'
+    if NeverForget.enabled = config.store_exceptions
       config.middleware.use NeverForget::ExceptionHandler
     end
   end

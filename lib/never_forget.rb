@@ -7,8 +7,14 @@ require 'active_support/core_ext/hash'
 require 'rack/request'
 
 module NeverForget
-  def self.log(error, env)
-    Exception.create(error, env)
+  class << self
+    attr_writer :enabled
+    def enabled?() @enabled end
+  end
+  self.enabled = true
+
+  def self.log(error, env = {})
+    Exception.create(error, env) if enabled?
   rescue
     warn "NeverForget: error saving exception (#{$!.class} #{$!})"
     warn $!.backtrace.first
@@ -160,15 +166,23 @@ module NeverForget
       self['backtrace'] = exception.backtrace.join("\n")
       self['message'] = exception.message
 
-      self['env'] = sanitized_env
-      self['params'] = extract_params
-      self['session'] = extract_session
-      self['cookies'] = extract_cookies
+      if env['REQUEST_METHOD']
+        self['env'] = sanitized_env
+        self['params'] = extract_params
+        self['session'] = extract_session
+        self['cookies'] = extract_cookies
+      else
+        self['params'] = clean_unserializable_data(env)
+      end
       self
     end
 
     def request
       @request ||= Rack::Request.new(env)
+    end
+
+    def request?
+      self['env'].present?
     end
 
     def request_url
@@ -257,7 +271,7 @@ module NeverForget
     end
 
     def sanitize_key(key)
-      key.gsub('.', '::').sub(/^\$/, 'DOLLAR::')
+      key.to_s.gsub('.', '::').sub(/^\$/, 'DOLLAR::')
     end
 
     def clean_unserializable_data(data, stack = [])

@@ -129,6 +129,7 @@ module User::Social
     response = Net::HTTP.start(url.host, open_timeout: 2) {|http| http.get url.request_uri }
     response['location'] if response.is_a? Net::HTTPRedirection
   rescue Timeout::Error
+    NeverForget.log($!, url: url)
     return nil
   end
 end

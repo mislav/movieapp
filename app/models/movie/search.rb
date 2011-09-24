@@ -6,7 +6,7 @@ module Movie::Search
   def search(term)
     search_combined(term)
   rescue Faraday::Error::ClientError, Faraday::Error::ParsingError, Timeout::Error
-    # TODO: log exception
+    NeverForget.log($!, term: term)
     search_netflix(term).presence || search_regexp(term)
   end
 
@@ -76,7 +76,7 @@ module Movie::Search
     Netflix.search(term, :expand => %w[synopsis directors]).titles
   rescue Faraday::Error::ClientError, Timeout::Error
     # we can survive without Netflix results
-    # TODO: log exception
+    NeverForget.log($!, term: term)
     []
   end
 

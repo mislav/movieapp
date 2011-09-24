@@ -63,6 +63,7 @@
 <time><%== ex.created_at.strftime('%a, %b %e %T') %></time>
 </header>
 
+<% if ex.request? %>
 <% url = ex.request_url %>
 <p class="url">
   <% if ex.xhr? %>Ajax<% end %> <%= ex.request_method %>
@@ -72,6 +73,7 @@
   <span class="ip"><%= ex.remote_ip %></span> &mdash;
   <%== ex['env']['HTTP_USER_AGENT'] %>
 </p>
+<% end %>
 
 <% if ex['params'].present? %>
 <h3>Params:</h3>
