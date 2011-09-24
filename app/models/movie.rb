@@ -36,6 +36,7 @@ class Movie < Mingo
   include Mingo::Timestamps
   include Permalink
   include LockedValues
+  extend Search
   extend Merge
   extend ActiveSupport::Memoizable
 
@@ -158,69 +159,6 @@ class Movie < Mingo
   
   def extended_info_missing?
     EXTENDED.any? { |property| self[property].nil? }
-  end
-  
-  # creates Movie instances by first checking for existing records in the db
-  class RecordSpawner
-    attr_reader :tmdb_ids, :made_movies, :imdb_ids
-
-    def initialize(tmdb_movies)
-      @tmdb_movies = tmdb_movies
-      @tmdb_ids = @tmdb_movies.map(&:id)
-      @made_movies = []
-      @imdb_ids = []
-    end
-
-    def existing
-      @existing ||= Movie.find(:tmdb_id => {'$in' => tmdb_ids}).index_by(&:tmdb_id)
-    end
-
-    def find_linked_to_netflix(netflix_title)
-      if movie = existing.values.find { |mov| mov.netflix_id == netflix_title.id }
-        @tmdb_movies.find { |tmdb| movie.tmdb_id == tmdb.id }
-      else
-        @tmdb_movies.find { |tmdb| tmdb == netflix_title }
-      end
-    end
-
-    def make(tmdb_movie, netflix_title = nil)
-      return if tmdb_movie.imdb_id.present? and imdb_ids.include? tmdb_movie.imdb_id
-      movie = existing[tmdb_movie.id] || Movie.new
-      movie.tmdb_movie = tmdb_movie
-      movie.netflix_title = netflix_title if netflix_title
-      made_movies << movie
-      imdb_ids << movie.imdb_id if movie.imdb_id
-      movie
-    end
-
-    def make_all
-      @tmdb_movies.each { |mov| make(mov) }
-    end
-  end
-
-  def self.from_tmdb_movies(tmdb_movies)
-    spawner = RecordSpawner.new(tmdb_movies)
-    block_given? ? yield(spawner) : spawner.make_all
-    spawner.made_movies
-  end
-
-  def self.search(term)
-    tmdb_movies = Tmdb.search(term).movies.reject { |m| m.year.blank? }
-    netflix_titles = if tmdb_movies.any?
-      Netflix.search(term, :expand => %w[synopsis directors]).titles
-    else []
-    end
-
-    from_tmdb_movies(tmdb_movies) do |spawner|
-      netflix_titles.each do |netflix_title|
-        if tmdb_movie = spawner.find_linked_to_netflix(netflix_title)
-          tmdb_movies.delete(tmdb_movie)
-          spawner.make(tmdb_movie, netflix_title)
-        end
-      end
-
-      tmdb_movies.each { |tmdb| spawner.make(tmdb) }
-    end.each(&:save)
   end
 
   def imdb_url

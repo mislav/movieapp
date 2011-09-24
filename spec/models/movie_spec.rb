@@ -99,42 +99,6 @@ describe Movie do
       movie.year.should == 2009
     end
   end
-  
-  describe "combined search" do
-    before(:all) do
-      stub_request(:get, 'api.themoviedb.org/2.1/Movie.search/en/json/TEST/star%20wars').
-        to_return(
-          :body => read_fixture('tmdb-star_wars-titles.json'),
-          :status => 200,
-          :headers => {'content-type' => 'application/json'}
-        )
-      
-      stub_request(:get, 'api.netflix.com/catalog/titles?start_index=0&term=star%20wars&max_results=5&expand=synopsis,directors').
-        to_return(:body => read_fixture('netflix-star_wars-titles.xml'), :status => 200)
-      
-      @movies = Movie.search 'star wars'
-    end
-    
-    it "should have ordering from Netflix" do
-      @movies.map { |m| "#{m.title} (#{m.year})" }.should == [
-        'Star Wars Episode 4 (1990)',
-        'Star Wars Episode 5 (1991)',
-        'Star Wars: Episode 1 (1993)',
-        'Star Wars: The Making Of (2004)',
-        'Star Wars Episode VI (1982)'
-      ]
-    end
-    
-    it "should have IDs both from Netflix and TMDB" do
-      @movies.map { |m| [m.tmdb_id, m.netflix_id] }.should == [
-        [2004, 1001],
-        [2003, 1002],
-        [2002, 1005],
-        [2001, nil],
-        [2005, nil]
-      ]
-    end
-  end
 
   describe "permalink" do
     it "doesn't generate without sufficient data" do

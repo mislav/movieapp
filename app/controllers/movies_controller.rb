@@ -28,7 +28,7 @@ class MoviesController < ApplicationController
     @query = query
 
     if params[:local]
-      @movies = Movie.find({:title => Regexp.new(@query, 'i')}, :sort => :title).page(params[:page])
+      @movies = Movie.search_regexp(@query, :no_escape).page(params[:page])
     elsif params[:netflix]
       @movies = Netflix.search(@query, :expand => %w'directors').titles
       render :netflix_search, :layout => !request.xhr?
