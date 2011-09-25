@@ -36,8 +36,8 @@ module User::Social
   end
 
   def fetch_facebook_info(facebook_client)
-    response_string = facebook_client.get('/me', :fields => 'friends') # 'movies,friends'
-    user_info = Yajl::Parser.parse response_string
+    response = facebook_client.get('/me', :params => {:fields => 'friends'}) # 'movies,friends'
+    user_info = Yajl::Parser.parse response.body
     self.facebook_friends = user_info['friends']['data'].map { |f| f['id'] }
     # watched.import_from_facebook user_info['movies']['data']
     save

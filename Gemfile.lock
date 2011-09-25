@@ -69,12 +69,11 @@ GEM
     eventmachine (0.12.10)
     execjs (1.2.8)
       multi_json (~> 1.0)
-    facebook-login (0.2.3)
+    facebook-login (0.3.0)
       addressable (~> 2.1)
       hashie (>= 0.2.0)
       oauth2 (>= 0.0.6)
       rack (~> 1.2)
-      yajl-ruby (>= 0.7.5)
     faraday (0.7.4)
       addressable (~> 2.2.6)
       multipart-post (~> 1.1.0)
@@ -222,7 +221,7 @@ DEPENDENCIES
   cucumber-rails
   dalli
   escape_utils
-  facebook-login (~> 0.2.0)
+  facebook-login (~> 0.3.0)
   faraday-stack
   faraday_middleware
   launchy

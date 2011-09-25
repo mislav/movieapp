@@ -21,7 +21,7 @@ gem 'mongo-rails-instrumentation'
 gem 'bson_ext', '>= 1.1.1', :require => nil
 gem 'twitter-login', '~> 0.4.0', :require => 'twitter/login' #, :path => '/Users/mislav/Projects/twitter-login'
 gem 'will_paginate', '~> 3.0' #, :path => '/Users/mislav/.coral/will_paginate-mislav'
-gem 'facebook-login', '~> 0.2.0', :require => 'facebook/login' #, :path => '/Users/mislav/Projects/facebook'
+gem 'facebook-login', '~> 0.3.0', :require => 'facebook/login' #, :path => '/Users/mislav/Projects/facebook-login'
 gem 'escape_utils'
 gem 'choices' #, :path => '/Users/mislav/Projects/choices'
 
