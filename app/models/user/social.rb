@@ -1,5 +1,5 @@
 require 'net/http'
-require 'yajl'
+require 'json'
 
 module User::Social
   extend ActiveSupport::Concern
@@ -30,14 +30,14 @@ module User::Social
 
   def fetch_twitter_info(twitter_client)
     response = twitter_client.get('/1/friends/ids.json')
-    friends_ids = Yajl::Parser.parse response.body
+    friends_ids = JSON.parse response.body
     self.twitter_friends = friends_ids
     save
   end
 
   def fetch_facebook_info(facebook_client)
     response = facebook_client.get('/me', :params => {:fields => 'friends'}) # 'movies,friends'
-    user_info = Yajl::Parser.parse response.body
+    user_info = JSON.parse response.body
     self.facebook_friends = user_info['friends']['data'].map { |f| f['id'] }
     # watched.import_from_facebook user_info['movies']['data']
     save

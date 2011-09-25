@@ -244,4 +244,3 @@ DEPENDENCIES
   uglifier
   webmock
   will_paginate (~> 3.0)
-  yajl-ruby (~> 0.7)
