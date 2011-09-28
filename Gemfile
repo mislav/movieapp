@@ -24,6 +24,7 @@ gem 'will_paginate', '~> 3.0' #, :path => '/Users/mislav/.coral/will_paginate-mi
 gem 'facebook-login', '~> 0.3.0', :require => 'facebook/login' #, :path => '/Users/mislav/Projects/facebook-login'
 gem 'escape_utils'
 gem 'choices' #, :path => '/Users/mislav/Projects/choices'
+gem 'never-forget' #, :path => '/Users/mislav/Projects/never-forget'
 
 group :extras do
   gem 'nokogiri', '~> 1.4.1'
