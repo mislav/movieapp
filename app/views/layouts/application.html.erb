@@ -15,7 +15,7 @@
     <%= javascript_include_tag 'modernizr' %>
     <script>
       (function(M, feature){
-        var test = M.inputtypes.search && navigator.userAgent.indexOf('Firefox') < 0
+        var test = M.inputtypes.search && !/\b(Firefox|Android)\b/.test(navigator.userAgent)
         document.documentElement.className += ' ' + (test ? '' : 'no-') + feature;
         M[feature] = test;
       })(Modernizr, 'inputsearch')
@@ -29,7 +29,7 @@
 
         <% if logged_in? %>
           <p><%= username_with_icon(current_user) %>
-            ∙ <%= link_to 'Logout', logout_path %>
+            <%= separator %><%= link_to 'Logout', logout_path %>
           </p>
         <% else %>
           <p class="login">Login with
@@ -37,7 +37,7 @@
             or
             <%= link_to facebook_login_path, class: 'icon', rel: 'nofollow' do %><%= facebook_icon(nil) %> <span>Facebook</span><% end %>
 
-            <% if Rails.env.development? %>∙ <%= link_to 'Instalogin!', instant_login_path %><% end %>
+            <% if Rails.env.development? %><%= separator %> <%= link_to 'Instalogin!', instant_login_path %><% end %>
           </p>
         <% end %>
 

@@ -1,4 +1,7 @@
+# encoding: utf-8
 module ApplicationHelper
+
+  extend ActiveSupport::Memoizable
 
   def admin?
     logged_in? and current_user.admin?
@@ -7,6 +10,12 @@ module ApplicationHelper
   def nobr(str)
     str.gsub(/ +/, '&nbsp;')
   end
+
+  def separator
+    char = android? ? '|' : '∙'
+    %( <span class="separator">#{char}</span> ).html_safe
+  end
+  memoize :separator
   
   def body_class(*names)
     if names.empty?
@@ -29,7 +38,11 @@ module ApplicationHelper
   end
 
   def ios?
+    # FIXME: Android browser also identifies itself as Mobile Safari
     request.user_agent =~ /\bMobile\/.*\bSafari\b/
   end
-  
+
+  def android?
+    request.user_agent =~ /\bAndroid\b/
+  end
 end

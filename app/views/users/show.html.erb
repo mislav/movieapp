@@ -15,7 +15,7 @@
       <nav><% if my_page? %>
         <%= link_to "following", following_path %>
       <% elsif logged_in? %>
-          <%= link_to_compare(current_user, @user) %> ∙
+          <%= link_to_compare(current_user, @user) %><%= separator %>
         <% if not current_user.following? @user %>
           <%= link_to 'follow person', follow_path(@user.id), :method => :post %>
         <% else %>

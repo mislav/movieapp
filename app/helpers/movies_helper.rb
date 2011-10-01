@@ -38,7 +38,10 @@ module MoviesHelper
   end
   
   def movie_plot(movie)
-    raw movie.chosen_plot.gsub('...', '&#8230;').gsub('--', '&#8212;')
+    raw movie.chosen_plot
+      .gsub('...', '&#8230;')
+      .gsub('--', '&#8212;')
+      .gsub("\n", ' ') # avoid http://code.google.com/p/android/issues/detail?id=15067
   end
   
   def movie_poster(movie, size = :small)

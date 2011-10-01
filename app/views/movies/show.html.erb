@@ -29,7 +29,7 @@
   <% if elsewhere = movie_elsewhere(@movie).presence %>
     <p class="elsewhere">
       Elsewhere:
-      <%= raw elsewhere.map { |label, url| link_to(label, url) }.join(' ∙ ') %>
+      <%= raw elsewhere.map { |label, url| link_to(label, url) }.join(separator) %>
     </p>
   <% end %>
   

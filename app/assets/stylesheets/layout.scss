@@ -16,11 +16,16 @@ a {
   &:hover, &:active { /*color:lemonchiffon; */ } }
 
 body {
-/*  background-image:url('9_2_grid.png');*/
+  // background-image:url('9_2_grid.png');
   color:$body-color; background-color:#fdfdfd;
-  font:75%/1.5em $body-type; text-rendering:optimizeLegibility;
+  font:75%/1.5em $body-type;
   padding:0 $body-padding;
   max-width:780px; margin:0 auto;
+}
+
+h1, h2, h3, .movie .plot {
+  // http://code.google.com/p/android/issues/detail?id=15067
+  text-rendering: optimizeLegibility;
 }
 
 h1 { font-weight: normal; @include text-shadow; }
@@ -191,7 +196,7 @@ form {
     }
   }
 
-  .intro { width:290px; margin:21px 0 -5px -7px; padding:7px;
+  .intro { width:auto; margin:21px -7px -5px -7px; padding:7px;
     p + p { margin-top:7px; }
   }
 
