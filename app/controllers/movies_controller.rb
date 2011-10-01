@@ -34,7 +34,7 @@ class MoviesController < ApplicationController
       render :netflix_search, :layout => !request.xhr?
     else
       @movies = Movie.search(@query).paginate(:page => params[:page], :per_page => 30)
-      redirect_to movie_url(@movies.first) if @movies.size == 1
+      redirect_to movie_url(@movies.first) if @movies.total_entries == 1
     end
   end
   
