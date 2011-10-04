@@ -12,7 +12,12 @@ module UsersHelper
   end
   
   def link_to_user(user)
-    link_to(user.username, watched_path(user), :title => user.name)
+    # some usernames are numeric Facebook IDs, don't show them
+    if user.username =~ /\D/
+      link_to(user.username, watched_path(user), :title => user.name)
+    else
+      link_to(user.name, watched_path(user))
+    end
   end
   
   def my_page?
