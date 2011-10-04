@@ -11,12 +11,10 @@ class MoviesController < ApplicationController
     if query = params[:q]
       perform_search query
     elsif @director = params[:director]
-      expires_in 30.minutes
       @movies = Movie.find(:directors => @director).sort(:year, :desc).page(params[:page])
       freshness_from_cursor @movies
     else
-      expires_in 5.minutes
-      if stale?(:last_modified => Movie.last_watch_created_at)
+      if logged_in? or stale?(:last_modified => Movie.last_watch_created_at)
         @movies = Movie.last_watched.to_a
       end
     end
@@ -41,7 +39,7 @@ class MoviesController < ApplicationController
   def show
     if redirect_to_permalink? @movie
       redirect_to movie_url(@movie.permalink), status: 301
-    elsif stale?(:last_modified => @movie.updated_at.utc, :etag => @movie)
+    elsif stale? etag: session_cache_key(@movie)
       @movie.ensure_extended_info unless Movies.offline?
     end
   end

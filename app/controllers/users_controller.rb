@@ -7,23 +7,21 @@ class UsersController < ApplicationController
   end
   
   def show
-    expires_in(my_page? ? 2.minutes : 10.minutes)
-
-    if stale? :etag => @user.watched
+    if stale? etag: session_cache_key(@user.watched)
       @movies = @user.watched.reverse.page(params[:page])
       ajax_pagination
     end
   end
   
   def liked
-    if stale? :etag => @user.watched
+    if stale? etag: session_cache_key(@user.watched)
       @movies = @user.watched.liked.reverse.page(params[:page])
       ajax_pagination
     end
   end
   
   def to_watch
-    if stale? :etag => @user.to_watch
+    if stale? etag: session_cache_key(@user.to_watch)
       @movies = @user.to_watch.reverse.page(params[:page])
       ajax_pagination
     end
@@ -49,7 +47,7 @@ class UsersController < ApplicationController
     users = params[:users].split('+', 2).map {|name| find_user name }
 
     @compare = User::Compare.new(*users)
-    fresh_when :etag => @compare
+    fresh_when etag: session_cache_key(@compare)
   end
   
   protected
