@@ -2,6 +2,14 @@
   <% if @user and not my_page? and movie.respond_to? :liked? %>
     <p class="other-info js-preserve"><%= watched_liked movie, @user %></p>
   <% end %>
+  <% if @movies.respond_to? :people_who_watched %>
+    <div class="other-info js-preserve">
+      <% for user in @movies.people_who_watched(movie) %>
+        <% next if logged_in? and user == current_user %>
+        <p><%= watched_liked(movie, user, :link_user) { @movies.rating_for(movie, user) } %></p>
+      <% end %>
+    </div>
+  <% end %>
   
   <% if logged_in? %>
   <% if current_user.watched.include? movie %>

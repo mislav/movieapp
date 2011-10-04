@@ -15,7 +15,7 @@ class MoviesController < ApplicationController
       freshness_from_cursor @movies
     else
       if logged_in? or stale?(:last_modified => Movie.last_watch_created_at)
-        @movies = Movie.last_watched.to_a
+        @movies = Movie.last_watched
       end
     end
 

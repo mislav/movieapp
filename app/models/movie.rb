@@ -86,9 +86,7 @@ class Movie < Mingo
   end
 
   def self.last_watched
-    watches = User.collection['watched'].find({}, :sort => [:_id, :desc]).limit(20)
-    movie_ids = watches.map { |w| w['movie_id'] }.uniq.first(10)
-    find(movie_ids)
+    WatchesTimeline.create.reverse.limit(20)
   end
 
   def self.last_watch_created_at

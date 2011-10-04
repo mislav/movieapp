@@ -28,9 +28,13 @@ module UsersHelper
     controller.action_name == 'to_watch' and my_page?
   end
   
-  def watched_liked(movie, user = nil)
-    who = user ? user.name : 'You'
-    liked = user ? movie.liked? : current_user.watched.rating_for(movie)
+  def watched_liked(movie, user = nil, link = false)
+    who = link ? link_to_user(user) : user ? user.name : 'You'
+    liked = if block_given? then yield
+      elsif user then movie.liked?
+      else
+        current_user.watched.rating_for(movie)
+      end
     
     "#{who} ".tap do |out|
       unless liked.nil?
@@ -39,7 +43,7 @@ module UsersHelper
         else
           out << %(<em class="disliked">#{nobr "didn't like it"}</em>)
         end
-      else out << %(watched it)
+      else out << nobr("watched it")
       end
     end.html_safe
   end

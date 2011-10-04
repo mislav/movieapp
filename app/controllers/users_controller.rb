@@ -28,8 +28,8 @@ class UsersController < ApplicationController
   end
   
   def following
+    # TODO: HTTP caching
     @movies = current_user.movies_from_friends.reverse.page(params[:page])
-    freshness_from_cursor @movies
     ajax_pagination
   end
 

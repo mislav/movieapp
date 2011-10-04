@@ -74,6 +74,11 @@ module MoviesHelper
     render 'movies/actions', :movie => movie
   end
   
+  def movie_index_page?
+    controller.controller_name == 'movies' and controller.action_name == 'index' and
+      !@query and !@director
+  end
+  
   def movie_show_page?
     controller.controller_name == 'movies' and controller.action_name == 'show'
   end

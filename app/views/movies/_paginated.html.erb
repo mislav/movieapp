@@ -2,4 +2,4 @@
   <%= render :partial => 'movies/movie', :collection => movies.to_a %>
 </ol>
 
-<%= will_paginate movies if movies.respond_to? :current_page %>
+<%= will_paginate movies if movies.respond_to? :current_page and not movie_index_page? %>

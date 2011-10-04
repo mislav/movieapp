@@ -95,11 +95,7 @@ module User::Friends
 
   def movies_from_friends(options = {})
     friends_ids = friends({}, :fields => %w[_id], :transformer => nil).map { |f| f['_id'] }
-    watches = self.class.collection['watched'].
-      find({'user_id' => {'$in' => friends_ids}}, :fields => %w[movie_id liked], :sort => [:_id, :desc])
-
-    movie_ids = watches.map { |w| w['movie_id'] }.uniq.reverse
-    Movie.find(movie_ids)
+    WatchesTimeline.create('user_id' => {'$in' => friends_ids})
   end
 
   def friends_who_watched(movie)
