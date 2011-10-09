@@ -1,6 +1,6 @@
 class User::Compare
   extend ActiveSupport::Memoizable
-  ALGORITHM_VERSION = 2
+  ALGORITHM_VERSION = 3
 
   def self.compatibility(*users)
     users = users.sort_by { |u| u.id.to_s }
@@ -82,7 +82,7 @@ class User::Compare
       if like1 == like2
         s + 5
       elsif !like1.nil? and !like2.nil?
-        s
+        s - 1
       elsif like1 != false and like2 != false
         s + 3
       else
@@ -104,7 +104,9 @@ class User::Compare
   def compatibility
     Cache.fetch [self, :compatibility, ALGORITHM_VERSION], expires_in: 1.day do
       return nil if in_common_count.zero?
-      (score / (in_common_count * 5).to_f - margin_of_error) * coefficient * 100
+
+      percentage = (score / (in_common_count * 5).to_f - margin_of_error) * coefficient * 100
+      [0, percentage].max
     end
   end
   memoize :compatibility
