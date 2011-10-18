@@ -1,7 +1,7 @@
 $avatar-size: 25px;
 $compare-box-width: 780px / 3;
 
-.compare > article { padding-top:24px;
+.compare > article { padding-top:30px;
   .avatar {
     display: inline-block;
     width: $avatar-size; height: $avatar-size;
@@ -44,6 +44,8 @@ $compare-box-width: 780px / 3;
       ol { list-style: none; padding: 0; margin: 0; font-size: 1.2em; line-height: 1.6 }
     }
   }
+
+  .movies { margin-top:23px; }
 }
 
 /* mobile */
@@ -68,5 +70,7 @@ $compare-box-width: 780px / 3;
       }
       .directors { margin-top:.5em; font-size:85%; }
     }
+
+    .movies { margin-top: 15px; }
   }
 }

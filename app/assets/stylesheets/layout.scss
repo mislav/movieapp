@@ -16,7 +16,7 @@ a {
   &:hover, &:active { /*color:lemonchiffon; */ } }
 
 body {
-  // background-image:url('9_2_grid.png');
+/*  background-image:url('9_2_grid.png');*/
   color:$body-color; background-color:#fdfdfd;
   font:75%/1.5em $body-type;
   padding:0 $body-padding;
@@ -84,7 +84,7 @@ body > header {
 
 body > article {
   padding-top:22px;
-  header, > h1 { margin-bottom:30px; }
+  header, > h1 { margin-bottom:23px; }
   h1 { font-size:18px; line-height:37px; }
 }
 

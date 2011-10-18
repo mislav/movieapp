@@ -23,13 +23,13 @@ ol.movies { clear:left; padding-left:0;
     }
   
     h1, h2 { letter-spacing:.01em }
-    h1 { font-size:18px; margin-top:-4px; line-height:24px; }
+    h1 { font-size:18px; line-height:24px; }
     h2 { margin-bottom:2px; }
     h2, .year { font-size:15px; line-height:21px; }
 
     .poster {
       display:block;
-      margin-left:-($poster-small-width + $poster-margin);
+      margin-left:-($poster-small-width + $poster-margin); margin-top:4px;
       float:left;
     }
   }
@@ -227,7 +227,8 @@ ol.movies { clear:left; padding-left:0;
     .poster, span.poster { width:$poster-medium-width / 2; }
     span.poster { height:$poster-medium-height / 2; }
 
-    .plot { clear:left; margin-bottom:10px; }
+    .plot, .elsewhere { clear:left; }
+    .plot { margin-bottom:10px; }
     .actions { margin-top:7px; }
   }
 }

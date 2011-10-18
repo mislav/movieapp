@@ -10,9 +10,10 @@
     .main {
       @include clearfix;
       border-bottom: 1px solid #e8e8e8;
-      h1 { float: left; line-height: 1.4; }
-      margin-bottom: .6em;
-      nav { margin-top: .2em; }
+      margin-bottom:5px;
+
+      h1 { float:left; line-height:27px; margin-top:5px; }
+      nav { margin-top:10px; }
     }
 
     .stats {
@@ -44,7 +45,10 @@ a.compare {
 
 @media only screen and (max-device-width:480px) {
   .user-show > article header {
-    .main { padding-bottom: 2px; margin-bottom: 3px }
+    .main { margin-bottom:3px;
+      h1 { line-height:22px; margin-top:0 }
+      nav { margin-top:2px; }
+    }
   }
   a.compare {
     padding: 3px 6px 1px;
