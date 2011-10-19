@@ -45,9 +45,10 @@ Given /^the database contains movies from TMDB "([^"]+)"( with full info)?$/ do 
   Movie.collection.update({}, {'$unset' => {:tmdb_id => 1}}, :multi => true, :safe => true) if has_info
 end
 
-Given /^these movies are last watched$/ do
+Given /^these movies are last watched by @(\w+)$/ do |username|
+  user = find_or_create_user username
   watched = User.collection['watched']
   Movie.collection.find({}, :sort => [:_id, :desc]).limit(10).to_a.reverse.each do |movie_doc|
-    watched.save 'movie_id' => movie_doc['_id']
+    watched.save 'movie_id' => movie_doc['_id'], 'user_id' => user.id
   end
 end
