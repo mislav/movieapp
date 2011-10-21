@@ -1,6 +1,6 @@
 class User::Compare
   extend ActiveSupport::Memoizable
-  ALGORITHM_VERSION = 3
+  ALGORITHM_VERSION = 4
 
   def self.compatibility(*users)
     users = users.sort_by { |u| u.id.to_s }
@@ -78,7 +78,7 @@ class User::Compare
   end
 
   def score
-    movie_intersection.inject(0) do |s, (movie, (like1, like2))|
+    points = movie_intersection.inject(0) do |s, (movie, (like1, like2))|
       if like1 == like2
         s + 5
       elsif !like1.nil? and !like2.nil?
@@ -89,15 +89,17 @@ class User::Compare
         s + 2
       end
     end
+
+    points / (in_common_count * 5).to_f
   end
 
-  def coefficient
+  def common_factor
+    return 0.8 if in_common_count == 1
     ratio = in_common_count / [watched_count1, watched_count2].min.to_f
-    (9 + ratio) / 10
   end
   
   def margin_of_error
-    return 0.5 if in_common_count == 1
+    return 0.7 if in_common_count == 1
     1 / in_common_count.to_f
   end
 
@@ -105,7 +107,7 @@ class User::Compare
     Cache.fetch [self, :compatibility, ALGORITHM_VERSION], expires_in: 1.day do
       return nil if in_common_count.zero?
 
-      percentage = (score / (in_common_count * 5).to_f - margin_of_error) * coefficient * 100
+      percentage = (Math.sqrt(score * common_factor) - margin_of_error) * 100
       [0, percentage].max
     end
   end
