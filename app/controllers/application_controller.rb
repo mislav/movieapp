@@ -53,7 +53,13 @@ class ApplicationController < ActionController::Base
       head :forbidden
     end
   end
-  
+
+  def login_required
+    unless logged_in?
+      render 'shared/login_required', :status => 401
+    end
+  end
+
   private
 
   def render_not_found(message = nil)

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   
   before_filter :load_user, :only => [:show, :to_watch, :liked]
+  before_filter :login_required, :only => [:following]
   
   def index
     @users = User.find({}, :sort => ['_id', -1]).to_a
