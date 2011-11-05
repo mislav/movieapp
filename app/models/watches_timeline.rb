@@ -23,6 +23,8 @@ class WatchesTimeline
   extend ActiveSupport::Memoizable
   include Enumerable
   
+  USER_FIELDS = %w[username name twitter_picture twitter.screen_name facebook.id]
+  
   attr_reader :current_page, :per_page
   
   def initialize(watched_cursor)
@@ -51,8 +53,14 @@ class WatchesTimeline
     watch = @watches.last and watch['_id'] if defined? @watches
   end
   
-  def each(&block)
-    load_movies.each(&block)
+  def each
+    if block_given?
+      load_movies.each(&Proc.new)
+    else
+      Enumerator.new { |y|
+        load_movies.each { |movie| y << movie }
+      }
+    end
   end
   
   def people_who_watched(movie)
@@ -131,7 +139,7 @@ class WatchesTimeline
   end
   
   def people
-    User.find(user_ids, fields: %w[username name]).index_by(&:id)
+    User.find(user_ids, fields: USER_FIELDS).index_by(&:id)
   end
   memoize :people
 end

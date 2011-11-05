@@ -50,6 +50,8 @@ module Movies
     config.facebook_client = Facebook::Client.new(config.facebook.app_id, config.facebook.secret,
       :user_fields => %w[link name email website timezone])
 
+    config.middleware.use Twin
+
     unless Rails.env.development?
       # this seems to be the only place to hook into the phase when routes are loaded
       initializer "User reserved names", :after => :set_routes_reloader do 

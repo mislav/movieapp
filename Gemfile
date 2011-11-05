@@ -25,6 +25,7 @@ gem 'facebook-login', '~> 0.3.0', :require => 'facebook/login' #, :path => '/Use
 gem 'escape_utils'
 gem 'choices' #, :path => '/Users/mislav/Projects/choices'
 gem 'never-forget' #, :path => '/Users/mislav/Projects/never-forget'
+gem 'twin' #, :path => '/Users/mislav/Projects/twin'
 
 group :extras do
   gem 'nokogiri', '~> 1.4.1'
