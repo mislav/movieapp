@@ -30,8 +30,8 @@ module User::Social
 
   def fetch_twitter_info(twitter_client)
     response = twitter_client.get('/1/friends/ids.json')
-    friends_ids = JSON.parse response.body
-    self.twitter_friends = friends_ids
+    ids_data = JSON.parse response.body
+    self.twitter_friends = ids_data['ids']
     save
   end
 
