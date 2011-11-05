@@ -73,7 +73,20 @@ class ApplicationController < ActionController::Base
 
   def ajax_pagination
     if not already_rendered? and request.xhr?
+      if next_url = next_movies_url
+        response['X-Next-Page'] = next_url
+      end
       render :partial => 'movies/movie', :collection => @movies.to_a
+    end
+  end
+
+  def next_movies_url
+    if @movies.respond_to? :has_more?
+      url_for max_id: @movies.last_id if @movies.has_more?
+    elsif @movies.respond_to? :current_page
+      if next_page = @movies.current_page + 1 and next_page <= @movies.total_pages
+        url_for page: next_page
+      end
     end
   end
 

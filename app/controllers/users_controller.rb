@@ -30,7 +30,7 @@ class UsersController < ApplicationController
   
   def following
     # TODO: HTTP caching
-    @movies = current_user.movies_from_friends.reverse.page(params[:page])
+    @movies = current_user.movies_from_friends(max_id: params[:max_id])
     ajax_pagination
   end
 

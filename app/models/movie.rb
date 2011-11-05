@@ -86,7 +86,7 @@ class Movie < Mingo
   end
 
   def self.last_watched
-    WatchesTimeline.create.reverse.limit(20)
+    WatchesTimeline.create.limit(20)
   end
 
   def self.last_watch_created_at

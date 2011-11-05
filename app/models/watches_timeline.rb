@@ -11,8 +11,13 @@ class WatchesTimeline
     User.collection['watched']
   end
   
-  def self.create(selector = {})
-    new collection.find(selector, :sort => :_id)
+  def self.create(selector = {}, options = {})
+    if options[:max_id] or options[:since_id]
+      selector = {:_id => {}}.merge(selector)
+      selector[:_id]['$gt'] = BSON::ObjectId[options[:since_id]] if options[:since_id]
+      selector[:_id]['$lt'] = BSON::ObjectId[options[:max_id]] if options[:max_id]
+    end
+    new collection.find(selector, :sort => [:_id, -1])
   end
   
   extend ActiveSupport::Memoizable
@@ -24,21 +29,26 @@ class WatchesTimeline
     @watched_cursor = watched_cursor
     @current_page = WillPaginate::PageNumber(1)
     @per_page = WillPaginate.per_page
-  end
-  
-  def reverse
-    @watched_cursor.sort([:_id, -1])
-    self
+    @has_more = false
   end
   
   def limit(num)
     @per_page = num.to_i
+    @watched_cursor.batch_size(@per_page * 2)
     self
   end
   
   def page(pagenum)
     @current_page = WillPaginate::PageNumber(pagenum.nil? ? 1 : pagenum)
     self
+  end
+  
+  def has_more?
+    @has_more
+  end
+  
+  def last_id
+    watch = @watches.last and watch['_id'] if defined? @watches
   end
   
   def each(&block)
@@ -99,7 +109,9 @@ class WatchesTimeline
       movie_id = watch['movie_id']
       unless movie_ids.include? movie_id
         if movie_ids.size == per_page
-          if (done_page += 1) == current_page then break # we're done
+          if (done_page += 1) == current_page
+            @has_more = @watched_cursor.has_next?
+            break # we're done
           else
             # start filling in a fresh page
             movie_ids.clear

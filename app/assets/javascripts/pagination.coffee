@@ -5,9 +5,7 @@ viewportOffset = (el) ->
   el.offset().top - document.body.scrollTop
 
 if pagination.size()
-  page = parseInt(pagination.find('.current').text())
-  lastPage = parseInt(pagination.find('a:not(.next_page)').eq(-1).text())
-  url = window.location.toString()
+  nextUrl = pagination.find('a[rel=next]').attr 'href'
   container = $('ol.movies').eq(0)
   loading = false
 
@@ -19,14 +17,13 @@ if pagination.size()
     if paginationOffset < viewportHeight/2
       loading = true
       $.ajax
+        url: nextUrl
         method: 'get'
-        data:
-          page: ++page
-        success: (data) ->
+        success: (data, status, xhr) ->
           container.append data
-          if page is lastPage
+          unless nextUrl = xhr.getResponseHeader 'X-Next-Page'
             $(document).unbind 'scroll', scrollHandler
-            pagination.hide()
+            pagination.remove()
           loading = false
 
   $(document).bind 'scroll', scrollHandler

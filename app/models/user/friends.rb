@@ -95,7 +95,7 @@ module User::Friends
 
   def movies_from_friends(options = {})
     friends_ids = friends({}, :fields => %w[_id], :transformer => nil).map { |f| f['_id'] }
-    WatchesTimeline.create('user_id' => {'$in' => friends_ids})
+    WatchesTimeline.create({'user_id' => {'$in' => friends_ids}}, options)
   end
 
   def friends_who_watched(movie)

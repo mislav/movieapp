@@ -2,4 +2,14 @@
   <%= render :partial => 'movies/movie', :collection => movies.to_a %>
 </ol>
 
-<%= will_paginate movies if movies.respond_to? :current_page and not movie_index_page? %>
+<% unless movie_index_page? %>
+  <% if movies.respond_to? :has_more? %>
+    <% if movies.has_more? %>
+      <div class="pagination">
+        <%= link_to "More", "#{request.path}?max_id=#{movies.last_id}", rel: 'next', class: 'more' %>
+      </div>
+    <% end %>
+  <% elsif movies.respond_to? :current_page %>
+    <%= will_paginate movies %>
+  <% end %>
+<% end %>
