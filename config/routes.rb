@@ -40,9 +40,6 @@ Movies::Application.routes.draw do
   match 'following/:id' => 'users#unfollow', :as => :unfollow, :via => :delete
 
   with_options :username => /[^\/]+/ do |user|
-    user.match 'user/:username' => redirect('/%{username}')
-    user.match 'user/:username/:more' => redirect('/%{username}/%{more}')
-
     user.match ':username' => 'users#show', :as => :watched, :via => :get
     user.match ':username/liked' => 'users#liked', :as => :liked, :via => :get
     user.match ':username/to-watch' => 'users#to_watch', :as => :to_watch, :via => :get
