@@ -3,6 +3,7 @@ defaults: &defaults
   secret_token: <%= ENV['COOKIE_SECRET'] %>
   heroku: <%= !!ENV['HEROKU_TYPE'] %>
   api_caching: false
+  http_caching: true
   store_exceptions: false
   admins: <%= ENV['ADMINS'].to_s.split(',') %>
   user_agent: <%= ENV['USER_AGENT'] %>

@@ -81,6 +81,14 @@ class ApplicationController < ActionController::Base
     fresh_when etag: session_cache_key(cursor.first_selector_id)
   end
 
+  def stale?(params)
+    if Movies::Application.config.http_caching
+      super
+    else
+      true
+    end
+  end
+
   def session_cache_key(key)
     key = key.cache_key if key.respond_to? :cache_key
     ActiveSupport::Cache.expand_cache_key [key, current_user.try(:id)]
