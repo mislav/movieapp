@@ -24,12 +24,7 @@ class User < Mingo
     first(username: username)
   end
   
-  many :to_watch, self => 'user_id', 'movie_id' => Movie do
-    def <<(doc)
-      return self if include? doc
-      super
-    end
-  end
+  include ToWatch
   
   many :watched, self => 'user_id', 'movie_id' => Movie do
     # defines how to convert given object (or document) to a custom

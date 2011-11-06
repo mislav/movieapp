@@ -22,10 +22,8 @@ class UsersController < ApplicationController
   end
   
   def to_watch
-    if stale? etag: session_cache_key(@user.to_watch)
-      @movies = @user.to_watch.reverse.page(params[:page])
-      ajax_pagination
-    end
+    @movies = @user.to_watch max_id: params[:max_id]
+    ajax_pagination if stale? etag: session_cache_key(@movies)
   end
   
   def following

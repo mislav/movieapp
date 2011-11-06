@@ -51,7 +51,9 @@ describe User do
         end
       
         it "assigns a new movie to watch" do
-          subject.to_watch << @deep_blue
+          lambda {
+            subject.to_watch << @deep_blue
+          }.should change(subject.to_watch, :total_entries)
           should_not be_changed
           subject.to_watch.should include(@deep_blue)
         end
@@ -66,17 +68,19 @@ describe User do
         }
       
         it "initializes with existing movies to watch" do
-          subject.to_watch.to_a.should == [@deep_blue, @breakfast]
+          subject.to_watch.to_a.should == [@breakfast, @deep_blue]
         end
       
         it "doesn't add movie twice" do
           subject # trigger creating subject
           lambda { subject.to_watch << @deep_blue }.should_not change(join_collection, :size)
-          subject.to_watch.size.should == 2
+          subject.to_watch.total_entries.should == 2
         end
       
         it "deletes a movie from watchlist" do
-          subject.to_watch.delete @deep_blue
+          lambda {
+            subject.to_watch.delete @deep_blue
+          }.should change(subject.to_watch, :total_entries).by(-1)
           subject.to_watch.should_not include(@deep_blue)
           subject.to_watch.should include(@breakfast)
         end
@@ -247,7 +251,7 @@ describe User do
       twitter_user.to_watch << Movie.create
       
       total_watched = facebook_user.watched.to_a + twitter_user.watched.to_a
-      total_to_watch = facebook_user.to_watch.to_a + twitter_user.to_watch.to_a
+      total_to_watch = twitter_user.to_watch.to_a + facebook_user.to_watch.to_a
       
       user = User.login_from_twitter_or_facebook(@twitter_data, @facebook_data)
       user.id.should == existing_facebook_id
@@ -255,7 +259,7 @@ describe User do
       
       user.watched.size.should == 3
       user.watched.to_a.should == total_watched
-      user.to_watch.size.should == 3
+      user.to_watch.total_entries.should == 3
       user.to_watch.to_a.should == total_to_watch
       
       User.first(existing_twitter_id).should be_nil

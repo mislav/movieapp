@@ -6,7 +6,7 @@
     <li>
       <%= username_with_icon(user) %>
       (<%= user.name %>)
-      — <%= user.watched.size %> watched, <%= user.to_watch.size %> to see
+      — <%= user.watched.size %> watched, <%= user.to_watch.total_entries %> to see
     </li>
   <% end %></ol>
 </article>
