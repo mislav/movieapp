@@ -19,6 +19,7 @@ var Zepto = (function() {
       'td': tableRow, 'th': tableRow,
       '*': document.createElement('div')
     },
+    readyRE = /complete|loaded|interactive/,
     classSelectorRE = /^\.([\w-]+)$/,
     idSelectorRE = /^#([\w-]+)$/,
     tagSelectorRE = /^[\w-]+$/;
@@ -164,8 +165,8 @@ var Zepto = (function() {
       return $(slice.apply(this, arguments));
     },
     ready: function(callback){
-      if (document.readyState == 'complete' || document.readyState == 'loaded') callback();
-      document.addEventListener('DOMContentLoaded', callback, false);
+      if (readyRE.test(document.readyState)) callback($);
+      else document.addEventListener('DOMContentLoaded', function(){ callback($) }, false);
       return this;
     },
     get: function(idx){ return idx === undefined ? this : this[idx] },
@@ -216,8 +217,8 @@ var Zepto = (function() {
     eq: function(idx){
       return idx === -1 ? this.slice(idx) : this.slice(idx, + idx + 1);
     },
-    first: function(){ return $(this[0]) },
-    last: function(){ return $(this[this.length - 1]) },
+    first: function(){ var el = this[0]; return el && !isO(el) ? el : $(el) },
+    last: function(){ var el = this[this.length - 1]; return el && !isO(el) ? el : $(el) },
     find: function(selector){
       var result;
       if (this.length == 1) result = $$(this[0], selector);
@@ -336,8 +337,8 @@ var Zepto = (function() {
       if(this.length==0) return null;
       var obj = this[0].getBoundingClientRect();
       return {
-        left: obj.left + document.body.scrollLeft,
-        top: obj.top + document.body.scrollTop,
+        left: obj.left + window.pageXOffset,
+        top: obj.top + window.pageYOffset,
         width: obj.width,
         height: obj.height
       };
@@ -418,7 +419,7 @@ var Zepto = (function() {
 
   function insert(operator, target, node) {
     var parent = (operator % 2) ? target : target.parentNode;
-    parent.insertBefore(node,
+    parent && parent.insertBefore(node,
       !operator ? target.nextSibling :      // after
       operator == 1 ? parent.firstChild :   // prepend
       operator == 2 ? target :              // before
@@ -435,7 +436,7 @@ var Zepto = (function() {
   adjacencyOperators.forEach(function(key, operator) {
     $.fn[key] = function(html){
       var nodes = isO(html) ? html : fragment(html);
-      if (!('length' in nodes)) nodes = [nodes];
+      if (!('length' in nodes) || nodes.nodeType) nodes = [nodes];
       if (nodes.length < 1) return this;
       var size = this.length, copyByClone = size > 1, inReverse = operator < 2;
 
@@ -443,7 +444,7 @@ var Zepto = (function() {
         for (var i = 0; i < nodes.length; i++) {
           var node = nodes[inReverse ? nodes.length-i-1 : i];
           traverseNode(node, function (node) {
-            if (node.nodeName != null && node.nodeName.toUpperCase() === 'SCRIPT') {
+            if (node.nodeName != null && node.nodeName.toUpperCase() === 'SCRIPT' && (!node.type || node.type === 'text/javascript')) {
               window['eval'].call(window, node.innerHTML);
             }
           });
@@ -465,6 +466,7 @@ var Zepto = (function() {
   return $;
 })();
 
+window.Zepto = Zepto;
 '$' in window || (window.$ = Zepto);
 //     Zepto.js
 //     (c) 2010, 2011 Thomas Fuchs
@@ -610,6 +612,15 @@ var Zepto = (function() {
     return this;
   };
 
+  $.fn.on = function(event, selector, callback){
+    return selector === undefined || $.isFunction(selector) ?
+      this.bind(event, selector) : this.delegate(selector, event, callback);
+  };
+  $.fn.off = function(event, selector, callback){
+    return selector === undefined || $.isFunction(selector) ?
+      this.unbind(event, selector) : this.undelegate(selector, event, callback);
+  };
+
   $.fn.trigger = function(event, data){
     if (typeof event == 'string') event = $.Event(event);
     fix(event);
@@ -677,15 +688,22 @@ var Zepto = (function() {
   });
 
   $.fx = {
-    off: false,
+    off: (eventPrefix === undefined && testEl.style.transitionProperty === undefined),
     cssPrefix: prefix,
     transitionEnd: normalizeEvent('TransitionEnd'),
     animationEnd: normalizeEvent('AnimationEnd')
   };
 
+  $.fn.animate = function(properties, duration, ease, callback){
+    if ($.isObject(duration))
+      ease = duration.easing, callback = duration.complete, duration = duration.duration;
+    if (duration) duration = duration / 1000;
+    return this.anim(properties, duration, ease, callback);
+  };
+
   $.fn.anim = function(properties, duration, ease, callback){
     var transforms, cssProperties = {}, key, that = this, wrappedCallback, endEvent = $.fx.transitionEnd;
-    if (duration === undefined) duration = 0.5;
+    if (duration === undefined) duration = 0.4;
     if ($.fx.off) duration = 0;
 
     if (typeof properties == 'string') {
@@ -733,7 +751,61 @@ var Zepto = (function() {
 (function($){
   var jsonpID = 0,
       isObject = $.isObject,
-      key;
+      document = window.document,
+      key,
+      name;
+
+  // trigger a custom event and return false if it was cancelled
+  function triggerAndReturn(context, eventName, data) {
+    var event = $.Event(eventName);
+    $(context).trigger(event, data);
+    return !event.defaultPrevented;
+  }
+
+  // trigger an Ajax "global" event
+  function triggerGlobal(settings, context, eventName, data) {
+    if (settings.global) return triggerAndReturn(context || document, eventName, data);
+  }
+
+  // Number of active Ajax requests
+  $.active = 0;
+
+  function ajaxStart(settings) {
+    if (settings.global && $.active++ === 0) triggerGlobal(settings, null, 'ajaxStart');
+  }
+  function ajaxStop(settings) {
+    if (settings.global && !(--$.active)) triggerGlobal(settings, null, 'ajaxStop');
+  }
+
+  // triggers an extra global event "ajaxBeforeSend" that's like "ajaxSend" but cancelable
+  function ajaxBeforeSend(xhr, settings) {
+    var context = settings.context;
+    if (settings.beforeSend.call(context, xhr, settings) === false ||
+        triggerGlobal(settings, context, 'ajaxBeforeSend', [xhr, settings]) === false)
+      return false;
+
+    triggerGlobal(settings, context, 'ajaxSend', [xhr, settings]);
+  }
+  function ajaxSuccess(data, xhr, settings) {
+    var context = settings.context, status = 'success';
+    settings.success.call(context, data, status, xhr);
+    triggerGlobal(settings, context, 'ajaxSuccess', [xhr, settings, data]);
+    ajaxComplete(status, xhr, settings);
+  }
+  // type: "timeout", "error", "abort", "parsererror"
+  function ajaxError(error, type, xhr, settings) {
+    var context = settings.context;
+    settings.error.call(context, xhr, type, error);
+    triggerGlobal(settings, context, 'ajaxError', [xhr, settings, error]);
+    ajaxComplete(type, xhr, settings);
+  }
+  // status: "success", "notmodified", "error", "timeout", "abort", "parsererror"
+  function ajaxComplete(status, xhr, settings) {
+    var context = settings.context;
+    settings.complete.call(context, xhr, status);
+    triggerGlobal(settings, context, 'ajaxComplete', [xhr, settings]);
+    ajaxStop(settings);
+  }
 
   // Empty function, used as default callback
   function empty() {}
@@ -766,10 +838,10 @@ var Zepto = (function() {
   $.ajaxJSONP = function(options){
     var callbackName = 'jsonp' + (++jsonpID),
       script = document.createElement('script'),
-      context = options.context,
       abort = function(){
         $(script).remove();
         if (callbackName in window) window[callbackName] = empty;
+        ajaxComplete(xhr, options, 'abort');
       },
       xhr = { abort: abort }, abortTimeout;
 
@@ -777,7 +849,7 @@ var Zepto = (function() {
       clearTimeout(abortTimeout);
       $(script).remove();
       delete window[callbackName];
-      options.success.call(context, data);
+      ajaxSuccess(data, xhr, options);
     };
 
     script.src = options.url.replace(/=\?/, '=' + callbackName);
@@ -785,7 +857,7 @@ var Zepto = (function() {
 
     if (options.timeout > 0) abortTimeout = setTimeout(function(){
         xhr.abort();
-        options.error.call(context, xhr, 'timeout');
+        ajaxComplete(xhr, options, 'timeout');
       }, options.timeout);
 
     return xhr;
@@ -808,6 +880,8 @@ var Zepto = (function() {
     complete: empty,
     // The context for the callbacks
     context: null,
+    // Whether to trigger "global" Ajax events
+    global: true,
     // Transport
     xhr: function () {
       return new window.XMLHttpRequest();
@@ -820,6 +894,8 @@ var Zepto = (function() {
       html:   'text/html',
       text:   'text/plain'
     },
+    // Whether the request is to another domain
+    crossDomain: false,
     // Default timeout
     timeout: 0
   };
@@ -872,9 +948,13 @@ var Zepto = (function() {
   //     });
   //
   $.ajax = function(options){
-    options = options || {};
-    var settings = $.extend({}, options);
-    for (key in $.ajaxSettings) if (!settings[key]) settings[key] = $.ajaxSettings[key];
+    var settings = $.extend({}, options || {});
+    for (key in $.ajaxSettings) if (settings[key] === undefined) settings[key] = $.ajaxSettings[key];
+
+    ajaxStart(settings);
+
+    if (!settings.crossDomain) settings.crossDomain = /^([\w-]+:)?\/\/([^\/]+)/.test(settings.url) &&
+      RegExp.$2 != window.location.host;
 
     if (/=\?/.test(settings.url)) return $.ajaxJSONP(settings);
 
@@ -893,29 +973,29 @@ var Zepto = (function() {
     }
 
     var mime = settings.accepts[settings.dataType],
-        xhr = $.ajaxSettings.xhr(), abortTimeout,
-        context = settings.context;
+        baseHeaders = { },
+        protocol = /^([\w-]+:)\/\//.test(settings.url) ? RegExp.$1 : window.location.protocol,
+        xhr = $.ajaxSettings.xhr(), abortTimeout;
 
-    settings.headers = $.extend({'X-Requested-With': 'XMLHttpRequest'}, settings.headers || {});
-    if (mime) settings.headers['Accept'] = mime;
+    if (!settings.crossDomain) baseHeaders['X-Requested-With'] = 'XMLHttpRequest';
+    if (mime) baseHeaders['Accept'] = mime;
+    settings.headers = $.extend(baseHeaders, settings.headers || {});
 
     xhr.onreadystatechange = function(){
       if (xhr.readyState == 4) {
         clearTimeout(abortTimeout);
         var result, error = false;
-        if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 0) {
+        if ((xhr.status >= 200 && xhr.status < 300) || (xhr.status == 0 && protocol == 'file:')) {
           if (mime == 'application/json' && !(/^\s*$/.test(xhr.responseText))) {
             try { result = JSON.parse(xhr.responseText); }
             catch (e) { error = e; }
           }
           else result = xhr.responseText;
-          if (error) settings.error.call(context, xhr, 'parsererror', error);
-          else settings.success.call(context, result, 'success', xhr);
+          if (error) ajaxError(error, 'parsererror', xhr, settings);
+          else ajaxSuccess(result, xhr, settings);
         } else {
-          error = true;
-          settings.error.call(context, xhr, 'error');
+          ajaxError(null, 'error', xhr, settings);
         }
-        settings.complete.call(context, xhr, error ? 'error' : 'success');
       }
     };
 
@@ -924,7 +1004,7 @@ var Zepto = (function() {
     if (settings.contentType) settings.headers['Content-Type'] = settings.contentType;
     for (name in settings.headers) xhr.setRequestHeader(name, settings.headers[name]);
 
-    if (settings.beforeSend.call(context, xhr, settings) === false) {
+    if (ajaxBeforeSend(xhr, settings) === false) {
       xhr.abort();
       return false;
     }
@@ -932,7 +1012,7 @@ var Zepto = (function() {
     if (settings.timeout > 0) abortTimeout = setTimeout(function(){
         xhr.onreadystatechange = empty;
         xhr.abort();
-        settings.error.call(context, xhr, 'timeout');
+        ajaxError(null, 'timeout', xhr, settings);
       }, settings.timeout);
 
     xhr.send(settings.data);
@@ -1113,7 +1193,11 @@ var Zepto = (function() {
     var result = [], el;
     $( Array.prototype.slice.call(this.get(0).elements) ).each(function () {
       el = $(this);
-      if ( (el.attr('type') !== 'radio' || el.is(':checked')) && !(el.attr('type') === 'checkbox' && !el.is(':checked'))) {
+      var type = el.attr('type');
+      if (
+        !this.disabled && type != 'submit' && type != 'reset' && type != 'button' &&
+        ((type != 'radio' && type != 'checkbox') || this.checked)
+      ) {
         result.push({
           name: el.attr('name'),
           value: el.val()
