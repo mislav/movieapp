@@ -46,6 +46,7 @@ class WatchesTimeline
   end
   
   def has_more?
+    load_movies
     @has_more
   end
   
@@ -54,13 +55,8 @@ class WatchesTimeline
   end
   
   def each
-    if block_given?
-      load_movies.each(&Proc.new)
-    else
-      Enumerator.new { |y|
-        load_movies.each { |movie| y << movie }
-      }
-    end
+    return to_enum unless block_given?
+    load_movies.each(&Proc.new)
   end
   
   def people_who_watched(movie)
