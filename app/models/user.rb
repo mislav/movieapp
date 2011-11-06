@@ -195,4 +195,16 @@ class User < Mingo
   def delete_login_token(token)
     login_tokens.delete token
   end
+
+  def to_twin_hash
+    created = self.created_at
+    num_id = created.to_i
+    {
+      id: num_id, id_str: num_id.to_s,
+      screen_name: self.username, name: self.name,
+      url: TwinAdapter.watched_url(username: self.username),
+      profile_image_url: self.picture_url,
+      created_at: created
+    }
+  end
 end
