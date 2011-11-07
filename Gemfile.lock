@@ -133,6 +133,8 @@ GEM
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
+    rails-behaviors (0.1.0)
+      sprockets (~> 2.0)
     railties (3.1.0)
       actionpack (= 3.1.0)
       activesupport (= 3.1.0)
@@ -239,6 +241,7 @@ DEPENDENCIES
   never-forget
   nibbler (~> 1.1)
   nokogiri (~> 1.4.1)
+  rails-behaviors
   railties (~> 3.1.0)
   rspec-rails (~> 2.6.1)
   ruby-debug

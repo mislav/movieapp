@@ -1,5 +1,5 @@
 //= require zepto
-//= require ujs
+//= require rails
 //= require_tree .
 //= require facebox
 

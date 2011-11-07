@@ -1,18 +1,18 @@
-$(document).delegate '.actions input[type=submit].watched', 'click', ->
-  $(this).closest('.actions').addClass('asking')
-  false
+$(document).on
+  click: ->
+    $(this).closest('.actions').addClass('asking')
+    false
+  ajaxBeforeSend: -> false
+, '.actions input[type=submit].watched'
 
-$(document).delegate '.actions input[type=submit].watched', 'ajax:before', ->
-  false
-
-$(document).delegate '.actions .question a[href="#cancel"]', 'click', ->
+$(document).on 'click', '.actions .question a[href="#cancel"]', ->
   $(this).blur().closest('.actions').removeClass('asking')
   false
 
-$(document).delegate '.actions .button_to', 'ajax:success', (e, html) ->
+$(document).on 'ajaxSuccess', '.actions .button_to', (e, xhr, settings, html) ->
   replaceActions $(this).closest('.actions'), html
 
-$(document).delegate 'a.revert', 'ajax:success', (e, html) ->
+$(document).on 'ajaxSuccess', 'a.revert', (e, xhr, settings, html) ->
   replaceActions $(this).closest('.actions'), html
 
 # preserve the ".other-info" element while replacing ".actions"
