@@ -72,9 +72,9 @@ class WatchesTimeline
   end
   
   def size
-    load_movies.count
+    cursor = load_movies
+    cursor.selector[:_id]['$in'].size
   end
-  memoize :size
   alias length size
   
   def empty?
