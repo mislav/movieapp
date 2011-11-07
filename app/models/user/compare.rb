@@ -114,8 +114,8 @@ class User::Compare
   memoize :compatibility
 
   def movie_intersection
-    watched1 = user1.watched.send :load_join
-    watched2 = user2.watched.send :load_join
+    watched1 = user1.watched.link_documents
+    watched2 = user2.watched.link_documents
     ids2 = watched2.map {|d| d['movie_id'] }
 
     hash = watched1.each_with_object({}) do |doc, hash|
@@ -132,12 +132,12 @@ class User::Compare
   memoize :movie_intersection
 
   def fav_directors1
-    find_directors user1.watched.liked(:transformer => nil, :fields => 'directors')
+    find_directors user1.watched.liked.each(:transformer => nil, :fields => 'directors')
   end
   memoize :fav_directors1
 
   def fav_directors2
-    find_directors user2.watched.liked(:transformer => nil, :fields => 'directors')
+    find_directors user2.watched.liked.each(:transformer => nil, :fields => 'directors')
   end
   memoize :fav_directors2
 

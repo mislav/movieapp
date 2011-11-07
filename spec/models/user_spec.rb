@@ -74,7 +74,6 @@ describe User do
         it "doesn't add movie twice" do
           subject # trigger creating subject
           lambda { subject.to_watch << @deep_blue }.should_not change(join_collection, :size)
-          subject.to_watch.total_entries.should == 2
         end
       
         it "deletes a movie from watchlist" do
@@ -141,15 +140,14 @@ describe User do
         end
         
         it "watched movies with rating information" do
-          first, second = subject.watched.to_a
+          watched = subject.watched
+          first, second = watched.to_a
           
-          first.should == @breakfast
-          first.liked.should == true
-          first.time_added.should be_within(1).of(1.month.ago)
+          first.should == @deep_blue
+          watched.rating_for(first).should == false
           
-          second.should == @deep_blue
-          second.liked.should == false
-          second.time_added.should be_within(1).of(5.days.ago)
+          second.should == @breakfast
+          watched.rating_for(second).should == true
         end
         
         it "deletes a watched movie" do
@@ -157,12 +155,6 @@ describe User do
           lambda { subject.watched.delete @deep_blue }.should change(join_collection, :size).by(-1)
           subject.watched.should_not include(@deep_blue)
           subject.watched.should include(@breakfast)
-        end
-        
-        it "has liked filter" do
-          movies = subject.watched.liked.to_a
-          movies == [@breakfast]
-          movies.first.should be_liked
         end
       end
     end
@@ -250,7 +242,7 @@ describe User do
       twitter_user.to_watch << Movie.create
       twitter_user.to_watch << Movie.create
       
-      total_watched = facebook_user.watched.to_a + twitter_user.watched.to_a
+      total_watched = twitter_user.watched.to_a + facebook_user.watched.to_a
       total_to_watch = twitter_user.to_watch.to_a + facebook_user.to_watch.to_a
       
       user = User.login_from_twitter_or_facebook(@twitter_data, @facebook_data)

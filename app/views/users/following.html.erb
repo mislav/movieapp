@@ -4,7 +4,6 @@
   <% if not blank_slate? %>
     <header>    
       <h1>People you're following watched <%= count @movies %>.</h1>
-      <p><%= raw current_user.friends.map { |friend| link_to friend.name, watched_path(friend) }.join ', ' %></p>
     </header>
     
     <%= render 'movies/paginated', :movies => @movies %>

@@ -8,21 +8,17 @@ class UsersController < ApplicationController
   end
   
   def show
-    if stale? etag: session_cache_key(@user.watched)
-      @movies = @user.watched.reverse.page(params[:page])
-      ajax_pagination
-    end
+    @movies = @user.watched(max_id: params[:max_id]).page(params[:page])
+    ajax_pagination if stale? etag: session_cache_key(@movies)
   end
   
   def liked
-    if stale? etag: session_cache_key(@user.watched)
-      @movies = @user.watched.liked.reverse.page(params[:page])
-      ajax_pagination
-    end
+    @movies = @user.watched(max_id: params[:max_id]).liked.page(params[:page])
+    ajax_pagination if stale? etag: session_cache_key(@movies)
   end
   
   def to_watch
-    @movies = @user.to_watch max_id: params[:max_id]
+    @movies = @user.to_watch(max_id: params[:max_id]).page(params[:page])
     ajax_pagination if stale? etag: session_cache_key(@movies)
   end
   

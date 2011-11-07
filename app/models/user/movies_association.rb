@@ -9,7 +9,13 @@ class User::MoviesAssociation
     @options = options
     @property = property
     @counter_cache_field = "#{@property}_count"
-    @per_page = WillPaginate.per_page
+    @per_page = nil
+  end
+  
+  def where(options)
+    @options.update options
+    @counter_cache_field = nil
+    self
   end
   
   def limit(size)
@@ -19,6 +25,7 @@ class User::MoviesAssociation
   
   def page(pagenum)
     @current_page = WillPaginate::PageNumber(pagenum.nil? ? 1 : pagenum)
+    @per_page = WillPaginate.per_page if @per_page.nil?
     self
   end
   
@@ -28,15 +35,15 @@ class User::MoviesAssociation
   
   include Enumerable
   
-  def each
-    return to_enum unless block_given?
-    each_with_link { |movie, link| yield movie }
+  def each(options = {})
+    return to_enum(__method__, options) unless block_given?
+    each_with_link(options) { |movie, link| yield movie }
   end
   
-  def each_with_link
-    return to_enum(__method__) unless block_given?
+  def each_with_link(options = {})
+    return to_enum(__method__, options) unless block_given?
     movie_ids = link_documents.map { |doc| doc['movie_id'] }
-    Movie.find(movie_ids).each_with_index do |movie, idx|
+    Movie.find(movie_ids, options).each_with_index do |movie, idx|
       yield movie, link_documents[idx]
     end
   end
@@ -51,7 +58,7 @@ class User::MoviesAssociation
   end
   
   def include?(movie)
-    find_links_to_movie(movie).has_next?
+    !!link_to_movie(movie)
   end
   
   def <<(movie)
@@ -60,7 +67,7 @@ class User::MoviesAssociation
   end
   
   def delete(movie)
-    if link_doc = find_links_to_movie(movie).next
+    if link_doc = link_to_movie(movie)
       collection.remove _id: link_doc['_id']
       change_counter_cache(-1)
       unload_links
@@ -76,13 +83,16 @@ class User::MoviesAssociation
     total_entries.zero? or size.zero?
   end
   
+  def count
+    find_links(@options.except(:since_id, :max_id)).count
+  end
+  
   def total_entries
-    counter_cache? ? counter_cache : cursor_count
+    counter_cache
   end
   
   def reload
     unload_links
-    @cursor_count  = nil
     @counter_cache = nil
     self
   end
@@ -95,9 +105,10 @@ class User::MoviesAssociation
   
   def insert(link_doc)
     unless include? link_doc[:movie_id]
-      collection.save link_doc
+      id = collection.save link_doc
       change_counter_cache(1)
       unload_links
+      id
     end
   end
   
@@ -105,56 +116,63 @@ class User::MoviesAssociation
     selector = { user_id: @user.id }
     if options
       if options[:max_id] or options[:since_id]
-        options = options.dup
         cond = (selector[:_id] = {})
-        min = options.delete(:since_id) and cond['$gt'] = BSON::ObjectId[min]
-        max = options.delete(:max_id)   and cond['$lt'] = BSON::ObjectId[max]
+        min = options[:since_id] and cond['$gt'] = BSON::ObjectId[min]
+        max = options[:max_id]   and cond['$lt'] = BSON::ObjectId[max]
       end
-      selector.update options
+      selector.update options.except(:since_id, :max_id)
     end
     collection.find(selector, sort: [:_id, -1])
   end
   
-  def find_links_to_movie(movie)
-    find_links(movie_id: movie.id)
+  def link_documents_for_movie(movie)
+    link_documents.select { |doc| doc['movie_id'] == movie.id }
+  end
+
+  def link_to_movie(movie)
+    link_documents_for_movie(movie).first
   end
   
   def link_documents
     @link_documents ||= begin
-      cursor = find_links.limit(per_page + 1)
+      cursor = find_links
+      cursor.limit(per_page + 1) if per_page
       cursor.skip current_page.to_offset(per_page) if current_page
       links = cursor.to_a
-      links.pop if @has_more = links.size > per_page
+      links.pop if @has_more = per_page ? links.size > per_page : false
       links
     end
   end
+  public :link_documents
   
   def unload_links
     @link_documents = nil
     @has_more = false
   end
   
-  def cursor_count
-    @counter_cache ||= find_links(nil).count
-  end
-  
   def counter_cache
-    @counter_cache ||= @user[@counter_cache_field].to_i
-  end
-  
-  def counter_cache?
-    !!@user[@counter_cache_field]
+    @counter_cache ||= if @counter_cache_field
+      @user[@counter_cache_field].to_i
+    else
+      count
+    end
   end
   
   def change_counter_cache(by)
     @counter_cache = counter_cache + by
-    @user.update '$inc' => { @counter_cache_field => by }
+    @user.update '$inc' => { @counter_cache_field => by } if @counter_cache_field
   end
   
   def reset_counter_cache
-    delta = cursor_count - counter_cache
+    return if @counter_cache_field.nil?
+    delta = count - counter_cache
     change_counter_cache delta
     counter_cache
   end
   public :reset_counter_cache
+  
+  def initialize_copy(original)
+    @options = @options.dup
+    reload
+  end
 end

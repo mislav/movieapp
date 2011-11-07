@@ -1,12 +1,12 @@
 <aside class="actions">
-  <% if @user and not my_page? and movie.respond_to? :liked? %>
-    <p class="other-info js-preserve"><%= watched_liked movie, @user %></p>
+  <% if @user and not my_page? and @movies.respond_to? :rating_for %>
+    <p class="other-info js-preserve"><%= watched_liked movie, @movies.rating_for(movie), @user %></p>
   <% end %>
   <% if @movies.respond_to? :people_who_watched %>
     <div class="other-info js-preserve">
       <% for user in @movies.people_who_watched(movie) %>
         <% next if logged_in? and user == current_user %>
-        <p><%= watched_liked(movie, user, :link_user) { @movies.rating_for(movie, user) } %></p>
+        <p><%= watched_liked(movie, @movies.rating_for(movie, user), user, :link_user) %></p>
       <% end %>
     </div>
   <% end %>
@@ -14,7 +14,7 @@
   <% if logged_in? %>
   <% if current_user.watched.include? movie %>
     <% unless compare_page? %>
-    <p class="watched"><%= watched_liked movie %></p>
+    <p class="watched"><%= watched_liked movie, current_user.watched.rating_for(movie) %></p>
     <%= link_to '×', [:remove_from_watched, movie], :remote => true, :method => :delete, :class => 'revert', :title => "I didn't watch it", :confirm => 'Are you sure?' %>
     <% end %>
 

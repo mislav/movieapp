@@ -28,24 +28,17 @@ module UsersHelper
     controller.action_name == 'to_watch' and my_page?
   end
   
-  def watched_liked(movie, user = nil, link = false)
+  def watched_liked(movie, rating, user = nil, link = false)
     who = link ? link_to_user(user) : user ? user.name : 'You'
-    liked = if block_given? then yield
-      elsif user then movie.liked?
-      else
-        current_user.watched.rating_for(movie)
-      end
     
-    "#{who} ".tap do |out|
-      unless liked.nil?
-        if liked
-          out << %(<em class="liked">#{nobr 'liked it'}</em>)
-        else
-          out << %(<em class="disliked">#{nobr "didn't like it"}</em>)
-        end
-      else out << nobr("watched it")
-      end
-    end.html_safe
+    text = "#{who} "
+    text << case rating
+    when true  then %(<em class="liked">#{nobr 'liked it'}</em>)
+    when false then %(<em class="disliked">#{nobr "didn't like it"}</em>)
+    when nil   then nobr("watched it")
+    else raise ArgumentError, "invalid rating: #{rating.inspect}"
+    end
+    text.html_safe
   end
   
   def list_of_people(users, options = {})
@@ -57,12 +50,12 @@ module UsersHelper
   end
   
   def positive(user)
-    positive = user.watched.liked.count * 100 / user.watched.count
+    positive = user.watched.liked.total_entries * 100 / user.watched.total_entries
     %(<em class="liked">#{positive}%</em> positive).html_safe
   end
   
   def hater(user)
-    hater = user.watched.disliked.count * 100 / user.watched.count
+    hater = user.watched.disliked.total_entries * 100 / user.watched.total_entries
     %(<em class="disliked">#{hater}%</em> hater).html_safe
   end
   
