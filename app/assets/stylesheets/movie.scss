@@ -88,16 +88,11 @@ ol.movies { clear:left; padding-left:0;
       &:hover { color:firebrick; }
     }
     
-    &.fadeout { @include transition(opacity 0.15s ease-in); opacity: 0; }
-    &.hidden { opacity: 0; }
-    &.fadein { @include transition(opacity 0.25s ease-out); opacity: 1; }
-    
     .no-js & {
       .add-watched { display: none; }
       .question a[href="#cancel"] { display: none; }
     }
     .js & {
-      > div { @include transition(opacity 0.2s ease-out) }
       .question {
         display: none;
         opacity: 0;
@@ -107,20 +102,6 @@ ol.movies { clear:left; padding-left:0;
       &.asking {
         .primary { display: none; opacity: 0; }
         .question { display: block; opacity: 1; }
-      }
-      &.asking-transition {
-        .primary { position: absolute; opacity: 0; }
-        .question {
-          display: block;
-          opacity: 1;
-        }
-      }
-      &.asking-transition-back {
-        .primary { position: absolute; opacity: 1; z-index: -1; }
-        .question {
-          display: block;
-          opacity: 0;
-        }
       }
     }
   }
