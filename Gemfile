@@ -1,11 +1,11 @@
 source :rubygems
 
-gem 'railties', '~> 3.1.0'
+gem 'railties', '~> 3.2'
 gem 'tzinfo'
 
 group :assets do
-  gem 'sass-rails', '~> 3.1.0'
-  gem 'coffee-rails', '~> 3.1.0'
+  gem 'sass-rails', '~> 3.2'
+  gem 'coffee-rails', '~> 3.2'
   gem 'uglifier'
   gem 'compass', '~> 0.12.alpha'
 end
