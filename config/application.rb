@@ -54,7 +54,7 @@ module Movies
 
     unless Rails.env.development?
       # this seems to be the only place to hook into the phase when routes are loaded
-      initializer "User reserved names", :after => :set_routes_reloader do 
+      initializer "User reserved names", :after => :set_routes_reloader_hook do
         User.apply_reserved_names_from_routes
       end
     end

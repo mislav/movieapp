@@ -64,7 +64,7 @@ class User < Mingo
   def self.reserved_names_from_routes
     Rails.application.routes.routes.map { |route|
       unless route.defaults[:controller] == "rails/info"
-        route.path.match(/^\/(\w+)/) && $1
+        route.path.spec.to_s.match(/^\/(\w+)/) && $1
       end
     }.compact.uniq
   end
