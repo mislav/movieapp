@@ -22,10 +22,13 @@ class UsersController < ApplicationController
     ajax_pagination if stale? etag: session_cache_key(@movies)
   end
   
-  def following
+  def timeline
     # TODO: HTTP caching
     @movies = current_user.movies_from_friends(max_id: params[:max_id])
     ajax_pagination
+  end
+
+  def following
   end
 
   def follow

@@ -13,7 +13,7 @@
       </h1>
 
       <nav><% if my_page? %>
-        <%= link_to "following", following_path %>
+        <%= link_to "social timeline", timeline_path %>
       <% elsif logged_in? %>
           <%= link_to_compare(current_user, @user) %><%= separator %>
         <% if not current_user.following? @user %>

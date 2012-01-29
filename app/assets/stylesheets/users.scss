@@ -1,3 +1,5 @@
+$avatar-size: 25px;
+
 .user-show > article {
   header {
     @include clearfix;
@@ -40,8 +42,26 @@ a.compare {
     color: #666;
   }
 }
+.avatar {
+  display: inline-block;
+  width: $avatar-size; height: $avatar-size;
+  background-size: $avatar-size auto;
+  @include border-radius(3px);
+  vertical-align: bottom;
+}
 
 .users-list ol { margin-left: -1.5em; }
+
+.friends {
+  table { border-collapse:collapse; }
+  thead { background:#F8F8F8; color:silver; }
+  tbody tr:first-child td { padding-top:10px; }
+  th { text-align:left; font: inherit; text-transform:lowercase; height:25px; }
+  td { vertical-align:text-bottom; padding-top:5px; padding-right:15px;
+    &:last-child { padding-right:0; padding-left:15px; }
+    .compare span { display:none; }
+  }
+}
 
 @media only screen and (max-device-width:480px) {
   .user-show > article header {

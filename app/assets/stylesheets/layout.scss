@@ -95,20 +95,21 @@ body > article {
   ul { margin:18px 0 0; }
 }
 
-.intro {
+.blue-box {
   border: 1px solid $lightblue-border;
   background-color: $top-color-stop;
   @include background-image(linear-gradient($top-color-stop, $bottom-color-stop));
   @include border-radius(3px);
+  
+  padding:12px; margin:24px 0 0;
+}
 
-  padding:12px 12px 12px $body-padding;
-  margin:2em 0 0 (0 - $body-padding);
-  width:472px;
-  
+.intro {
+  @extend .blue-box;
+  padding-left:$body-padding; margin-left: -$body-padding; width:472px;
+
   h1 { font-size:18px; margin-bottom:1em; }
-  
   p + p { margin-top:12px; }
-  
   + p { margin-top:.7em; }
   
   body > article > &:first-child {

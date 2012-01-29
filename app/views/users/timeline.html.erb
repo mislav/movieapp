@@ -1,0 +1,19 @@
+<% @title = "Movies from people you're following" %>
+
+<article>
+
+  <% if not blank_slate? %>
+    <header>
+      <h1>People you're following watched <%= count @movies %>.</h1>
+      <p>See the list of <%= link_to "people you're following", following_path  %>.</p>
+    </header>
+
+    <%= render 'movies/paginated', :movies => @movies %>
+  <% else %>
+    <h1>No movies found.</h1>
+    <p class="intro">
+      When someone of your Twitter or Facebook connections uses this site, movies they watched will be listed here.
+    </p>
+  <% end %>
+
+</article>

@@ -39,6 +39,8 @@ Movies::Application.routes.draw do
   match 'following/:id' => 'users#follow', :as => :follow, :via => :post
   match 'following/:id' => 'users#unfollow', :as => :unfollow, :via => :delete
 
+  match 'timeline' => 'users#timeline', :as => :timeline, :via => :get
+
   with_options :username => /[^\/]+/ do |user|
     user.match ':username' => 'users#show', :as => :watched, :via => :get
     user.match ':username/liked' => 'users#liked', :as => :liked, :via => :get

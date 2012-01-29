@@ -1,14 +1,6 @@
-$avatar-size: 25px;
 $compare-box-width: 780px / 3;
 
 .compare > article { padding-top:30px;
-  .avatar {
-    display: inline-block;
-    width: $avatar-size; height: $avatar-size;
-    background-size: $avatar-size auto;
-    @include border-radius(3px);
-    vertical-align: bottom;
-  }
   .num {
     font: 900 3em "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: lighten($body-color, 10);

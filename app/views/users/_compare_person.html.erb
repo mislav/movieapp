@@ -1,7 +1,7 @@
 <section class="person">
   <h1>
     <% if compare.user.picture? %>
-    <span class="avatar" style="background-image:url(<%= compare.user.picture_url %>)"></span>
+      <span class="avatar" style="background-image:url(<%= compare.user.picture_url %>)"></span>
     <% end %>
     <%= link_to user_name(compare.user), watched_path(compare.user) %>
   </h1>

@@ -1,0 +1,22 @@
+<tr>
+  <td>
+    <% if friend.picture? %>
+      <span class="avatar" style="background-image:url(<%= friend.picture_url %>)"></span>
+    <% end %>
+  </td>
+
+  <td><%= link_to friend.name, watched_path(friend) %></td>
+
+  <td>
+    <%#= twitter_icon if friend.from_twitter? and current_user.from_twitter? %>
+    <%#= facebook_icon if friend.from_facebook? and current_user.from_facebook? %>
+    <%= link_to_user(friend) %>
+  </td> 
+
+  <td><%= link_to_compare(current_user, friend) %></td>
+
+  <td>
+    <%= link_to 'unfollow', unfollow_path(friend.id), :method => :delete,
+      :confirm => "Are you sure you want to unfollow #{friend.username}?" %>
+  </td>
+</tr>
