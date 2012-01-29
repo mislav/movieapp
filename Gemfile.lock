@@ -129,7 +129,7 @@ GEM
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
-    rails-behaviors (0.1.0)
+    rails-behaviors (0.1.2)
       sprockets (~> 2.0)
     railties (3.2.0)
       actionpack (= 3.2.0)
