@@ -8,10 +8,13 @@
   <td><%= link_to friend.name, watched_path(friend) %></td>
 
   <td>
-    <%#= twitter_icon if friend.from_twitter? and current_user.from_twitter? %>
-    <%#= facebook_icon if friend.from_facebook? and current_user.from_facebook? %>
     <%= link_to_user(friend) %>
   </td> 
+
+  <td>
+    <%= twitter_icon if current_user.following_on_twitter?(friend) %>
+    <%= facebook_icon if current_user.following_on_facebook?(friend) %>
+  </td>
 
   <td><%= link_to_compare(current_user, friend) %></td>
 

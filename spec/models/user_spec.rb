@@ -319,5 +319,26 @@ describe User do
       @user.friends.to_a.should_not include(user2)
       @user.should_not be_following(user2)
     end
+
+    it "checks if following on twitter" do
+      friend_id = @friends.first
+      user2 = User.first(friend_id)
+      @user.should be_following_on_twitter(user2)
+      @user.should_not be_following_on_facebook(user2)
+    end
+
+    it "checks if following on facebook" do
+      friend_id = @friends[1]
+      user2 = User.first(friend_id)
+      @user.should be_following_on_facebook(user2)
+      @user.should_not be_following_on_twitter(user2)
+    end
+    
+    it "checks if following directly" do
+      user2 = create
+      @user.add_friend(user2)
+      @user.should_not be_following_on_facebook(user2)
+      @user.should_not be_following_on_twitter(user2)
+    end
   end
 end

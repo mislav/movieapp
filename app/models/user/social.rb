@@ -21,6 +21,14 @@ module User::Social
     !!self['facebook']
   end
 
+  def following_on_twitter?(user)
+    self.twitter_friends.include? user['twitter']['id'] if user.from_twitter?
+  end
+
+  def following_on_facebook?(user)
+    self.facebook_friends.include? user['facebook']['id'] if user.from_facebook?
+  end
+
   def facebook_info=(info)
     self['facebook'] = info.to_hash.tap do |data|
       self.username ||= data['link'].scan(/[\w.]+/).last
@@ -119,7 +127,6 @@ module User::Social
         end
     end
   end
-
   private
 
   def get_redirect_target(url)
