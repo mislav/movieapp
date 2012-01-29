@@ -1,5 +1,6 @@
 require 'netflix'
 require 'tmdb'
+require 'rotten_tomatoes'
 require 'wikipedia'
 require 'html/sanitizer'
 require 'movie_title'
@@ -130,12 +131,58 @@ class Movie < Mingo
       self.netflix_plot = HTML::FullSanitizer.new.sanitize(netflix.synopsis)
     end
   end
-  
+
+  def rotten_movie=(rotten)
+    if rotten
+      values = {
+        'id'     => rotten.id,
+        'genres' => rotten.genres,
+        'url'    => rotten.url,
+        'critics_score'   => rotten.critics_score,
+        'poster_profile'  => rotten.poster_profile,
+        'poster_detailed' => rotten.poster_detailed
+      }
+    else
+      values = {}
+    end
+    values['updated_at'] = Time.now
+    self['rotten_tomatoes'] = values
+  end
+
+  def rotten_info_stale?
+    self['rotten_tomatoes'].nil? or
+      self['rotten_tomatoes']['updated_at'] < 1.day.ago
+  end
+
+  def rotten_id
+    self['rotten_tomatoes'] && self['rotten_tomatoes']['id']
+  end
+
+  def rotten_url
+    self['rotten_tomatoes'] && self['rotten_tomatoes']['url']
+  end
+
+  def critics_score
+    self['rotten_tomatoes'] && self['rotten_tomatoes']['critics_score']
+  end
+
+  def update_rotten_movie
+    self.rotten_movie = if id = rotten_id
+      RottenTomatoes.movie_details(id)
+    elsif imdb_id
+      RottenTomatoes.find_by_imdb_id(imdb_id)
+    end
+  end
+
   EXTENDED = [:runtime, :countries, :directors]
   
   def ensure_extended_info
     if extended_info_missing? and self.tmdb_id
       self.tmdb_movie = Tmdb.movie_details(self.tmdb_id)
+      self.save
+    end
+    if rotten_info_stale?
+      update_rotten_movie
       self.save
     end
   rescue Net::HTTPExceptions, Faraday::Error::ClientError, Timeout::Error

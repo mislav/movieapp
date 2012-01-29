@@ -50,8 +50,16 @@ describe Movie do
   end
   
   describe "extended info" do
+    let(:rotten_values) do
+      {'updated_at' => 5.minutes.ago.utc}
+    end
+
     it "movie with complete info" do
-      movie = Movie.create :runtime => 95, :countries => [], :directors => [], :homepage => "", :tmdb_id => 1234
+      movie = Movie.create :runtime => 95, :tmdb_id => 1234,
+          :countries => [], :directors => [], :homepage => "" do |m|
+        m['rotten_tomatoes'] = rotten_values
+      end
+
       attributes = movie.to_hash
       movie.ensure_extended_info
       attributes.should == movie
@@ -64,8 +72,11 @@ describe Movie do
           :status => 200,
           :headers => {'content-type' => 'application/json'}
         )
-      
-      movie = Movie.create :tmdb_id => 1234
+
+      movie = Movie.create :tmdb_id => 1234 do |m|
+        m['rotten_tomatoes'] = rotten_values
+      end
+
       attributes = movie.to_hash
       movie.ensure_extended_info
       movie.should_not be_changed
@@ -75,7 +86,10 @@ describe Movie do
     end
     
     it "movie with missing info but without a TMDB ID can't get details" do
-      movie = Movie.create :directors => []
+      movie = Movie.create :directors => [] do |m|
+        m['rotten_tomatoes'] = rotten_values
+      end
+
       attributes = movie.to_hash
       movie.ensure_extended_info
       movie.should_not be_changed
@@ -88,6 +102,8 @@ describe Movie do
       netflix = OpenStruct.new title: "Mr Nobody", year: 2009
 
       movie = build tmdb_movie: tmdb
+      movie['rotten_tomatoes'] = rotten_values
+
       movie.title.should == "Mr. Nobody"
       movie.year.should == 2010
 
@@ -97,6 +113,31 @@ describe Movie do
 
       movie.tmdb_movie = tmdb
       movie.year.should == 2009
+    end
+
+    it "refreshes Rotten info" do
+      rotten_movie = OpenStruct.new \
+        id: 369,
+        genres: %w[Comedy Parody],
+        url: 'http://www.rottentomatoes.com/m/a_movie/',
+        critics_score: 98
+
+      movie = build imdb_id: 'tt0123'
+      movie.rotten_id.should be_nil
+      movie.critics_score.should be_nil
+
+      RottenTomatoes.should_receive(:find_by_imdb_id).once.with('tt0123').
+        and_return(rotten_movie)
+
+      movie.ensure_extended_info
+
+      movie.rotten_id.should eq(369)
+      movie.critics_score.should eq(98)
+      movie.rotten_url.should eq('http://www.rottentomatoes.com/m/a_movie/')
+      movie['rotten_tomatoes']['updated_at'].should be_within(1).of(Time.now)
+
+      # do it again, checking nothing bad happens
+      movie.ensure_extended_info
     end
   end
 

@@ -20,7 +20,9 @@ defaults: &defaults
     secret: <%= ENV['FACEBOOK_SECRET'] %>
   tmdb:
     api_key: <%= ENV['TMDB_KEY'] %>
-  
+  rotten_tomatoes:
+    api_key: <%= ENV['ROTTEN_TOMATOES_KEY'] %>
+
 development:
   <<: *defaults
   api_caching: true
@@ -32,6 +34,8 @@ test: &testing
     database: movieapp_test
   tmdb:
     api_key: TEST
+  rotten_tomatoes:
+    api_key: TOMATO
 
 cucumber:
   <<: *testing

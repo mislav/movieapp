@@ -4,6 +4,7 @@ Feature: Movie search
     Given TMDB returns nothing for the terms "Lepa Brena"
     And TMDB returns "black_cat.json" for the terms "Black Cat"
     And TMDB returns "terminator.json" for the terms "The Terminator"
+    And Rotten Tomatoes returns empty search results
     And I am on the home page
 
   Scenario: No results
@@ -13,6 +14,7 @@ Feature: Movie search
 
   Scenario: One result
     Given TMDB returns "black_cat-full.json" for movie details
+    And Rotten Tomatoes finds nothing by IMDB id
     When I search for "Black Cat"
     Then I should not see "Search results for Black Cat" in the title
     But I should see "Crna mačka, beli mačor" in the title

@@ -1,13 +1,3 @@
-module MovieFinder
-  def find_movie(title, options = {})
-    Movie.first({:title => title}.update(options)).tap do |movie|
-      raise "movie not found" unless movie
-    end
-  end
-end
-
-World(MovieFinder)
-
 When /^I search for "([^"]*)"$/ do |query|
   When %(I fill in "#{query}" for "q")
   When %(I press "search")
@@ -30,8 +20,10 @@ Given /^there are three movies by Lone Scherfig$/ do
   movie.save
   movie2 = Movie.create movie.to_hash.except('_id').update('title' => 'Another Lone Scherfig movie', 'year' => 2008)
   movie3 = Movie.create movie.to_hash.except('_id').update('title' => 'His third movie', 'year' => 2010)
-  
-  Movie.find(:directors => 'Lone Scherfig').count.should == 3
+
+  cond = {:directors => 'Lone Scherfig'}
+  Movie.collection.update(cond, '$set' => {rotten_tomatoes: {updated_at: 5.minutes.ago.utc}})
+  Movie.find(cond).count.should == 3
 end
 
 Then /^I should see movies: (.+)$/ do |movies|

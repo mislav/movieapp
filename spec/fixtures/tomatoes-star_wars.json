@@ -1,0 +1,351 @@
+{
+  "total": 35,
+  "movies": [
+    {
+      "id": "9",
+      "title": "Star Wars: Episode III - Revenge of the Sith",
+      "year": 2005,
+      "mpaa_rating": "PG-13",
+      "runtime": 140,
+      "critics_consensus": "This sixth and final installment of George Lucas' epic space opera will please die-hard fanatics and non-believers alike -- largely due to awesome digital effects and the sheer power of the mythology.",
+      "release_dates": {
+        "theater": "2005-05-15",
+        "dvd": "2005-11-01"
+      },
+      "ratings": {
+        "critics_rating": "Certified Fresh",
+        "critics_score": 80,
+        "audience_rating": "Upright",
+        "audience_score": 64
+      },
+      "synopsis": "",
+      "posters": {
+        "thumbnail": "http://content8.flixster.com/movie/10/94/47/10944718_mob.jpg",
+        "profile": "http://content8.flixster.com/movie/10/94/47/10944718_pro.jpg",
+        "detailed": "http://content8.flixster.com/movie/10/94/47/10944718_det.jpg",
+        "original": "http://content8.flixster.com/movie/10/94/47/10944718_ori.jpg"
+      },
+      "abridged_cast": [
+        {
+          "name": "Hayden Christensen",
+          "characters": [
+            "Anakin Skywalker/Darth Vader"
+          ]
+        },
+        {
+          "name": "Ewan McGregor",
+          "characters": [
+            "Obi-Wan Kenobi"
+          ]
+        },
+        {
+          "name": "Kenny Baker",
+          "characters": [
+            "R2-D2"
+          ]
+        },
+        {
+          "name": "Graeme Blundell",
+          "characters": [
+            "Ruwee Naberrie"
+          ]
+        },
+        {
+          "name": "Jeremy Bulloch",
+          "characters": [
+            "Captain Colton"
+          ]
+        }
+      ],
+      "alternate_ids": {
+        "imdb": "0121766"
+      },
+      "links": {
+        "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/9.json",
+        "alternate": "http://www.rottentomatoes.com/m/star_wars_3/",
+        "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/9/cast.json",
+        "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/9/clips.json",
+        "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/9/reviews.json",
+        "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/9/similar.json"
+      }
+    },
+    {
+      "id": "10008",
+      "title": "Star Wars: Episode I - The Phantom Menace (in 3D)",
+      "year": 2012,
+      "mpaa_rating": "PG",
+      "runtime": 131,
+      "critics_consensus": "Lucas needs to improve on the plot and character development, but there's plenty of eye candy to behold.",
+      "release_dates": {
+        "theater": "2012-02-10",
+        "dvd": "2001-10-16"
+      },
+      "ratings": {
+        "critics_rating": "Fresh",
+        "critics_score": 61,
+        "audience_rating": "Upright",
+        "audience_score": 44
+      },
+      "synopsis": "In 1977, George Lucas released Star Wars, the ultimate sci-fi popcorn flick-turned-pop-culture myth machine. It quickly became the biggest money-making film of all time and changed the shape of the film industry. After two successful sequels (1980's The Empire Strikes Back and 1983's Return of the Jedi) that extended the story of the first film, Lucas took some time off to produce movies for others, with mixed success. In 1999, Lucas returned to the Star Wars saga with a new approach -- instead of picking up where Return of the Jedi left off, Star Wars: Episode I -- The Phantom Menace would be the first of a trilogy of stories to trace what happened in the intergalactic saga before the first film began. Here, Obi-Wan Kenobi (Ewan McGregor) is a young apprentice Jedi knight under the tutelage of Qui-Gon Jinn (Liam Neeson); Anakin Skywalker (Jake Lloyd), who will later father Luke Skywalker and become known as Darth Vader, is just a nine-year-old boy. When the Trade Federation cuts off all routes to the planet Naboo, Qui-Gon and Obi-Wan are assigned to settle the matter, but when they arrive on Naboo they are brought to Amidala (Natalie Portman), the Naboo queen, by a friendly but opportunistic Gungan named Jar Jar. Qui-Gon and Obi-Wan plan to escort Amidala to a meeting of Republic leaders in Coruscant, but trouble with their spacecraft strands them on the planet Tatooine, where Qui-Gon meets Anakin, the slave of a scrap dealer. Qui-Gon is soon convinced that the boy could be the leader the Jedis have been searching for, and he begins bargaining for his freedom and teaching the boy the lessons of the Force. The supporting cast includes Pernilla August as Anakin's mother, Terence Stamp as Chancellor Valorum, and Samuel L. Jackson as Jedi master Mace Windu. Jackson told a reporter before The Phantom Menace's release that the best part about doing the film was that he got to say \"May the Force be with you\" onscreen. ~ Mark Deming, Rovi",
+      "posters": {
+        "thumbnail": "http://content8.flixster.com/movie/11/16/30/11163090_mob.jpg",
+        "profile": "http://content8.flixster.com/movie/11/16/30/11163090_pro.jpg",
+        "detailed": "http://content8.flixster.com/movie/11/16/30/11163090_det.jpg",
+        "original": "http://content8.flixster.com/movie/11/16/30/11163090_ori.jpg"
+      },
+      "abridged_cast": [
+        {
+          "name": "Ewan McGregor",
+          "characters": [
+            "Obi-Wan Kenobi"
+          ]
+        },
+        {
+          "name": "Liam Neeson",
+          "characters": [
+            "Qui-Gon Jinn"
+          ]
+        },
+        {
+          "name": "Natalie Portman",
+          "characters": [
+            "Queen Amidala / PadmA? Naberrie",
+            "Queen Amidala / Padme Naberrie",
+            "Queen Amidala / Padm? Naberrie"
+          ]
+        },
+        {
+          "name": "Jake Lloyd",
+          "characters": [
+            "Anakin Skywalker"
+          ]
+        },
+        {
+          "name": "Pernilla August",
+          "characters": [
+            "Shmi Skywalker"
+          ]
+        }
+      ],
+      "links": {
+        "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/10008.json",
+        "alternate": "http://www.rottentomatoes.com/m/star_wars_episode_i_the_phantom_menace/",
+        "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/10008/cast.json",
+        "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/10008/clips.json",
+        "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/10008/reviews.json",
+        "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/10008/similar.json"
+      }
+    },
+    {
+      "id": "11292",
+      "title": "Star Wars: Episode IV - A New Hope",
+      "year": 1977,
+      "mpaa_rating": "PG",
+      "runtime": 105,
+      "critics_consensus": "A legendarily expansive and ambitious start to the sci-fi saga, George Lucas opened our eyes to the possiblites of blockbuster filmmaking and things have never been the same.",
+      "release_dates": {
+        "theater": "1977-05-25",
+        "dvd": "2004-09-21"
+      },
+      "ratings": {
+        "critics_rating": "Certified Fresh",
+        "critics_score": 94,
+        "audience_rating": "Upright",
+        "audience_score": 93
+      },
+      "synopsis": "",
+      "posters": {
+        "thumbnail": "http://content9.flixster.com/movie/10/94/47/10944715_mob.jpg",
+        "profile": "http://content9.flixster.com/movie/10/94/47/10944715_pro.jpg",
+        "detailed": "http://content9.flixster.com/movie/10/94/47/10944715_det.jpg",
+        "original": "http://content9.flixster.com/movie/10/94/47/10944715_ori.jpg"
+      },
+      "abridged_cast": [
+        {
+          "name": "Mark Hamill",
+          "characters": [
+            "Luke Skywalker"
+          ]
+        },
+        {
+          "name": "Harrison Ford",
+          "characters": [
+            "Han Solo"
+          ]
+        },
+        {
+          "name": "Carrie Fisher",
+          "characters": [
+            "Princess Leia Organa"
+          ]
+        },
+        {
+          "name": "Peter Cushing",
+          "characters": [
+            "Grand Moff Tarkin"
+          ]
+        },
+        {
+          "name": "Alec Guinness",
+          "characters": [
+            "Ben Obi-Wan Kenobi"
+          ]
+        }
+      ],
+      "alternate_ids": {
+        "imdb": "0076759"
+      },
+      "links": {
+        "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/11292.json",
+        "alternate": "http://www.rottentomatoes.com/m/star_wars/",
+        "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/11292/cast.json",
+        "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/11292/clips.json",
+        "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/11292/reviews.json",
+        "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/11292/similar.json"
+      }
+    },
+    {
+      "id": "10009",
+      "title": "Star Wars: Episode II - Attack of the Clones",
+      "year": 2002,
+      "mpaa_rating": "PG",
+      "runtime": 143,
+      "critics_consensus": "Containing more of what made the Star Wars series fun, Attack of the Clones is an improvement over The Phantom Menace.",
+      "release_dates": {
+        "theater": "2002-05-16",
+        "dvd": "2002-11-12"
+      },
+      "ratings": {
+        "critics_rating": "Fresh",
+        "critics_score": 67,
+        "audience_rating": "Upright",
+        "audience_score": 69
+      },
+      "synopsis": "",
+      "posters": {
+        "thumbnail": "http://content7.flixster.com/movie/10/94/47/10944721_mob.jpg",
+        "profile": "http://content7.flixster.com/movie/10/94/47/10944721_pro.jpg",
+        "detailed": "http://content7.flixster.com/movie/10/94/47/10944721_det.jpg",
+        "original": "http://content7.flixster.com/movie/10/94/47/10944721_ori.jpg"
+      },
+      "abridged_cast": [
+        {
+          "name": "Ewan McGregor",
+          "characters": [
+            "Obi-Wan Kenobi"
+          ]
+        },
+        {
+          "name": "Natalie Portman",
+          "characters": [
+            "PadmA? Amidala",
+            "Padme Amidala",
+            "Padm? Amidala"
+          ]
+        },
+        {
+          "name": "Hayden Christensen",
+          "characters": [
+            "Anakin Skywalker"
+          ]
+        },
+        {
+          "name": "Christopher Lee",
+          "characters": [
+            "Count Dooku"
+          ]
+        },
+        {
+          "name": "Samuel L. Jackson",
+          "characters": [
+            "Mace Windu"
+          ]
+        }
+      ],
+      "alternate_ids": {
+        "imdb": "0121765"
+      },
+      "links": {
+        "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/10009.json",
+        "alternate": "http://www.rottentomatoes.com/m/star_wars_episode_ii_attack_of_the_clones/",
+        "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/10009/cast.json",
+        "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/10009/clips.json",
+        "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/10009/reviews.json",
+        "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/10009/similar.json"
+      }
+    },
+    {
+      "id": "11366",
+      "title": "Star Wars: Episode VI - Return of the Jedi",
+      "year": 1983,
+      "mpaa_rating": "PG",
+      "runtime": 133,
+      "critics_consensus": "Though failing to reach the cinematic heights of its predecessors, Return of the Jedi remains an entertaining sci-fi adventure and a fitting end to the classic trilogy.",
+      "release_dates": {
+        "theater": "1983-05-25",
+        "dvd": "2006-09-12"
+      },
+      "ratings": {
+        "critics_rating": "Certified Fresh",
+        "critics_score": 79,
+        "audience_rating": "Upright",
+        "audience_score": 93
+      },
+      "synopsis": "",
+      "posters": {
+        "thumbnail": "http://content7.flixster.com/movie/10/94/47/10944709_mob.jpg",
+        "profile": "http://content7.flixster.com/movie/10/94/47/10944709_pro.jpg",
+        "detailed": "http://content7.flixster.com/movie/10/94/47/10944709_det.jpg",
+        "original": "http://content7.flixster.com/movie/10/94/47/10944709_ori.jpg"
+      },
+      "abridged_cast": [
+        {
+          "name": "Mark Hamill",
+          "characters": [
+            "Luke Skywalker"
+          ]
+        },
+        {
+          "name": "Harrison Ford",
+          "characters": [
+            "Han Solo"
+          ]
+        },
+        {
+          "name": "Carrie Fisher",
+          "characters": [
+            "Princess Leia"
+          ]
+        },
+        {
+          "name": "Billy Dee Williams",
+          "characters": [
+            "Lando Calrissian"
+          ]
+        },
+        {
+          "name": "Anthony Daniels",
+          "characters": [
+            "C-3PO"
+          ]
+        }
+      ],
+      "alternate_ids": {
+        "imdb": "0086190"
+      },
+      "links": {
+        "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/11366.json",
+        "alternate": "http://www.rottentomatoes.com/m/return_of_the_jedi/",
+        "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/11366/cast.json",
+        "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/11366/clips.json",
+        "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/11366/reviews.json",
+        "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/11366/similar.json"
+      }
+    }
+  ],
+  "links": {
+    "self": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=Star+Wars&page_limit=5&page=1",
+    "next": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=Star+Wars&page_limit=5&page=2"
+  },
+  "link_template": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q={search-term}&page_limit={results-per-page}&page={page-number}"
+}

@@ -20,6 +20,13 @@ describe Movie do
       
       stub_request(:get, 'api.netflix.com/catalog/titles?start_index=0&term=star%20wars&max_results=5&expand=synopsis,directors').
         to_return(:body => read_fixture('netflix-star_wars-titles.xml'), :status => 200)
+
+      stub_request(:get, 'api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=TOMATO&page=1&page_limit=5&q=star%20wars').
+        to_return(
+          :body => read_fixture('tomatoes-star_wars.json'),
+          :status => 200,
+          :headers => {'content-type' => 'text/javascript'}
+        )
       
       @movies = Movie.search 'star wars'
     end
@@ -34,13 +41,13 @@ describe Movie do
       ]
     end
     
-    it "should have IDs both from Netflix and TMDB" do
-      @movies.map { |m| [m.tmdb_id, m.netflix_id] }.should == [
-        [2004, 1001],
-        [2003, 1002],
-        [2002, 1005],
-        [2001, nil],
-        [2005, nil]
+    it "should have IDs from Netflix, TMDB, Rotten Tomatoes" do
+      @movies.map { |m| [m.tmdb_id, m.netflix_id, m.rotten_id] }.should == [
+        [2004, 1001, "11292"],
+        [2003, 1002, nil],
+        [2002, 1005, nil],
+        [2001, nil,  nil],
+        [2005, nil,  nil]
       ]
     end
   end

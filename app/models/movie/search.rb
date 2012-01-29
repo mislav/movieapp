@@ -72,6 +72,14 @@ module Movie::Search
     end
   end
 
+  def search_rotten_tomatoes(term)
+    RottenTomatoes.search(term).movies
+  rescue Faraday::Error::ClientError, Timeout::Error
+    # we can survive without Netflix results
+    NeverForget.log($!, term: term)
+    []
+  end
+
   def search_netflix_titles(term)
     Netflix.search(term, :expand => %w[synopsis directors]).titles
   rescue Faraday::Error::ClientError, Timeout::Error
@@ -90,6 +98,7 @@ module Movie::Search
     tmdb_movies = Tmdb.search(term).movies.reject { |m| m.year.blank? }
     return tmdb_movies if tmdb_movies.empty?
     netflix_titles = search_netflix_titles(term)
+    rotten_movies = search_rotten_tomatoes(term)
 
     from_tmdb_movies(tmdb_movies) do |spawner|
       netflix_titles.each do |netflix_title|
@@ -100,6 +109,11 @@ module Movie::Search
       end
 
       tmdb_movies.each { |tmdb| spawner.make(tmdb) }
-    end.each(&:save)
+    end.each { |movie|
+      if rotten = rotten_movies.delete(movie)
+        movie.rotten_movie = rotten
+      end
+      movie.save
+    }
   end
 end
