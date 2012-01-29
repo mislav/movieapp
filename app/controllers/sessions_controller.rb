@@ -12,7 +12,14 @@ class SessionsController < ApplicationController
     signup_user
     redirect_to watched_path(current_user)
   end
-  
+
+  def connect
+    session[:connecting_with] = params[:network] # facebook or twitter
+    session[:following_count] = current_user.friends.count
+
+    redirect_to polymorphic_path([params[:network], 'login'])
+  end
+
   def finalize
     signup_user
       
@@ -21,7 +28,18 @@ class SessionsController < ApplicationController
       current_user.fetch_facebook_info(facebook_client) if facebook_user
     end
     
-    redirect_to watched_url(current_user)
+    if network = session[:connecting_with]
+      new_friends = current_user.friends.count - session[:following_count]
+      if new_friends.zero?
+        message = "Successfully connected #{network.capitalize}"
+      else
+        message = "Successfully connected with #{new_friends} people from #{network.capitalize}"
+      end
+      
+      redirect_to following_url, notice: message
+    else
+      redirect_to watched_url(current_user)
+    end
   end
 
   def logout

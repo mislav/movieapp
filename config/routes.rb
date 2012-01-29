@@ -30,6 +30,7 @@ Movies::Application.routes.draw do
   mount twitter => 'login/twitter', :as => :twitter_login
   mount facebook => 'login/facebook', :as => :facebook_login
 
+  match 'login/connect' => 'sessions#connect', :as => :connect
   match 'login/finalize' => 'sessions#finalize'
   match 'logout' => 'sessions#logout', :as => :logout
 

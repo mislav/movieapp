@@ -82,6 +82,28 @@ body > header {
   }
 }
 
+.flash {
+  margin: 5px 0;
+  padding: 10px;
+  border: 1px solid silver;
+  text-align: center;
+
+  &.warning {
+    background: #FFFACD;
+    border-color: darken(#FFFACD, 20%);
+  }
+  &.error {
+    background: #CD5C5C;
+    border-color: darken(#CD5C5C, 10%);
+    color: white;
+    @include text-shadow;
+  }
+  &.notice {
+    background: lighten(#90EE90, 20%);
+    border-color: lighten(#90EE90, 10%);
+  }
+}
+
 body > article {
   padding-top:22px;
   header, > h1 { margin-bottom:23px; }

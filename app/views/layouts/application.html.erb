@@ -43,10 +43,6 @@
 
       </nav>
     </header>
-    
-    <% if flash[:warning] %>
-      <p class="warning"><%= flash[:warning] %></p>
-    <% end %>
       
     <%= form_tag root_path, :method => 'get' do %>
       <div>
@@ -56,7 +52,11 @@
         <%= submit_tag "search", :name => nil %>
       </div>
     <% end %>
-      
+    
+    <% for type, message in flash %>
+      <p class="flash <%= type %>"><%= message %></p>
+    <% end %>
+    
     <%= yield %>
     
     <script type="text/javascript">
