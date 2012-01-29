@@ -1,5 +1,4 @@
 class User::Compare
-  extend ActiveSupport::Memoizable
   ALGORITHM_VERSION = 4
 
   def self.compatibility(*users)
@@ -51,14 +50,12 @@ class User::Compare
   end
 
   def watched_count1
-    @user1.watched.count
+    @watched_count1 ||= @user1.watched.count
   end
-  memoize :watched_count1
 
   def watched_count2
-    @user2.watched.count
+    @watched_count2 ||= @user2.watched.count
   end
-  memoize :watched_count2
 
   def in_common_count
     movie_intersection.size
@@ -104,42 +101,40 @@ class User::Compare
   end
 
   def compatibility
-    Cache.fetch [self, :compatibility, ALGORITHM_VERSION], expires_in: 1.day do
+    @compatibility ||= Cache.fetch [self, :compatibility, ALGORITHM_VERSION], expires_in: 1.day do
       return nil if in_common_count.zero?
 
       percentage = (Math.sqrt(score * common_factor) - margin_of_error) * 100
       [0, percentage].max
     end
   end
-  memoize :compatibility
 
   def movie_intersection
-    watched1 = user1.watched.link_documents
-    watched2 = user2.watched.link_documents
-    ids2 = watched2.map {|d| d['movie_id'] }
+    @movie_intersection ||= begin
+      watched1 = user1.watched.link_documents
+      watched2 = user2.watched.link_documents
+      ids2 = watched2.map {|d| d['movie_id'] }
 
-    hash = watched1.each_with_object({}) do |doc, hash|
-      id = doc['movie_id']
-      hash[id] = [doc['liked']] if ids2.include? id
-    end
-    watched2.each_with_object(hash) do |doc, hash|
-      id = doc['movie_id']
-      hash[id] << doc['liked'] if hash.key? id
-    end
+      hash = watched1.each_with_object({}) do |doc, hash|
+        id = doc['movie_id']
+        hash[id] = [doc['liked']] if ids2.include? id
+      end
+      watched2.each_with_object(hash) do |doc, hash|
+        id = doc['movie_id']
+        hash[id] << doc['liked'] if hash.key? id
+      end
 
-    hash
+      hash
+    end
   end
-  memoize :movie_intersection
 
   def fav_directors1
-    find_directors user1.watched.liked.each(:transformer => nil, :fields => 'directors')
+    @fav_directors1 ||= find_directors user1.watched.liked.each(:transformer => nil, :fields => 'directors')
   end
-  memoize :fav_directors1
 
   def fav_directors2
-    find_directors user2.watched.liked.each(:transformer => nil, :fields => 'directors')
+    @fav_directors2 ||= find_directors user2.watched.liked.each(:transformer => nil, :fields => 'directors')
   end
-  memoize :fav_directors2
 
   def find_directors(cursor)
     Movie.directors_of_movies(cursor).

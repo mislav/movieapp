@@ -20,7 +20,6 @@ class WatchesTimeline
     new collection.find(selector, :sort => [:_id, -1])
   end
   
-  extend ActiveSupport::Memoizable
   include Enumerable
   
   USER_FIELDS = %w[username name twitter_picture twitter.screen_name facebook.id]
@@ -83,10 +82,11 @@ class WatchesTimeline
   
   # FIXME: this sucks so much
   def total_entries
-    @watched_cursor.rewind!
-    @watched_cursor.map {|w| w['movie_id'] }.uniq.size
+    @total_entries ||= begin
+      @watched_cursor.rewind!
+      @watched_cursor.map {|w| w['movie_id'] }.uniq.size
+    end
   end
-  memoize :total_entries
   
   def total_pages
     (total_entries / per_page) + 1
@@ -135,7 +135,6 @@ class WatchesTimeline
   end
   
   def people
-    User.find(user_ids, fields: USER_FIELDS).index_by(&:id)
+    @people ||= User.find(user_ids, fields: USER_FIELDS).index_by(&:id)
   end
-  memoize :people
 end

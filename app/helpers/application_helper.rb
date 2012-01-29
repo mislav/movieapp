@@ -1,8 +1,6 @@
 # encoding: utf-8
 module ApplicationHelper
 
-  extend ActiveSupport::Memoizable
-
   def admin?
     logged_in? and current_user.admin?
   end
@@ -15,8 +13,7 @@ module ApplicationHelper
     char = android? ? '|' : '∙'
     %( <span class="separator">#{char}</span> ).html_safe
   end
-  memoize :separator
-  
+
   def body_class(*names)
     if names.empty?
       @body_class && @body_class.join(' ')

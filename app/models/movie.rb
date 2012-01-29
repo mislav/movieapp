@@ -38,12 +38,10 @@ class Movie < Mingo
   include LockedValues
   extend Search
   extend Merge
-  extend ActiveSupport::Memoizable
 
   def normalized_title
-    ::MovieTitle::normalize_title(title)
+    @normalized_title ||= ::MovieTitle::normalize_title(title)
   end
-  memoize :normalized_title
 
   # warning: db-heavy
   def self.find_duplicate_titles
