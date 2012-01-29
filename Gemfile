@@ -43,7 +43,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.6.1'
+  gem 'rspec-rails', '~> 2.8.0'
   gem 'ruby-debug', :platforms => :mri_18
   gem 'ruby-debug19', :platforms => :mri_19
 end
