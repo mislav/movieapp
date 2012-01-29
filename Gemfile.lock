@@ -71,14 +71,10 @@ GEM
       hashie (>= 0.2.0)
       oauth2 (>= 0.0.6)
       rack (~> 1.2)
-    faraday (0.7.4)
-      addressable (~> 2.2.6)
-      multipart-post (~> 1.1.0)
-      rack (>= 1.1.0, < 2)
-    faraday-stack (0.1.3)
-      faraday (~> 0.6)
-    faraday_middleware (0.7.0)
-      faraday (~> 0.7.3)
+    faraday (0.8.0.rc2)
+      multipart-post (~> 1.1)
+    faraday_middleware (0.8.3)
+      faraday (>= 0.7.4, < 0.9)
     fastthread (1.0.7)
     ffi (1.0.9)
     fssm (0.2.8.1)
@@ -110,13 +106,13 @@ GEM
       fastthread (>= 1.0.1)
       gem_plugin (>= 0.2.3)
     multi_json (1.0.4)
-    multipart-post (1.1.3)
+    multipart-post (1.1.4)
     never-forget (0.1.0)
       activesupport
       erubis
       mingo (>= 0.2)
       rack
-    nibbler (1.2.1)
+    nibbler (1.3.0)
     nokogiri (1.4.7)
     oauth (0.4.5)
     oauth2 (0.5.0)
@@ -226,7 +222,7 @@ DEPENDENCIES
   dalli
   escape_utils
   facebook-login (~> 0.3.0)
-  faraday-stack
+  faraday (~> 0.8.0.rc)
   faraday_middleware
   launchy
   mingo (>= 0.3.0)
@@ -234,7 +230,7 @@ DEPENDENCIES
   mongo_ext (>= 0.19.3)
   mongrel
   never-forget
-  nibbler (~> 1.1)
+  nibbler (~> 1.3)
   nokogiri (~> 1.4.1)
   rails-behaviors
   railties (~> 3.2)

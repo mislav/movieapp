@@ -1,44 +1,39 @@
-require 'nibble_spec'
+require 'nibble_endpoints'
 require 'failsafe_store'
 require 'active_support/core_ext/object/blank'
 require 'movie_title'
 
-Nibbler.class_eval do
-  def self.rules
-    @rules ||= ActiveSupport::OrderedHash.new
-  end
-end
-
 module Tmdb
-  extend NibbleSpec
-  
-  build_stack 'http://api.themoviedb.org/2.1'
+  extend NibbleEndpoints
 
-  if user_agent = Movies::Application.config.user_agent
-    faraday.headers[:user_agent] = user_agent
-  end
-
-  # instrumentation
-  faraday.builder.insert_before Faraday::Adapter::NetHttp, FaradayStack::Instrumentation
-
-  # caching
-  if Movies::Application.config.api_caching
-    faraday.builder.insert_before FaradayStack::ResponseJSON, FaradayStack::Caching do
-      FailsafeStore.new Rails.root + 'tmp/cache', :namespace => 'tmdb', :expires_in => 1.day,
-        :exceptions => ['Faraday::Error::ClientError']
+  class ResponseNormalizer < Struct.new(:app)
+    def call(env)
+      app.call(env).on_complete do
+        body = env[:body]
+        env[:body] = [] if body.nil? or body.empty? or body.first == "Nothing found."
+      end
     end
   end
-  
-  class ResponseNormalizer < FaradayStack::ResponseMiddleware
-    define_parser { |b| Array.new }
 
-    def parse_response?(env)
-      body = env[:body]
-      body.nil? or body.empty? or body.first == "Nothing found."
+  define_connection 'http://api.themoviedb.org/2.1' do |conn|
+    if user_agent = Movies::Application.config.user_agent
+      conn.headers[:user_agent] = user_agent
     end
+
+    conn.use ResponseNormalizer
+    conn.response :json
+
+    if Movies::Application.config.api_caching
+      conn.response :caching do
+        FailsafeStore.new Rails.root + 'tmp/cache', :namespace => 'tmdb', :expires_in => 1.day,
+          :exceptions => ['Faraday::Error::ClientError']
+      end
+    end
+
+    conn.use :instrumentation
+    conn.response :raise_error
+    conn.adapter :net_http
   end
-  
-  faraday.builder.insert_before FaradayStack::ResponseJSON, ResponseNormalizer, :content_type => %r{(application|text)/json}
 
   class << self
     attr_accessor :ignore_ids
@@ -53,11 +48,11 @@ module Tmdb
 
   class Movie < NibblerJSON
     include MovieTitle
-    
+
     def ==(other)
       other.is_a?(Movie) ? id == other.id : super
     end
-    
+
     element :id, :with => lambda { |id| id.to_i }
     element :version, :with => lambda { |num| num.to_i }
     element :name
@@ -70,56 +65,46 @@ module Tmdb
     element 'released' => :release_date, :with => lambda { |date|
       Date.parse(date) unless date.blank? or date == "1900-01-01"
     }
-    element 'posters' => :poster_cover, :with => lambda { |posters|
-      poster = posters.find { |p| p["image"]["size"] == "cover" }
-      poster.nil? ? '' : poster["image"]["url"]
-    }
-    element 'posters' => :poster_thumb, :with => lambda { |posters|
-      poster = posters.find { |p| p["image"]["size"] == "thumb" }
-      poster.nil? ? '' : poster["image"]["url"]
-    }    
+    element '.posters.image[?(@["size"] == "cover")].url' => :poster_cover
+    element '.posters.image[?(@["size"] == "thumb")].url' => :poster_thumb
     element :runtime, :with => lambda { |minutes|
       minutes.to_i unless minutes.to_i.zero?
     }
     # element :language
-    element :countries, :with => lambda { |countries|
-      countries.map {|c| c["name"]}
-    }
-    element 'cast' => :directors, :with => lambda { |cast|
-      cast.find_all {|c| c["job"] == "Director" }.map{|d| d["name"]}
-    }
+    elements '.countries.name' => :countries
+    elements '.cast[?(@["job"] == "Director")].name' => :directors
     element :homepage
-    
+
     def original_name=(value)
       @original_name = value == self.name ? nil : value
     end
-    
+
     attr_accessor :year
-    
+
     def release_date=(date)
       self.year = date.year if date
       @release_date = date
     end
   end
-  
+
   # http://api.themoviedb.org/2.1/methods/Movie.search
-  get(:search_movies, 'Movie.search/en/json/{api_key}/{query}') do
+  endpoint(:movie_search, 'Movie.search/en/json/{api_key}/{query}') do
     elements :movies, :with => Movie
   end
-  
+
   def self.search query
-    result = search_movies :api_key => Movies::Application.config.tmdb.api_key, :query => query
+    result = get(:movie_search, :api_key => Movies::Application.config.tmdb.api_key, :query => query)
     result.movies.map! {|mov| process_movie mov unless ignore_ids.include? mov.id }.compact!
     result
   end
-  
+
   # http://api.themoviedb.org/2.1/methods/Movie.getInfo
-  get(:get_movie_details, 'Movie.getInfo/en/json/{api_key}/{tmdb_id}') do
+  endpoint(:movie_info, 'Movie.getInfo/en/json/{api_key}/{tmdb_id}') do
     elements :movies, :with => Movie
   end
-  
+
   def self.movie_details tmdb_id
-    result = get_movie_details :api_key => Movies::Application.config.tmdb.api_key, :tmdb_id => tmdb_id
+    result = get(:movie_info, :api_key => Movies::Application.config.tmdb.api_key, :tmdb_id => tmdb_id)
     process_movie result.movies.first
   end
 end

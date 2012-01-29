@@ -1,36 +1,46 @@
-require 'nibble_spec'
-require 'faraday_middleware'
+require 'nibble_endpoints'
 require 'failsafe_store'
 require 'movie_title'
+require 'nokogiri'
 
 module Netflix
-  extend NibbleSpec
-  
-  build_stack 'http://api.netflix.com'
+  extend NibbleEndpoints
 
-  if user_agent = Movies::Application.config.user_agent
-    faraday.headers[:user_agent] = user_agent
+  class ParseXml < Struct.new(:app)
+    def call(env)
+      app.call(env).on_complete do
+        env[:body] = Nokogiri::XML env[:body]
+      end
+    end
   end
 
-  # instrumentation
-  faraday.builder.insert_before Faraday::Adapter::NetHttp, FaradayStack::Instrumentation
-
-  # OAuth
-  config = Movies::Application.config.netflix
-  faraday.builder.insert_before Faraday::Request::UrlEncoded, Faraday::Request::OAuth,
-    :consumer_key => config.consumer_key, :consumer_secret => config.secret
-
-  # caching
-  if Movies::Application.config.api_caching
-    faraday.builder.insert_before FaradayStack::ResponseJSON, FaradayStack::Caching do
-      FailsafeStore.new Rails.root + 'tmp/cache', :namespace => 'netflix', :expires_in => 1.day,
-        :exceptions => ['Faraday::Error::ClientError']
+  define_connection 'http://api.netflix.com' do |conn|
+    if user_agent = Movies::Application.config.user_agent
+      conn.headers[:user_agent] = user_agent
     end
+
+    oauth_config = Movies::Application.config.netflix
+    conn.request :oauth,
+      :consumer_key => oauth_config.consumer_key,
+      :consumer_secret => oauth_config.secret
+
+    conn.use ParseXml
+
+    if Movies::Application.config.api_caching
+      conn.response :caching do
+        FailsafeStore.new Rails.root + 'tmp/cache', :namespace => 'netflix', :expires_in => 1.day,
+          :exceptions => ['Faraday::Error::ClientError']
+      end
+    end
+
+    conn.use :instrumentation
+    conn.response :raise_error
+    conn.adapter :net_http
   end
 
   class Title < Nibbler
     include MovieTitle
-    
+
     element :id, :with => lambda { |url_node|
       url_node.text.scan(/\d+/).last.to_i
     }
@@ -45,7 +55,7 @@ module Netflix
     elements './link[@title="cast"]/people/link/@title' => :cast
     element './/link[@title="web page"]/@href' => :url
     element './/link[@title="official webpage"]/@href' => :official_url
-    
+
     def name=(value)
       if value.respond_to?(:sub)
         value = value.sub(/(\s*:)?\s+(the movie|unrated)$/i, '')
@@ -53,13 +63,13 @@ module Netflix
       end
       @name = value
     end
-    
+
     def special_edition?
       @special_edition
     end
   end
 
-  get(:search_titles, '/catalog/titles?{-join|&|term,max_results,start_index,expand}') do
+  endpoint(:search_titles, '/catalog/titles?{-join|&|term,max_results,start_index,expand}') do
     elements 'catalog_title' => :titles, :with => Title
     element 'number_of_results' => :total_entries
     element 'results_per_page' => :per_page
@@ -70,27 +80,27 @@ module Netflix
     page = options[:page] || 1
     per_page = options[:per_page] || 5
     offset = per_page * (page.to_i - 1)
-    
+
     params = {:term => query, :max_results => per_page, :start_index => offset}
     params[:expand] = Array(options[:expand]).join(',') if options[:expand]
-    
-    search_titles(params)
+
+    get(:search_titles, params)
   end
 
-  get(:title_details, '/catalog/titles/movies/{title_id}?{-join|&|expand}') do
+  endpoint(:title_details, '/catalog/titles/movies/{title_id}?{-join|&|expand}') do
     element 'catalog_title' => :title, :with => Title
   end
 
   def self.movie_info(movie_id, options = {})
     fields = Array(options.fetch(:expand, 'synopsis'))
-    title_details(title_id: movie_id, expand: fields.join(',')).title
+    get(:title_details, title_id: movie_id, expand: fields.join(',')).title
   end
 
-  get(:autocomplete_titles, '/catalog/titles/autocomplete?term={term}') do
+  endpoint(:autocomplete_titles, '/catalog/titles/autocomplete?term={term}') do
     elements './/autocomplete_item/title/@short' => :titles
   end
 
   def self.autocomplete(term)
-    autocomplete_titles(:term => term)
+    get(:autocomplete_titles, :term => term)
   end
 end
