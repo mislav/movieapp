@@ -16,6 +16,9 @@ require 'capybara/session'
 # Lets you click links with onclick javascript handlers without using @culerity or @javascript
 # require 'cucumber/rails/capybara_javascript_emulation'
 
+require 'rspec'
+require 'webmock/cucumber'
+
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your
