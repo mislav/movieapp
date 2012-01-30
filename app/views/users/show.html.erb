@@ -52,7 +52,7 @@
       <% if (movies_count = @user.movies_from_friends.count) > 0 %>
         <p>
           Your friends have watched <%= pluralize(movies_count, 'movie') %>.
-          See <%= link_to "people you're following", following_path %>
+          See them in your <%= link_to "social timeline", timeline_path %>
         </p>
       <% end %>
     </section>

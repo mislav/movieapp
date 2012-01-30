@@ -11,14 +11,14 @@ Feature: Discovering movies watched by friends
   Scenario: Nothing watched by friends
     Given @mislav is not a new user
     When I login as @mislav
-    And I follow "following"
+    And I follow "social timeline"
     Then I should see "No movies found."
   
   Scenario: New user, friends watched something
     Given @ivana watched "The Terminator"
     When I login as @mislav
     Then I should see "Your friends have watched 1 movie."
-    When I follow "following"
+    When I follow "social timeline"
     Then I should see "The Terminator" as a movie title in the results
   
   Scenario: Friends watched multiple movies
@@ -26,7 +26,7 @@ Feature: Discovering movies watched by friends
     And @jordi watched "Terminator Salvation"
     And @mislav is not a new user
     When I login as @mislav
-    And I follow "following"
+    And I follow "social timeline"
     And I follow "Terminator Salvation"
     Then I should see "jordi has watched this."
     When I go back
