@@ -163,7 +163,9 @@ class Movie < Mingo
   end
 
   def critics_score
-    self['rotten_tomatoes'] && self['rotten_tomatoes']['critics_score']
+    if score = self['rotten_tomatoes'] && self['rotten_tomatoes']['critics_score']
+      score < 1 ? nil : score
+    end
   end
 
   def update_rotten_movie

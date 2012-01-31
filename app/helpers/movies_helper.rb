@@ -22,6 +22,8 @@ module MoviesHelper
       links << ["Rotten Tomatoes", rotten_url]
       if score = movie.critics_score
         links.last << "Critics score: #{score}%"
+      else
+        links.last << "No critics score yet"
       end
     end
     if netflix_url = movie.netflix_url.presence
