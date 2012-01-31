@@ -47,6 +47,18 @@ class MoviesController < ApplicationController
   def edit
     render :layout => !request.xhr?
   end
+
+  def raw
+    @data = case params[:kind]
+    when 'tmdb'
+      resp = Tmdb.get_raw(:movie_info, tmdb_id: @movie.tmdb_id)
+      data = resp.body.first
+      data['posters'].sort_by! {|p| p['image']['width'].to_i }
+      data
+    else
+      render text: "Unsupported kind.", status: 400
+    end
+  end
   
   def update
     @movie.update_and_lock params[:movie]

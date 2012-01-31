@@ -4,7 +4,16 @@ require 'addressable/uri'
 require 'addressable/template'
 
 module NibbleEndpoints
+  def get(endpoint, params = {}, &block)
+    process_request(:get, endpoint, params, &block)
+  end
+
+  def get_raw(endpoint, params = {}, &block)
+    make_request(:get, endpoint, params, &block)
+  end
+
   protected
+
   attr_reader :connection
 
   def define_connection(url_prefix, &block)
@@ -17,24 +26,37 @@ module NibbleEndpoints
     endpoints[name.to_sym] = [template, parser]
   end
 
+  def default_params(params = nil)
+    if params or block_given?
+      @default_params = params || Proc.new
+    else
+      @default_params = {} unless defined? @default_params
+      @default_params = @default_params.call if @default_params.is_a? Proc
+      @default_params
+    end
+  end
+
   def make_request(method, endpoint, params = {})
-    template, parser = endpoints.fetch(endpoint.to_sym) {
+    template, = endpoints.fetch(endpoint.to_sym) {
       raise ArgumentError, "unknown endpoint #{endpoint.inspect}"
     }
-    url = template.expand(params)
-    response = connection.run_request(method, url, nil, nil) do |request|
+    url = template.expand(default_params.merge(params))
+    connection.run_request(method, url, nil, nil) do |request|
       yield request if block_given?
     end
+  end
+
+  def process_request(method, endpoint, params = {}, &block)
+    _, parser = endpoints.fetch(endpoint.to_sym) {
+      raise ArgumentError, "unknown endpoint #{endpoint.inspect}"
+    }
+    response = make_request(method, endpoint, params, &block)
 
     if parser
       process_response(response, parser)
     else
       response
     end
-  end
-
-  def get(endpoint, params = {}, &block)
-    make_request(:get, endpoint, params, &block)
   end
 
   private

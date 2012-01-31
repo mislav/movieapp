@@ -55,6 +55,10 @@
         <li><%= link_to "unlink from Netflix", link_to_netflix_movie_path(@movie.id), :method => 'put' %></li>
         <% end %>
         <li><%= link_to "edit movie", edit_movie_path(@movie.id), :rel => 'facebox.edit' %></li>
+        <% if @movie.tmdb_url.present? %>
+        <li><%= link_to "see TMDB entry", @movie.tmdb_url %></li>
+        <% end %>
+        <li><%= link_to "see raw: TMDB", raw_movie_path(kind: 'tmdb') %></li>
       </aside>
     <% end %>
   </div>

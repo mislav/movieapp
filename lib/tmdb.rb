@@ -35,6 +35,10 @@ module Tmdb
     conn.adapter :net_http
   end
 
+  default_params do
+    { api_key: Movies::Application.config.tmdb.api_key }
+  end
+
   class << self
     attr_accessor :ignore_ids
 
@@ -93,7 +97,7 @@ module Tmdb
   end
 
   def self.search query
-    result = get(:movie_search, :api_key => Movies::Application.config.tmdb.api_key, :query => query)
+    result = get(:movie_search, :query => query)
     result.movies.map! {|mov| process_movie mov unless ignore_ids.include? mov.id }.compact!
     result
   end
@@ -104,7 +108,7 @@ module Tmdb
   end
 
   def self.movie_details tmdb_id
-    result = get(:movie_info, :api_key => Movies::Application.config.tmdb.api_key, :tmdb_id => tmdb_id)
+    result = get(:movie_info, :tmdb_id => tmdb_id)
     process_movie result.movies.first
   end
 end

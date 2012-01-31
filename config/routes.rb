@@ -8,6 +8,7 @@ Movies::Application.routes.draw do
   resources :movies, :only => [:show, :edit, :update] do
     member do
       get :wikipedia
+      get :raw
       put :change_plot_field
       put :link_to_netflix
       put :add_to_watch

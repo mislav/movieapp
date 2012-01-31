@@ -165,6 +165,10 @@ ol.movies { clear:left; padding-left:0;
   }
 }
 
+.movie-raw pre {
+  font-size: 12px
+}
+
 /* mobile */
 @media only screen and (max-device-width:480px) {
   ol.movies {
