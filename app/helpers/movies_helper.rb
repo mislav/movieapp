@@ -32,8 +32,9 @@ module MoviesHelper
     links
   end
   
-  def movie_title_with_year(movie)
-    str = movie.title
+  def movie_title_with_year(movie, original = false)
+    str = original && movie.original_title
+    str ||= movie.title
     str += " (#{movie.year})" unless movie.year.blank?
     str
   end
