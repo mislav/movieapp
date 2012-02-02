@@ -1,0 +1,4 @@
+<% body_class 'movie-raw' %>
+<article>
+<%= raw debug(@data).gsub(/(http:&#47;&#47;)(\S+)/, '<a href="\1\2">\2</a>') %>
+</article>
