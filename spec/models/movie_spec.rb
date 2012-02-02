@@ -216,7 +216,7 @@ describe Movie do
         )
 
       movie = build title: 'Misery', year: 1990
-      movie.get_wikipedia_title.should == 'Misery (1990 film)'
+      movie.update_wikipedia_url!
       movie.wikipedia_url.should == 'http://en.wikipedia.org/wiki/Misery_(1990_film)'
     end
   end

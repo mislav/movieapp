@@ -242,10 +242,9 @@ class Movie < Mingo
   def wikipedia_url
     WIKIPEDIA_PREFIX + wikipedia_title.tr(' ', '_') if wikipedia_title
   end
-  
-  def get_wikipedia_title
+
+  def update_wikipedia_url!
     self.wikipedia_title = Wikipedia.find_title("#{self.title} #{self.year}")
     self.save
-    self.wikipedia_title
   end
 end

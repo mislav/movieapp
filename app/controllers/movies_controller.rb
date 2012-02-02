@@ -92,8 +92,14 @@ class MoviesController < ApplicationController
   end
   
   def wikipedia
-    @movie.get_wikipedia_title unless @movie.wikipedia_title
-    redirect_to @movie.wikipedia_url
+    @movie.update_wikipedia_url! unless @movie.wikipedia_url.present?
+
+    if @movie.wikipedia_url.present?
+      redirect_to @movie.wikipedia_url, status: 301
+    else
+      @message = "Can't find this movie on Wikipedia."
+      render 'shared/not_found', :status => 404
+    end
   end
   
   def change_plot_field
