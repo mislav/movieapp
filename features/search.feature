@@ -12,6 +12,11 @@ Feature: Movie search
     Then I should see "Search results for Lepa Brena" in the title
     And I should see "No movies found"
 
+  Scenario: Blank search
+    When I search for ""
+    Then I should see "error" in the title
+    And I should see "You can't enter a blank query"
+
   Scenario: One result
     Given TMDB returns "black_cat-full.json" for movie details
     And Rotten Tomatoes finds nothing by IMDB id

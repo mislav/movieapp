@@ -9,7 +9,13 @@ class MoviesController < ApplicationController
   
   def index
     if query = params[:q]
-      perform_search query
+      if query.present?
+        perform_search query
+      else
+        render 'shared/error', :status => 500, :locals => {
+          error: "You can't enter a blank query; please search for something."
+        }
+      end
     elsif @director = params[:director]
       @movies = Movie.find(:directors => @director).sort(:year, :desc).page(params[:page])
       freshness_from_cursor @movies
