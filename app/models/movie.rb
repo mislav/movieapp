@@ -16,6 +16,7 @@ class Movie < Mingo
   property :tmdb_id
   property :tmdb_url
   property :tmdb_version
+  property :tmdb_updated_at
 
   collection.ensure_index :tmdb_id
 
@@ -42,6 +43,11 @@ class Movie < Mingo
 
   def normalized_title
     @normalized_title ||= ::MovieTitle::normalize_title(title)
+  end
+
+  # avoid showing invalid movies to users
+  def invalid?
+    tmdb_id.nil?
   end
 
   # warning: db-heavy
@@ -96,27 +102,47 @@ class Movie < Mingo
   def self.directors_of_movies(movies)
     movies.map { |m| m['directors'] }.compact.flatten.histogram.to_a.sort_by(&:last).reverse
   end
-  
+
   def tmdb_movie=(movie)
-    self.tmdb_id = movie.id
-    self.tmdb_url = movie.url
-    self.tmdb_version = movie.version
-    self.imdb_id = movie.imdb_id if movie.imdb_id.present? and self.imdb_id.nil?
+    if movie
+      self.tmdb_id = movie.id
+      self.tmdb_url = movie.url
+      self.tmdb_version = movie.version
+      self.imdb_id = movie.imdb_id if movie.imdb_id.present? and self.imdb_id.nil?
 
-    # renamed properties
-    set_unless_locked(:title, movie.name)
-    set_unless_locked(:original_title, movie.original_name)
-    set_unless_locked(:poster_small_url, movie.poster_thumb)
-    set_unless_locked(:poster_medium_url, movie.poster_cover)
-    set_unless_locked(:plot, movie.synopsis)
+      # renamed properties
+      set_unless_locked(:title, movie.name)
+      set_unless_locked(:original_title, movie.original_name)
+      set_unless_locked(:poster_small_url, movie.poster_thumb)
+      set_unless_locked(:poster_medium_url, movie.poster_cover)
+      set_unless_locked(:plot, movie.synopsis)
 
-    # same name properties
-    [:year, :runtime, :countries, :directors, :homepage].each do |property|
-      value = movie.send(property)
-      set_unless_locked(property, value) if value.present?
+      # same name properties
+      [:year, :runtime, :countries, :directors, :homepage].each do |property|
+        value = movie.send(property)
+        set_unless_locked(property, value) if value.present?
+      end
+    else
+      self.tmdb_id = self.tmdb_url = nil
+    end
+
+    self.tmdb_updated_at = Time.now
+  end
+
+  def tmdb_info_stale?
+    tmdb_updated_at.nil? or tmdb_updated_at < 1.week.ago
+  end
+
+  def update_tmdb_movie
+    if self.tmdb_id
+      self.tmdb_movie = Tmdb.movie_details(self.tmdb_id)
+      if tmdb_id.nil?
+        # this record got deleted from TMDB
+        # TODO: merge with other records if this had watches
+      end
     end
   end
-  
+
   def netflix_title=(netflix)
     self.netflix_id = netflix.id
     self.netflix_url = netflix.url
@@ -179,14 +205,9 @@ class Movie < Mingo
   EXTENDED = [:runtime, :countries, :directors]
   
   def ensure_extended_info
-    if extended_info_missing? and self.tmdb_id
-      self.tmdb_movie = Tmdb.movie_details(self.tmdb_id)
-      self.save
-    end
-    if rotten_info_stale?
-      update_rotten_movie
-      self.save
-    end
+    update_tmdb_movie if extended_info_missing? or tmdb_info_stale?
+    update_rotten_movie if rotten_info_stale?
+    self.save
   rescue Net::HTTPExceptions, Faraday::Error::ClientError, Timeout::Error
     NeverForget.log($!, tmdb_id: self.tmdb_id)
     Rails.logger.warn "An HTTP error occured while trying to get data for TMDB movie #{self.tmdb_id}"

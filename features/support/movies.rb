@@ -19,9 +19,16 @@ World Module.new {
 
   # hack: make `ensure_extended_info` a no-op
   def stub_extended_info(selector)
+    updated_at = 5.minutes.ago.utc
+
     Movie.collection.update(selector, {
-      '$set' => {rotten_tomatoes: {updated_at: 5.minutes.ago.utc}},
-      '$unset' => {:tmdb_id => 1}
+      '$set' => {
+        rotten_tomatoes: {updated_at: updated_at},
+        tmdb_updated_at: updated_at,
+        runtime: 95,
+        countries: %w[Sweden],
+        directors: ["Stanley Kubrick"]
+      }
     }, :multi => true, :safe => true)
   end
 }

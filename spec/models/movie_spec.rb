@@ -56,6 +56,7 @@ describe Movie do
 
     it "movie with complete info" do
       movie = Movie.create :runtime => 95, :tmdb_id => 1234,
+          :tmdb_updated_at => 1.day.ago.utc,
           :countries => [], :directors => [], :homepage => "" do |m|
         m['rotten_tomatoes'] = rotten_values
       end
@@ -64,7 +65,25 @@ describe Movie do
       movie.ensure_extended_info
       attributes.should == movie
     end
-    
+
+    it "movie with stale info" do
+      stub_request(:get, 'api.themoviedb.org/2.1/Movie.getInfo/en/json/TEST/1234').
+        to_return(
+          :body => read_fixture('tmdb-an_education.json'),
+          :status => 200,
+          :headers => {'content-type' => 'application/json'}
+        )
+
+      movie = Movie.create :runtime => 95, :tmdb_id => 1234,
+          :tmdb_updated_at => 2.weeks.ago.utc,
+          :countries => [], :directors => [], :homepage => "" do |m|
+        m['rotten_tomatoes'] = rotten_values
+      end
+
+      movie.ensure_extended_info
+      movie.tmdb_updated_at.should be_within(1).of(Time.now)
+    end
+
     it "movie with missing info fills the blanks" do
       stub_request(:get, 'api.themoviedb.org/2.1/Movie.getInfo/en/json/TEST/1234').
         to_return(

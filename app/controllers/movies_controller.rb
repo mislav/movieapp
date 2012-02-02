@@ -41,6 +41,11 @@ class MoviesController < ApplicationController
       redirect_to movie_url(@movie.permalink), status: 301
     elsif stale? etag: session_cache_key(@movie)
       @movie.ensure_extended_info unless Movies.offline?
+
+      if @movie.invalid?
+        @message = "This movie is now unavailable."
+        render 'shared/not_found', :status => 410
+      end
     end
   end
   
