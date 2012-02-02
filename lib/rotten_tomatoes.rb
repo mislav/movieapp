@@ -55,7 +55,9 @@ module RottenTomatoes
       'original'   # 510x755
     ].each { |name|
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
-        def poster_#{name}() posters["#{name}"] end
+        def poster_#{name}
+          posters && posters["#{name}"]
+        end
       RUBY
     }
   end
