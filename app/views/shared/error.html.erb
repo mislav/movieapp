@@ -2,6 +2,9 @@
 <% body_class 'error' %>
 <article>
   <h1>There has been an error</h1>
-  
+  <% if error.respond_to? :message %>
   <p>The message of the error is: <%= error.message %></p>
+  <% else %>
+  <p><%= error %></p>
+  <% end %>
 </article>

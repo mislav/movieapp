@@ -42,10 +42,24 @@ class UsersController < ApplicationController
   end
 
   def compare
-    users = params[:users].split('+', 2).map {|name| find_user name }
+    user_names = params[:users].split('+')
 
-    @compare = User::Compare.new(*users)
-    fresh_when etag: session_cache_key(@compare)
+    if user_names.size != 2
+      render 'shared/error', status: 400, locals: {
+        error: "Nice try. You can only compare 2 users at a time."
+      }
+    else
+      users = user_names.map {|name| find_user name }
+
+      if users.all?
+        @compare = User::Compare.new(*users)
+        fresh_when etag: session_cache_key(@compare)
+      else
+        user_missing = user_names[users.index(nil)]
+        @message = "Could not find user #{user_missing.inspect}."
+        render 'shared/not_found', status: 404
+      end
+    end
   end
   
   protected
