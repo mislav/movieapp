@@ -19,14 +19,15 @@ gem 'mingo', '>= 0.3.0' #, :path => '/Users/mislav/Projects/mingo'
 gem 'mongo_ext', '>= 0.19.3', :require => nil
 gem 'mongo-rails-instrumentation'
 gem 'bson_ext', '>= 1.1.1', :require => nil
-gem 'twitter-login', '~> 0.4.0', :require => 'twitter/login' #, :path => '/Users/mislav/Projects/twitter-login'
 gem 'will_paginate', '~> 3.0' #, :path => '/Users/mislav/.coral/will_paginate-mislav'
-gem 'facebook-login', '~> 0.3.0', :require => 'facebook/login' #, :path => '/Users/mislav/Projects/facebook-login'
 gem 'escape_utils'
 gem 'choices' #, :path => '/Users/mislav/Projects/choices'
 gem 'never-forget' #, :path => '/Users/mislav/Projects/never-forget'
 gem 'twin' #, :path => '/Users/mislav/Projects/twin'
 gem 'rails-behaviors'
+
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
 
 group :extras do
   gem 'nokogiri', '~> 1.4.1'

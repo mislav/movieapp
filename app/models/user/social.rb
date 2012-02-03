@@ -1,5 +1,7 @@
 require 'net/http'
 require 'json'
+require 'oauth'
+require 'oauth2'
 
 module User::Social
   extend ActiveSupport::Concern
@@ -29,26 +31,55 @@ module User::Social
     self.facebook_friends.include? user['facebook']['id'] if user.from_facebook?
   end
 
+  FACEBOOK_FIELDS = %w[id username link name email website timezone location gender]
+
   def facebook_info=(info)
-    self['facebook'] = info.to_hash.tap do |data|
-      self.username ||= data['link'].scan(/[\w.]+/).last
+    self['facebook'] = info.to_hash.slice(*FACEBOOK_FIELDS).tap do |data|
+      self.username ||= data['username'] || data['link'].scan(/[\w.]+/).last
       self.name ||= data['name']
     end
   end
 
-  def fetch_twitter_info(twitter_client)
-    response = twitter_client.get('/1/friends/ids.json')
-    ids_data = JSON.parse response.body
-    self.twitter_friends = ids_data['ids']
-    save
+  def refresh_social_connections
+    fetch_twitter_friends
+    fetch_facebook_friends
   end
 
-  def fetch_facebook_info(facebook_client)
-    response = facebook_client.get('/me', :params => {:fields => 'friends'}) # 'movies,friends'
-    user_info = JSON.parse response.body
-    self.facebook_friends = user_info['friends']['data'].map { |f| f['id'] }
-    # watched.import_from_facebook user_info['movies']['data']
-    save
+  def fetch_twitter_friends
+    if self['twitter_token']
+      client = ::User::Social.twitter_client(self['twitter_token'])
+      response = client.get('/1/friends/ids.json')
+      ids_data = JSON.parse response.body
+      self.twitter_friends = ids_data['ids']
+    end
+  end
+
+  def self.twitter_client(token_values)
+    config = Movies::Application.config.twitter
+    token, secret, = token_values
+    oauth = OAuth::Consumer.new config.consumer_key, config.secret,
+      site: 'https://api.twitter.com'
+    OAuth::AccessToken.new(oauth, token, secret)
+  end
+
+  def fetch_facebook_friends
+    if self['facebook_token']
+      client = ::User::Social.facebook_client(self['facebook_token'])
+      response = client.get('/me', params: {fields: 'friends'}) # 'movies,friends'
+      user_info = JSON.parse response.body
+      self.facebook_friends = user_info['friends']['data'].map { |f| f['id'] }
+      # watched.import_from_facebook user_info['movies']['data']
+    end
+  end
+
+  def self.facebook_client(token_values)
+    config = Movies::Application.config.facebook
+    token, = token_values
+    oauth = OAuth2::Client.new config.app_id, config.secret,
+      site: 'https://graph.facebook.com',
+      token_url: '/oauth/access_token'
+
+    OAuth2::AccessToken.new(oauth, token, mode: :query, param_name: 'access_token')
   end
 
   def twitter_url
@@ -89,44 +120,39 @@ module User::Social
   end
 
   module ClassMethods
-    def from_twitter(twitter)
-      login_from_twitter_or_facebook(twitter, nil)
-    end
-
-    def from_facebook(facebook)
-      login_from_twitter_or_facebook(nil, facebook)
-    end
-
-    def find_from_twitter_or_facebook(twitter_info, facebook_info)
-      if twitter_info or facebook_info
-        first({}.tap { |conditions|
-          conditions['twitter.id'] = twitter_info.id if twitter_info
-          conditions['facebook.id'] = facebook_info.id if facebook_info
-        })
+    # provider: twitter or facebook
+    def find_from_provider(provider, id)
+      case provider
+      when 'twitter'  then id = id.to_i
+      when 'facebook' then id = id.to_s
       end
+      first("#{provider}.id" => id)
     end
 
-    def login_from_twitter_or_facebook(twitter_info, facebook_info)
-      raise ArgumentError unless twitter_info or facebook_info
-      twitter_user = twitter_info && first('twitter.id' => twitter_info.id)
-      facebook_user = facebook_info && first('facebook.id' => facebook_info.id)
-
-      if twitter_user.nil? and facebook_user.nil?
-        self.new
-      elsif twitter_user == facebook_user or facebook_user.nil?
-        twitter_user
-      elsif twitter_user.nil?
-        facebook_user
-      else
-        merge_accounts(twitter_user, facebook_user)
-      end.
-        tap do |user|
-          user.twitter_info = twitter_info if twitter_info
-          user.facebook_info = facebook_info if facebook_info
-          user.save
+    def login_from_provider(auth, current_user = nil)
+      if user = find_from_provider(auth.provider, auth.uid)
+        if current_user and current_user != user
+          user = merge_accounts(user, current_user)
         end
+      else
+        user = current_user || self.new
+      end
+
+      case auth.provider
+      when 'twitter'
+        user.twitter_info = auth.extra.raw_info
+        user['twitter_token'] = [auth.credentials.token, auth.credentials.secret] if auth.credentials
+      when 'facebook'
+        user.facebook_info = auth.extra.raw_info
+        user['facebook_token'] = [auth.credentials.token, auth.credentials.secret] if auth.credentials
+      end
+
+      user.refresh_social_connections
+      user.save
+      return user
     end
   end
+
   private
 
   def get_redirect_target(url)

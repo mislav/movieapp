@@ -43,12 +43,12 @@ module Movies
       Mingo.connect config.mongodb.database || config.mongodb.uri,
         logger: Rails.env.development? && Rails.logger
     end
-    
-    config.twitter_login = Twitter::Login.new \
-      :consumer_key => config.twitter.consumer_key, :secret => config.twitter.secret
-    
-    config.facebook_client = Facebook::Client.new(config.facebook.app_id, config.facebook.secret,
-      :user_fields => %w[link name email website timezone])
+
+    config.middleware.use OmniAuth::Strategies::Twitter,
+      config.twitter.consumer_key, config.twitter.secret
+
+    config.middleware.use OmniAuth::Strategies::Facebook,
+      config.facebook.app_id, config.facebook.secret
 
     config.middleware.use Twin
 

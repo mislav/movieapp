@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :login_from_token, :authentication_denied_notice
+  before_filter :login_from_token
   
   def self.admin_actions(options)
     before_filter :check_admin, options
@@ -28,7 +28,12 @@ class ApplicationController < ActionController::Base
       nil
     end
   end
-  
+
+  def login_path(provider)
+    "/auth/#{provider}"
+  end
+  helper_method :login_path
+
   protected
 
   def login_from_token
@@ -39,15 +44,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def authentication_denied_notice
-    %w[twitter facebook].detect do |service|
-      if session[:"#{service}_error"] == 'user_denied'
-        session.delete(:"#{service}_error")
-        flash.now[:warning] = "You have refused to connect with #{service.titleize}"
-      end
-    end
-  end
-  
   def check_admin
     unless logged_in? and current_user.admin?
       head :forbidden

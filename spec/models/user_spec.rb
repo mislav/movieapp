@@ -160,74 +160,13 @@ describe User do
     end
   end
   
-  describe ".from_twitter" do
-    before do
-      @twitter_data = Hashie::Mash.new :screen_name => 'mislav', :name => 'Birdie Mislav', :id => 1234
-    end
-    
-    it "creates a new record" do
-      user = User.from_twitter(@twitter_data)
-      user.should be_persisted
-      user.username.should == 'mislav'
-      user.name.should == 'Birdie Mislav'
-      user['twitter']['id'].should == 1234
-      user.should match_selector('twitter.id' => 1234)
-    end
-    
-    it "finds an existing twitter user and updates twitter info" do
-      existing_id = collection.insert :name => 'Mislav',
-        :twitter => { :screen_name => 'mislav_old', :name => 'Oldie Mislav', :id => 1234 }
-      
-      user = User.from_twitter(@twitter_data)
-      user.id.should == existing_id
-      user.name.should == 'Mislav'
-      user['twitter']['screen_name'].should == 'mislav'
-      user['twitter']['name'].should == 'Birdie Mislav'
-    end
-    
-    it "generates a unique username in case twitter name is taken" do
-      existing_id = collection.insert :username => 'mislav',
-        :twitter => { :screen_name => 'mislav_impersonator' }
-      
-      user = User.from_twitter(@twitter_data)
-      user.id.should_not == existing_id
-      user.username.should == 'mislav1'
-    end
-  end
-  
-  describe ".from_facebook" do
-    before do
-      @facebook_data = Hashie::Mash.new :link => 'http://facebook.com/mislav', :name => 'Private Mislav', :id => 2345
-    end
-    
-    it "creates a new record" do
-      user = User.from_facebook(@facebook_data)
-      user.should be_persisted
-      user.username.should == 'mislav'
-      user.name.should == 'Private Mislav'
-      user['facebook']['id'].should == 2345
-      user.should match_selector('facebook.id' => 2345)
-    end
-    
-    it "finds an existing twitter user and updates twitter info" do
-      existing_id = collection.insert :name => 'Mislav',
-        :facebook => { :name => 'Oldie Mislav', :id => 2345 }
-      
-      user = User.from_facebook(@facebook_data)
-      user.id.should == existing_id
-      user.name.should == 'Mislav'
-      user['facebook']['name'].should == 'Private Mislav'
-      user['facebook']['link'].should == 'http://facebook.com/mislav'
-    end
-  end
-  
   describe ".from_twitter_or_facebook" do
     before do
       @twitter_data = Hashie::Mash.new :screen_name => 'mislav', :name => 'Birdie Mislav', :id => 1234
       @facebook_data = Hashie::Mash.new :link => 'http://facebook.com/mislav', :name => 'Private Mislav', :id => 2345
     end
     
-    it "merges two user records" do
+    xit "merges two user records" do
       existing_facebook_id = BSON::ObjectId.from_time(5.minutes.ago)
       collection.save :facebook => { :id => 2345 }, :_id => existing_facebook_id, :username => 'facebooker'
       existing_twitter_id = collection.insert :twitter => { :id => 1234 }, :username => 'twat'

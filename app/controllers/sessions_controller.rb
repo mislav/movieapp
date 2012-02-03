@@ -1,33 +1,31 @@
-class SessionsController < ApplicationController
+require 'omniauth/auth_hash'
+require 'ostruct'
 
-  include Twitter::Login::Helpers
-  include Facebook::Login::Helpers
+class SessionsController < ApplicationController
 
   skip_before_filter :login_from_token
 
   # for offline testing purposes only
   def instant_login
     user = Rails.configuration.twitter.test_user
-    session[:twitter_user] = user
-    signup_user
-    redirect_to watched_path(current_user)
+    signup_user OmniAuth::AuthHash.new(provider: 'twitter',
+      uid: user.id,
+      info: { name: user.name, nickname: user.screen_name },
+      extra: { raw_info: user })
+
+    redirect_to watched_url(current_user)
   end
 
   def connect
     session[:connecting_with] = params[:network] # facebook or twitter
     session[:following_count] = current_user.friends.count
 
-    redirect_to polymorphic_path([params[:network], 'login'])
+    redirect_to login_path(params[:network])
   end
 
   def finalize
-    signup_user
-      
-    unless Movies.offline?
-      current_user.fetch_twitter_info(twitter_client) if twitter_user
-      current_user.fetch_facebook_info(facebook_client) if facebook_user
-    end
-    
+    signup_user request.env['omniauth.auth']
+
     if network = session[:connecting_with]
       new_friends = current_user.friends.count - session[:following_count]
       if new_friends.zero?
@@ -35,17 +33,23 @@ class SessionsController < ApplicationController
       else
         message = "Successfully connected with #{new_friends} people from #{network.capitalize}"
       end
-      
+
+      session.delete(:connecting_with)
+      session.delete(:following_count)
+
       redirect_to following_url, notice: message
     else
       redirect_to watched_url(current_user)
     end
   end
 
-  def logout
-    twitter_logout
-    facebook_logout
+  def auth_failure
+    render 'shared/error', status: 500, locals: {
+      error: OpenStruct.new(message: params[:message])
+    }
+  end
 
+  def logout
     if logged_in? and cookies[:login_token].present?
       current_user.delete_login_token cookies[:login_token]
       cookies.delete :login_token
@@ -56,11 +60,14 @@ class SessionsController < ApplicationController
   end
   
   private
-  
-  def signup_user
-    if self.current_user = User.login_from_twitter_or_facebook(twitter_user, facebook_user)
+
+  def signup_user(auth)
+    if self.current_user = User.login_from_provider(auth, current_user)
       if cookies[:login_token].blank? or !current_user.has_login_token?(cookies[:login_token])
-        cookies.permanent[:login_token] = current_user.generate_login_token
+        cookies.signed.permanent[:login_token] = {
+          value: current_user.generate_login_token,
+          httponly: true
+        }
       end
     end
   end

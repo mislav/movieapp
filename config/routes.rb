@@ -23,17 +23,11 @@ Movies::Application.routes.draw do
   
   match 'director/*director' => 'movies#index', :as => :director, :via => :get
 
-  config = Movies::Application.config
-  twitter = config.twitter_login.login_handler(:return_to => '/login/finalize')
-  facebook = config.facebook_client.login_handler(:return_to => '/login/finalize')
-
-  match 'login/instant' => 'sessions#instant_login', :as => :instant_login
-  mount twitter => 'login/twitter', :as => :twitter_login
-  mount facebook => 'login/facebook', :as => :facebook_login
-
-  match 'login/connect' => 'sessions#connect', :as => :connect
-  match 'login/finalize' => 'sessions#finalize'
-  match 'logout' => 'sessions#logout', :as => :logout
+  match 'login/instant'           => 'sessions#instant_login', :as => :instant_login
+  get   'auth/failure'            => 'sessions#auth_failure'
+  match 'auth/:provider/callback' => 'sessions#finalize'
+  match 'login/connect'           => 'sessions#connect', :as => :connect
+  match 'logout'                  => 'sessions#logout', :as => :logout
 
   root :to => "movies#index"
   

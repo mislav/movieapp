@@ -15,11 +15,13 @@ module User::Friends
     # cast twitter ids to integers
     def twitter_friends=(ids)
       super ids.map { |id| id.to_i }
+      self['twitter_friends_updated_at'] = Time.now
     end
 
     # cast facebook ids to strings
     def facebook_friends=(ids)
       super ids.map { |id| id.to_s }
+      self['facebook_friends_updated_at'] = Time.now
     end
   end
 
