@@ -1,8 +1,3 @@
-require 'net/http'
-require 'json'
-require 'oauth'
-require 'oauth2'
-
 module User::Social
   extend ActiveSupport::Concern
 
@@ -47,39 +42,45 @@ module User::Social
 
   def fetch_twitter_friends
     if self['twitter_token']
-      client = ::User::Social.twitter_client(self['twitter_token'])
-      response = client.get('/1/friends/ids.json')
-      ids_data = JSON.parse response.body
-      self.twitter_friends = ids_data['ids']
+      data = ServiceFetcher.get_twitter_friends(self['twitter_token'])
+      if data.respond_to? :status
+        case data.status
+        when 200
+          self.twitter_friends = data.ids
+        when 401
+          # the token seems no longer valid
+          self['twitter_token'] = nil
+        else
+          raise "unhandled status: #{data.status.inspect}"
+        end
+      elsif data.is_a? Exception
+        raise data
+      end
     end
-  end
-
-  def self.twitter_client(token_values)
-    config = Movies::Application.config.twitter
-    token, secret, = token_values
-    oauth = OAuth::Consumer.new config.consumer_key, config.secret,
-      site: 'https://api.twitter.com'
-    OAuth::AccessToken.new(oauth, token, secret)
+  rescue StandardError
+    NeverForget.log($!, user_id: self.id)
   end
 
   def fetch_facebook_friends
     if self['facebook_token']
-      client = ::User::Social.facebook_client(self['facebook_token'])
-      response = client.get('/me', params: {fields: 'friends'}) # 'movies,friends'
-      user_info = JSON.parse response.body
-      self.facebook_friends = user_info['friends']['data'].map { |f| f['id'] }
-      # watched.import_from_facebook user_info['movies']['data']
+      data = ServiceFetcher.get_facebook_info(self['facebook_token'], fields: 'friends')
+      if data.respond_to? :status
+        case data.status
+        when 200
+          self.facebook_friends = data.friends.data.map(&:id)
+          # watched.import_from_facebook data.movies.data
+        when 401
+          # the token seems no longer valid
+          self['facebook_token'] = nil
+        else
+          raise "unhandled status: #{data.status.inspect}"
+        end
+      elsif data.is_a? Exception
+        raise data
+      end
     end
-  end
-
-  def self.facebook_client(token_values)
-    config = Movies::Application.config.facebook
-    token, = token_values
-    oauth = OAuth2::Client.new config.app_id, config.secret,
-      site: 'https://graph.facebook.com',
-      token_url: '/oauth/access_token'
-
-    OAuth2::AccessToken.new(oauth, token, mode: :query, param_name: 'access_token')
+  rescue StandardError
+    NeverForget.log($!, user_id: self.id)
   end
 
   def twitter_url
@@ -88,15 +89,20 @@ module User::Social
 
   # 73x73 px
   def twitter_picture
-    self['twitter_picture'] || begin
-      name = self['twitter']['screen_name']
-      img = get_redirect_target "http://api.twitter.com/1/users/profile_image/#{name}?size=bigger"
-      if img and img !~ /default_profile_/
-        self['twitter_picture'] = img
-        self.save
-        img
-      end
-    end
+    update_twitter_picture(:autosave) if twitter_picture_stale?
+    self['twitter_picture']
+  end
+
+  def update_twitter_picture(autosave = false)
+    img = ServiceFetcher.get_twitter_profile_image self['twitter']['screen_name']
+    self['twitter_picture'] = img =~ /default_profile_/ ? nil : img
+    self['twitter_picture_updated_at'] = Time.now
+    self.save if autosave
+  end
+
+  def twitter_picture_stale?
+    self['twitter_picture_updated_at'].nil? or
+      self['twitter_picture_updated_at'] < 1.day.ago
   end
 
   def facebook_url
@@ -151,18 +157,5 @@ module User::Social
       user.save
       return user
     end
-  end
-
-  private
-
-  def get_redirect_target(url)
-    return nil if Movies.offline?
-    # TODO: cache results for 1 day
-    url = URI.parse url unless url.respond_to? :request_uri
-    response = Net::HTTP.start(url.host, open_timeout: 2) {|http| http.get url.request_uri }
-    response['location'] if response.is_a? Net::HTTPRedirection
-  rescue Timeout::Error
-    NeverForget.log($!, url: url)
-    return nil
   end
 end

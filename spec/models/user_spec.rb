@@ -1,5 +1,7 @@
 # encoding: utf-8
 require 'spec_helper'
+require 'ostruct'
+require 'hashie/mash'
 
 describe User do
   before do
@@ -278,6 +280,104 @@ describe User do
       @user.add_friend(user2)
       @user.should_not be_following_on_facebook(user2)
       @user.should_not be_following_on_twitter(user2)
+    end
+  end
+
+  describe "fetching friends lists" do
+    let(:user) do
+      build.tap { |user|
+        user.twitter_friends = [234]
+        user.facebook_friends = [234]
+        user['twitter_token'] = ['TWTOKEN', 'TWSECRET']
+        user['facebook_token'] = ['FBTOKEN', nil]
+      }
+    end
+
+    it "successful from twitter" do
+      twitter_data = OpenStruct.new status: 200, ids: [1234, 4567]
+
+      ServiceFetcher.should_receive(:get_twitter_friends).
+        with(user['twitter_token']).
+        and_return(twitter_data)
+
+      user.fetch_twitter_friends
+      user.twitter_friends.to_a.should =~ [1234, 4567]
+      user['twitter_token'].should_not be_nil
+    end
+
+    it "failed from twitter" do
+      twitter_data = OpenStruct.new status: 401
+
+      ServiceFetcher.should_receive(:get_twitter_friends).
+        with(user['twitter_token']).
+        and_return(twitter_data)
+
+      user.fetch_twitter_friends
+      user.twitter_friends.to_a.should =~ [234]
+      user['twitter_token'].should be_nil
+    end
+
+    it "successful from facebook" do
+      facebook_data = Hashie::Mash.new status: 200,
+        friends: {
+          data: [ {id: 1234}, {id: 4567} ]
+        }
+
+      ServiceFetcher.should_receive(:get_facebook_info).
+        with(user['facebook_token'], fields: 'friends').
+        and_return(facebook_data)
+
+      user.fetch_facebook_friends
+      user.facebook_friends.to_a.should =~ ["1234", "4567"]
+      user['facebook_token'].should_not be_nil
+    end
+
+    it "failed from facebook" do
+      facebook_data = OpenStruct.new status: 401
+
+      ServiceFetcher.should_receive(:get_facebook_info).
+        with(user['facebook_token'], fields: 'friends').
+        and_return(facebook_data)
+
+      user.fetch_facebook_friends
+      user.facebook_friends.to_a.should =~ ["234"]
+      user['facebook_token'].should be_nil
+    end
+  end
+
+  describe "picture" do
+    let(:user) { build }
+
+    it "has no picture" do
+      user.picture_url.should be_nil
+    end
+
+    it "fetches picture from twitter" do
+      user['twitter'] = {'id' => 1, 'screen_name' => 'mislav'}
+
+      ServiceFetcher.should_receive(:get_twitter_profile_image).
+        once.with('mislav').
+        and_return('http:///mislav.png')
+
+      user.picture_url.should eq('http:///mislav.png')
+      user.reload.picture_url.should eq('http:///mislav.png')
+    end
+
+    it "refreshes stale twitter picture" do
+      user['twitter'] = {'id' => 1, 'screen_name' => 'mislav'}
+      user['twitter_picture'] = 'http:///mislav.png'
+      user['twitter_picture_updated_at'] = 2.days.ago.utc
+
+      ServiceFetcher.should_receive(:get_twitter_profile_image).
+        once.with('mislav').
+        and_return('http:///new_pic.png')
+
+      user.picture_url.should eq('http:///new_pic.png')
+    end
+
+    it "uses facebook picture" do
+      user['facebook'] = {'id' => '1'}
+      user.picture_url.should eq('http://graph.facebook.com/1/picture?type=normal')
     end
   end
 end
