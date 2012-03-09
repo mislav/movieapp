@@ -107,7 +107,6 @@ class Movie < Mingo
     if movie
       self.tmdb_id = movie.id
       self.tmdb_url = movie.url
-      self.tmdb_version = movie.version
       self.imdb_id = movie.imdb_id if movie.imdb_id.present? and self.imdb_id.nil?
 
       # renamed properties

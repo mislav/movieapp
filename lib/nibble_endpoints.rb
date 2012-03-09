@@ -11,6 +11,19 @@ module NibbleEndpoints
   def get_raw(endpoint, params = {}, &block)
     make_request(:get, endpoint, params, &block)
   end
+  
+  def path_for(endpoint, params = {})
+    template, = endpoints.fetch(endpoint.to_sym) {
+      raise ArgumentError, "unknown endpoint #{endpoint.inspect}"
+    }
+    template.expand(default_params.merge(params))
+  end
+  
+  def url_for(endpoint, params = {})
+    path = path_for(endpoint, params)
+    # TODO: figure out why + vs %20
+    connection.build_url(path).to_s.gsub('+', '%20')
+  end
 
   protected
 
@@ -37,10 +50,7 @@ module NibbleEndpoints
   end
 
   def make_request(method, endpoint, params = {})
-    template, = endpoints.fetch(endpoint.to_sym) {
-      raise ArgumentError, "unknown endpoint #{endpoint.inspect}"
-    }
-    url = template.expand(default_params.merge(params))
+    url = path_for(endpoint, params)
     connection.run_request(method, url, nil, nil) do |request|
       yield request if block_given?
     end

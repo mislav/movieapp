@@ -1,0 +1,654 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.themoviedb.org/3/search/movie?api_key=<TMDB_KEY>&query=black%20cat
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+      User-Agent: Ruby
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Age: '1'
+      Cache-Control: public, max-age=172800
+      Content-Type: application/json;charset=utf-8
+      Date: Tue, 13 Mar 2012 18:16:39 GMT
+      Server: nginx
+      Status: 200 OK
+      Vary: Accept-Encoding
+      Via: 1.1 varnish
+      X-Cache: HIT
+      X-Frame-Options: sameorigin
+      X-Memc: HIT
+      X-Memc-Age: '1'
+      X-Memc-Key: /search/movie?include_adult=false&language=en&query=black+cat
+      X-Varnish: 1936714682 1936714531
+      X-Varnish-Sid: tm-v-p-1200
+      X-Xss-Protection: 1; mode=block
+      Content-Length: '3545'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "page": 1,
+          "results": [
+            {
+              "backdrop_path": "/oIdAuFg8gNRV2a3QCD6NBDpTFBR.jpg",
+              "id": 1075,
+              "original_title": "Crna mačka, beli mačor",
+              "release_date": "1998-09-10",
+              "popularity": 0.306,
+              "poster_path": "/7q96evV2xWjvkO4fMdqe8vixKb8.jpg",
+              "title": "Black Cat, White Cat"
+            },
+            {
+              "backdrop_path": "/7Op1U9FLDUXS7XasuDq5IPII1EV.jpg",
+              "id": 40149,
+              "original_title": "Yabu no naka no kuroneko",
+              "release_date": "1968-02-24",
+              "popularity": 0.004,
+              "poster_path": "/hqgQh5IBeOz4gfokWVogdlPgGiZ.jpg",
+              "title": "Kuroneko"
+            },
+            {
+              "backdrop_path": null,
+              "id": 93888,
+              "original_title": "The Black Cat",
+              "release_date": null,
+              "popularity": 0.06,
+              "poster_path": "/7hklmilsq6JMXAXtfTZL6SFesCD.jpg",
+              "title": "The Black Cat"
+            },
+            {
+              "backdrop_path": "/rkwjifZKvHb1ASdBs377fOonjhB.jpg",
+              "id": 543,
+              "original_title": "Blackmail",
+              "release_date": "1929-06-30",
+              "popularity": 0.002,
+              "poster_path": "/gd62iDr6MVkycVKyMIgPUy8lb3P.jpg",
+              "title": "Blackmail"
+            },
+            {
+              "backdrop_path": null,
+              "id": 29569,
+              "original_title": "Cazar un gato negro",
+              "release_date": "1977-05-09",
+              "popularity": 0.004,
+              "poster_path": "/5Zy8hEapeBAgk31WfwP48MmMrM9.jpg",
+              "title": "Cazar un gato negro"
+            },
+            {
+              "backdrop_path": "/4DZBm4G2wd6HgHdmxxyod8sdSoJ.jpg",
+              "id": 26503,
+              "original_title": "Gatto nero",
+              "release_date": "1981-04-04",
+              "popularity": 0.005,
+              "poster_path": "/k3C1Ye7aQJXrPRfVDi4XJTcfHHE.jpg",
+              "title": "The Black Cat"
+            },
+            {
+              "backdrop_path": "/bi0e7KIThNUwVdW4L59ZRwxodzg.jpg",
+              "id": 24106,
+              "original_title": "The Black Cat",
+              "release_date": "1934-05-07",
+              "popularity": 0.002,
+              "poster_path": "/gXb8lubFXSnS9DVp6vmw8WoMmwC.jpg",
+              "title": "The Black Cat"
+            },
+            {
+              "backdrop_path": null,
+              "id": 48170,
+              "original_title": "Black Cat Run",
+              "release_date": "1998-09-18",
+              "popularity": 0.009,
+              "poster_path": "/xXWcJlY4hS9HUYfWyU7BrWcz9oR.jpg",
+              "title": "Black Cat Run"
+            },
+            {
+              "backdrop_path": null,
+              "id": 29286,
+              "original_title": "The Black Cat",
+              "release_date": "1941-05-02",
+              "popularity": 0.002,
+              "poster_path": "/bjNIGr5I93AgXzycqZLScG2wFo1.jpg",
+              "title": "The Black Cat"
+            },
+            {
+              "backdrop_path": "/g2GgZP2NSIi9R7Eh3APsAwCwW4S.jpg",
+              "id": 70412,
+              "original_title": "Black Cat's Revenge",
+              "release_date": "1970-01-01",
+              "popularity": 0.004,
+              "poster_path": "/mmm7GoG86XoYAuh8IcDDR7092TI.jpg",
+              "title": "Black Cat's Revenge"
+            },
+            {
+              "backdrop_path": null,
+              "id": 45437,
+              "original_title": "Hei mao",
+              "release_date": "1991-01-01",
+              "popularity": 0.006,
+              "poster_path": null,
+              "title": "Black Cat"
+            },
+            {
+              "backdrop_path": null,
+              "id": 94536,
+              "original_title": "The Black Alley Cats",
+              "release_date": null,
+              "popularity": 0.06,
+              "poster_path": "/mUf0fjjMCA4UsMrUejJpV2zsjSh.jpg",
+              "title": "The Black Alley Cats"
+            },
+            {
+              "backdrop_path": null,
+              "id": 93899,
+              "original_title": "The Fat Black Pussycat",
+              "release_date": null,
+              "popularity": 0.06,
+              "poster_path": "/rjPs0YhWlNSt9UAfMCVYc74NhLQ.jpg",
+              "title": "The Fat Black Pussycat"
+            }
+          ],
+          "total_pages": 1,
+          "total_results": 13
+        }
+    http_version: 
+  recorded_at: Tue, 13 Mar 2012 18:16:39 GMT
+- request:
+    method: get
+    uri: http://api.themoviedb.org/3/configuration?api_key=<TMDB_KEY>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+      User-Agent: Ruby
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Age: '0'
+      Cache-Control: public, max-age=36000
+      Content-Type: application/json;charset=utf-8
+      Date: Tue, 13 Mar 2012 18:16:40 GMT
+      Server: nginx
+      Status: 200 OK
+      Via: 1.1 varnish
+      X-Cache: MISS
+      X-Frame-Options: sameorigin
+      X-Varnish: '1936714708'
+      X-Varnish-Sid: tm-v-p-1200
+      X-Xss-Protection: 1; mode=block
+      Content-Length: '363'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "images": {
+            "base_url": "http://cf2.imgobject.com/t/p/",
+            "poster_sizes": [
+              "w92",
+              "w154",
+              "w185",
+              "w342",
+              "w500",
+              "original"
+            ],
+            "backdrop_sizes": [
+              "w300",
+              "w780",
+              "w1280",
+              "original"
+            ],
+            "profile_sizes": [
+              "w45",
+              "w185",
+              "h632",
+              "original"
+            ]
+          }
+        }
+    http_version: 
+  recorded_at: Tue, 13 Mar 2012 18:16:40 GMT
+- request:
+    method: get
+    uri: http://api.themoviedb.org/3/search/movie?api_key=<TMDB_KEY>&query=the%20terminator
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+      User-Agent: Ruby
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Age: '0'
+      Cache-Control: public, max-age=172800
+      Content-Type: application/json;charset=utf-8
+      Date: Tue, 13 Mar 2012 18:16:43 GMT
+      Server: nginx
+      Status: 200 OK
+      Vary: Accept-Encoding
+      Via: 1.1 varnish
+      X-Cache: MISS
+      X-Frame-Options: sameorigin
+      X-Memc: HIT
+      X-Memc-Age: '32880'
+      X-Memc-Key: /search/movie?include_adult=false&language=en&query=the+terminator
+      X-Varnish: '1936715095'
+      X-Varnish-Sid: tm-v-p-1200
+      X-Xss-Protection: 1; mode=block
+      Content-Length: '4500'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "page": 1,
+          "results": [
+            {
+              "backdrop_path": "/6yFoLNQgFdVbA8TZMdfgVpszOla.jpg",
+              "id": 218,
+              "original_title": "The Terminator",
+              "release_date": "1984-10-26",
+              "popularity": 8283.75,
+              "poster_path": "/25AlJnmjC43bxW3PYDotkBXsQEi.jpg",
+              "title": "The Terminator"
+            },
+            {
+              "backdrop_path": "/pC9vQ5miLgdHSPIsgfU5A9pcTpF.jpg",
+              "id": 280,
+              "original_title": "Terminator 2: Judgment Day",
+              "release_date": "1991-07-03",
+              "popularity": 29556.75,
+              "poster_path": "/2y4dmgWYRMYXdD1UyJVcn2HSd1D.jpg",
+              "title": "Terminator 2: Judgment Day"
+            },
+            {
+              "backdrop_path": "/tBCOpjphzSLzC6oOjqzTEg6bJ7q.jpg",
+              "id": 534,
+              "original_title": "Terminator: Salvation",
+              "release_date": "2009-05-21",
+              "popularity": 61078.172,
+              "poster_path": "/hxDfhavtxA2Ayx7O9BsQMcZRdG0.jpg",
+              "title": "Terminator: Salvation"
+            },
+            {
+              "backdrop_path": "/heNbD1JojBNz6kfHWr3O8Uk0a3a.jpg",
+              "id": 296,
+              "original_title": "Terminator 3: Rise of the Machines",
+              "release_date": "2003-06-30",
+              "popularity": 11509.99,
+              "poster_path": "/fOh3H86EjytwutRA1ihohwXBh3T.jpg",
+              "title": "Terminator 3: Rise of the Machines"
+            },
+            {
+              "backdrop_path": "/7WlZBIMGjpWAiTKs6DAfuZtYots.jpg",
+              "id": 37835,
+              "original_title": "The Exterminator",
+              "release_date": "1980-09-19",
+              "popularity": 0.041,
+              "poster_path": "/9TN5Uyr6Cpsd2eH8wljnpv3SCty.jpg",
+              "title": "The Exterminator"
+            },
+            {
+              "backdrop_path": null,
+              "id": 27473,
+              "original_title": "Exterminator City",
+              "release_date": "2005-06-28",
+              "popularity": 0.029,
+              "poster_path": "/wSmgIbF0rLGcPRoEs8AGrxq8POI.jpg",
+              "title": "Exterminator City"
+            },
+            {
+              "backdrop_path": null,
+              "id": 61904,
+              "original_title": "Lady Terminator",
+              "release_date": "1989-06-10",
+              "popularity": 0.023,
+              "poster_path": "/382YSNLolIhPIulIK5B95OH2gbr.jpg",
+              "title": "Lady Terminator"
+            },
+            {
+              "backdrop_path": "/oZWp5ELtrZsua8hBvIPVuXbtZwp.jpg",
+              "id": 25891,
+              "original_title": "ExTerminators",
+              "release_date": "2009-03-13",
+              "popularity": 0.026,
+              "poster_path": "/gPP9gutQIj8yfFQSDo5R1y0xAUu.jpg",
+              "title": "ExTerminators"
+            },
+            {
+              "backdrop_path": "/rsub79PKFIBMrBkb3DzZQIhl9w1.jpg",
+              "id": 69343,
+              "original_title": "Exterminator 2",
+              "release_date": "1984-09-14",
+              "popularity": 0.005,
+              "poster_path": "/mh5WUQqwwtZghvXvYgBDq4eVviR.jpg",
+              "title": "Exterminator 2"
+            },
+            {
+              "backdrop_path": null,
+              "id": 27268,
+              "original_title": "Gli sterminatori dell'anno 3000",
+              "release_date": "1985-01-12",
+              "popularity": 0.005,
+              "poster_path": "/gfXsHBrCz3YVWg41say8OQ1alnR.jpg",
+              "title": "Gli sterminatori dell'anno 3000"
+            },
+            {
+              "backdrop_path": null,
+              "id": 40027,
+              "original_title": "Ninja Terminator",
+              "release_date": "1985-01-01",
+              "popularity": 0.005,
+              "poster_path": "/ls7BqOyOusaFSjegFPOOnjymaII.jpg",
+              "title": "Ninja Terminator"
+            },
+            {
+              "backdrop_path": null,
+              "id": 86223,
+              "original_title": "Russian Terminator",
+              "release_date": null,
+              "popularity": 0.06,
+              "poster_path": "/doO6FG3ddpIeY3dKAiinwOuRKuv.jpg",
+              "title": "Russian Terminator"
+            },
+            {
+              "backdrop_path": null,
+              "id": 87101,
+              "original_title": "Terminator 5",
+              "release_date": "2014-01-01",
+              "popularity": 0.038,
+              "poster_path": null,
+              "title": "Terminator 5"
+            },
+            {
+              "backdrop_path": null,
+              "id": 55459,
+              "original_title": "Terminator Woman",
+              "release_date": "1993-06-30",
+              "popularity": 0.007,
+              "poster_path": "/cAx9ycP3YS6UZbJwLyO0Liiid9x.jpg",
+              "title": "Terminator Woman"
+            },
+            {
+              "backdrop_path": "/jCADV4AdnKLZWUsfCkT5ZVbQp3j.jpg",
+              "id": 26342,
+              "original_title": "The Terminators",
+              "release_date": "2009-04-28",
+              "popularity": 0.244,
+              "poster_path": "/g7DY57lKov9ZNYjZPG6mkiXDjV.jpg",
+              "title": "The Terminators"
+            },
+            {
+              "backdrop_path": null,
+              "id": 45443,
+              "original_title": "轟天皇家將",
+              "release_date": "1992-10-10",
+              "popularity": 0.006,
+              "poster_path": "/iFKVyrj3FsIMqjVoYTeta2dbs2.jpg",
+              "title": "Angel Terminators"
+            }
+          ],
+          "total_pages": 1,
+          "total_results": 16
+        }
+    http_version: 
+  recorded_at: Tue, 13 Mar 2012 18:16:43 GMT
+- request:
+    method: get
+    uri: http://api.themoviedb.org/3/search/movie?api_key=<TMDB_KEY>&query=lepa%20brena
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+      User-Agent: Ruby
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Age: '0'
+      Cache-Control: public, max-age=172800
+      Content-Type: application/json;charset=utf-8
+      Date: Tue, 13 Mar 2012 18:16:43 GMT
+      Server: nginx
+      Status: 200 OK
+      Via: 1.1 varnish
+      X-Cache: MISS
+      X-Frame-Options: sameorigin
+      X-Memc: MISS, STORE
+      X-Memc-Age: '0'
+      X-Memc-Key: /search/movie?include_adult=false&language=en&query=lepa+brena
+      X-Varnish: '1936715141'
+      X-Varnish-Sid: tm-v-p-1200
+      X-Xss-Protection: 1; mode=block
+      Content-Length: '78'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "page": 1,
+          "results": [
+
+          ],
+          "total_pages": 0,
+          "total_results": 0
+        }
+    http_version: 
+  recorded_at: Tue, 13 Mar 2012 18:16:43 GMT
+- request:
+    method: get
+    uri: http://api.themoviedb.org/3/movie/24684/casts?api_key=<TMDB_KEY>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+      User-Agent: Ruby
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Age: '0'
+      Cache-Control: public, max-age=172800
+      Content-Type: application/json;charset=utf-8
+      Date: Tue, 13 Mar 2012 18:16:44 GMT
+      Server: nginx
+      Status: 200 OK
+      Vary: Accept-Encoding
+      Via: 1.1 varnish
+      X-Cache: MISS
+      X-Frame-Options: sameorigin
+      X-Memc: HIT
+      X-Memc-Age: '80697'
+      X-Memc-Key: /movie/24684/casts?language=en
+      X-Varnish: '1936715259'
+      X-Varnish-Sid: tm-v-p-1200
+      X-Xss-Protection: 1; mode=block
+      Content-Length: '1715'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "id": 24684,
+          "cast": [
+            {
+              "id": 36662,
+              "name": "Carey Mulligan",
+              "character": "Jenny",
+              "order": 0,
+              "profile_path": "/mEc1KBrYdWvGLjbktGCflLjgYL2.jpg"
+            },
+            {
+              "id": 11616,
+              "name": "Olivia Williams",
+              "character": "Miss Stubbs",
+              "order": 1,
+              "profile_path": "/qYY72sQY6zFo7VeexTpNlaCo7Jf.jpg"
+            },
+            {
+              "id": 658,
+              "name": "Alfred Molina",
+              "character": "Jack",
+              "order": 2,
+              "profile_path": "/4FB5RJ4S5uV82JZEusuUw4JySrF.jpg"
+            },
+            {
+              "id": 2617,
+              "name": "Cara Seymour",
+              "character": "Majorie",
+              "order": 3,
+              "profile_path": null
+            },
+            {
+              "id": 133,
+              "name": "Peter Sarsgaard",
+              "character": "David",
+              "order": 4,
+              "profile_path": "/dVbEE1eeQGVSUh25bQNMR62eZNf.jpg"
+            },
+            {
+              "id": 55470,
+              "name": "Dominic Cooper",
+              "character": "Danny",
+              "order": 5,
+              "profile_path": "/R17SImuQrFBM6M3id1DRwZaNOM.jpg"
+            },
+            {
+              "id": 10882,
+              "name": "Rosamund Pike",
+              "character": "Helen",
+              "order": 6,
+              "profile_path": "/8wk8h1fXwnGNU8jJWhMmifCeLYj.jpg"
+            },
+            {
+              "id": 235837,
+              "name": "Amanda Fairbank-Hynes",
+              "character": "Hattie",
+              "order": 7,
+              "profile_path": "/127xlkSaLK92NaYdStJQxWkqR1I.jpg"
+            }
+          ],
+          "crew": [
+            {
+              "id": 1176,
+              "name": "Lone Scherfig",
+              "department": "Directing",
+              "job": "Director",
+              "profile_path": "/6sQEKM8OjeyFCsh26kyGswQu6Ol.jpg"
+            },
+            {
+              "id": 3225,
+              "name": "Nick Hornby",
+              "department": "Writing",
+              "job": "Screenplay",
+              "profile_path": "/5wYVBorTuej3VDrcQQXLzUbxB2l.jpg"
+            }
+          ]
+        }
+    http_version: 
+  recorded_at: Tue, 13 Mar 2012 18:16:44 GMT
+- request:
+    method: get
+    uri: http://api.themoviedb.org/3/movie/24684?api_key=<TMDB_KEY>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+      User-Agent: Ruby
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Age: '1'
+      Cache-Control: public, max-age=172800
+      Content-Type: application/json;charset=utf-8
+      Date: Tue, 13 Mar 2012 18:16:44 GMT
+      Server: nginx
+      Status: 200 OK
+      Via: 1.1 varnish
+      X-Cache: HIT
+      X-Frame-Options: sameorigin
+      X-Memc: HIT
+      X-Memc-Age: '80697'
+      X-Memc-Key: /movie/24684?language=en
+      X-Varnish: 1936715294 1936715192
+      X-Varnish-Sid: tm-v-p-1200
+      X-Xss-Protection: 1; mode=block
+      Content-Length: '1219'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "adult": false,
+          "backdrop_path": "/eeaLhNPknWNcwgvpYnOgRYTzNzd.jpg",
+          "belongs_to_collection": null,
+          "budget": 7500000,
+          "genres": [
+            {
+              "id": 18,
+              "name": "Drama"
+            },
+            {
+              "id": 10749,
+              "name": "Romance"
+            },
+            {
+              "id": 10769,
+              "name": "Foreign"
+            }
+          ],
+          "homepage": "http://www.sonyclassics.com/aneducation/",
+          "id": 24684,
+          "imdb_id": "tt1174732",
+          "original_title": "An Education",
+          "overview": "A coming-of-age story about a teenage girl in 1960s suburban London, and how her life changes with the arrival of a playboy nearly twice her age.",
+          "popularity": 45.494,
+          "poster_path": "/ynRxERFGIV7UqFMsB2sqcLfmeut.jpg",
+          "production_companies": [
+            {
+              "name": "BBC Films",
+              "id": 419
+            }
+          ],
+          "production_countries": [
+            {
+              "iso_3166_1": "GB",
+              "name": "United Kingdom"
+            },
+            {
+              "iso_3166_1": "US",
+              "name": "United States of America"
+            }
+          ],
+          "release_date": "2009-10-30",
+          "revenue": 0,
+          "runtime": 95,
+          "spoken_languages": [
+            {
+              "iso_639_1": "en",
+              "name": "English"
+            }
+          ],
+          "tagline": "Innocence of the Young.",
+          "title": "An Education",
+          "vote_average": 7.3,
+          "vote_count": 5
+        }
+    http_version: 
+  recorded_at: Tue, 13 Mar 2012 18:16:44 GMT
+recorded_with: VCR 2.0.0

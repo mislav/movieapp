@@ -50,7 +50,8 @@ group :development, :test do
 end
 
 group :test do
-  gem 'webmock'
+  gem 'webmock', '~> 1.8.0'
+  gem 'vcr'
   gem 'cucumber-rails', :require => nil
   gem 'capybara', :require => nil
   gem 'launchy', :require => nil

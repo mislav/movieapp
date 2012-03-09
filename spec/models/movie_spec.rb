@@ -50,12 +50,17 @@ describe Movie do
   end
   
   describe "extended info" do
+
+    use_vcr_cassette 'Tmdb::Movie', record: :none
+
+    let(:tmdb_id) { 24684 }
+
     let(:rotten_values) do
       {'updated_at' => 5.minutes.ago.utc}
     end
 
     it "movie with complete info" do
-      movie = Movie.create :runtime => 95, :tmdb_id => 1234,
+      movie = Movie.create :runtime => 95, :tmdb_id => tmdb_id,
           :tmdb_updated_at => 1.day.ago.utc,
           :countries => [], :directors => [], :homepage => "" do |m|
         m['rotten_tomatoes'] = rotten_values
@@ -67,14 +72,7 @@ describe Movie do
     end
 
     it "movie with stale info" do
-      stub_request(:get, 'api.themoviedb.org/2.1/Movie.getInfo/en/json/TEST/1234').
-        to_return(
-          :body => read_fixture('tmdb-an_education.json'),
-          :status => 200,
-          :headers => {'content-type' => 'application/json'}
-        )
-
-      movie = Movie.create :runtime => 95, :tmdb_id => 1234,
+      movie = Movie.create :runtime => 95, :tmdb_id => tmdb_id,
           :tmdb_updated_at => 2.weeks.ago.utc,
           :countries => [], :directors => [], :homepage => "" do |m|
         m['rotten_tomatoes'] = rotten_values
@@ -85,14 +83,7 @@ describe Movie do
     end
 
     it "movie with missing info fills the blanks" do
-      stub_request(:get, 'api.themoviedb.org/2.1/Movie.getInfo/en/json/TEST/1234').
-        to_return(
-          :body => read_fixture('tmdb-an_education.json'),
-          :status => 200,
-          :headers => {'content-type' => 'application/json'}
-        )
-
-      movie = Movie.create :tmdb_id => 1234 do |m|
+      movie = Movie.create :tmdb_id => tmdb_id do |m|
         m['rotten_tomatoes'] = rotten_values
       end
 
