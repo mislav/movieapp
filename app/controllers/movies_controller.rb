@@ -20,7 +20,8 @@ class MoviesController < ApplicationController
       @movies = Movie.find(:directors => @director).sort(:year, :desc).page(params[:page])
       freshness_from_cursor @movies
     else
-      if logged_in? or stale?(:last_modified => Movie.last_watch_created_at)
+      expires_in 5.minutes unless logged_in?
+      if logged_in? or stale?(last_modified: Movie.last_watch_created_at, public: true)
         @movies = Movie.last_watched
       end
     end
