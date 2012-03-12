@@ -1,0 +1,744 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.themoviedb.org/3/search/movie?api_key=<TMDB_KEY>&query=star%20wars
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+      User-Agent: Ruby
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Age: '0'
+      Cache-Control: public, max-age=172800
+      Content-Type: application/json;charset=utf-8
+      Date: Tue, 13 Mar 2012 20:25:03 GMT
+      Server: nginx
+      Status: 200 OK
+      Vary: Accept-Encoding
+      Via: 1.1 varnish
+      X-Cache: MISS
+      X-Frame-Options: sameorigin
+      X-Memc: HIT
+      X-Memc-Age: '91926'
+      X-Memc-Key: /search/movie?include_adult=false&language=en&query=star+wars
+      X-Varnish: '2044175914'
+      X-Varnish-Sid: tm-v-p-1200
+      X-Xss-Protection: 1; mode=block
+      Content-Length: '6467'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "page": 1,
+          "results": [
+            {
+              "backdrop_path": "/vB8f8PXd2RO1iKebY8V11gEfztu.jpg",
+              "id": 1893,
+              "original_title": "Star Wars: Episode I - The Phantom Menace",
+              "release_date": "1999-05-19",
+              "popularity": 17499.769,
+              "poster_path": "/n8V09dDc02KsSN6Q4hC2BX6hN8X.jpg",
+              "title": "Star Wars: Episode I - The Phantom Menace"
+            },
+            {
+              "backdrop_path": "/AkE7LQs2hPMG5tpWYcum847Knre.jpg",
+              "id": 1891,
+              "original_title": "Star Wars: Episode V - The Empire Strikes Back",
+              "release_date": "1980-05-21",
+              "popularity": 16965.285,
+              "poster_path": "/6u1fYtxG5eqjhtCPDx04pJphQRW.jpg",
+              "title": "Star Wars: Episode V - The Empire Strikes Back"
+            },
+            {
+              "backdrop_path": "/bvJOpyHYWACDusvQvXxKEHFNjce.jpg",
+              "id": 1892,
+              "original_title": "Star Wars: Episode VI - Return of the Jedi",
+              "release_date": "1983-05-25",
+              "popularity": 10788.533,
+              "poster_path": "/jx5p0aHlbPXqe3AH9G15NvmWaqQ.jpg",
+              "title": "Star Wars: Episode VI - Return of the Jedi"
+            },
+            {
+              "backdrop_path": "/560F7BPaxRy8BsOfVU6cW4ivM46.jpg",
+              "id": 1894,
+              "original_title": "Star Wars: Episode II - Attack of the Clones",
+              "release_date": "2002-05-16",
+              "popularity": 11604.984,
+              "poster_path": "/2vcNFtrZXNwIcBgH5e2xXCmVR8t.jpg",
+              "title": "Star Wars: Episode II - Attack of the Clones"
+            },
+            {
+              "backdrop_path": "/zHrxWn6P6Zjip9fJmmuEbzDd76o.jpg",
+              "id": 1895,
+              "original_title": "Star Wars: Episode III - Revenge of the Sith",
+              "release_date": "2005-05-19",
+              "popularity": 11638.146,
+              "poster_path": "/tgr5Pdy7ehZYBqBkN2K7Q02xgOb.jpg",
+              "title": "Star Wars: Episode III - Revenge of the Sith"
+            },
+            {
+              "backdrop_path": "/r0v9dayXd1IH5WPWFBWv52tGHkB.jpg",
+              "id": 11,
+              "original_title": "Star Wars: Episode IV - A New Hope",
+              "release_date": "1977-05-25",
+              "popularity": 15515.667,
+              "poster_path": "/tvSlBzAdRE29bZe5yYWrJ2ds137.jpg",
+              "title": "Star Wars: Episode IV - A New Hope"
+            },
+            {
+              "backdrop_path": "/gmLMaDXi4lFWG8WitaCYOJS5GtL.jpg",
+              "id": 12180,
+              "original_title": "Star Wars: The Clone Wars",
+              "release_date": "2008-08-15",
+              "popularity": 270.468,
+              "poster_path": "/xd6yhmtS6mEURZLwUDT5raEMbf.jpg",
+              "title": "Star Wars: The Clone Wars"
+            }
+          ],
+          "total_pages": 1,
+          "total_results": 7
+        }
+    http_version: 
+  recorded_at: Tue, 13 Mar 2012 20:25:03 GMT
+- request:
+    method: get
+    uri: http://api.netflix.com/catalog/titles?expand=synopsis,directors&max_results=5&start_index=0&term=star%20wars&v=1.5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization: OAuth oauth_consumer_key="<NETFLIX_KEY>", oauth_nonce="9620c271889736c9f180cada17e016d1",
+        oauth_signature="HIlJn%2BClJJ7Up1FdpLX8aBgfjsk%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1331670303", oauth_version="1.0"
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+      User-Agent: Ruby
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Access-Control-Allow-Credentials: 'true'
+      Access-Control-Allow-Headers: Authorization,Content-Type,Accept,X-Netflix.application.name,X-Netflix.application.version,X-Netflix.esn,X-Netflix.device.type,X-Netflix.certification.version,X-Netflix.request.uuid,X-Netflix.user.id,X-Netflix.oauth.consumer.key,X-Netflix.oauth.token,X-Netflix.routing
+      Access-Control-Allow-Methods: GET, POST
+      Access-Control-Allow-Origin: ! '*'
+      Content-Type: application/xml;charset=UTF-8
+      Date: Tue, 13 Mar 2012 20:25:04 GMT
+      Etag: ! '"0"'
+      Server: Noelios-Restlet-Engine/1.1.rc2
+      Set-Cookie: tlr=HR|1331670304465; Domain=.netflix.com; Expires=Fri, 08-Mar-2013
+        20:25:04 GMT
+      Vary: Accept-Charset,Accept-Encoding,Accept-Language,Accept
+      X-Mashery-Responder: proxylb-p-us-east-1c-04.mashery.com
+      X-Netflix.client.instance: i-97f17ff3
+      Content-Length: '478'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" standalone="yes"?>
+        <catalog_titles>
+          <link href="http://api.netflix.com/catalog/titles/index" rel="http://schemas.netflix.com/catalog/titles/index" title="index"/>
+          <link href="http://api.netflix.com/catalog/titles/autocomplete" rel="http://schemas.netflix.com/catalog/titles/autocomplete" title="autocomplete"/>
+          <url_template>http://api.netflix.com/catalog/titles?{-join|&amp;|term|start_index|max_results}</url_template>
+          <number_of_results>23297</number_of_results>
+          <start_index>0</start_index>
+          <results_per_page>5</results_per_page>
+          <catalog_title>
+            <id>http://api.netflix.com/catalog/titles/movies/60010932</id><title short="Star Wars: Episode IV: A New Hope" regular="Star Wars: Episode IV: A New Hope"/>
+        <box_art small="http://cdn-2.nflximg.com/en_us/boxshots/tiny/60010932.jpg" medium="http://cdn-2.nflximg.com/en_us/boxshots/small/60010932.jpg" large="http://cdn-2.nflximg.com/en_us/boxshots/large/60010932.jpg"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/60010932/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[Obi-Wan Kenobi (Alec Guinness) guides intrepid Luke Skywalker (Mark Hamill) on a valiant bid to save the captured Princess Leia (Carrie Fisher) from Darth Vader (voiced by James Earl Jones). With his trusty droids and smuggler Han Solo (Harrison Ford), Skywalker must also destroy the Galactic Empire's all-powerful weapon: the Death Star. George Lucas cemented his status as a pop-culture legend with this classic battle between good and evil.]]></synopsis></link>
+        <link href="http://api.netflix.com/catalog/titles/movies/60010932/bonus_materials" rel="http://schemas.netflix.com/catalog/titles/bonus_materials" title="bonus materials"/>
+        <release_year>1977</release_year>
+        <category scheme="http://api.netflix.com/categories/mpaa_ratings" label="PG" term="PG"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Children &amp; Family Movies" term="Children &amp; Family Movies"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi &amp; Fantasy" term="Sci-Fi &amp; Fantasy"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Action Sci-Fi &amp; Fantasy" term="Action Sci-Fi &amp; Fantasy"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi Adventure" term="Sci-Fi Adventure"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Family Sci-Fi &amp; Fantasy" term="Family Sci-Fi &amp; Fantasy"/>
+        <runtime>7500</runtime>
+        <link href="http://api.netflix.com/catalog/titles/movies/60010932/awards" rel="http://schemas.netflix.com/catalog/titles/awards" title="awards"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/60010932/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/60010932/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/60010932/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/60010932/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api.netflix.com/catalog/people/56779" rel="http://schemas.netflix.com/catalog/person" title="George Lucas"/></people></link>
+        <link href="http://api.netflix.com/catalog/titles/movies/60010932/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"/>
+        <average_rating>4.3</average_rating>
+        <link href="http://api.netflix.com/catalog/titles/movies/60010932/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"/>
+        <link href="http://www.netflix.com/Movie/Star_Wars_Episode_IV_A_New_Hope/60010932" rel="alternate" title="web page"/>
+
+          </catalog_title>
+          <catalog_title>
+            <id>http://api.netflix.com/catalog/titles/movies/70003791</id><title short="Star Wars: Episode I: The Phantom Menace" regular="Star Wars: Episode I: The Phantom Menace"/>
+        <box_art small="http://cdn-1.nflximg.com/en_us/boxshots/tiny/70003791.jpg" medium="http://cdn-1.nflximg.com/en_us/boxshots/small/70003791.jpg" large="http://cdn-1.nflximg.com/en_us/boxshots/large/70003791.jpg"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/70003791/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[In this Star Wars prequel, jedi Qui-Gon Jinn (Liam Neeson) and Obi-Wan Kenobi (Ewan McGregor) must protect Queen Amidala (Natalie Portman) from the evil clutches of Darth Sidious and Senator Palpatine (Ian McDiarmid). Along the way, they meet Anakin Skywalker (Jake Lloyd), a child who shows intimations of a great gift. Terence Stamp and Samuel L. Jackson co-star amid spectacular CGI scenery in director George Lucas's sci-fi epic.]]></synopsis></link>
+        <link href="http://api.netflix.com/catalog/titles/movies/70003791/bonus_materials" rel="http://schemas.netflix.com/catalog/titles/bonus_materials" title="bonus materials"/>
+        <release_year>1999</release_year>
+        <category scheme="http://api.netflix.com/categories/mpaa_ratings" label="PG" term="PG"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Children &amp; Family Movies" term="Children &amp; Family Movies"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi &amp; Fantasy" term="Sci-Fi &amp; Fantasy"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Action Sci-Fi &amp; Fantasy" term="Action Sci-Fi &amp; Fantasy"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi Adventure" term="Sci-Fi Adventure"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Family Sci-Fi &amp; Fantasy" term="Family Sci-Fi &amp; Fantasy"/>
+        <runtime>7980</runtime>
+        <link href="http://api.netflix.com/catalog/titles/movies/70003791/awards" rel="http://schemas.netflix.com/catalog/titles/awards" title="awards"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/70003791/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/70003791/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/70003791/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/70003791/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api.netflix.com/catalog/people/56779" rel="http://schemas.netflix.com/catalog/person" title="George Lucas"/></people></link>
+        <link href="http://api.netflix.com/catalog/titles/movies/70003791/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"/>
+        <average_rating>3.7</average_rating>
+        <link href="http://api.netflix.com/catalog/titles/movies/70003791/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"/>
+        <link href="http://www.netflix.com/Movie/Star_Wars_Episode_I_The_Phantom_Menace/70003791" rel="alternate" title="web page"/>
+
+          </catalog_title>
+          <catalog_title>
+            <id>http://api.netflix.com/catalog/titles/movies/70018728</id><title short="Star Wars: Episode III" regular="Star Wars: Episode III: Revenge of the Sith"/>
+        <box_art small="http://cdn-8.nflximg.com/en_us/boxshots/tiny/70018728.jpg" medium="http://cdn-8.nflximg.com/en_us/boxshots/small/70018728.jpg" large="http://cdn-8.nflximg.com/en_us/boxshots/large/70018728.jpg"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/70018728/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[In the third and final installment of George Lucas's Star Wars prequel trilogy, Anakin Skywalker (Hayden Christensen) and Padm&#233; Amidala (Natalie Portman) are married, and General Grievous leads the Confederacy in a battle against the Republic. Meanwhile, Darth Sidious (Ian McDiarmid) is luring war-weary Anakin to the dark side, forcing Obi-Wan Kenobi (Ewan McGregor) to fight against his former pupil. Samuel L. Jackson and Jimmy Smits co-star.]]></synopsis></link>
+        <link href="http://api.netflix.com/catalog/titles/movies/70018728/bonus_materials" rel="http://schemas.netflix.com/catalog/titles/bonus_materials" title="bonus materials"/>
+        <release_year>2005</release_year>
+        <category scheme="http://api.netflix.com/categories/mpaa_ratings" label="PG-13" term="PG-13"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi &amp; Fantasy" term="Sci-Fi &amp; Fantasy"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Action Sci-Fi &amp; Fantasy" term="Action Sci-Fi &amp; Fantasy"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi Adventure" term="Sci-Fi Adventure"/>
+        <runtime>8400</runtime>
+        <link href="http://api.netflix.com/catalog/titles/movies/70018728/awards" rel="http://schemas.netflix.com/catalog/titles/awards" title="awards"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/70018728/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/70018728/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/70018728/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/70018728/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api.netflix.com/catalog/people/56779" rel="http://schemas.netflix.com/catalog/person" title="George Lucas"/></people></link>
+        <link href="http://api.netflix.com/catalog/titles/movies/70018728/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"/>
+        <average_rating>3.8</average_rating>
+        <link href="http://api.netflix.com/catalog/titles/movies/70018728/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"/>
+        <link href="http://www.netflix.com/Movie/Star_Wars_Episode_III_Revenge_of_the_Sith/70018728" rel="alternate" title="web page"/>
+
+          </catalog_title>
+          <catalog_title>
+            <id>http://api.netflix.com/catalog/titles/movies/60001814</id><title short="Star Wars: Episode II" regular="Star Wars: Episode II: Attack of the Clones"/>
+        <box_art small="http://cdn-4.nflximg.com/en_us/boxshots/tiny/60001814.jpg" medium="http://cdn-4.nflximg.com/en_us/boxshots/small/60001814.jpg" large="http://cdn-4.nflximg.com/en_us/boxshots/large/60001814.jpg"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/60001814/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[George Lucas's famous saga about a galaxy far, far away continues as Anakin Skywalker (Hayden Christensen) makes progress in his Jedi training, falls in love with Padm&#233; Amidala (Natalie Portman) and grows into a young man capable of a power that can either save or destroy him. Though he's under the direction of Obi-Wan Kenobi (Ewan McGregor), Skywalker wrestles with the demons that begin to lure him to the Dark Side.]]></synopsis></link>
+        <link href="http://api.netflix.com/catalog/titles/movies/60001814/bonus_materials" rel="http://schemas.netflix.com/catalog/titles/bonus_materials" title="bonus materials"/>
+        <release_year>2002</release_year>
+        <category scheme="http://api.netflix.com/categories/mpaa_ratings" label="PG" term="PG"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Children &amp; Family Movies" term="Children &amp; Family Movies"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi &amp; Fantasy" term="Sci-Fi &amp; Fantasy"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Movies for ages 8 to 10" term="Movies for ages 8 to 10"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Movies for ages 11 to 12" term="Movies for ages 11 to 12"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Action Sci-Fi &amp; Fantasy" term="Action Sci-Fi &amp; Fantasy"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi Adventure" term="Sci-Fi Adventure"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Family Sci-Fi &amp; Fantasy" term="Family Sci-Fi &amp; Fantasy"/>
+        <runtime>8520</runtime>
+        <link href="http://api.netflix.com/catalog/titles/movies/60001814/awards" rel="http://schemas.netflix.com/catalog/titles/awards" title="awards"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/60001814/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/60001814/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/60001814/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/60001814/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api.netflix.com/catalog/people/56779" rel="http://schemas.netflix.com/catalog/person" title="George Lucas"/></people></link>
+        <link href="http://api.netflix.com/catalog/titles/movies/60001814/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"/>
+        <average_rating>3.7</average_rating>
+        <link href="http://api.netflix.com/catalog/titles/movies/60001814/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"/>
+        <link href="http://www.netflix.com/Movie/Star_Wars_Episode_II_Attack_of_the_Clones/60001814" rel="alternate" title="web page"/>
+
+          </catalog_title>
+          <catalog_title>
+            <id>http://api.netflix.com/catalog/titles/movies/60011114</id><title short="Star Wars: Episode V: Empire Strikes Back" regular="Star Wars: Episode V: The Empire Strikes Back"/>
+        <box_art small="http://cdn-4.nflximg.com/en_us/boxshots/tiny/60011114.jpg" medium="http://cdn-4.nflximg.com/en_us/boxshots/small/60011114.jpg" large="http://cdn-4.nflximg.com/en_us/boxshots/large/60011114.jpg"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/60011114/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[George Lucas's epic saga continues as Luke Skywalker (Mark Hamill), in hopes of defeating the evil Galactic Empire, learns the ways of the Jedi from aging master Yoda. But Darth Vader (voiced by James Earl Jones) is more determined than ever to capture Luke. Meanwhile, rebel leader Princess Leia (Carrie Fisher), cocky Han Solo (Harrison Ford), Chewbacca, and droids C-3PO and R2-D2 are thrown into various stages of capture, betrayal and despair.]]></synopsis></link>
+        <release_year>1980</release_year>
+        <category scheme="http://api.netflix.com/categories/mpaa_ratings" label="PG" term="PG"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Children &amp; Family Movies" term="Children &amp; Family Movies"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi &amp; Fantasy" term="Sci-Fi &amp; Fantasy"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Movies for ages 8 to 10" term="Movies for ages 8 to 10"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Movies for ages 11 to 12" term="Movies for ages 11 to 12"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Action Sci-Fi &amp; Fantasy" term="Action Sci-Fi &amp; Fantasy"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi Adventure" term="Sci-Fi Adventure"/>
+        <category scheme="http://api.netflix.com/categories/genres" label="Family Sci-Fi &amp; Fantasy" term="Family Sci-Fi &amp; Fantasy"/>
+        <runtime>7740</runtime>
+        <link href="http://api.netflix.com/catalog/titles/movies/60011114/awards" rel="http://schemas.netflix.com/catalog/titles/awards" title="awards"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/60011114/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/60011114/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/60011114/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"/>
+        <link href="http://api.netflix.com/catalog/titles/movies/60011114/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api.netflix.com/catalog/people/49254" rel="http://schemas.netflix.com/catalog/person" title="Irvin Kershner"/></people></link>
+        <link href="http://api.netflix.com/catalog/titles/movies/60011114/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"/>
+        <average_rating>4.4</average_rating>
+        <link href="http://api.netflix.com/catalog/titles/movies/60011114/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"/>
+        <link href="http://www.netflix.com/Movie/Star_Wars_Episode_V_The_Empire_Strikes_Back/60011114" rel="alternate" title="web page"/>
+
+          </catalog_title>
+        </catalog_titles>
+    http_version: 
+  recorded_at: Tue, 13 Mar 2012 20:25:04 GMT
+- request:
+    method: get
+    uri: http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=<ROTTEN_KEY>&page=1&page_limit=5&q=star%20wars
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+      User-Agent: Ruby
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Accept-Ranges: bytes
+      Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Content-Language: en-US
+      Content-Type: text/javascript;charset=ISO-8859-1
+      Date: Tue, 13 Mar 2012 20:25:05 GMT
+      Expires: Sat, 6 May 1995 12:00:00 GMT
+      Pragma: no-cache
+      Server: Mashery Proxy
+      Set-Cookie:
+      - JSESSIONID=EF9E5D8B98905678C59D938E319F6936.localhost; Path=/
+      - ServerID=1175; Path=/
+      Vary: User-Agent,Accept-Encoding
+      X-Mashery-Responder: proxylb-p-us-east-1d-07.mashery.com
+      X-Original-Content-Encoding: gzip
+      X-Original-Content-Length: '2063'
+      Content-Length: '12505'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "total": 34,
+          "movies": [
+            {
+              "id": "9",
+              "title": "Star Wars: Episode III - Revenge of the Sith",
+              "year": 2005,
+              "mpaa_rating": "PG-13",
+              "runtime": 140,
+              "critics_consensus": "This sixth and final installment of George Lucas' epic space opera will please die-hard fanatics and non-believers alike -- largely due to awesome digital effects and the sheer power of the mythology.",
+              "release_dates": {
+                "theater": "2005-05-15",
+                "dvd": "2005-11-01"
+              },
+              "ratings": {
+                "critics_rating": "Certified Fresh",
+                "critics_score": 80,
+                "audience_rating": "Upright",
+                "audience_score": 64
+              },
+              "synopsis": "",
+              "posters": {
+                "thumbnail": "http://content8.flixster.com/movie/10/94/47/10944718_mob.jpg",
+                "profile": "http://content8.flixster.com/movie/10/94/47/10944718_pro.jpg",
+                "detailed": "http://content8.flixster.com/movie/10/94/47/10944718_det.jpg",
+                "original": "http://content8.flixster.com/movie/10/94/47/10944718_ori.jpg"
+              },
+              "abridged_cast": [
+                {
+                  "name": "Hayden Christensen",
+                  "id": "162652153",
+                  "characters": [
+                    "Anakin Skywalker/Darth Vader"
+                  ]
+                },
+                {
+                  "name": "Ewan McGregor",
+                  "id": "162652152",
+                  "characters": [
+                    "Obi-Wan Kenobi"
+                  ]
+                },
+                {
+                  "name": "Kenny Baker",
+                  "id": "418638213",
+                  "characters": [
+                    "R2-D2"
+                  ]
+                },
+                {
+                  "name": "Graeme Blundell",
+                  "id": "548155708",
+                  "characters": [
+                    "Ruwee Naberrie"
+                  ]
+                },
+                {
+                  "name": "Jeremy Bulloch",
+                  "id": "358317901",
+                  "characters": [
+                    "Captain Colton"
+                  ]
+                }
+              ],
+              "alternate_ids": {
+                "imdb": "0121766"
+              },
+              "links": {
+                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/9.json",
+                "alternate": "http://www.rottentomatoes.com/m/star_wars_3/",
+                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/9/cast.json",
+                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/9/clips.json",
+                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/9/reviews.json",
+                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/9/similar.json"
+              }
+            },
+            {
+              "id": "11292",
+              "title": "Star Wars: Episode IV - A New Hope",
+              "year": 1977,
+              "mpaa_rating": "PG",
+              "runtime": 105,
+              "critics_consensus": "A legendarily expansive and ambitious start to the sci-fi saga, George Lucas opened our eyes to the possiblites of blockbuster filmmaking and things have never been the same.",
+              "release_dates": {
+                "theater": "1977-05-25",
+                "dvd": "2004-09-21"
+              },
+              "ratings": {
+                "critics_rating": "Certified Fresh",
+                "critics_score": 94,
+                "audience_rating": "Upright",
+                "audience_score": 93
+              },
+              "synopsis": "",
+              "posters": {
+                "thumbnail": "http://content9.flixster.com/movie/10/94/47/10944715_mob.jpg",
+                "profile": "http://content9.flixster.com/movie/10/94/47/10944715_pro.jpg",
+                "detailed": "http://content9.flixster.com/movie/10/94/47/10944715_det.jpg",
+                "original": "http://content9.flixster.com/movie/10/94/47/10944715_ori.jpg"
+              },
+              "abridged_cast": [
+                {
+                  "name": "Mark Hamill",
+                  "id": "162665747",
+                  "characters": [
+                    "Luke Skywalker"
+                  ]
+                },
+                {
+                  "name": "Harrison Ford",
+                  "id": "162661579",
+                  "characters": [
+                    "Han Solo"
+                  ]
+                },
+                {
+                  "name": "Carrie Fisher",
+                  "id": "162663355",
+                  "characters": [
+                    "Princess Leia Organa"
+                  ]
+                },
+                {
+                  "name": "Peter Cushing",
+                  "id": "162658723",
+                  "characters": [
+                    "Grand Moff Tarkin"
+                  ]
+                },
+                {
+                  "name": "Alec Guinness",
+                  "id": "162655900",
+                  "characters": [
+                    "Ben Obi-Wan Kenobi"
+                  ]
+                }
+              ],
+              "alternate_ids": {
+                "imdb": "0076759"
+              },
+              "links": {
+                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/11292.json",
+                "alternate": "http://www.rottentomatoes.com/m/star_wars/",
+                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/11292/cast.json",
+                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/11292/clips.json",
+                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/11292/reviews.json",
+                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/11292/similar.json"
+              }
+            },
+            {
+              "id": "10009",
+              "title": "Star Wars: Episode II - Attack of the Clones",
+              "year": 2002,
+              "mpaa_rating": "PG",
+              "runtime": 143,
+              "critics_consensus": "Containing more of what made the Star Wars series fun, Attack of the Clones is an improvement over The Phantom Menace.",
+              "release_dates": {
+                "theater": "2002-05-16",
+                "dvd": "2002-11-12"
+              },
+              "ratings": {
+                "critics_rating": "Fresh",
+                "critics_score": 67,
+                "audience_rating": "Upright",
+                "audience_score": 69
+              },
+              "synopsis": "",
+              "posters": {
+                "thumbnail": "http://content7.flixster.com/movie/10/94/47/10944721_mob.jpg",
+                "profile": "http://content7.flixster.com/movie/10/94/47/10944721_pro.jpg",
+                "detailed": "http://content7.flixster.com/movie/10/94/47/10944721_det.jpg",
+                "original": "http://content7.flixster.com/movie/10/94/47/10944721_ori.jpg"
+              },
+              "abridged_cast": [
+                {
+                  "name": "Ewan McGregor",
+                  "id": "162652152",
+                  "characters": [
+                    "Obi-Wan Kenobi"
+                  ]
+                },
+                {
+                  "name": "Natalie Portman",
+                  "id": "162652154",
+                  "characters": [
+                    "PadmA? Amidala",
+                    "Padme Amidala",
+                    "Padm? Amidala"
+                  ]
+                },
+                {
+                  "name": "Hayden Christensen",
+                  "id": "162652153",
+                  "characters": [
+                    "Anakin Skywalker"
+                  ]
+                },
+                {
+                  "name": "Christopher Lee",
+                  "id": "162652385",
+                  "characters": [
+                    "Count Dooku"
+                  ]
+                },
+                {
+                  "name": "Samuel L. Jackson",
+                  "id": "162652156",
+                  "characters": [
+                    "Mace Windu"
+                  ]
+                }
+              ],
+              "alternate_ids": {
+                "imdb": "0121765"
+              },
+              "links": {
+                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/10009.json",
+                "alternate": "http://www.rottentomatoes.com/m/star_wars_episode_ii_attack_of_the_clones/",
+                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/10009/cast.json",
+                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/10009/clips.json",
+                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/10009/reviews.json",
+                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/10009/similar.json"
+              }
+            },
+            {
+              "id": "11366",
+              "title": "Star Wars: Episode VI - Return of the Jedi",
+              "year": 1983,
+              "mpaa_rating": "PG",
+              "runtime": 133,
+              "critics_consensus": "Though failing to reach the cinematic heights of its predecessors, Return of the Jedi remains an entertaining sci-fi adventure and a fitting end to the classic trilogy.",
+              "release_dates": {
+                "theater": "1983-05-25",
+                "dvd": "2006-09-12"
+              },
+              "ratings": {
+                "critics_rating": "Certified Fresh",
+                "critics_score": 79,
+                "audience_rating": "Upright",
+                "audience_score": 93
+              },
+              "synopsis": "",
+              "posters": {
+                "thumbnail": "http://content7.flixster.com/movie/10/94/47/10944709_mob.jpg",
+                "profile": "http://content7.flixster.com/movie/10/94/47/10944709_pro.jpg",
+                "detailed": "http://content7.flixster.com/movie/10/94/47/10944709_det.jpg",
+                "original": "http://content7.flixster.com/movie/10/94/47/10944709_ori.jpg"
+              },
+              "abridged_cast": [
+                {
+                  "name": "Mark Hamill",
+                  "id": "162665747",
+                  "characters": [
+                    "Luke Skywalker"
+                  ]
+                },
+                {
+                  "name": "Harrison Ford",
+                  "id": "162661579",
+                  "characters": [
+                    "Han Solo"
+                  ]
+                },
+                {
+                  "name": "Carrie Fisher",
+                  "id": "162663355",
+                  "characters": [
+                    "Princess Leia"
+                  ]
+                },
+                {
+                  "name": "Billy Dee Williams",
+                  "id": "162656403",
+                  "characters": [
+                    "Lando Calrissian"
+                  ]
+                },
+                {
+                  "name": "Anthony Daniels",
+                  "id": "178810494",
+                  "characters": [
+                    "C-3PO"
+                  ]
+                }
+              ],
+              "alternate_ids": {
+                "imdb": "0086190"
+              },
+              "links": {
+                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/11366.json",
+                "alternate": "http://www.rottentomatoes.com/m/return_of_the_jedi/",
+                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/11366/cast.json",
+                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/11366/clips.json",
+                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/11366/reviews.json",
+                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/11366/similar.json"
+              }
+            },
+            {
+              "id": "11470",
+              "title": "Star Wars: Episode V - The Empire Strikes Back",
+              "year": 1980,
+              "mpaa_rating": "PG",
+              "runtime": 124,
+              "critics_consensus": "Dark, sinister, but ultimately even more involving than A New Hope, The Empire Strikes Back defies viewer expectations and takes the series to heightened emotional levels.",
+              "release_dates": {
+                "theater": "1980-05-21",
+                "dvd": "2004-09-21"
+              },
+              "ratings": {
+                "critics_rating": "Certified Fresh",
+                "critics_score": 97,
+                "audience_rating": "Upright",
+                "audience_score": 94
+              },
+              "synopsis": "",
+              "posters": {
+                "thumbnail": "http://content7.flixster.com/movie/11/15/79/11157937_mob.jpg",
+                "profile": "http://content7.flixster.com/movie/11/15/79/11157937_pro.jpg",
+                "detailed": "http://content7.flixster.com/movie/11/15/79/11157937_det.jpg",
+                "original": "http://content7.flixster.com/movie/11/15/79/11157937_ori.jpg"
+              },
+              "abridged_cast": [
+                {
+                  "name": "Mark Hamill",
+                  "id": "162665747",
+                  "characters": [
+                    "Luke Skywalker"
+                  ]
+                },
+                {
+                  "name": "Harrison Ford",
+                  "id": "162661579",
+                  "characters": [
+                    "Han Solo"
+                  ]
+                },
+                {
+                  "name": "Carrie Fisher",
+                  "id": "162663355",
+                  "characters": [
+                    "Princess Leia"
+                  ]
+                },
+                {
+                  "name": "David Prowse",
+                  "id": "603676177",
+                  "characters": [
+                    "Darth Vader"
+                  ]
+                },
+                {
+                  "name": "James Earl Jones",
+                  "id": "162655731",
+                  "characters": [
+                    "Darth Vader"
+                  ]
+                }
+              ],
+              "alternate_ids": {
+                "imdb": "0080684"
+              },
+              "links": {
+                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/11470.json",
+                "alternate": "http://www.rottentomatoes.com/m/empire_strikes_back/",
+                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/11470/cast.json",
+                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/11470/clips.json",
+                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/11470/reviews.json",
+                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/11470/similar.json"
+              }
+            }
+          ],
+          "links": {
+            "self": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=star+wars&page_limit=5&page=1",
+            "next": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=star+wars&page_limit=5&page=2"
+          },
+          "link_template": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q={search-term}&page_limit={results-per-page}&page={page-number}"
+        }
+    http_version: 
+  recorded_at: Tue, 13 Mar 2012 20:25:06 GMT
+- request:
+    method: get
+    uri: http://api.themoviedb.org/3/configuration?api_key=<TMDB_KEY>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+      User-Agent: Ruby
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Age: '0'
+      Cache-Control: public, max-age=36000
+      Content-Type: application/json;charset=utf-8
+      Date: Tue, 13 Mar 2012 20:25:06 GMT
+      Server: nginx
+      Status: 200 OK
+      Via: 1.1 varnish
+      X-Cache: MISS
+      X-Frame-Options: sameorigin
+      X-Varnish: '1815424084'
+      X-Varnish-Sid: tm-v-p-1100
+      X-Xss-Protection: 1; mode=block
+      Content-Length: '363'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "images": {
+            "base_url": "http://cf2.imgobject.com/t/p/",
+            "poster_sizes": [
+              "w92",
+              "w154",
+              "w185",
+              "w342",
+              "w500",
+              "original"
+            ],
+            "backdrop_sizes": [
+              "w300",
+              "w780",
+              "w1280",
+              "original"
+            ],
+            "profile_sizes": [
+              "w45",
+              "w185",
+              "h632",
+              "original"
+            ]
+          }
+        }
+    http_version: 
+  recorded_at: Tue, 13 Mar 2012 20:25:06 GMT
+recorded_with: VCR 2.0.0

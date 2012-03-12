@@ -187,6 +187,9 @@ describe Movie do
   end
   
   describe "wikipedia" do
+
+    use_vcr_cassette :Wikipedia, record: :none
+
     it "isn't linked to wikipedia" do
       movie = build
       movie.wikipedia_url.should be_nil
@@ -199,16 +202,9 @@ describe Movie do
     end
 
     it "automatically linked to wikipedia" do
-      stub_request(:get, 'en.wikipedia.org/w/api.php?format=json&action=query&list=search&srsearch=Misery%201990').
-        to_return(
-          body: {query: {search:[{title: 'Misery (1990 film)'}]}}.to_json,
-          status: 200,
-          headers: {'content-type' => 'application/json'}
-        )
-
       movie = build title: 'Misery', year: 1990
       movie.update_wikipedia_url!
-      movie.wikipedia_url.should == 'http://en.wikipedia.org/wiki/Misery_(1990_film)'
+      movie.wikipedia_url.should == 'http://en.wikipedia.org/wiki/Misery_(film)'
     end
   end
 end

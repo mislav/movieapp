@@ -1,7 +1,0 @@
-[
-  { "name": "Star Wars: The Making Of", "released": "2004-01-01", "id": 2001, "movie_type": "movie" },
-  { "name": "Star Wars: Episode 1", "released": "1993-01-01", "id": 2002, "movie_type": "movie" },
-  { "name": "Star Wars Episode 5", "released": "1991-01-01", "id": 2003, "movie_type": "movie" },
-  { "name": "Star Wars Episode 4", "released": "1990-01-01", "id": 2004, "movie_type": "movie", "imdb_id": "tt0076759" },
-  { "name": "Star Wars Episode VI", "released": "1982-01-01", "id": 2005, "movie_type": "movie" }
-]

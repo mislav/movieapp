@@ -1,0 +1,74 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.themoviedb.org/3/search/movie?api_key=<TMDB_KEY>&query=star%20wars
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+      User-Agent: Ruby
+  response:
+    status: {code: 503, message: Fail}
+    headers:
+      Age: '0'
+      Content-Type: application/json;charset=utf-8
+      Date: Tue, 13 Mar 2012 20:25:03 GMT
+      Server: nginx
+      Status: 503 Fail
+      Vary: Accept-Encoding
+      Via: 1.1 varnish
+      X-Cache: MISS
+      X-Frame-Options: sameorigin
+      X-Memc: HIT
+      X-Memc-Age: '91926'
+      X-Memc-Key: /search/movie?include_adult=false&language=en&query=star+wars
+      X-Varnish: '2044175914'
+      X-Varnish-Sid: tm-v-p-1200
+      X-Xss-Protection: 1; mode=block
+      Content-Length: '0'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 13 Mar 2012 20:25:03 GMT
+- request:
+    method: get
+    uri: http://api.netflix.com/catalog/titles?expand=synopsis,directors&max_results=5&start_index=0&term=star%20wars&v=1.5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization: OAuth oauth_consumer_key="<NETFLIX_KEY>", oauth_nonce="9620c271889736c9f180cada17e016d1",
+        oauth_signature="HIlJn%2BClJJ7Up1FdpLX8aBgfjsk%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1331670303", oauth_version="1.0"
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+      User-Agent: Ruby
+  response:
+    status: {code: 503, message: 'Oh no'}
+    headers:
+      Access-Control-Allow-Credentials: 'true'
+      Access-Control-Allow-Headers: Authorization,Content-Type,Accept,X-Netflix.application.name,X-Netflix.application.version,X-Netflix.esn,X-Netflix.device.type,X-Netflix.certification.version,X-Netflix.request.uuid,X-Netflix.user.id,X-Netflix.oauth.consumer.key,X-Netflix.oauth.token,X-Netflix.routing
+      Access-Control-Allow-Methods: GET, POST
+      Access-Control-Allow-Origin: ! '*'
+      Content-Type: application/xml;charset=UTF-8
+      Date: Tue, 13 Mar 2012 20:25:04 GMT
+      Etag: ! '"0"'
+      Server: Noelios-Restlet-Engine/1.1.rc2
+      Set-Cookie: tlr=HR|1331670304465; Domain=.netflix.com; Expires=Fri, 08-Mar-2013
+        20:25:04 GMT
+      Vary: Accept-Charset,Accept-Encoding,Accept-Language,Accept
+      X-Mashery-Responder: proxylb-p-us-east-1c-04.mashery.com
+      X-Netflix.client.instance: i-97f17ff3
+      Content-Length: '0'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 13 Mar 2012 20:25:04 GMT
+recorded_with: VCR 2.0.0

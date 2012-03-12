@@ -1,0 +1,288 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.rottentomatoes.com/api/public/v1.0/movies/770672122.json?apikey=<ROTTEN_KEY>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+      User-Agent: Ruby
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Accept-Ranges: bytes
+      Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Content-Language: en-US
+      Content-Type: text/javascript;charset=ISO-8859-1
+      Date: Tue, 13 Mar 2012 15:18:00 GMT
+      Expires: Sat, 6 May 1995 12:00:00 GMT
+      Pragma: no-cache
+      Server: Mashery Proxy
+      Set-Cookie:
+      - JSESSIONID=F5D7A5DC34CFAFA285FE02B55F9B459C.localhost; Path=/
+      - ServerID=1174; Path=/
+      Vary: User-Agent,Accept-Encoding
+      X-Mashery-Responder: proxylb-p-us-east-1c-06.mashery.com
+      X-Original-Content-Encoding: gzip
+      X-Original-Content-Length: '1044'
+      Content-Length:
+      - '2721'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "id": 770672122,
+          "title": "Toy Story 3",
+          "year": 2010,
+          "genres": [
+            "Animation",
+            "Kids & Family",
+            "Science Fiction & Fantasy",
+            "Comedy"
+          ],
+          "mpaa_rating": "G",
+          "runtime": 103,
+          "critics_consensus": "Deftly blending comedy, adventure, and honest emotion, Toy Story 3 is a rare second sequel that really works.",
+          "release_dates": {
+            "theater": "2010-06-18",
+            "dvd": "2010-11-02"
+          },
+          "ratings": {
+            "critics_rating": "Certified Fresh",
+            "critics_score": 99,
+            "audience_rating": "Upright",
+            "audience_score": 91
+          },
+          "synopsis": "Pixar returns to their first success with Toy Story 3. The movie begins with Andy leaving for college and donating his beloved toys -- including Woody (Tom Hanks) and Buzz (Tim Allen) -- to a daycare. While the crew meets new friends, including Ken (Michael Keaton), they soon grow to hate their new surroundings and plan an escape. The film was directed by Lee Unkrich from a script co-authored by Little Miss Sunshine scribe Michael Arndt. ~ Perry Seibert, Rovi",
+          "posters": {
+            "thumbnail": "http://content6.flixster.com/movie/11/13/43/11134356_mob.jpg",
+            "profile": "http://content6.flixster.com/movie/11/13/43/11134356_pro.jpg",
+            "detailed": "http://content6.flixster.com/movie/11/13/43/11134356_det.jpg",
+            "original": "http://content6.flixster.com/movie/11/13/43/11134356_ori.jpg"
+          },
+          "abridged_cast": [
+            {
+              "name": "Tom Hanks",
+              "id": "162655641",
+              "characters": [
+                "Woody"
+              ]
+            },
+            {
+              "name": "Tim Allen",
+              "id": "162655909",
+              "characters": [
+                "Buzz Lightyear"
+              ]
+            },
+            {
+              "name": "Joan Cusack",
+              "id": "162655020",
+              "characters": [
+                "Jessie the Cowgirl"
+              ]
+            },
+            {
+              "name": "Ned Beatty",
+              "id": "162672460",
+              "characters": [
+                "Lots-o'-Huggin' Bear",
+                "Lotso"
+              ]
+            },
+            {
+              "name": "Don Rickles",
+              "id": "341817905",
+              "characters": [
+                "Mr. Potato Head"
+              ]
+            }
+          ],
+          "abridged_directors": [
+            {
+              "name": "Lee Unkrich"
+            }
+          ],
+          "studio": "Walt Disney Pictures",
+          "alternate_ids": {
+            "imdb": "0435761"
+          },
+          "links": {
+            "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/770672122.json",
+            "alternate": "http://www.rottentomatoes.com/m/toy_story_3/",
+            "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/770672122/cast.json",
+            "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/770672122/clips.json",
+            "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/770672122/reviews.json",
+            "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/770672122/similar.json"
+          }
+        }
+    http_version: 
+  recorded_at: Tue, 13 Mar 2012 15:18:05 GMT
+- request:
+    method: get
+    uri: http://api.rottentomatoes.com/api/public/v1.0/movie_alias.json?apikey=<ROTTEN_KEY>&id=0435761&type=imdb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+      User-Agent: Ruby
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Accept-Ranges: bytes
+      Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Content-Language: en-US
+      Content-Type: text/javascript;charset=ISO-8859-1
+      Date: Tue, 13 Mar 2012 15:18:06 GMT
+      Expires: Sat, 6 May 1995 12:00:00 GMT
+      Pragma: no-cache
+      Server: Mashery Proxy
+      Set-Cookie:
+      - JSESSIONID=8EFCA91B86F497FC0239729291B47AD8.localhost; Path=/
+      - ServerID=1174; Path=/
+      Vary: User-Agent,Accept-Encoding
+      X-Mashery-Responder: proxylb-p-us-east-1d-14.mashery.com
+      X-Original-Content-Encoding: gzip
+      X-Original-Content-Length: '1090'
+      Content-Length:
+      - '2934'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "id": 770672122,
+          "title": "Toy Story 3",
+          "year": 2010,
+          "genres": [
+            "Animation",
+            "Kids & Family",
+            "Science Fiction & Fantasy",
+            "Comedy"
+          ],
+          "mpaa_rating": "G",
+          "runtime": 103,
+          "critics_consensus": "Deftly blending comedy, adventure, and honest emotion, Toy Story 3 is a rare second sequel that really works.",
+          "release_dates": {
+            "theater": "2010-06-18",
+            "dvd": "2010-11-02"
+          },
+          "ratings": {
+            "critics_rating": "Certified Fresh",
+            "critics_score": 99,
+            "audience_rating": "Upright",
+            "audience_score": 91
+          },
+          "synopsis": "Pixar returns to their first success with Toy Story 3. The movie begins with Andy leaving for college and donating his beloved toys -- including Woody (Tom Hanks) and Buzz (Tim Allen) -- to a daycare. While the crew meets new friends, including Ken (Michael Keaton), they soon grow to hate their new surroundings and plan an escape. The film was directed by Lee Unkrich from a script co-authored by Little Miss Sunshine scribe Michael Arndt. ~ Perry Seibert, Rovi",
+          "posters": {
+            "thumbnail": "http://content6.flixster.com/movie/11/13/43/11134356_mob.jpg",
+            "profile": "http://content6.flixster.com/movie/11/13/43/11134356_pro.jpg",
+            "detailed": "http://content6.flixster.com/movie/11/13/43/11134356_det.jpg",
+            "original": "http://content6.flixster.com/movie/11/13/43/11134356_ori.jpg"
+          },
+          "abridged_cast": [
+            {
+              "name": "Tom Hanks",
+              "id": "162655641",
+              "characters": [
+                "Woody"
+              ]
+            },
+            {
+              "name": "Tim Allen",
+              "id": "162655909",
+              "characters": [
+                "Buzz Lightyear"
+              ]
+            },
+            {
+              "name": "Joan Cusack",
+              "id": "162655020",
+              "characters": [
+                "Jessie the Cowgirl"
+              ]
+            },
+            {
+              "name": "Ned Beatty",
+              "id": "162672460",
+              "characters": [
+                "Lots-o'-Huggin' Bear",
+                "Lotso"
+              ]
+            },
+            {
+              "name": "Don Rickles",
+              "id": "341817905",
+              "characters": [
+                "Mr. Potato Head"
+              ]
+            }
+          ],
+          "abridged_directors": [
+            {
+              "name": "Lee Unkrich"
+            }
+          ],
+          "studio": "Walt Disney Pictures",
+          "alternate_ids": {
+            "imdb": "0435761"
+          },
+          "links": {
+            "self": "http://api.rottentomatoes.com/api/public/v1.0/movie_alias.json?type=imdb&id=0435761",
+            "alternate": "http://www.rottentomatoes.com/m/toy_story_3/",
+            "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/770672122/cast.json",
+            "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/770672122/clips.json",
+            "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/770672122/reviews.json",
+            "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/770672122/similar.json",
+            "canonical": "http://api.rottentomatoes.com/api/public/v1.0/movies/770672122.json"
+          },
+          "link_template": "http://api.rottentomatoes.com/api/public/v1.0/movie_alias.json?type=imdb&id={alias-id}"
+        }
+    http_version: 
+  recorded_at: Tue, 13 Mar 2012 15:18:06 GMT
+- request:
+    method: get
+    uri: http://api.rottentomatoes.com/api/public/v1.0/movie_alias.json?apikey=<ROTTEN_KEY>&id=43576109999&type=imdb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+      User-Agent: Ruby
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Accept-Ranges: bytes
+      Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Content-Language: en-US
+      Content-Type: text/javascript;charset=ISO-8859-1
+      Date: Tue, 13 Mar 2012 15:18:07 GMT
+      Expires: Sat, 6 May 1995 12:00:00 GMT
+      Pragma: no-cache
+      Server: Mashery Proxy
+      Set-Cookie:
+      - JSESSIONID=1F6539FE3994D0F724875A603FD821DF.localhost; Path=/
+      - ServerID=1175; Path=/
+      Vary: User-Agent,Accept-Encoding
+      X-Mashery-Responder: proxylb-p-us-east-1d-09.mashery.com
+      X-Original-Content-Encoding: gzip
+      X-Original-Content-Length: '82'
+      Content-Length:
+      - '61'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "error": "Could not find a movie with the specified id"
+        }
+    http_version: 
+  recorded_at: Tue, 13 Mar 2012 15:18:07 GMT
+recorded_with: VCR 2.0.0

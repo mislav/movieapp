@@ -1,0 +1,176 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=Misery%201990
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+      User-Agent: Ruby
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Date: Tue, 13 Mar 2012 20:19:13 GMT
+      Server: Apache
+      X-Content-Type-Options: nosniff
+      Cache-Control: private
+      Vary: Accept-Encoding,X-Forwarded-Proto
+      Content-Length: '4327'
+      Content-Type: application/json; charset=utf-8
+      X-Cache:
+      - MISS from amssq32.esams.wikimedia.org
+      - MISS from amssq35.esams.wikimedia.org
+      - MISS from sq76.wikimedia.org
+      X-Cache-Lookup:
+      - MISS from amssq32.esams.wikimedia.org:3128
+      - MISS from amssq35.esams.wikimedia.org:80
+      - MISS from sq76.wikimedia.org:3128
+      Connection: close
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "query": {
+            "searchinfo": {
+              "totalhits": 1387
+            },
+            "search": [
+              {
+                "ns": 0,
+                "title": "Misery (film)",
+                "snippet": "<span class='searchmatch'>Misery</span> is a <span class='searchmatch'>1990</span> American psychological horror  film  based on Stephen King 's 1987  novel of the same name .  Directed by Rob Reiner , the <b>...</b> ",
+                "size": 10438,
+                "wordcount": 1367,
+                "timestamp": "2012-02-24T22:15:23Z"
+              },
+              {
+                "ns": 0,
+                "title": "Misery Loves Co.",
+                "snippet": "<span class='searchmatch'>Misery</span> Loves Co.  was a Swedish industrial metal  duo of the <span class='searchmatch'>1990</span>s and early 2000s.  The band combined the hostility of thrash metal  riffs  <b>...</b> ",
+                "size": 3285,
+                "wordcount": 431,
+                "timestamp": "2011-08-28T17:11:23Z"
+              },
+              {
+                "ns": 0,
+                "title": "Kathy Bates",
+                "snippet": "After several small roles in film and television, Bates rose to prominence with her performance in <span class='searchmatch'>Misery</span>  (<span class='searchmatch'>1990</span>), for which she won both  <b>...</b> ",
+                "size": 28076,
+                "wordcount": 3074,
+                "timestamp": "2012-03-12T23:42:20Z"
+              },
+              {
+                "ns": 0,
+                "title": "List of Rob Reiner films",
+                "snippet": "<span class='searchmatch'>Misery</span> <span class='searchmatch'>1990</span> | http://www. rottentomatoes. com/m/<span class='searchmatch'>misery/</span> 90% | http://www. boxofficemojo. com/movies/?id <span class='searchmatch'>misery</span>. htm $61,276,872 |  <b>...</b> ",
+                "size": 2928,
+                "wordcount": 372,
+                "timestamp": "2009-08-05T15:24:01Z"
+              },
+              {
+                "ns": 0,
+                "title": "James Caan",
+                "snippet": "Thief , <span class='searchmatch'>Misery</span> , A Bridge Too Far , Brian's Song , Rollerball , Kiss <b>...</b> In 1988 and <span class='searchmatch'>1990</span> Caan starred in the films Alien Nation , Dick Tracy  <b>...</b> ",
+                "size": 20257,
+                "wordcount": 2279,
+                "timestamp": "2012-03-11T20:39:47Z"
+              },
+              {
+                "ns": 0,
+                "title": "Annie Wilkes",
+                "snippet": "character and the antagonist /main villain  in the 1987 novel <span class='searchmatch'>Misery</span> , by Stephen King .  In the <span class='searchmatch'>1990</span> film adaptation of the novel , Annie  <b>...</b> ",
+                "size": 11220,
+                "wordcount": 1698,
+                "timestamp": "2012-03-01T22:36:25Z"
+              },
+              {
+                "ns": 0,
+                "title": "Julie Ganapathi",
+                "snippet": "It is a remake of the <span class='searchmatch'>1990</span> American film <span class='searchmatch'>Misery</span> , itself an adaptation of the Stephen King  novel  Plot: Julie Ganapathy (Saritha ) happens to <b>...</b> ",
+                "size": 2133,
+                "wordcount": 291,
+                "timestamp": "2012-01-18T02:44:07Z"
+              },
+              {
+                "ns": 0,
+                "title": "List of films based on arts books",
+                "snippet": "<span class='searchmatch'>Misery</span> | <span class='searchmatch'>1990</span> | Rob Reiner  | USA | <span class='searchmatch'>Misery</span> | Stephen King  | 1987 | Novel | - |  Children of the Century  | 1999 | Diane Kurys  |  <b>...</b> ",
+                "size": 27186,
+                "wordcount": 2292,
+                "timestamp": "2011-11-04T04:03:22Z"
+              },
+              {
+                "ns": 0,
+                "title": "Stephen King",
+                "snippet": "who is the main character in <span class='searchmatch'>Misery</span>  and Jack Torrance in The Shining .  <b>...</b> Awards: <span class='searchmatch'>1990</span>: Four Past Midnight  1995: \"Lunch at the Gotham Café \"  <b>...</b> ",
+                "size": 74476,
+                "wordcount": 10339,
+                "timestamp": "2012-03-11T16:36:48Z"
+              },
+              {
+                "ns": 0,
+                "title": "New Line Home Entertainment",
+                "snippet": "Video) is the home entertainment distribution arm of New Line Cinema , founded in <span class='searchmatch'>1990</span>.  According to New Line's website, <span class='searchmatch'>Misery</span>  was the  <b>...</b> ",
+                "size": 4010,
+                "wordcount": 548,
+                "timestamp": "2012-02-21T02:26:11Z"
+              }
+            ]
+          },
+          "query-continue": {
+            "search": {
+              "sroffset": 10
+            }
+          }
+        }
+    http_version: 
+  recorded_at: Tue, 13 Mar 2012 20:19:13 GMT
+- request:
+    method: get
+    uri: http://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=Klogaboogaloo%201990
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+      User-Agent: Ruby
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Date: Tue, 13 Mar 2012 20:29:15 GMT
+      Server: Apache
+      X-Content-Type-Options: nosniff
+      Cache-Control: private
+      Vary: Accept-Encoding,X-Forwarded-Proto
+      Content-Length: '130'
+      Content-Type: application/json; charset=utf-8
+      X-Cache:
+      - MISS from amssq44.esams.wikimedia.org
+      - MISS from knsq26.knams.wikimedia.org
+      - MISS from sq61.wikimedia.org
+      X-Cache-Lookup:
+      - MISS from amssq44.esams.wikimedia.org:3128
+      - MISS from knsq26.knams.wikimedia.org:80
+      - MISS from sq61.wikimedia.org:3128
+      Connection: close
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "query": {
+            "searchinfo": {
+              "totalhits": 0,
+              "suggestion": "Eliogabalo 1990"
+            },
+            "search": [
+
+            ]
+          }
+        }
+    http_version: 
+  recorded_at: Tue, 13 Mar 2012 20:29:15 GMT
+recorded_with: VCR 2.0.0

@@ -91,7 +91,9 @@ module RottenTomatoes
   endpoint(:movie_alias, 'movie_alias.json?id={imdb_id}&type=imdb', Movie)
 
   def self.find_by_imdb_id imdb_id
-    get :movie_alias, :imdb_id => '%07d' % imdb_id.to_s.sub('tt', '').to_i
+    movie = get :movie_alias, :imdb_id => '%07d' % imdb_id.to_s.sub('tt', '').to_i
+    # TODO: better handling of responses like `{"error":"Could not find a movie with the specified id"}`
+    movie if movie.id.present?
   end
 
 end
