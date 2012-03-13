@@ -35,6 +35,7 @@ class MoviesController < ApplicationController
     if params[:local]
       @movies = Movie.search_regexp(@query, :no_escape).page(params[:page])
     elsif params[:netflix]
+      require 'netflix'
       @movies = Netflix.search(@query, :expand => %w'directors').titles
       render :netflix_search, :layout => !request.xhr?
     else

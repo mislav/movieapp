@@ -5,7 +5,7 @@ require 'netflix'
 describe Netflix::Title do
 
   before(:all) do
-    stub_request(:get, 'http://api.netflix.com/catalog/titles?start_index=0&term=mar%20adentro&max_results=5').
+    stub_request(:get, 'http://api.netflix.com/catalog/titles?start_index=0&term=mar%20adentro&max_results=5&v=1.5').
       to_return(:body => read_fixture('netflix-mar_adentro.xml'), :status => 200)
     
     @catalog = Netflix.search('mar adentro')
@@ -60,7 +60,7 @@ end
 describe Netflix, "autocomplete" do
 
   before(:all) do
-    stub_request(:get, 'http://api.netflix.com/catalog/titles/autocomplete?term=step').
+    stub_request(:get, 'http://api.netflix.com/catalog/titles/autocomplete?term=step&v=1.5').
       to_return(:body => read_fixture('netflix-autocomplete.xml'), :status => 200)
     
     @result = Netflix.autocomplete('step')

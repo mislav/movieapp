@@ -19,6 +19,9 @@ module Netflix
       conn.headers[:user_agent] = user_agent
     end
 
+    # http://developer.netflix.com/docs/REST_API_Conventions#0_pgfId-1009147
+    conn.params[:v] = '1.5'
+
     oauth_config = Movies::Application.config.netflix
     conn.request :oauth,
       :consumer_key => oauth_config.consumer_key,
