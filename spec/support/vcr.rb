@@ -167,3 +167,9 @@ VCR.configure do |vcr|
     normalize_headers.(i.response.headers)
   end
 end
+
+if Rails.env.cucumber?
+  VCR.cucumber_tags do |cuke|
+    cuke.tags '@search', record: :none
+  end
+end

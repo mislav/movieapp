@@ -15,15 +15,12 @@ When /^(.+) for that movie$/ do |step|
   When %(#{step} for the movie "#{@last_movie_title}")
 end
 
-Given /^there are three movies by Lone Scherfig$/ do
-  movie = Movie.from_tmdb_movies(movies_from_tmdb_fixture('an_education.json')).first
-  movie.save
-  movie2 = Movie.create movie.to_hash.except('_id').update('title' => 'Another Lone Scherfig movie', 'year' => 2008)
-  movie3 = Movie.create movie.to_hash.except('_id').update('title' => 'His third movie', 'year' => 2010)
-
-  cond = {:directors => 'Lone Scherfig'}
-  Movie.collection.update(cond, '$set' => {rotten_tomatoes: {updated_at: 5.minutes.ago.utc}})
-  Movie.find(cond).count.should == 3
+Given /^these movies by (.+?) exist:$/ do |director, movie_table|
+  tmdb_id = 1000
+  movies = movie_table.hashes.map do |movie_data|
+    Movie.create({tmdb_id: (tmdb_id += 1)}.update(movie_data))
+  end
+  stub_extended_info(movies, directors: [director])
 end
 
 Then /^I should see movies: (.+)$/ do |movies|
@@ -40,5 +37,18 @@ Given /^(@.+) watched "([^"]+)"$/ do |users, title|
   
   each_user(users) do |user|
     user.watched << movie
+  end
+end
+
+Given /^the database contains movies( with full info)? from searching for "([^"]+)"$/ do |has_info, search_term|
+  movies = Movie.search(search_term)
+  stub_extended_info(movies) if has_info
+end
+
+Given /^these movies are last watched by @(\w+)$/ do |username|
+  user = find_or_create_user username
+  watched = User.collection['watched']
+  Movie.collection.find({}, :sort => [:_id, :asc]).limit(10).to_a.reverse.each do |movie_doc|
+    watched.save 'movie_id' => movie_doc['_id'], 'user_id' => user.id
   end
 end

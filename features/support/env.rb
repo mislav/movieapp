@@ -19,6 +19,8 @@ require 'capybara/session'
 require 'rspec'
 require 'webmock/cucumber'
 
+require Rails.root + 'spec/support/vcr'
+
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your

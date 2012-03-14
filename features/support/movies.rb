@@ -3,14 +3,6 @@ require Rails.root + 'spec/support/fixtures'
 World(FixtureLoader)
 
 World Module.new {
-  def movies_from_tmdb_fixture(fixture)
-    body = read_fixture("tmdb-#{fixture}")
-    stub_request(:get, /api.themoviedb.org/).
-      to_return(:body => body, :status => 200, :headers => {'content-type' => 'application/json'})
-
-    Tmdb.search('').movies
-  end
-
   def find_movie(title, options = {})
     Movie.first({:title => title}.update(options)).tap do |movie|
       raise "movie not found" unless movie
@@ -18,8 +10,9 @@ World Module.new {
   end
 
   # hack: make `ensure_extended_info` a no-op
-  def stub_extended_info(selector)
+  def stub_extended_info(selector, extra = {})
     updated_at = 5.minutes.ago.utc
+    selector = { _id: {'$in' => selector.map(&:id)} } if Array === selector
 
     Movie.collection.update(selector, {
       '$set' => {
@@ -28,7 +21,7 @@ World Module.new {
         runtime: 95,
         countries: %w[Sweden],
         directors: ["Stanley Kubrick"]
-      }
+      }.update(extra)
     }, :multi => true, :safe => true)
   end
 }
