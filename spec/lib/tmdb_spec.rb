@@ -56,6 +56,7 @@ describe Tmdb::Movie do
     its(:runtime) { should == 95 }
     its(:directors) { should == ["Lone Scherfig"] }
     its(:countries) { should == ["United Kingdom", "United States of America"] }
+    its(:synopsis) { should include("teenage girl in 1960s suburban London") }
   end
   
 end

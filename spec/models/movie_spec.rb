@@ -80,6 +80,7 @@ describe Movie do
 
       movie.ensure_extended_info
       movie.tmdb_updated_at.should be_within(1).of(Time.now)
+      movie.plot.should include("teenage girl in 1960s suburban London")
     end
 
     it "movie with missing info fills the blanks" do
