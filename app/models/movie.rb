@@ -109,12 +109,12 @@ class Movie < Mingo
       self.tmdb_url = movie.url
       self.imdb_id = movie.imdb_id if movie.imdb_id.present? and self.imdb_id.nil?
 
-      # renamed properties
-      set_unless_locked(:title, movie.name)
-      set_unless_locked(:original_title, movie.original_name)
-      set_unless_locked(:poster_small_url, movie.poster_thumb)
-      set_unless_locked(:poster_medium_url, movie.poster_cover)
-      set_unless_locked(:plot, movie.synopsis)
+      # renamed properties (from => to)
+      { :name => :title, :original_name => :original_title, :synopsis => :plot,
+        :poster_thumb => :poster_small_url, :poster_cover => :poster_medium_url }.each do |property, db_field|
+        value = movie.send(property)
+        set_unless_locked(db_field, value) if value.present?
+      end
 
       # same name properties
       [:year, :runtime, :countries, :directors, :homepage].each do |property|

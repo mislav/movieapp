@@ -95,6 +95,19 @@ describe Movie do
       movie.runtime.should == 95
       movie.directors.should == ['Lone Scherfig']
     end
+
+    it "movie plot shouldn't be overwritten with blank one" do
+      movie = Movie.create :tmdb_id => tmdb_id do |m|
+        m['rotten_tomatoes'] = rotten_values
+      end
+
+      movie.ensure_extended_info
+      movie_without_plot = double(:synopsis => '').as_null_object
+
+      expect {
+        movie.tmdb_movie = movie_without_plot
+      }.to_not change(movie, 'plot')
+    end
     
     it "movie with missing info but without a TMDB ID can't get details" do
       movie = Movie.create :directors => [] do |m|
