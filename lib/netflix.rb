@@ -14,7 +14,7 @@ module Netflix
     end
   end
 
-  define_connection 'http://api.netflix.com' do |conn|
+  define_connection 'http://api-public.netflix.com' do |conn|
     if user_agent = Movies::Application.config.user_agent
       conn.headers[:user_agent] = user_agent
     end

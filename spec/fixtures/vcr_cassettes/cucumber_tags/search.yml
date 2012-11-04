@@ -96,7 +96,7 @@ http_interactions:
   recorded_at: Sat, 10 Mar 2012 15:04:57 GMT
 - request:
     method: get
-    uri: http://api.netflix.com/catalog/titles?expand=synopsis,directors&max_results=5&start_index=0&term=red%20shoe%20diaries&v=1.5
+    uri: http://api-public.netflix.com/catalog/titles?expand=synopsis,directors&max_results=5&start_index=0&term=red%20shoe%20diaries&v=1.5
     body:
       encoding: US-ASCII
       string: ''
@@ -727,7 +727,7 @@ http_interactions:
   recorded_at: Sat, 10 Mar 2012 15:04:59 GMT
 - request:
     method: get
-    uri: http://api.netflix.com/catalog/titles?expand=synopsis,directors&max_results=5&start_index=0&term=The%20Terminator&v=1.5
+    uri: http://api-public.netflix.com/catalog/titles?expand=synopsis,directors&max_results=5&start_index=0&term=The%20Terminator&v=1.5
     body:
       encoding: US-ASCII
       string: ''
