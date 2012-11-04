@@ -8,3 +8,4 @@ public/stylesheets/*.css
 tmp
 script/server
 .powenv
+.rbenv-version
