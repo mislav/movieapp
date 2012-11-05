@@ -153,7 +153,7 @@ module User::Social
         user['facebook_token'] = [auth.credentials.token, auth.credentials.secret] if auth.credentials
       end
 
-      user.refresh_social_connections
+      user.refresh_social_connections unless Movies.offline?
       user.save
       return user
     end
