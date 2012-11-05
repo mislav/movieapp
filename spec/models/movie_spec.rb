@@ -122,7 +122,7 @@ describe Movie do
     end
     
     it "has locked values" do
-      tmdb = OpenStruct.new name: "Mr. Nobody", year: 2010
+      tmdb = OpenStruct.new name: "Mr. Nobody", year: 2010, poster_cover: 'poster:/url'
       netflix = OpenStruct.new title: "Mr Nobody", year: 2009
 
       movie = build tmdb_movie: tmdb
@@ -130,6 +130,7 @@ describe Movie do
 
       movie.title.should == "Mr. Nobody"
       movie.year.should == 2010
+      movie.poster_medium_url.should eq('poster:/url')
 
       movie.netflix_title = netflix
       movie.title.should == "Mr. Nobody"
@@ -137,6 +138,10 @@ describe Movie do
 
       movie.tmdb_movie = tmdb
       movie.year.should == 2009
+
+      tmdb2 = OpenStruct.new poster_cover: 'poster:/other'
+      movie.tmdb_movie = tmdb2
+      movie.poster_medium_url.should eq('poster:/url')
     end
 
     it "refreshes Rotten info" do

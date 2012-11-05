@@ -116,6 +116,9 @@ class Movie < Mingo
         set_unless_locked(db_field, value) if value.present?
       end
 
+      lock_value :poster_small_url if poster_small_url.present?
+      lock_value :poster_medium_url if poster_medium_url.present?
+
       # same name properties
       [:year, :runtime, :countries, :directors, :homepage].each do |property|
         value = movie.send(property)
