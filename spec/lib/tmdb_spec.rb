@@ -17,7 +17,7 @@ describe Tmdb::Movie do
     its(:url)               { should == 'http://www.themoviedb.org/movie/1075' }
     its(:year)              { should == 1998 }
     its(:poster_cover) {
-      should == 'http://cf2.imgobject.com/t/p/w185/7q96evV2xWjvkO4fMdqe8vixKb8.jpg'
+      should == 'http://cf2.imgobject.com/t/p/w500/7q96evV2xWjvkO4fMdqe8vixKb8.jpg'
     }
   end
   

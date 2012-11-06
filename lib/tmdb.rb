@@ -141,14 +141,14 @@ module Tmdb
     def poster_cover
       if poster_path
         config = Tmdb.configuration
-        config.poster_url 185, poster_path
+        config.poster_url 185 * 2, poster_path
       end
     end
     
     def poster_thumb
       if poster_path
         config = Tmdb.configuration
-        config.poster_url 92, poster_path
+        config.poster_url 92 * 2, poster_path
       end
     end
     
