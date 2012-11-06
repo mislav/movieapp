@@ -19,7 +19,7 @@
 }
 
 #facebox .content {
-  display:table;
+  /* display:table; */
   width: 370px;
   padding: 10px;
   background: #fff;
