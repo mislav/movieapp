@@ -31,27 +31,3 @@ $.fn.fadeOut = function(speed, fn) {
   this.hide()
   if (fn) fn.call()
 }
-
-$(document).delegate('#facebox .netflix_picker article', 'click', function(e) {
-  if (e.which == 1) {
-    var netflixId = $(this).data('netflix-id')
-    $.facebox.close()
-    quickPost(location.pathname + '/link_to_netflix?netflix_id=' + netflixId, 'put')
-  }
-  return false;
-})
-
-function quickPost(href, method) {
-  var csrf_token = $('meta[name=csrf-token]').attr('content'),
-    csrf_param = $('meta[name=csrf-param]').attr('content'),
-    form = $("<form method='post' action='" + href + "'></form>"),
-    hidden = ''
-
-  if (method) hidden += "<input name='_method' value='" + method + "' type='hidden' />"
-
-  if (csrf_param && csrf_token)
-    hidden += "<input name='" + csrf_param + "' value='" + csrf_token + "' type='hidden' />"
-
-  form.hide().append(hidden).appendTo(document.body)
-  form.submit()
-}
