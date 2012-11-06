@@ -171,6 +171,14 @@ module Tmdb
     
   end
 
+  class PosterImage < NibblerJSON
+    element :file_path
+    element :width
+    element :height
+    element 'vote_average' => :average_rating
+    element 'vote_count'   => :votes
+  end
+
   endpoint(:movie_search, 'search/movie?{-join|&|api_key,query}') do
     elements :results, :with => Movie
     alias_method :movies, :results
@@ -200,6 +208,14 @@ module Tmdb
   end
 
   endpoint(:movie_cast, 'movie/{tmdb_id}/casts?api_key={api_key}', Cast)
+
+  endpoint(:movie_images, 'movie/{tmdb_id}/images?language=en&api_key={api_key}') do
+    elements :posters, :with => PosterImage
+  end
+
+  def self.poster_images tmdb_id
+    get(:movie_images, :tmdb_id => tmdb_id).posters
+  end
 end
 
 require 'tmdb_ignores'

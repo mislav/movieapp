@@ -60,6 +60,13 @@ class MoviesController < ApplicationController
     render :layout => !request.xhr?
   end
 
+  def pick_poster
+    @posters = PosterFinder.call @movie
+
+    response.content_type = Mime::HTML
+    render :layout => !request.xhr?
+  end
+
   def raw
     @data = case params[:kind]
     when 'tmdb'
@@ -73,7 +80,12 @@ class MoviesController < ApplicationController
   def update
     @movie.update_and_lock params[:movie]
     @movie.save
-    redirect_to movie_url(@movie)
+
+    if request.xhr?
+      head :ok
+    else
+      redirect_to movie_url(@movie)
+    end
   end
   
   def add_to_watch
