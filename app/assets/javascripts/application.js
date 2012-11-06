@@ -20,6 +20,18 @@ $(function(){
   $('a[rel*=facebox]').facebox()
 })
 
+$.fn.fadeIn = function(speed, fn) {
+  if (typeof speed == 'function') fn = speed
+  this.show()
+  if (fn) fn.call()
+}
+
+$.fn.fadeOut = function(speed, fn) {
+  if (typeof speed == 'function') fn = speed
+  this.hide()
+  if (fn) fn.call()
+}
+
 $(document).delegate('#facebox .netflix_picker article', 'click', function(e) {
   if (e.which == 1) {
     var netflixId = $(this).data('netflix-id')
