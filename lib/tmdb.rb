@@ -177,6 +177,7 @@ module Tmdb
     element :height
     element 'vote_average' => :average_rating
     element 'vote_count'   => :votes
+    element 'iso_639_1'    => :language
   end
 
   endpoint(:movie_search, 'search/movie?{-join|&|api_key,query}') do
@@ -209,7 +210,7 @@ module Tmdb
 
   endpoint(:movie_cast, 'movie/{tmdb_id}/casts?api_key={api_key}', Cast)
 
-  endpoint(:movie_images, 'movie/{tmdb_id}/images?language=en&api_key={api_key}') do
+  endpoint(:movie_images, 'movie/{tmdb_id}/images?api_key={api_key}') do
     elements :posters, :with => PosterImage
   end
 

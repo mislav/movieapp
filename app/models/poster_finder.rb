@@ -6,9 +6,17 @@ module PosterFinder
     tmdb_config = Tmdb.configuration
     tmdb_images = Tmdb.poster_images movie.tmdb_id
 
-    Rails.logger.debug "found %d poster images" % tmdb_images.size
+    # sort by language ("en" and nil first) then average rating
+    tmdb_images.sort! { |a, b|
+      if a.language == b.language
+        a.average_rating <=> b.average_rating
+      else
+        a.language == 'en' || (a.language.nil? && b.language != 'en') ? 1 : -1
+      end
+    }
+    tmdb_images.reverse!
 
-    tmdb_images.sort_by {|image| image.average_rating }.reverse.map do |image|
+    tmdb_images.map do |image|
       Poster.new \
         tmdb_config.poster_url(medium_width * 2, image.file_path),
         tmdb_config.poster_url(small_width * 2, image.file_path)
