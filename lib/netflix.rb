@@ -20,7 +20,7 @@ module Netflix
     end
 
     # http://developer.netflix.com/docs/REST_API_Conventions#0_pgfId-1009147
-    conn.params[:v] = '1.5'
+    conn.params[:v] = '1.0'
 
     oauth_config = Movies::Application.config.netflix
     conn.request :oauth,
