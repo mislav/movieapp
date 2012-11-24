@@ -95,16 +95,15 @@ module User::Friends
     self.class.find(query, options)
   end
 
+  def friends_ids
+    friends({}, :fields => %w[_id], :transformer => nil).map { |f| f['_id'] }
+  end
+
   def movies_from_friends(options = {})
-    friends_ids = friends({}, :fields => %w[_id], :transformer => nil).map { |f| f['_id'] }
     WatchesTimeline.create({'user_id' => {'$in' => friends_ids}}, options)
   end
 
   def friends_who_watched(movie)
-    watches = self.class.collection['watched'].
-      find({'movie_id' => movie.id}, :fields => %w[user_id liked], :sort => [:_id, :desc])
-
-    user_ids = watches.map { |w| w['user_id'] }
-    friends(user_ids)
+    WatchesStats.new(movie, friends_ids)
   end
 end

@@ -29,7 +29,7 @@ Feature: Discovering movies watched by friends
     When I login as @mislav
     And I follow "social timeline"
     And I follow "Terminator: Salvation"
-    Then I should see "jordi has watched this."
+    Then I should see "meh: Jordi" in a tooltip
     When I go back
     And I follow "The Terminator"
-    Then I should see "jordi and ivana have watched this."
+    Then I should see "meh: Jordi and Ivana" in a tooltip

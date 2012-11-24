@@ -12,6 +12,10 @@ each do |within, selector|
   end
 end
 
+Then /^I should see "([^\"]+)" in a tooltip$/ do |text|
+  page.should have_xpath(%{//*[@rel="tooltip"][@title="#{text}"]})
+end
+
 Then /^(?:|I )should( not)? see an? "([^\"]*)" button$/ do |negate, text|
   xpath = XPath.css %(input[type=submit][value="#{text}"])
   options = {}
