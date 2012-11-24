@@ -39,4 +39,4 @@ Feature: Marking movies as to-watch or watched
     
     Then I should see movies: "Terminator: Salvation (2009)", "Terminator 2: Judgment Day (1991)", and "Terminator 3: Rise of the Machines (2003)"
     Then I should see "You liked it" for the movie "Terminator 2: Judgment Day"
-    Then I should see "You watched it" for the movie "Terminator 3: Rise of the Machines"
+    Then I should see "You thought it was meh" for the movie "Terminator 3: Rise of the Machines"

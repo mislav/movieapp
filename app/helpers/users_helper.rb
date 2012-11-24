@@ -35,7 +35,7 @@ module UsersHelper
     text << case rating
     when true  then %(<em class="liked">#{nobr 'liked it'}</em>)
     when false then %(<em class="disliked">#{nobr "didn't like it"}</em>)
-    when nil   then nobr("watched it")
+    when nil   then %(thought #{nobr("it was meh")})
     else raise ArgumentError, "invalid rating: #{rating.inspect}"
     end
     text.html_safe
