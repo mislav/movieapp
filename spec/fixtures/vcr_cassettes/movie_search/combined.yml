@@ -108,7 +108,7 @@ http_interactions:
   recorded_at: Tue, 13 Mar 2012 20:25:03 GMT
 - request:
     method: get
-    uri: http://api-public.netflix.com/catalog/titles?expand=synopsis,directors&max_results=5&start_index=0&term=star%20wars&v=1.5
+    uri: http://api-public.netflix.com/catalog/titles?expand=synopsis,directors&max_results=5&start_index=0&term=star%20wars&v=1.0
     body:
       encoding: US-ASCII
       string: ''
