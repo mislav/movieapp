@@ -219,12 +219,6 @@ describe User do
       @user.friends.map(&:id).should =~ @friends
     end
     
-    it "filters by watched movie" do
-      friends = @user.friends_who_watched(@movie).to_a
-      friends.should == [@mate]
-      friends.first.username.should == 'mate'
-    end
-    
     it "finds movies" do
       @user.movies_from_friends.to_a.should == [@movie]
     end

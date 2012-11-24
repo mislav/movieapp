@@ -2,6 +2,8 @@
 //= require rails
 //= require_tree .
 //= require facebox
+//= require bootstrap-transition
+//= require bootstrap-tooltip
 
 $.facebox.settings.loadingImage = '/assets/facebox-loading.gif'
 $.facebox.settings.closeImage ='/assets/facebox-close.png'
@@ -18,6 +20,7 @@ $.fn.trigger = function(event, data) {
 
 $(function(){
   $('a[rel*=facebox]').facebox()
+  $('[rel*=tooltip]').tooltip()
 })
 
 $.fn.fadeIn = function(speed, fn) {

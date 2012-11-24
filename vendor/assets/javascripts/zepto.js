@@ -1,4 +1,4 @@
-/* Zepto v1.0rc1-107-gdea8af9 - zepto event fx ajax form data touch - zeptojs.com/license */
+/* Zepto v1.0rc1-111-g8e84f2e - zepto event fx ajax form data touch - zeptojs.com/license */
 var Zepto = (function() {
   var undefined, key, $, classList, emptyArray = [], slice = emptyArray.slice, filter = emptyArray.filter,
     document = window.document,
@@ -549,7 +549,19 @@ var Zepto = (function() {
           this.value = funcArg(this, value, idx, this.value)
         })
     },
-    offset: function(){
+    offset: function(coordinates){
+      if (coordinates) return this.each(function(index){
+        var $this = $(this),
+            coords = funcArg(this, coordinates, index, $this.offset()),
+            parentOffset = $this.offsetParent().offset(),
+            props = {
+              top:  coords.top  - parentOffset.top,
+              left: coords.left - parentOffset.left
+            }
+
+        if ($this.css('position') == 'static') props['position'] = 'relative'
+        $this.css(props)
+      })
       if (this.length==0) return null
       var obj = this[0].getBoundingClientRect()
       return {
@@ -654,6 +666,9 @@ var Zepto = (function() {
       })
     }
   }
+
+  // for now
+  $.fn.detach = $.fn.remove
 
   // Generate the `width` and `height` functions
   ;['width', 'height'].forEach(function(dimension){
@@ -1265,6 +1280,7 @@ window.Zepto = Zepto
 
     xhr.onreadystatechange = function(){
       if (xhr.readyState == 4) {
+        xhr.onreadystatechange = empty;
         clearTimeout(abortTimeout)
         var result, error = false
         if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304 || (xhr.status == 0 && protocol == 'file:')) {

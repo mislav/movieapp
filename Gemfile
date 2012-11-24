@@ -8,6 +8,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2'
   gem 'uglifier'
   gem 'compass', '~> 0.12.alpha'
+  gem 'bootstrap-sass', '~> 2.2.1'
 end
 
 group :production do

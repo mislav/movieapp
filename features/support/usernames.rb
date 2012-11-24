@@ -22,7 +22,7 @@ module ManyUsernames
   
   def create_user(attributes = {})
     User.create(attributes) do |user|
-      user.name ||= 'Sin Nombre'
+      user.name ||= user.username.titleize
       user.twitter_info = { 'id' => ManyUsernames.generate_id }
       user.facebook_info = { 'id' => ManyUsernames.generate_id.to_s }
     end

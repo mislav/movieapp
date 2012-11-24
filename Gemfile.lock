@@ -19,6 +19,8 @@ GEM
       multi_json (~> 1.0)
     addressable (2.2.7)
     archive-tar-minitar (0.5.2)
+    bootstrap-sass (2.2.1.1)
+      sass (~> 3.2)
     bson (1.5.2)
     bson_ext (1.5.2)
       bson (= 1.5.2)
@@ -219,6 +221,7 @@ PLATFORMS
 
 DEPENDENCIES
   addressable (~> 2.1)
+  bootstrap-sass (~> 2.2.1)
   bson_ext (>= 1.1.1)
   capybara
   choices

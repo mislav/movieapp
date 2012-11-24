@@ -49,7 +49,7 @@ ol.movies { clear:left; padding-left:0;
     @include background-image(radial-gradient(top left, rgba(white, .5), rgba(white, 0) 150px));
   }
   
-  .actions, .friends { font-size:11px; }
+  .actions { font-size:11px }
 
   .actions {
     margin-top:1em;
@@ -152,7 +152,38 @@ ol.movies { clear:left; padding-left:0;
   
   .plot { margin:30px 0 1.5em; text-align:justify; }
   
-  .friends { font-style:italic; margin-top:1em; }
+  .friends {
+    margin-top: 12px;
+    display: inline-block;
+    font-size: 0;
+    .liked { @extend em.liked }
+    .disliked { @extend em.disliked }
+    color: gray;
+    position: relative;
+    > span {
+      white-space: nowrap;
+      cursor: default;
+      display: inline-block;
+      padding: 2px 8px;
+      border: 1px solid silver;
+      border-right-width: 0;
+      background: #eee;
+      text-shadow: white 1px 1px 1px;
+      font-weight: bold;
+      font-size: 11px;
+      &:first-child {
+        @include border-left-radius;
+        font-weight: normal;
+      }
+      &.disliked {
+        border-right-width: 1px;
+        @include border-right-radius;
+      }
+    }
+    .tooltip-inner {
+      width: 200px;
+    }
+  }
   
   .admin {
     max-width: 50em;
@@ -190,7 +221,7 @@ ol.movies { clear:left; padding-left:0;
   }
 
   .movie {
-    .actions, .friends { font-size:12px; }
+    .actions { font-size:12px }
   }
 
   .movie-show .movie { padding-left:7px;

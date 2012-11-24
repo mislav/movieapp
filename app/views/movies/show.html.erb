@@ -35,12 +35,18 @@
   
   <%= movie_actions(@movie) %>
 
-  <% if logged_in? and not (friends = current_user.friends_who_watched(@movie).to_a).empty? %>
-    <p class="friends">
-      <%= list_of_people(friends, :other => 'other friend') %>
-      <%= friends.length == 1 ? 'has' : 'have' %>
-      watched this.
-    </p>
+  <% if logged_in? and (stats = current_user.friends_who_watched(@movie)).present? %>
+    <div class="friends">
+      <span class=label>Social</span>
+      <% for rating, label in [ [true, 'liked'], [nil, 'meh'], [false, 'disliked'] ] -%>
+        <% people = stats.people_who_rated(rating) -%>
+        <% names = people.map(&:username) -%>
+        <span class=<%= label %> rel=tooltip title="<%= label %>: <%= people.any?? names.to_sentence : 'none' %>">
+          <%= people.size %>
+          <% if rating == true %>♥<% end %>
+        </span>
+      <% end -%>
+    </div>
   <% end %>
   
     <% if admin? %>
