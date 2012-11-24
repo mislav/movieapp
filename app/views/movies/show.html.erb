@@ -40,7 +40,7 @@
       <span class=label>Social</span>
       <% for rating, label in [ [true, 'liked'], [nil, 'meh'], [false, 'disliked'] ] -%>
         <% people = stats.people_who_rated(rating) -%>
-        <% names = people.map(&:username) -%>
+        <% names = people.map {|p| screen_name(p) } -%>
         <span class=<%= label %> rel=tooltip title="<%= label %>: <%= people.any?? names.to_sentence : 'none' %>">
           <%= people.size %>
           <% if rating == true %>♥<% end %>

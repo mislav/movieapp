@@ -10,14 +10,14 @@ module UsersHelper
   def user_name(user)
     user.name.presence || user.username
   end
-  
-  def link_to_user(user)
+
+  def screen_name(user)
     # some usernames are numeric Facebook IDs, don't show them
-    if user.username =~ /\D/
-      link_to(user.username, watched_path(user), :title => user.name)
-    else
-      link_to(user.name, watched_path(user))
-    end
+    (user.username =~ /\D/ or user.name.blank?) ? user.username : user.name
+  end
+
+  def link_to_user(user)
+    link_to(screen_name(user), watched_path(user), :title => user.name)
   end
   
   def my_page?
@@ -29,7 +29,7 @@ module UsersHelper
   end
   
   def watched_liked(movie, rating, user = nil, link = false)
-    who = link ? link_to_user(user) : user ? user.name : 'You'
+    who = link ? link_to_user(user) : user ? screen_name(user) : 'You'
     
     text = "#{who} "
     text << case rating
