@@ -107,7 +107,14 @@ body > header {
 body > article {
   padding-top:22px;
   header, > h1 { margin-bottom:23px; }
-  h1 { font-size:18px; line-height:37px; }
+  > h1, > header > h1 {
+    font-size: 18px;
+    line-height: 1.5;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  > header > h1 {
+    margin-bottom: 5px;
+  }
 }
 
 .about > article { max-width: 48em;

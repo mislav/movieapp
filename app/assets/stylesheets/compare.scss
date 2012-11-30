@@ -15,7 +15,11 @@ $compare-box-width: 780px / 3;
     width: 170px;
     margin: 0 20px;
 
-    h1 { margin-bottom:5px; font-size:1em; }
+    h1 {
+      margin-bottom: 5px;
+      font-size: 1em;
+      border-bottom: none;
+    }
     .movies .num { font-size:1.3em }
     .percent {
       text-transform: uppercase;

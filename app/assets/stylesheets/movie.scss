@@ -23,9 +23,9 @@ ol.movies { clear:left; padding-left:0;
     }
   
     h1, h2 { letter-spacing:.01em }
-    h1 { font-size:18px; line-height:24px; }
+    h1 { font-size:18px; line-height:1.2; }
     h2 { margin-bottom:2px; }
-    h2, .year { font-size:15px; line-height:21px; }
+    h2, .year { font-size:15px; line-height:1.2; }
 
     .poster {
       display:block;
@@ -126,10 +126,13 @@ ol.movies { clear:left; padding-left:0;
 
   .actions { margin-top:1.3em; }
 
-  h1 { font-size:28px; line-height:34px; margin-bottom:3px; }
-  h2, .year { font-size:18px; line-height:27px; margin-bottom:2px; }
+  h1 { font-size:28px; line-height:1.1; margin-bottom:3px; }
+  h2, .year { font-size:18px; line-height:1.2; margin-bottom:2px; }
 
-  header { float:none; }
+  header {
+    float: none;
+    > h1 { border-bottom: none }
+  }
     
   .runtime {
     margin-top:6px;
