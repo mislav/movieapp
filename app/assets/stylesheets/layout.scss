@@ -45,7 +45,7 @@ body > header {
   background-color: $top-color-stop;
   @include background-image(linear-gradient($top-color-stop, $bottom-color-stop));
 
-  h1 { font:normal 24px/32px $heading-type; float:left; }
+  h1 { font:normal 24px/1.5 $logo-type; float:left; }
 
   nav { font-size:11px; line-height:22px; margin-top:8px;
     

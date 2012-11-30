@@ -3,8 +3,14 @@
 @import "bootstrap/component-animations";
 @import "bootstrap/tooltip";
 
-$body-type:geneva, "bitstream vera sans", helvetica, arial, sans-serif;
-$heading-type:"american typewriter", georgia, serif;
+@include font-face("Open Sans", font-url("OpenSans-Regular-webfont.woff") format("woff"));
+@include font-face("Open Sans", font-url("OpenSans-Bold-webfont.woff") format("woff"), false, bold);
+@include font-face("Open Sans", font-url("OpenSans-Italic-webfont.woff") format("woff"), false, false, italic);
+@include font-face("Open Sans", font-url("OpenSans-Light-webfont.woff") format("woff"), false, 200);
+
+$body-type: "open sans", "bitstream vera sans", helvetica, arial, sans-serif;
+$heading-type: $body-type;
+$logo-type: "american typewriter", georgia, serif;
 
 $body-color:#02303f;
 $default-text-shadow-color:rgba(gray, .3);

@@ -2,7 +2,9 @@ $compare-box-width: 780px / 3;
 
 .compare > article { padding-top:30px;
   .num {
-    font: 900 3em "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 900;
+    font-size: 3em;
+    line-height: 1;
     color: lighten($body-color, 10);
   }
   > header, .person { position: relative; }

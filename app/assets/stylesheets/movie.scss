@@ -38,7 +38,11 @@ ol.movies { clear:left; padding-left:0;
 .movie {
   @include clearfix;
   
-  h1, .year, hgroup { margin:0; font-family:$heading-type; }
+  h1, .year, hgroup {
+    margin: 0;
+    font-family: $heading-type;
+    font-weight: 200;
+ }
   h2 { font-weight:normal; font-style:italic; }
   .year { color:darken($lightblue, 5); font-style:normal; }
   
