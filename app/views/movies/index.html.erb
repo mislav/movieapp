@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <link rel="search" type="application/opensearchdescription+xml" title="movi.im" href="/movies/opensearch.xml" />
+<% end %>
+
 <article>
 
   <% unless logged_in? or @query or @director %><aside class="intro">

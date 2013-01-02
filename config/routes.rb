@@ -6,6 +6,9 @@ Movies::Application.routes.draw do
   match 'movies/_netflix' => 'movies#without_netflix', :via => :get
   
   resources :movies, :only => [:show, :edit, :update] do
+    collection do
+      get :opensearch
+    end
     member do
       get :wikipedia
       get :raw
