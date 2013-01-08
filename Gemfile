@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'railties', '~> 3.2'
+gem 'railties', '~> 3.2.11'
 gem 'tzinfo'
 
 group :assets do
