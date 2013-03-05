@@ -1,4 +1,4 @@
-source :rubygems
+source 'https://rubygems.org'
 
 gem 'railties', '~> 3.2.11'
 gem 'tzinfo'
