@@ -1,3 +1,5 @@
+require 'csv'
+
 class UsersController < ApplicationController
   
   before_filter :load_user, :only => [:show, :to_watch, :liked]
@@ -5,6 +7,43 @@ class UsersController < ApplicationController
   
   def index
     @users = User.find({}, :sort => ['_id', -1]).to_a
+
+    respond_to do |wants|
+      wants.html
+      wants.csv do
+        render :text => CSV.generate { |csv|
+          csv << %w[_id username]
+          @users.each {|u| csv << [u.id, u.username] }
+        }
+      end
+    end
+  end
+
+  # db- and memory-heavy
+  def watched_index
+    col = User.collection['watched']
+    watched = col.find.to_a
+    movies = Movie.find(watched.map {|w| w['movie_id'] }.uniq, :fields => ['title', 'year']).index_by(&:id)
+
+    respond_to do |wants|
+      wants.csv do
+        render :text => CSV.generate { |csv|
+          csv << %w[_id user_id liked movie_id movie_title]
+          watched.each do |watch|
+            movie = movies[watch['movie_id']] or next
+            title = movie.original_title || movie.title
+            title += " (#{movie.year})" if movie.year
+            csv << [
+              watch['_id'],
+              watch['user_id'],
+              watch['liked'].to_s,
+              movie.id,
+              title
+            ]
+          end
+        }
+      end
+    end
   end
   
   def show

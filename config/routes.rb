@@ -21,7 +21,8 @@ Movies::Application.routes.draw do
       delete :remove_from_watched
     end
   end
-  
+
+  get 'users/watched.:format' => 'users#watched_index'
   resources :users, :only => [:index]
   match 'compare/:users' => 'users#compare', :as => :compare, :via => :get, :users => /[^\/]+/
   
