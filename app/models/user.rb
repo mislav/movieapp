@@ -10,7 +10,9 @@ class User < Mingo
   
   include ToWatch
   include Watched
-  
+
+  property :ignored_recommendations, :type => :set
+
   def username=(value)
     self['username'] = self.class.generate_username(value)
   end

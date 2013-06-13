@@ -11,6 +11,14 @@ module UsersHelper
     user.name.presence || user.username
   end
 
+  def user_friendly_name(user)
+    if user.name.present?
+      user.name.split(' ', 2)[0]
+    else
+      user.username
+    end
+  end
+
   def screen_name(user)
     # some usernames are numeric Facebook IDs, don't show them
     (user.username =~ /\D/ or user.name.blank?) ? user.username : user.name

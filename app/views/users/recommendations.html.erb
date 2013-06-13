@@ -1,0 +1,24 @@
+<% body_class 'movie-show movie-recommendations' %>
+
+<article>
+  <header>
+    <h1>Recommended for you</h1>
+  </header>
+
+  <% for movie in @recommended.movies %>
+    <article class="movie">
+      <%= render 'movies/full_movie', movie: movie %>
+
+      <p class=actions>
+        <%= link_to "× Ignore this recommendation", [:ignore_recommendation, movie], :remote => true, :method => :put, :class => 'ignore' %>
+      </p>
+    </article>
+  <% end %>
+
+  <p<%= @recommended.any?? ' class=blank' : '' %>>
+    No new recommendations as this time. Check back some other day!
+    <br>
+    See what the <%= link_to "people you follow are watching", timeline_path %>
+  </p>
+
+</article>

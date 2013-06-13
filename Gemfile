@@ -30,6 +30,8 @@ gem 'rails-behaviors'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 
+gem 'fickle-ruby', :git => 'git://github.com/norbert/fickle-ruby.git', :branch => 'master'
+
 group :extras do
   gem 'nokogiri', '~> 1.4.1'
   gem 'nibbler', '~> 1.3' #, :path => '/Users/mislav/Projects/nibbler'

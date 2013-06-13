@@ -6,7 +6,9 @@
       <h1><%= @user.name %> plans to watch <%= count @movies %>.</h1>
       <p><%= link_to "#{count @user.watched} watched", watched_path(@user) %></p>
     </header>
-    
+
+    <%= render 'recommendation_notice' %>
+
     <%= render 'movies/paginated', :movies => @movies %>
 
   <% else %>

@@ -1,0 +1,7 @@
+<% if my_page? && @recommended && @recommended.any? %>
+  <p class="flash notice">
+    Hey <%= user_friendly_name(@user) %>, we've got
+    <%= link_to pluralize(@recommended.size, 'recommendation'), movie_recommendations_path(@user) %>
+    for you!
+  </p>
+<% end %>

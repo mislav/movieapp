@@ -13,54 +13,9 @@
 <% end -%>
 
 <article class="movie">
-  
-  <%= movie_poster(@movie, :medium) %>
 
-  <header>
-    <%= render 'title', :movie => @movie %>
-    
-    <% if @movie.directors.present? %>
-      <p class="directors">by <strong><%= @movie.directors.map { |name|
-        link_to(name, director_path(name))
-      }.to_sentence.html_safe %></strong></p>
-    <% end %>
+  <%= render 'full_movie', movie: @movie %>
 
-    <% if @movie.countries.present? %>
-      <p class="countries">in <%= @movie.countries.to_sentence %></p>
-    <% end %>
-
-    <%= movie_runtime(@movie) %>
-  </header>
-
-  <% if @movie.chosen_plot.present? %>
-  <p class="plot"><%= movie_plot @movie %></p>
-  <% end %>
-  
-  <% if elsewhere = movie_elsewhere(@movie).presence %>
-    <p class="elsewhere">
-      Elsewhere:
-      <%= raw elsewhere.map { |label, url, title|
-        link_to(label, url, title: title)
-      }.join(separator) %>
-    </p>
-  <% end %>
-  
-  <%= movie_actions(@movie) %>
-
-  <% if logged_in? and (stats = current_user.friends_who_watched(@movie)).present? %>
-    <div class="friends">
-      <span class=label>Social</span>
-      <% for rating, label in [ [true, 'liked'], [nil, 'meh'], [false, 'disliked'] ] -%>
-        <% people = stats.people_who_rated(rating) -%>
-        <% names = people.map {|p| screen_name(p) } -%>
-        <span class=<%= label %> rel=tooltip title="<%= label %>: <%= people.any?? names.to_sentence : 'none' %>">
-          <%= people.size %>
-          <% if rating == true %>♥<% end %>
-        </span>
-      <% end -%>
-    </div>
-  <% end %>
-  
     <% if admin? %>
       <aside class="admin">
         <ul>

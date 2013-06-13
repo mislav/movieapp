@@ -86,7 +86,7 @@ ol.movies { clear:left; padding-left:0;
       
       + a.revert { padding:0 5px; }
     }
-    a.revert { 
+    a.revert, a.ignore {
       color:#ccc; text-decoration:none;
       
       &:hover { color:firebrick; }
@@ -254,4 +254,13 @@ ol.movies { clear:left; padding-left:0;
     .plot { margin-bottom:10px; }
     .actions { margin-top:7px; }
   }
+}
+
+.movie-recommendations {
+  .movie {
+    padding-bottom: 1.3em;
+    border-bottom: 1px solid #e8e8e8;
+    &:last-child { border-bottom: none }
+  }
+  .blank { display: none }
 }

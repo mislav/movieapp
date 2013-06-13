@@ -40,6 +40,8 @@
       </nav>
     </header>
 
+    <%= render 'recommendation_notice' %>
+
     <%= render 'movies/paginated', :movies => @movies %>
 
   <% elsif my_page? and (forced_blank_slate? or @user.to_watch.empty?) %>

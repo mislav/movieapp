@@ -2,8 +2,8 @@ require 'csv'
 
 class UsersController < ApplicationController
   
-  before_filter :load_user, :only => [:show, :to_watch, :liked]
-  before_filter :login_required, :only => [:following]
+  before_filter :load_user, :only => [:show, :to_watch, :liked, :recommendations]
+  before_filter :login_required, :only => [:following, :recommendations]
   
   def index
     @users = User.find({}, :sort => ['_id', -1]).to_a
@@ -48,7 +48,8 @@ class UsersController < ApplicationController
   
   def show
     @movies = @user.watched(max_id: params[:max_id]).page(params[:page])
-    ajax_pagination if stale? etag: session_cache_key(@movies)
+    @recommended = Recommendations.new(@user)
+    ajax_pagination if my_page? || stale?(etag: session_cache_key(@movies))
   end
   
   def liked
@@ -58,13 +59,21 @@ class UsersController < ApplicationController
   
   def to_watch
     @movies = @user.to_watch(max_id: params[:max_id]).page(params[:page])
-    ajax_pagination if stale? etag: session_cache_key(@movies)
+    @recommended = Recommendations.new(@user)
+    ajax_pagination if my_page? || stale?(etag: session_cache_key(@movies))
   end
   
   def timeline
     # TODO: HTTP caching
     @movies = current_user.movies_from_friends(max_id: params[:max_id])
     ajax_pagination
+  end
+
+  def recommendations
+    @recommended = Recommendations.new(@user)
+    unless Movies.offline?
+      @recommended.movies.map(&:ensure_extended_info)
+    end
   end
 
   def following

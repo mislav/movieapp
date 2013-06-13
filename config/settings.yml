@@ -22,6 +22,9 @@ defaults: &defaults
     api_key: <%= ENV['TMDB_KEY'] %>
   rotten_tomatoes:
     api_key: <%= ENV['ROTTEN_TOMATOES_KEY'] %>
+  fickle:
+    url: "http://fickle-movieapp.herokuapp.com"
+    api_key: <%= ENV['FICKLE_KEY'] %>
 
 development:
   <<: *defaults
@@ -36,6 +39,8 @@ test: &testing
     api_key: TEST
   rotten_tomatoes:
     api_key: TOMATO
+  fickle:
+    api_key: FICKLER
 
 cucumber:
   <<: *testing

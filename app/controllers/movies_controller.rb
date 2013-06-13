@@ -107,6 +107,12 @@ class MoviesController < ApplicationController
     current_user.watched.delete @movie
     ajax_actions_or_back
   end
+
+  def ignore_recommendation
+    recommendations = Recommendations.new(current_user)
+    recommendations.ignore_movie(@movie)
+    ajax_actions_or_back { head :ok }
+  end
   
   def wikipedia
     @movie.update_wikipedia_url! unless @movie.wikipedia_url.present?
@@ -156,8 +162,12 @@ class MoviesController < ApplicationController
 
   def ajax_actions_or_back
     if request.xhr?
-      response.content_type = Mime::HTML
-      render :partial => 'actions', :locals => {:movie => @movie}
+      if block_given?
+        yield
+      else
+        response.content_type = Mime::HTML
+        render :partial => 'actions', :locals => {:movie => @movie}
+      end
     else
       redirect_to :back
     end

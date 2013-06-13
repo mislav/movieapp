@@ -19,6 +19,7 @@ Movies::Application.routes.draw do
       delete :remove_from_to_watch
       put :add_watched
       delete :remove_from_watched
+      put :ignore_recommendation
     end
   end
 
@@ -47,6 +48,7 @@ Movies::Application.routes.draw do
     user.match ':username/liked' => 'users#liked', :as => :liked, :via => :get
     user.match ':username/to-watch' => 'users#to_watch', :as => :to_watch, :via => :get
     user.match ':username/friends' => redirect('/following')
+    user.get ':username/recommendations' => 'users#recommendations', :as => :movie_recommendations
   end
 
   # The priority is based upon order of creation:

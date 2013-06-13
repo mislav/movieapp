@@ -21,3 +21,11 @@ replaceActions = (element, content) ->
   element.replaceWith(content)
   preserve = element.find('.js-preserve')
   parent.find('.actions').eq(0).prepend preserve
+
+$(document).on 'ajaxSuccess', '.movie-recommendations .ignore', (e, xhr) ->
+  movie = $(this).closest('.movie')
+  container = movie.parent()
+  others = movie.siblings('.movie')
+  movie.remove()
+  if others.size is 0
+    container.find('.blank').removeClass('blank')
