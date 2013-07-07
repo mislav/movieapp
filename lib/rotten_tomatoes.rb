@@ -23,6 +23,7 @@ module RottenTomatoes
     end
 
     conn.use :instrumentation
+    conn.response :raise_error
     conn.adapter :net_http
   end
 
