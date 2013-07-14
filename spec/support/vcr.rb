@@ -135,11 +135,25 @@ VCR.configure do |vcr|
   vcr.filter_sensitive_data('<ROTTEN_KEY>') { Movies::Application.config.rotten_tomatoes.api_key }
   vcr.filter_sensitive_data('<NETFLIX_KEY>') { Movies::Application.config.netflix.consumer_key }
 
+  bin2ascii = ->(value) {
+    if value && 'ASCII-8BIT' == value.encoding.name
+      value.force_encoding('us-ascii')
+    end
+    value
+  }
+
   normalize_headers = ->(headers) {
-    headers.each { |key, value|
-      if Array === value and value.size < 2
-        headers[key] = value.first
+    headers.keys.each { |key|
+      value = headers[key]
+
+      if 'ASCII-8BIT' == key.encoding.name
+        old_key, key = key, bin2ascii.(key.dup)
+        headers.delete(old_key)
+        headers[key] = value
       end
+
+      Array(value).each {|v| bin2ascii.(v) }
+      headers[key] = value[0] if Array === value && value.size < 2
     }
   }
 
@@ -150,7 +164,13 @@ VCR.configure do |vcr|
       i.response.headers.delete 'Content-Encoding'
     end
 
-    type = Array(i.response.headers['Content-Type']).join(',').split(';').first
+    type, charset = Array(i.response.headers['Content-Type']).join(',').split(';')
+
+    if charset =~ /charset=(\S+)/
+      i.response.body.force_encoding($1)
+    end
+
+    bin2ascii.(i.response.status.message)
 
     if type =~ /[\/+]json$/ or 'text/javascript' == type
       begin
