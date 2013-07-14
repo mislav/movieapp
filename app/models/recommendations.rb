@@ -10,7 +10,7 @@ Recommendations = Struct.new(:user) do
   end
 
   def recommended_movie_ids
-    @movie_ids ||= fetch_recommendations[0].map {|item| BSON::ObjectId[item[0]] }
+    @movie_ids ||= Array(fetch_recommendations[0]).map {|item| BSON::ObjectId[item[0]] }
   end
 
   def movies
