@@ -134,6 +134,7 @@ VCR.configure do |vcr|
   vcr.filter_sensitive_data('<TMDB_KEY>') { Movies::Application.config.tmdb.api_key }
   vcr.filter_sensitive_data('<ROTTEN_KEY>') { Movies::Application.config.rotten_tomatoes.api_key }
   vcr.filter_sensitive_data('<NETFLIX_KEY>') { Movies::Application.config.netflix.consumer_key }
+  vcr.filter_sensitive_data('<FICKLE_KEY>') { Movies::Application.config.fickle.api_key }
 
   bin2ascii = ->(value) {
     if value && 'ASCII-8BIT' == value.encoding.name
@@ -190,6 +191,6 @@ end
 
 if Rails.env.cucumber?
   VCR.cucumber_tags do |cuke|
-    cuke.tags '@search', record: :none
+    cuke.tags '@search', record: :new_episodes
   end
 end

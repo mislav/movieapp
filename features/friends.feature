@@ -2,7 +2,7 @@
 Feature: Discovering movies watched by friends
 
   Background:
-    Given the database contains movies with full info from searching for "The Terminator"
+    Given the database contains movies with full info from searching for "Terminator"
     And @ivana and @jordi are friends of @mislav
   
   Scenario: New user, nothing watched by friends
@@ -24,11 +24,11 @@ Feature: Discovering movies watched by friends
   
   Scenario: Friends watched multiple movies
     Given @ivana and @jordi watched "The Terminator"
-    And @jordi watched "Terminator: Salvation"
+    And @jordi watched "Terminator Salvation"
     And @mislav is not a new user
     When I login as @mislav
     And I follow "social timeline"
-    And I follow "Terminator: Salvation"
+    And I follow "Terminator Salvation"
     Then I should see "meh: jordi" in a tooltip
     When I go back
     And I follow "The Terminator"

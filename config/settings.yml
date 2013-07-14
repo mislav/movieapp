@@ -40,6 +40,7 @@ test: &testing
   rotten_tomatoes:
     api_key: TOMATO
   fickle:
+    url: "http://fickle-movieapp.herokuapp.com"
     api_key: FICKLER
 
 cucumber:

@@ -2,572 +2,35 @@
 http_interactions:
 - request:
     method: get
-    uri: http://api.themoviedb.org/3/search/movie?api_key=<TMDB_KEY>&query=Lepa%20Brena
+    uri: http://api.themoviedb.org/3/search/movie?api_key=<TMDB_KEY>&query=Terminator
     body:
       encoding: US-ASCII
       string: ''
     headers:
+      User-Agent: Faraday v0.8.7
       Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept: ! '*/*'
-      User-Agent: Ruby
   response:
     status: {code: 200, message: OK}
     headers:
-      Age: '0'
-      Cache-Control: public, max-age=172800
-      Content-Type: application/json;charset=utf-8
-      Date: Sat, 10 Mar 2012 15:04:56 GMT
-      Server: nginx
-      Status: 200 OK
-      Via: 1.1 varnish
-      X-Cache: MISS
-      X-Frame-Options: sameorigin
-      X-Memc: HIT
-      X-Memc-Age: '77986'
-      X-Memc-Key: /search/movie?include_adult=false&language=en&query=lepa+brena
-      X-Varnish: '417278618'
-      X-Varnish-Sid: tm-v-p-1100
-      X-Xss-Protection: 1; mode=block
-      Content-Length: '78'
-      Connection: keep-alive
-    body:
-      encoding: UTF-8
-      string: |-
-        {
-          "page": 1,
-          "results": [
-
-          ],
-          "total_pages": 0,
-          "total_results": 0
-        }
-    http_version: 
-  recorded_at: Sat, 10 Mar 2012 15:04:57 GMT
-- request:
-    method: get
-    uri: http://api.themoviedb.org/3/search/movie?api_key=<TMDB_KEY>&query=red%20shoe%20diaries
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept: ! '*/*'
-      User-Agent: Ruby
-  response:
-    status: {code: 200, message: OK}
-    headers:
-      Age: '0'
-      Cache-Control: public, max-age=172800
-      Content-Type: application/json;charset=utf-8
-      Date: Sat, 10 Mar 2012 15:04:57 GMT
-      Server: nginx
-      Status: 200 OK
-      Via: 1.1 varnish
-      X-Cache: MISS
-      X-Frame-Options: sameorigin
-      X-Memc: MISS, STORE
-      X-Memc-Age: '0'
-      X-Memc-Key: /search/movie?include_adult=false&language=en&query=red+shoe+diaries
-      X-Varnish: '417278673'
-      X-Varnish-Sid: tm-v-p-1100
-      X-Xss-Protection: 1; mode=block
-      Content-Length: '334'
-      Connection: keep-alive
-    body:
-      encoding: UTF-8
-      string: |-
-        {
-          "page": 1,
-          "results": [
-            {
-              "backdrop_path": null,
-              "id": 5234,
-              "original_title": "Red Shoe Diaries",
-              "release_date": "1992-05-16",
-              "popularity": 0.038,
-              "poster_path": "/fcWaJOQWHOsGfJDDRH5YvtXU1dk.jpg",
-              "title": "Red Shoe Diaries"
-            }
-          ],
-          "total_pages": 1,
-          "total_results": 1
-        }
-    http_version: 
-  recorded_at: Sat, 10 Mar 2012 15:04:57 GMT
-- request:
-    method: get
-    uri: http://api-public.netflix.com/catalog/titles?expand=synopsis,directors&max_results=5&start_index=0&term=red%20shoe%20diaries&v=1.0
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Authorization: OAuth oauth_consumer_key="<NETFLIX_KEY>", oauth_nonce="55b49906521c94bb712642f4d06928ac",
-        oauth_signature="9l9f%2F7XGrV6dZW9wwF%2FsEZAuMoM%3D", oauth_signature_method="HMAC-SHA1",
-        oauth_timestamp="1331391897", oauth_version="1.0"
-      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept: ! '*/*'
-      User-Agent: Ruby
-  response:
-    status: {code: 200, message: OK}
-    headers:
-      Access-Control-Allow-Credentials: 'true'
-      Access-Control-Allow-Headers: Authorization,Content-Type,Accept,X-Netflix.application.name,X-Netflix.application.version,X-Netflix.esn,X-Netflix.device.type,X-Netflix.certification.version,X-Netflix.request.uuid,X-Netflix.user.id,X-Netflix.oauth.consumer.key,X-Netflix.oauth.token,X-Netflix.routing
-      Access-Control-Allow-Methods: GET, POST
       Access-Control-Allow-Origin: ! '*'
-      Content-Type: application/xml;charset=UTF-8
-      Date: Sat, 10 Mar 2012 15:04:57 GMT
-      Etag: ! '"0"'
-      Server: Noelios-Restlet-Engine/1.1.rc2
-      Set-Cookie: tlr=HR|1331391897896; Domain=.netflix.com; Expires=Tue, 05-Mar-2013
-        15:04:57 GMT
-      Vary: Accept-Charset,Accept-Encoding,Accept-Language,Accept
-      X-Mashery-Responder: proxylb-p-us-east-1c-05.mashery.com
-      X-Netflix.client.instance: i-3fa8005b
-      Content-Length: '478'
-      Connection: keep-alive
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" standalone="yes"?>
-        <catalog_titles>
-          <link href="http://api.netflix.com/catalog/titles/index" rel="http://schemas.netflix.com/catalog/titles/index" title="index"/>
-          <link href="http://api.netflix.com/catalog/titles/autocomplete" rel="http://schemas.netflix.com/catalog/titles/autocomplete" title="autocomplete"/>
-          <url_template>http://api.netflix.com/catalog/titles?{-join|&amp;|term|start_index|max_results}</url_template>
-          <number_of_results>4493</number_of_results>
-          <start_index>0</start_index>
-          <results_per_page>25</results_per_page>
-          <catalog_title>
-            <id>http://api.netflix.com/catalog/titles/movies/60035932</id><title short="Red Shoe Diaries: Movie: Special Ed." regular="Red Shoe Diaries: The Movie: Special Edition"/>
-        <box_art small="http://cdn-2.nflximg.com/en_us/boxshots/tiny/60035932.jpg" medium="http://cdn-2.nflximg.com/en_us/boxshots/small/60035932.jpg" large="http://cdn-2.nflximg.com/en_us/boxshots/large/60035932.jpg"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/60035932/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[In the film that launched the erotic Showtime series, a woman engaged to an architect has an affair with a construction worker and then kills herself because she can't handle the clash in lifestyles. When the architect, Jake (David Duchovny), goes through his fianc&#233;e's belongings after her suicide, he discovers a shoebox containing her diary. Stunned to learn of the affair, Jake seeks out the man he now holds responsible for her death.]]></synopsis></link>
-        <release_year>1992</release_year>
-        <category scheme="http://api.netflix.com/categories/mpaa_ratings" label="R" term="R"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Dramas" term="Dramas"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Romantic Movies" term="Romantic Movies"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Romantic Dramas" term="Romantic Dramas"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Steamy Romantic Movies" term="Steamy Romantic Movies"/>
-        <runtime>6300</runtime>
-        <link href="http://api.netflix.com/catalog/titles/movies/60035932/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/60035932/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/60035932/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/60035932/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api.netflix.com/catalog/people/20002603" rel="http://schemas.netflix.com/catalog/person" title="Zalman King"/></people></link>
-        <link href="http://api.netflix.com/catalog/titles/movies/60035932/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"/>
-        <average_rating>3.0</average_rating>
-        <link href="http://api.netflix.com/catalog/titles/movies/60035932/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"/>
-        <link href="http://www.netflix.com/Movie/Red_Shoe_Diaries_The_Movie_Special_Edition/60035932" rel="alternate" title="web page"/>
-
-          </catalog_title>
-          <catalog_title>
-            <id>http://api.netflix.com/catalog/titles/movies/60027797</id><title short="Red Shoe Diaries: Hotline" regular="Red Shoe Diaries: Hotline"/>
-        <box_art small="http://cdn-7.nflximg.com/en_us/boxshots/tiny/60027797.jpg" medium="http://cdn-7.nflximg.com/en_us/boxshots/small/60027797.jpg" large="http://cdn-7.nflximg.com/en_us/boxshots/large/60027797.jpg"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/60027797/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[Master of erotica Zalman King brings you the long-running Showtime series "Red Shoe Diaries," a collection of erotic writings that come to life and sizzle on the screen -- and are guaranteed to make the heart skip a beat or two. This disc contains the episodes "Hotline," "Gino" and "Love at First Sight."]]></synopsis></link>
-        <release_year>1994</release_year>
-        <category scheme="http://api.netflix.com/categories/tv_ratings" label="TV-MA" term="TV-MA"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Dramas" term="Dramas"/>
-        <runtime>5340</runtime>
-        <link href="http://api.netflix.com/catalog/titles/movies/60027797/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/60027797/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/60027797/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/60027797/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/60027797/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"/>
-        <average_rating>2.9</average_rating>
-        <link href="http://api.netflix.com/catalog/titles/movies/60027797/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"/>
-        <link href="http://www.netflix.com/Movie/Red_Shoe_Diaries_Hotline/60027797" rel="alternate" title="web page"/>
-
-          </catalog_title>
-          <catalog_title>
-            <id>http://api.netflix.com/catalog/titles/movies/70003090</id><title short="Red Shoe Diaries: The Game" regular="Red Shoe Diaries: The Game"/>
-        <box_art small="http://cdn-0.nflximg.com/en_us/boxshots/tiny/70003090.jpg" medium="http://cdn-0.nflximg.com/en_us/boxshots/small/70003090.jpg" large="http://cdn-0.nflximg.com/en_us/boxshots/large/70003090.jpg"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70003090/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[A woman becomes erotically obsessed with the ribald Red Shoe Diaries board game in "The Game," one episode in this collection of erotic tales from the popular Zalman King series, which also includes "The Cake" and "Like Father, Like Son." In "The Cake," an innocent housewife meets a man who shows her more than one use for a birthday cake. In "Like Father, Like Son," a man is pulled into a sexual tangle with his father's former lover.]]></synopsis></link>
-        <release_year>2000</release_year>
-        <category scheme="http://api.netflix.com/categories/mpaa_ratings" label="NR" term="NR"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Dramas" term="Dramas"/>
-        <runtime>6600</runtime>
-        <link href="http://api.netflix.com/catalog/titles/movies/70003090/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70003090/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70003090/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70003090/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api.netflix.com/catalog/people/20014550" rel="http://schemas.netflix.com/catalog/person" title="Brian Grant"/><link href="http://api.netflix.com/catalog/people/20014551" rel="http://schemas.netflix.com/catalog/person" title="Philippe Angers"/></people></link>
-        <link href="http://api.netflix.com/catalog/titles/movies/70003090/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"/>
-        <average_rating>3.1</average_rating>
-        <link href="http://api.netflix.com/catalog/titles/movies/70003090/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"/>
-        <link href="http://www.netflix.com/Movie/Red_Shoe_Diaries_The_Game/70003090" rel="alternate" title="web page"/>
-
-          </catalog_title>
-          <catalog_title>
-            <id>http://api.netflix.com/catalog/titles/movies/60020301</id><title short="Red Shoe Diaries: Strip Poker" regular="Red Shoe Diaries: Strip Poker"/>
-        <box_art small="http://cdn-1.nflximg.com/en_us/boxshots/tiny/60020301.jpg" medium="http://cdn-1.nflximg.com/en_us/boxshots/small/60020301.jpg" large="http://cdn-1.nflximg.com/en_us/boxshots/large/60020301.jpg"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/60020301/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[From executive producer (and exotica master) Zalman King comes this steamy collection of three installments from the long-running Showtime series that brings titillating writings to life on the screen. First up is "Strip Poker," which follows a beautiful photographer who chronicles her neighbor's frequent games of strip poker -- and secretly lusts to play. Additional episodes include "Slow Train" and "Hard Labor."]]></synopsis></link>
-        <release_year>2000</release_year>
-        <category scheme="http://api.netflix.com/categories/tv_ratings" label="TV-MA" term="TV-MA"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Dramas" term="Dramas"/>
-        <runtime>5220</runtime>
-        <link href="http://api.netflix.com/catalog/titles/movies/60020301/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/60020301/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/60020301/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/60020301/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"/>
-        <average_rating>2.7</average_rating>
-        <link href="http://api.netflix.com/catalog/titles/movies/60020301/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"/>
-        <link href="http://www.netflix.com/Movie/Red_Shoe_Diaries_Strip_Poker/60020301" rel="alternate" title="web page"/>
-
-          </catalog_title>
-          <catalog_title>
-            <id>http://api.netflix.com/catalog/titles/movies/70003091</id><title short="Red Shoe Diaries: Forbidden Zone" regular="Red Shoe Diaries: Forbidden Zone"/>
-        <box_art small="http://cdn-1.nflximg.com/en_us/boxshots/tiny/70003091.jpg" medium="http://cdn-1.nflximg.com/en_us/boxshots/small/70003091.jpg" large="http://cdn-1.nflximg.com/en_us/boxshots/large/70003091.jpg"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70003091/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[Three erotic tales make up this collection from the popular Zalman King series. In "The Art of Loneliness," a beautiful blind radio show personality experiences an unusual thrill when a couple engages in an intense erotic encounter in her presence. "Forbidden Zone" finds two lovers transported into a futuristic world. And in "The Picnic," two guys and a girl turn a picnic in the countryside into a comedic scene of love, loss and last requests.]]></synopsis></link>
-        <release_year>2002</release_year>
-        <category scheme="http://api.netflix.com/categories/mpaa_ratings" label="R" term="R"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Dramas" term="Dramas"/>
-        <runtime>5160</runtime>
-        <link href="http://api.netflix.com/catalog/titles/movies/70003091/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70003091/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70003091/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70003091/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api.netflix.com/catalog/people/20013670" rel="http://schemas.netflix.com/catalog/person" title="Rafael Eisenman"/></people></link>
-        <link href="http://api.netflix.com/catalog/titles/movies/70003091/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"/>
-        <average_rating>3.3</average_rating>
-        <link href="http://api.netflix.com/catalog/titles/movies/70003091/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"/>
-        <link href="http://www.netflix.com/Movie/Red_Shoe_Diaries_Forbidden_Zone/70003091" rel="alternate" title="web page"/>
-
-          </catalog_title>
-        </catalog_titles>
-    http_version: 
-  recorded_at: Sat, 10 Mar 2012 15:04:58 GMT
-- request:
-    method: get
-    uri: http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=<ROTTEN_KEY>&page=1&page_limit=5&q=red%20shoe%20diaries
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept: ! '*/*'
-      User-Agent: Ruby
-  response:
-    status: {code: 200, message: OK}
-    headers:
-      Accept-Ranges: bytes
-      Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
-      Content-Language: en-US
-      Content-Type: text/javascript;charset=ISO-8859-1
-      Date: Sat, 10 Mar 2012 14:57:33 GMT
-      Expires: Sat, 6 May 1995 12:00:00 GMT
-      Pragma: no-cache
-      Server: Mashery Proxy
-      Set-Cookie:
-      - JSESSIONID=56981CB8123CA9D5AF57CA66F509FFB8.localhost; Path=/
-      - ServerID=1175; Path=/
-      Vary: User-Agent,Accept-Encoding
-      X-Mashery-Responder: proxylb-p-us-east-1c-04.mashery.com
-      X-Original-Content-Encoding: gzip
-      X-Original-Content-Length: '1434'
-      Content-Length: '9282'
-      Connection: keep-alive
-    body:
-      encoding: UTF-8
-      string: |-
-        {
-          "total": 20,
-          "movies": [
-            {
-              "id": "14558",
-              "title": "Red Shoe Diaries - The Movie",
-              "year": 1992,
-              "mpaa_rating": "R",
-              "runtime": 105,
-              "release_dates": {
-                "dvd": "2006-05-23"
-              },
-              "ratings": {
-                "critics_score": -1,
-                "audience_rating": "Spilled",
-                "audience_score": 52
-              },
-              "synopsis": "",
-              "posters": {
-                "thumbnail": "http://content7.flixster.com/movie/10/92/98/10929865_mob.jpg",
-                "profile": "http://content7.flixster.com/movie/10/92/98/10929865_pro.jpg",
-                "detailed": "http://content7.flixster.com/movie/10/92/98/10929865_det.jpg",
-                "original": "http://content7.flixster.com/movie/10/92/98/10929865_ori.jpg"
-              },
-              "abridged_cast": [
-                {
-                  "name": "David Duchovny",
-                  "id": "162661591",
-                  "characters": [
-                    "Jake"
-                  ]
-                },
-                {
-                  "name": "Brigitte Bako",
-                  "id": "712251688",
-                  "characters": [
-                    "Alex"
-                  ]
-                },
-                {
-                  "name": "Billy Wirth",
-                  "id": "162749471",
-                  "characters": [
-                    "Workman (Thomas K. Butler)"
-                  ]
-                },
-                {
-                  "name": "Rhonda Aldrich",
-                  "id": "465972940",
-                  "characters": [
-                    "Michelle"
-                  ]
-                },
-                {
-                  "name": "Sherry Bilsing",
-                  "id": "770953665",
-                  "characters": [
-                    "Passing Woman"
-                  ]
-                }
-              ],
-              "links": {
-                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/14558.json",
-                "alternate": "http://www.rottentomatoes.com/m/red_shoe_diaries_the_movie/",
-                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/14558/cast.json",
-                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/14558/clips.json",
-                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/14558/reviews.json",
-                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/14558/similar.json"
-              }
-            },
-            {
-              "id": "770901633",
-              "title": "Red Shoe Diaries 2 - Double Dare",
-              "year": 1992,
-              "mpaa_rating": "R",
-              "runtime": 94,
-              "release_dates": {
-                "dvd": "1993-03-24"
-              },
-              "ratings": {
-                "critics_score": -1,
-                "audience_rating": "Upright",
-                "audience_score": 75
-              },
-              "synopsis": "",
-              "posters": {
-                "thumbnail": "http://content8.flixster.com/movie/10/96/47/10964702_mob.jpg",
-                "profile": "http://content8.flixster.com/movie/10/96/47/10964702_pro.jpg",
-                "detailed": "http://content8.flixster.com/movie/10/96/47/10964702_det.jpg",
-                "original": "http://content8.flixster.com/movie/10/96/47/10964702_ori.jpg"
-              },
-              "abridged_cast": [
-                {
-                  "name": "Steven Bauer",
-                  "id": "162668180"
-                },
-                {
-                  "name": "Joan Severance",
-                  "id": "168457601"
-                },
-                {
-                  "name": "Denise Crosby",
-                  "id": "162681774"
-                },
-                {
-                  "name": "Laura Johnson",
-                  "id": "371353853"
-                },
-                {
-                  "name": "Arnold Vosloo",
-                  "id": "351526731"
-                }
-              ],
-              "links": {
-                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/770901633.json",
-                "alternate": "http://www.rottentomatoes.com/m/red_shoe_diaries_2_double_dare/",
-                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/770901633/cast.json",
-                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/770901633/clips.json",
-                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/770901633/reviews.json",
-                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/770901633/similar.json"
-              }
-            },
-            {
-              "id": "770740772",
-              "title": "Red Shoe Diaries: Temple of Flesh",
-              "year": 1997,
-              "mpaa_rating": "Unrated",
-              "runtime": 81,
-              "release_dates": {
-                "dvd": "2002-05-02"
-              },
-              "ratings": {
-                "critics_score": -1,
-                "audience_rating": "Spilled",
-                "audience_score": 11
-              },
-              "synopsis": "",
-              "posters": {
-                "thumbnail": "http://content8.flixster.com/movie/10/92/98/10929862_mob.jpg",
-                "profile": "http://content8.flixster.com/movie/10/92/98/10929862_pro.jpg",
-                "detailed": "http://content8.flixster.com/movie/10/92/98/10929862_det.jpg",
-                "original": "http://content8.flixster.com/movie/10/92/98/10929862_ori.jpg"
-              },
-              "abridged_cast": [
-                {
-                  "name": "Anya Longwell",
-                  "id": "770785598"
-                },
-                {
-                  "name": "David Duchovny",
-                  "id": "162661591"
-                }
-              ],
-              "alternate_ids": {
-                "imdb": "0123236"
-              },
-              "links": {
-                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/770740772.json",
-                "alternate": "http://www.rottentomatoes.com/m/red-shoe-diaries-temple-of-flesh/",
-                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/770740772/cast.json",
-                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/770740772/clips.json",
-                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/770740772/reviews.json",
-                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/770740772/similar.json"
-              }
-            },
-            {
-              "id": "770823706",
-              "title": "Red Shoe Diaries: Forbidden Zone",
-              "year": 2002,
-              "mpaa_rating": "Unrated",
-              "runtime": "",
-              "release_dates": {
-                "theater": "2002-12-31"
-              },
-              "ratings": {
-                "critics_score": -1,
-                "audience_rating": "Spilled",
-                "audience_score": 0
-              },
-              "synopsis": "",
-              "posters": {
-                "thumbnail": "http://content9.flixster.com/movie/10/92/98/10929859_mob.jpg",
-                "profile": "http://content9.flixster.com/movie/10/92/98/10929859_pro.jpg",
-                "detailed": "http://content9.flixster.com/movie/10/92/98/10929859_det.jpg",
-                "original": "http://content9.flixster.com/movie/10/92/98/10929859_ori.jpg"
-              },
-              "abridged_cast": [
-                {
-                  "name": "Brad Fisher",
-                  "id": "770706701"
-                },
-                {
-                  "name": "David Duchovny",
-                  "id": "162661591"
-                },
-                {
-                  "name": "Honey Labrador",
-                  "id": "364598537"
-                },
-                {
-                  "name": "Jay Acovone",
-                  "id": "416810702"
-                },
-                {
-                  "name": "Kira Reed",
-                  "id": "770713974"
-                }
-              ],
-              "links": {
-                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/770823706.json",
-                "alternate": "http://www.rottentomatoes.com/m/red-shoe-diaries-forbidden-zone/",
-                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/770823706/cast.json",
-                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/770823706/clips.json",
-                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/770823706/reviews.json",
-                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/770823706/similar.json"
-              }
-            },
-            {
-              "id": "770904445",
-              "title": "Red Shoe Diaries 3 - Another Woman's Lipstick",
-              "year": 1993,
-              "mpaa_rating": "R",
-              "runtime": 90,
-              "release_dates": {
-                "dvd": "1993-12-15"
-              },
-              "ratings": {
-                "critics_score": -1,
-                "audience_rating": "Upright",
-                "audience_score": 67
-              },
-              "synopsis": "",
-              "posters": {
-                "thumbnail": "http://content7.flixster.com/movie/10/96/63/10966337_mob.jpg",
-                "profile": "http://content7.flixster.com/movie/10/96/63/10966337_pro.jpg",
-                "detailed": "http://content7.flixster.com/movie/10/96/63/10966337_det.jpg",
-                "original": "http://content7.flixster.com/movie/10/96/63/10966337_ori.jpg"
-              },
-              "abridged_cast": [
-                {
-                  "name": "Richard Tyson",
-                  "id": "162691174"
-                },
-                {
-                  "name": "Maryam d'Abo",
-                  "id": "162669782"
-                },
-                {
-                  "name": "Nina Siemaszko",
-                  "id": "162708621"
-                },
-                {
-                  "name": "Zalman King",
-                  "id": "162670960"
-                }
-              ],
-              "links": {
-                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/770904445.json",
-                "alternate": "http://www.rottentomatoes.com/m/red_shoe_diaries_3_another_womans_lipstick/",
-                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/770904445/cast.json",
-                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/770904445/clips.json",
-                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/770904445/reviews.json",
-                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/770904445/similar.json"
-              }
-            }
-          ],
-          "links": {
-            "self": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=red+shoe+diaries&page_limit=5&page=1",
-            "next": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=red+shoe+diaries&page_limit=5&page=2"
-          },
-          "link_template": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q={search-term}&page_limit={results-per-page}&page={page-number}"
-        }
-    http_version: 
-  recorded_at: Sat, 10 Mar 2012 15:04:58 GMT
-- request:
-    method: get
-    uri: http://api.themoviedb.org/3/search/movie?api_key=<TMDB_KEY>&query=The%20Terminator
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept: ! '*/*'
-      User-Agent: Ruby
-  response:
-    status: {code: 200, message: OK}
-    headers:
       Age: '0'
-      Cache-Control: public, max-age=172800
+      Cache-Control: public, max-age=3600
       Content-Type: application/json;charset=utf-8
-      Date: Sat, 10 Mar 2012 15:04:59 GMT
+      Date: Sun, 14 Jul 2013 15:39:05 GMT
+      Etag: ! '"9b803f85ad2954993ed9a23c16088cfc"'
       Server: nginx
       Status: 200 OK
       Vary: Accept-Encoding
       Via: 1.1 varnish
       X-Cache: MISS
-      X-Frame-Options: sameorigin
       X-Memc: HIT
-      X-Memc-Age: '133549'
-      X-Memc-Key: /search/movie?include_adult=false&language=en&query=the+terminator
-      X-Varnish: '417278969'
-      X-Varnish-Sid: tm-v-p-1100
-      X-Xss-Protection: 1; mode=block
-      Content-Length: '4497'
+      X-Memc-Age: '3081'
+      X-Memc-Expires: '519'
+      X-Memc-Key: 583d3dbe7bfcd5cd8b2ab9ea4d4c3c19
+      X-Varnish: '1780267119'
+      X-Varnish-Sid: tm-v-p-1200
+      Content-Length: '5352'
       Connection: keep-alive
     body:
       encoding: UTF-8
@@ -576,335 +39,380 @@ http_interactions:
           "page": 1,
           "results": [
             {
+              "adult": false,
               "backdrop_path": "/6yFoLNQgFdVbA8TZMdfgVpszOla.jpg",
               "id": 218,
               "original_title": "The Terminator",
               "release_date": "1984-10-26",
-              "popularity": 574.512,
-              "poster_path": "/25AlJnmjC43bxW3PYDotkBXsQEi.jpg",
-              "title": "The Terminator"
+              "poster_path": "/q8ffBuxQlYOHrvPniLgCbmKK4Lv.jpg",
+              "popularity": 8.66635102269048,
+              "title": "The Terminator",
+              "vote_average": 6.9,
+              "vote_count": 480
             },
             {
-              "backdrop_path": "/pC9vQ5miLgdHSPIsgfU5A9pcTpF.jpg",
+              "adult": false,
+              "backdrop_path": "/lr125x2Fy5O4AN07NGxyJlp5LC8.jpg",
+              "id": 534,
+              "original_title": "Terminator Salvation",
+              "release_date": "2009-05-20",
+              "poster_path": "/oN6Nn4Pn0ePi2YqhfHpA0r8ktg1.jpg",
+              "popularity": 11.0289764011684,
+              "title": "Terminator Salvation",
+              "vote_average": 5.8,
+              "vote_count": 335
+            },
+            {
+              "adult": false,
+              "backdrop_path": "/d9AqtruwS8nljKjL5aYzM42hQJr.jpg",
               "id": 280,
               "original_title": "Terminator 2: Judgment Day",
-              "release_date": "1991-07-03",
-              "popularity": 3319.486,
+              "release_date": "1991-07-01",
               "poster_path": "/2y4dmgWYRMYXdD1UyJVcn2HSd1D.jpg",
-              "title": "Terminator 2: Judgment Day"
+              "popularity": 9.03926599288061,
+              "title": "Terminator 2: Judgment Day",
+              "vote_average": 7.4,
+              "vote_count": 603
             },
             {
-              "backdrop_path": "/tBCOpjphzSLzC6oOjqzTEg6bJ7q.jpg",
-              "id": 534,
-              "original_title": "Terminator: Salvation",
-              "release_date": "2009-05-21",
-              "popularity": 7433.16,
-              "poster_path": "/hxDfhavtxA2Ayx7O9BsQMcZRdG0.jpg",
-              "title": "Terminator: Salvation"
-            },
-            {
-              "backdrop_path": "/heNbD1JojBNz6kfHWr3O8Uk0a3a.jpg",
-              "id": 296,
-              "original_title": "Terminator 3: Rise of the Machines",
-              "release_date": "2003-06-30",
-              "popularity": 1194.983,
-              "poster_path": "/fOh3H86EjytwutRA1ihohwXBh3T.jpg",
-              "title": "Terminator 3: Rise of the Machines"
-            },
-            {
-              "backdrop_path": "/oZWp5ELtrZsua8hBvIPVuXbtZwp.jpg",
-              "id": 25891,
-              "original_title": "ExTerminators",
-              "release_date": "2009-03-13",
-              "popularity": 0.211,
-              "poster_path": "/gPP9gutQIj8yfFQSDo5R1y0xAUu.jpg",
-              "title": "ExTerminators"
-            },
-            {
-              "backdrop_path": "/rsub79PKFIBMrBkb3DzZQIhl9w1.jpg",
-              "id": 69343,
-              "original_title": "Exterminator 2",
-              "release_date": "1984-09-14",
-              "popularity": 0.04,
-              "poster_path": "/mh5WUQqwwtZghvXvYgBDq4eVviR.jpg",
-              "title": "Exterminator 2"
-            },
-            {
-              "backdrop_path": "/jCADV4AdnKLZWUsfCkT5ZVbQp3j.jpg",
-              "id": 26342,
-              "original_title": "The Terminators",
-              "release_date": "2009-04-28",
-              "popularity": 1.957,
-              "poster_path": "/g7DY57lKov9ZNYjZPG6mkiXDjV.jpg",
-              "title": "The Terminators"
-            },
-            {
+              "adult": false,
               "backdrop_path": null,
-              "id": 27473,
-              "original_title": "Exterminator City",
-              "release_date": "2005-06-28",
-              "popularity": 0.043,
-              "poster_path": "/wSmgIbF0rLGcPRoEs8AGrxq8POI.jpg",
-              "title": "Exterminator City"
+              "id": 133360,
+              "original_title": "Alien Terminator",
+              "release_date": "1996-10-09",
+              "poster_path": "/fM3m4EU09ZQ4akjcedAPDiN4vqh.jpg",
+              "popularity": 0.32,
+              "title": "Alien Terminator",
+              "vote_average": 0.0,
+              "vote_count": 0
             },
             {
-              "backdrop_path": null,
-              "id": 61904,
-              "original_title": "Lady Terminator",
-              "release_date": "1989-06-10",
-              "popularity": 0.006,
-              "poster_path": "/382YSNLolIhPIulIK5B95OH2gbr.jpg",
-              "title": "Lady Terminator"
-            },
-            {
-              "backdrop_path": "/7WlZBIMGjpWAiTKs6DAfuZtYots.jpg",
-              "id": 37835,
-              "original_title": "The Exterminator",
-              "release_date": "1980-09-19",
-              "popularity": 0.203,
-              "poster_path": "/9TN5Uyr6Cpsd2eH8wljnpv3SCty.jpg",
-              "title": "The Exterminator"
-            },
-            {
-              "backdrop_path": null,
-              "id": 45443,
-              "original_title": "轟天皇家將",
-              "release_date": "1992-10-10",
-              "popularity": 0.039,
-              "poster_path": "/iFKVyrj3FsIMqjVoYTeta2dbs2.jpg",
-              "title": "Angel Terminators"
-            },
-            {
-              "backdrop_path": null,
-              "id": 86223,
-              "original_title": "Russian Terminator",
-              "release_date": null,
-              "popularity": 0.12,
-              "poster_path": "/doO6FG3ddpIeY3dKAiinwOuRKuv.jpg",
-              "title": "Russian Terminator"
-            },
-            {
-              "backdrop_path": null,
-              "id": 27268,
-              "original_title": "Gli sterminatori dell'anno 3000",
-              "release_date": "1985-01-12",
-              "popularity": 0.005,
-              "poster_path": "/gfXsHBrCz3YVWg41say8OQ1alnR.jpg",
-              "title": "Gli sterminatori dell'anno 3000"
-            },
-            {
+              "adult": false,
               "backdrop_path": null,
               "id": 40027,
               "original_title": "Ninja Terminator",
               "release_date": "1985-01-01",
-              "popularity": 0.005,
               "poster_path": "/ls7BqOyOusaFSjegFPOOnjymaII.jpg",
-              "title": "Ninja Terminator"
+              "popularity": 0.278,
+              "title": "Ninja Terminator",
+              "vote_average": 0.0,
+              "vote_count": 0
             },
             {
-              "backdrop_path": null,
-              "id": 87101,
-              "original_title": "Terminator 5",
-              "release_date": "2014-01-01",
-              "popularity": 0.038,
-              "poster_path": null,
-              "title": "Terminator 5"
-            },
-            {
+              "adult": false,
               "backdrop_path": null,
               "id": 55459,
               "original_title": "Terminator Woman",
               "release_date": "1993-06-30",
-              "popularity": 0.007,
               "poster_path": "/cAx9ycP3YS6UZbJwLyO0Liiid9x.jpg",
-              "title": "Terminator Woman"
+              "popularity": 0.2,
+              "title": "Terminator Woman",
+              "vote_average": 0.0,
+              "vote_count": 0
+            },
+            {
+              "adult": false,
+              "backdrop_path": "/2K6L8EKAgoZqEfN2yU6tW7xczkP.jpg",
+              "id": 86223,
+              "original_title": "Russian Terminator",
+              "release_date": "1989-12-12",
+              "poster_path": "/qDNIpx3Tjm6Bx1kyqL6ZXBXNFNF.jpg",
+              "popularity": 0.2,
+              "title": "Russian Terminator",
+              "vote_average": 0.0,
+              "vote_count": 0
+            },
+            {
+              "adult": false,
+              "backdrop_path": null,
+              "id": 87101,
+              "original_title": "Terminator 5",
+              "release_date": "2014-01-01",
+              "poster_path": null,
+              "popularity": 0.2,
+              "title": "Terminator 5",
+              "vote_average": 0.0,
+              "vote_count": 0
+            },
+            {
+              "adult": false,
+              "backdrop_path": "/3rzNUtYuFzN5qmiIMswDGz4RJfz.jpg",
+              "id": 296,
+              "original_title": "Terminator 3: Rise of the Machines",
+              "release_date": "2003-06-30",
+              "poster_path": "/odSgVmzucWv2f0e3GIwIr7HPb69.jpg",
+              "popularity": 4.27840472881191,
+              "title": "Terminator 3: Rise of the Machines",
+              "vote_average": 5.8,
+              "vote_count": 224
+            },
+            {
+              "adult": false,
+              "backdrop_path": "/xfIOPncBiPzxKuk1OEITwRyUT5l.jpg",
+              "id": 44192,
+              "original_title": "Timebomb",
+              "release_date": "1991-03-01",
+              "poster_path": "/eDfsCTnqSG8QsQe2VJFx8yfToG.jpg",
+              "popularity": 0.2,
+              "title": "Timebomb",
+              "vote_average": 6.0,
+              "vote_count": 1
+            },
+            {
+              "adult": false,
+              "backdrop_path": "/aHl3Fc7C1NQhAzThqhybs2Yzw7X.jpg",
+              "id": 61904,
+              "original_title": "Pembalasan ratu pantai selatan",
+              "release_date": "1989-06-10",
+              "poster_path": "/oyUrhAggD7y1h2D7PEQm0AkIRFt.jpg",
+              "popularity": 0.6,
+              "title": "Lady Terminator",
+              "vote_average": 7.0,
+              "vote_count": 1
+            },
+            {
+              "adult": false,
+              "backdrop_path": null,
+              "id": 66664,
+              "original_title": "Shocking Dark",
+              "release_date": "1990-08-22",
+              "poster_path": "/oLUHYgC2jHZJ8ap9FMrLacyrYaG.jpg",
+              "popularity": 0.50626,
+              "title": "Shocking Dark",
+              "vote_average": 0.0,
+              "vote_count": 0
+            },
+            {
+              "adult": false,
+              "backdrop_path": null,
+              "id": 190392,
+              "original_title": "Reptilicant",
+              "release_date": "2006-06-13",
+              "poster_path": "/8zfD63TwVXlk4s0EPDM7gRhlBHd.jpg",
+              "popularity": 0.2,
+              "title": "Reptilicant",
+              "vote_average": 0.0,
+              "vote_count": 0
+            },
+            {
+              "adult": false,
+              "backdrop_path": null,
+              "id": 79426,
+              "original_title": "I familiari delle vittime non saranno avvertiti",
+              "release_date": "1972-08-08",
+              "poster_path": "/iclhF8s8skJanMTroSARRy5JVZq.jpg",
+              "popularity": 0.2834,
+              "title": "Crime Boss",
+              "vote_average": 0.0,
+              "vote_count": 0
+            },
+            {
+              "adult": false,
+              "backdrop_path": "/ApOJDKExjdiY3zWhSrYC4VDuPY4.jpg",
+              "id": 45096,
+              "original_title": "Eve of Destruction",
+              "release_date": "1991-01-18",
+              "poster_path": "/7qHMGZfSydbrpnuGaGLRZtem6cv.jpg",
+              "popularity": 0.32,
+              "title": "Eve of Destruction",
+              "vote_average": 7.0,
+              "vote_count": 1
             }
           ],
           "total_pages": 1,
-          "total_results": 16
+          "total_results": 15
         }
     http_version: 
-  recorded_at: Sat, 10 Mar 2012 15:04:59 GMT
+  recorded_at: Sun, 14 Jul 2013 15:39:05 GMT
 - request:
     method: get
-    uri: http://api-public.netflix.com/catalog/titles?expand=synopsis,directors&max_results=5&start_index=0&term=The%20Terminator&v=1.0
+    uri: http://api-public.netflix.com/catalog/titles?expand=synopsis,directors&max_results=5&start_index=0&term=Terminator&v=1.0
     body:
       encoding: US-ASCII
       string: ''
     headers:
-      Authorization: OAuth oauth_consumer_key="<NETFLIX_KEY>", oauth_nonce="d5b20bcbeaaccdf0f2d4f0e4b623a6e9",
-        oauth_signature="9s6Jj71BWfIb%2FJ2ytfkeWb9DnuA%3D", oauth_signature_method="HMAC-SHA1",
-        oauth_timestamp="1331391899", oauth_version="1.0"
+      User-Agent: Faraday v0.8.7
+      Authorization: OAuth oauth_consumer_key="<NETFLIX_KEY>", oauth_nonce="cdd295542031a6e64c9185e14de311d7",
+        oauth_signature="6Kkd5OWRlCOoxyRbXiNUusD7hRs%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1373816345", oauth_version="1.0"
       Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept: ! '*/*'
-      User-Agent: Ruby
   response:
     status: {code: 200, message: OK}
     headers:
-      Access-Control-Allow-Credentials: 'true'
-      Access-Control-Allow-Headers: Authorization,Content-Type,Accept,X-Netflix.application.name,X-Netflix.application.version,X-Netflix.esn,X-Netflix.device.type,X-Netflix.certification.version,X-Netflix.request.uuid,X-Netflix.user.id,X-Netflix.oauth.consumer.key,X-Netflix.oauth.token,X-Netflix.routing
-      Access-Control-Allow-Methods: GET, POST
-      Access-Control-Allow-Origin: ! '*'
-      Content-Type: application/xml;charset=UTF-8
-      Date: Sat, 10 Mar 2012 15:04:59 GMT
-      Etag: ! '"0"'
+      X-Mashery-Responder: mashery-web2-atl.mashery.com
+      Date: Sun, 14 Jul 2013 15:39:06 GMT
       Server: Noelios-Restlet-Engine/1.1.rc2
-      Set-Cookie: tlr=HR|1331391899756; Domain=.netflix.com; Expires=Tue, 05-Mar-2013
-        15:04:59 GMT
+      Etag: ! '"753774445"'
       Vary: Accept-Charset,Accept-Encoding,Accept-Language,Accept
-      X-Mashery-Responder: proxylb-p-us-east-1d-09.mashery.com
-      X-Netflix.client.instance: i-59f0433d
-      Content-Length: '478'
-      Connection: keep-alive
+      Content-Type: application/xml;charset=UTF-8
+      P3p: policyref=http://www.netflix.com/w3c/p3p.xml, CP="CAO DSP COR CUR ADM DEV
+        TAI PSA PSD IVAa IVDa CONi OUR DELi SAMi OTRi IND PHY ONL UNI PUR FIN COM
+        NAV INT DEMi CNT STA PRE "
+      Cache-Control: private
+      Accept-Ranges: bytes
+      Content-Length: '16679'
     body:
       encoding: UTF-8
       string: |
-        <?xml version="1.0" standalone="yes"?>
+        <?xml version="1.0" standalone='yes'?>
+
         <catalog_titles>
-          <link href="http://api.netflix.com/catalog/titles/index" rel="http://schemas.netflix.com/catalog/titles/index" title="index"/>
-          <link href="http://api.netflix.com/catalog/titles/autocomplete" rel="http://schemas.netflix.com/catalog/titles/autocomplete" title="autocomplete"/>
-          <url_template>http://api.netflix.com/catalog/titles?{-join|&amp;|term|start_index|max_results}</url_template>
-          <number_of_results>26932</number_of_results>
+          <link href="http://api-public.netflix.com/catalog/titles/index" rel="http://schemas.netflix.com/catalog/titles/index" title="index"></link>
+          <link href="http://api-public.netflix.com/catalog/titles/autocomplete" rel="http://schemas.netflix.com/catalog/titles/autocomplete" title="autocomplete"></link>
+          <url_template>http://api-public.netflix.com/catalog/titles?{-join|&amp;|term|start_index|max_results}</url_template>
+          <number_of_results>308</number_of_results>
           <start_index>0</start_index>
           <results_per_page>5</results_per_page>
           <catalog_title>
-            <id>http://api.netflix.com/catalog/titles/movies/1032625</id><title short="The Terminator" regular="The Terminator"/>
-        <box_art small="http://cdn-5.nflximg.com/en_us/boxshots/tiny/1032625.jpg" medium="http://cdn-5.nflximg.com/en_us/boxshots/small/1032625.jpg" large="http://cdn-5.nflximg.com/en_us/boxshots/large/1032625.jpg"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/1032625/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[In the post-apocalyptic future, reigning tyrannical supercomputers teleport a cyborg assassin known as the "Terminator" (Arnold Schwarzenegger) back to 1984 to snuff Sarah Connor (Linda Hamilton), whose unborn son is destined to lead insurgents against 21st century mechanical hegemony. Meanwhile, the human-resistance movement dispatches a lone warrior (Michael Biehn) to safeguard Sarah. Can he stop the virtually indestructible killing machine?]]></synopsis></link>
-        <release_year>1984</release_year>
-        <category scheme="http://api.netflix.com/categories/mpaa_ratings" label="R" term="R"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Action &amp; Adventure" term="Action &amp; Adventure"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi &amp; Fantasy" term="Sci-Fi &amp; Fantasy"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Action Thrillers" term="Action Thrillers"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Action Sci-Fi &amp; Fantasy" term="Action Sci-Fi &amp; Fantasy"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi Thrillers" term="Sci-Fi Thrillers"/>
-        <runtime>6420</runtime>
-        <link href="http://api.netflix.com/catalog/titles/movies/1032625/awards" rel="http://schemas.netflix.com/catalog/titles/awards" title="awards"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/1032625/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/1032625/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/1032625/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/1032625/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api.netflix.com/catalog/people/13724" rel="http://schemas.netflix.com/catalog/person" title="James Cameron"/></people></link>
-        <link href="http://api.netflix.com/catalog/titles/movies/1032625/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"/>
-        <average_rating>3.9</average_rating>
-        <link href="http://api.netflix.com/catalog/titles/movies/1032625/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"/>
-        <link href="http://www.netflix.com/Movie/The_Terminator/1032625" rel="alternate" title="web page"/>
-
-          </catalog_title>
-          <catalog_title>
-            <id>http://api.netflix.com/catalog/titles/movies/70057743</id><title short="The Terminator: Hunters and Killers" regular="The Terminator: Hunters and Killers"/>
-        <box_art small="http://cdn-3.nflximg.com/en_us/boxshots/tiny/70057743.jpg" medium="http://cdn-3.nflximg.com/en_us/boxshots/small/70057743.jpg" large="http://cdn-3.nflximg.com/en_us/boxshots/large/70057743.jpg"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70057743/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[Based on the 1984 sci-fi blockbuster, this imaginative digital comic continues the tale of humanity's present and future fight for survival against the tyrannical Skynet supercomputer and its ruthless machines. It's 2029, and with the only remaining Russian nuclear submarine on the loose, a new variety of undetectable terminators is dispatched to capture the vessel before its payload can deal a knockout blow to the machines.]]></synopsis></link>
-        <release_year>2005</release_year>
-        <category scheme="http://api.netflix.com/categories/mpaa_ratings" label="NR" term="NR"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi &amp; Fantasy" term="Sci-Fi &amp; Fantasy"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi Dramas" term="Sci-Fi Dramas"/>
-        <runtime>5700</runtime>
-        <link href="http://api.netflix.com/catalog/titles/movies/70057743/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70057743/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70057743/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70057743/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"/>
-        <average_rating>2.2</average_rating>
-        <link href="http://api.netflix.com/catalog/titles/movies/70057743/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"/>
-        <link href="http://www.netflix.com/Movie/The_Terminator_Hunters_and_Killers/70057743" rel="alternate" title="web page"/>
-
-          </catalog_title>
-          <catalog_title>
-            <id>http://api.netflix.com/catalog/titles/movies/70103524</id><title short="Terminator: Salvation" regular="Terminator: Salvation"/>
-        <box_art small="http://cdn-4.nflximg.com/en_us/boxshots/tiny/70103524.jpg" medium="http://cdn-4.nflximg.com/en_us/boxshots/small/70103524.jpg" large="http://cdn-4.nflximg.com/en_us/boxshots/large/70103524.jpg"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70103524/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[All grown up in post-apocalyptic 2018, John Connor (Christian Bale) must lead the resistance of humans against the increasingly dominating militaristic robots in this fourth installment of the popular action-packed Terminator series. But when Marcus Wright (Sam Worthington) appears, his existence confuses the mission as Connor tries to determine whether Wright has come from the future or the past -- and whether he's friend or foe.]]></synopsis></link>
+            <id>http://api-public.netflix.com/catalog/titles/movies/70103524</id><title short="Terminator: Salvation" regular="Terminator: Salvation"></title>
+        <box_art small="http://cdn-4.nflximg.com/us/boxshots/tiny/70103524.jpg" medium="http://cdn-4.nflximg.com/us/boxshots/small/70103524.jpg" large="http://cdn-4.nflximg.com/us/boxshots/large/70103524.jpg"></box_art>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70103524/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[All grown up in post-apocalyptic 2018, John Connor must lead the resistance of humans against the increasingly dominating militaristic robots in this fourth installment of the popular action-packed Terminator series.]]></synopsis></link>
         <release_year>2009</release_year>
-        <category scheme="http://api.netflix.com/categories/mpaa_ratings" label="PG-13" term="PG-13"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Action &amp; Adventure" term="Action &amp; Adventure"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi &amp; Fantasy" term="Sci-Fi &amp; Fantasy"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Action Thrillers" term="Action Thrillers"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Action Sci-Fi &amp; Fantasy" term="Action Sci-Fi &amp; Fantasy"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi Thrillers" term="Sci-Fi Thrillers"/>
+        <category scheme="http://api-public.netflix.com/categories/mpaa_ratings" label="R" term="R"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Sci-Fi &amp; Fantasy" term="Sci-Fi &amp; Fantasy"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Action Sci-Fi &amp; Fantasy" term="Action Sci-Fi &amp; Fantasy"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Sci-Fi Thrillers" term="Sci-Fi Thrillers"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Action Thrillers" term="Action Thrillers"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Blockbusters" term="Blockbusters"></category>
         <runtime>6900</runtime>
-        <link href="http://api.netflix.com/catalog/titles/movies/70103524/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70103524/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70103524/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70103524/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api.netflix.com/catalog/people/20009911" rel="http://schemas.netflix.com/catalog/person" title="McG"/></people></link>
-        <link href="http://api.netflix.com/catalog/titles/movies/70103524/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"/>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70103524/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70103524/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70103524/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70103524/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api-public.netflix.com/catalog/people/20009911" rel="http://schemas.netflix.com/catalog/person" title="McG"></link></people></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70103524/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"></link>
         <average_rating>3.6</average_rating>
-        <link href="http://api.netflix.com/catalog/titles/movies/70103524/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"/>
-        <link href="http://www.netflix.com/Movie/Terminator_Salvation/70103524" rel="alternate" title="web page"/>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70103524/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"></link>
+        <link href="http://www.netflix.com/Movie/Terminator_Salvation/70103524" rel="alternate" title="web page"></link>
 
           </catalog_title>
           <catalog_title>
-            <id>http://api.netflix.com/catalog/titles/series/70157234</id><title short="Terminator: The Sarah Connor Chronicles" regular="Terminator: The Sarah Connor Chronicles"/>
-        <box_art small="http://cdn-4.nflximg.com/en_us/boxshots/tiny/70157234.jpg" medium="http://cdn-4.nflximg.com/en_us/boxshots/small/70157234.jpg" large="http://cdn-4.nflximg.com/en_us/boxshots/large/70157234.jpg"/>
-        <link href="http://api.netflix.com/catalog/titles/series/70157234/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[Picking up right where the movie Terminator 2: Judgment Day left off, this series follows Sarah Connor (Lena Headey) and her son John (Thomas Dekker) as they race to save humanity from forces sent from the future. Pursued by agents of Skynet, the mother and son must use their wits and create alliances to ensure that John survives to become the savior of the human race. Disguised as regular people, evil Terminators seek to destroy the duo.]]></synopsis></link>
+            <id>http://api-public.netflix.com/catalog/titles/series/70157234</id><title short="Terminator: The Sarah Connor Chronicles" regular="Terminator: The Sarah Connor Chronicles"></title>
+        <box_art small="http://cdn-4.nflximg.com/us/boxshots/tiny/70157234.jpg" medium="http://cdn-4.nflximg.com/us/boxshots/small/70157234.jpg" large="http://cdn-4.nflximg.com/us/boxshots/large/70157234.jpg"></box_art>
+        <link href="http://api-public.netflix.com/catalog/titles/series/70157234/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[Pursued by agents of Skynet, single mom Sarah Connor and her son John must use their wits and create alliances to ensure that John survives to become the savior of the human race. Disguised as regular people, evil Terminators seek to destroy the duo.]]></synopsis></link>
         <release_year>2008</release_year>
-        <category scheme="http://api.netflix.com/categories/tv_ratings" label="TV-14" term="TV-14"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="TV Shows" term="TV Shows"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="TV Action &amp; Adventure" term="TV Action &amp; Adventure"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="TV Sci-Fi &amp; Fantasy" term="TV Sci-Fi &amp; Fantasy"/>
-        <link href="http://api.netflix.com/catalog/titles/series/70157234/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"/>
-        <link href="http://api.netflix.com/catalog/titles/series/70157234/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"/>
-        <average_rating>4.0</average_rating>
-        <link href="http://api.netflix.com/catalog/titles/series/70157234/seasons" rel="http://schemas.netflix.com/catalog/titles.seasons" title="seasons"/>
-        <link href="http://api.netflix.com/catalog/titles/series/70157234/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"/>
-        <link href="http://www.netflix.com/Movie/Terminator_The_Sarah_Connor_Chronicles/70157234" rel="alternate" title="web page"/>
+        <category scheme="http://api-public.netflix.com/categories/tv_ratings" label="TV-14" term="TV-14"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Television" term="Television"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="TV Sci-Fi &amp; Fantasy" term="TV Sci-Fi &amp; Fantasy"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="TV Action &amp; Adventure" term="TV Action &amp; Adventure"></category>
+        <link href="http://api-public.netflix.com/catalog/titles/series/70157234/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/series/70157234/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/series/70157234/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/series/70157234/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/series/70157234/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"></link>
+        <average_rating>3.9</average_rating>
+        <link href="http://api-public.netflix.com/catalog/titles/series/70157234/discs" rel="http://schemas.netflix.com/catalog/titles.discs" title="discs"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/series/70157234/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"></link>
+        <link href="http://www.netflix.com/Movie/Terminator_The_Sarah_Connor_Chronicles/70157234" rel="alternate" title="web page"></link>
 
           </catalog_title>
           <catalog_title>
-            <id>http://api.netflix.com/catalog/titles/movies/70115488</id><title short="The Terminators" regular="The Terminators"/>
-        <box_art small="http://cdn-8.nflximg.com/en_us/boxshots/tiny/70115488.jpg" medium="http://cdn-8.nflximg.com/en_us/boxshots/small/70115488.jpg" large="http://cdn-8.nflximg.com/en_us/boxshots/large/70115488.jpg"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70115488/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[After laborer cyborgs take over a space station and then the Earth, resistance fighters meet an inventor whose space shuttle could fly to the space station and shut down the cyborgs -- if the group can filch some of the fuel under cyborg control.]]></synopsis></link>
-        <release_year>2009</release_year>
-        <category scheme="http://api.netflix.com/categories/mpaa_ratings" label="NR" term="NR"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi &amp; Fantasy" term="Sci-Fi &amp; Fantasy"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Action Sci-Fi &amp; Fantasy" term="Action Sci-Fi &amp; Fantasy"/>
-        <category scheme="http://api.netflix.com/categories/genres" label="Sci-Fi Horror Movies" term="Sci-Fi Horror Movies"/>
-        <runtime>5400</runtime>
-        <link href="http://api.netflix.com/catalog/titles/movies/70115488/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70115488/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70115488/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"/>
-        <link href="http://api.netflix.com/catalog/titles/movies/70115488/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api.netflix.com/catalog/people/30113188" rel="http://schemas.netflix.com/catalog/person" title="Xavier Puslowski"/></people></link>
-        <link href="http://api.netflix.com/catalog/titles/movies/70115488/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"/>
-        <average_rating>2.7</average_rating>
-        <link href="http://api.netflix.com/catalog/titles/movies/70115488/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"/>
-        <link href="http://www.netflix.com/Movie/The_Terminators/70115488" rel="alternate" title="web page"/>
+            <id>http://api-public.netflix.com/catalog/titles/movies/1032625</id><title short="The Terminator" regular="The Terminator"></title>
+        <box_art small="http://cdn-5.nflximg.com/us/boxshots/tiny/1032625.jpg" medium="http://cdn-5.nflximg.com/us/boxshots/small/1032625.jpg" large="http://cdn-5.nflximg.com/us/boxshots/large/1032625.jpg"></box_art>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/1032625/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[In the post-apocalyptic future, tyrannical supercomputers teleport a cyborg assassin back to 1984 to snuff Sarah Connor, whose unborn son is destined to lead the human insurgents. Meanwhile, the rebels dispatch a lone warrior to safeguard Sarah.]]></synopsis></link>
+        <release_year>1984</release_year>
+        <category scheme="http://api-public.netflix.com/categories/mpaa_ratings" label="R" term="R"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Sci-Fi &amp; Fantasy" term="Sci-Fi &amp; Fantasy"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Action Sci-Fi &amp; Fantasy" term="Action Sci-Fi &amp; Fantasy"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Sci-Fi Thrillers" term="Sci-Fi Thrillers"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Action Thrillers" term="Action Thrillers"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Blockbusters" term="Blockbusters"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Action Classics" term="Action Classics"></category>
+        <runtime>6420</runtime>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/1032625/awards" rel="http://schemas.netflix.com/catalog/titles/awards" title="awards"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/1032625/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/1032625/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/1032625/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/1032625/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api-public.netflix.com/catalog/people/13724" rel="http://schemas.netflix.com/catalog/person" title="James Cameron"></link></people></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/1032625/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"></link>
+        <average_rating>3.9</average_rating>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/1032625/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"></link>
+        <link href="http://www.netflix.com/Movie/The_Terminator/1032625" rel="alternate" title="web page"></link>
+
+          </catalog_title>
+          <catalog_title>
+            <id>http://api-public.netflix.com/catalog/titles/movies/60028202</id><title short="Terminator 2: Judgment Day" regular="Terminator 2: Judgment Day"></title>
+        <box_art small="http://cdn-2.nflximg.com/us/boxshots/tiny/60028202.jpg" medium="http://cdn-2.nflximg.com/us/boxshots/small/60028202.jpg" large="http://cdn-2.nflximg.com/us/boxshots/large/60028202.jpg"></box_art>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60028202/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[In this sequel, director James Cameron delivers scene after scene of action-packed thrills. A bigger, better Terminator is gunning for a shape-shifting T-1000 who's out to kill John Connor, the son of Sarah, the original Terminator's nemesis.]]></synopsis></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60028202/bonus_materials" rel="http://schemas.netflix.com/catalog/titles/bonus_materials" title="bonus materials"></link>
+        <release_year>1991</release_year>
+        <category scheme="http://api-public.netflix.com/categories/mpaa_ratings" label="R" term="R"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Sci-Fi &amp; Fantasy" term="Sci-Fi &amp; Fantasy"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Action Sci-Fi &amp; Fantasy" term="Action Sci-Fi &amp; Fantasy"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Sci-Fi Thrillers" term="Sci-Fi Thrillers"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Action Thrillers" term="Action Thrillers"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Blockbusters" term="Blockbusters"></category>
+        <runtime>9120</runtime>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60028202/awards" rel="http://schemas.netflix.com/catalog/titles/awards" title="awards"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60028202/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60028202/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60028202/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60028202/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api-public.netflix.com/catalog/people/13724" rel="http://schemas.netflix.com/catalog/person" title="James Cameron"></link></people></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60028202/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"></link>
+        <average_rating>3.9</average_rating>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60028202/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"></link>
+        <link href="http://www.netflix.com/Movie/Terminator_2_Judgment_Day/60028202" rel="alternate" title="web page"></link>
+
+          </catalog_title>
+          <catalog_title>
+            <id>http://api-public.netflix.com/catalog/titles/movies/60029154</id><title short="Terminator 3: Rise of the Machines" regular="Terminator 3: Rise of the Machines"></title>
+        <box_art small="http://cdn-4.nflximg.com/us/boxshots/tiny/60029154.jpg" medium="http://cdn-4.nflximg.com/us/boxshots/small/60029154.jpg" large="http://cdn-4.nflximg.com/us/boxshots/large/60029154.jpg"></box_art>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60029154/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[It's been 10 years since John Connor (Nick Stahl) saved Earth from Judgment Day, and he's now living under the radar, steering clear of using anything Skynet can trace. That is, until he encounters T-X (Kristanna Loken), a robotic assassin ordered to finish what T-1000 started. Good thing Connor's former nemesis, the Terminator (Arnold Schwarzenegger), is back to aid the now-adult Connor &#8230; just like he promised. Claire Danes co-stars.]]></synopsis></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60029154/bonus_materials" rel="http://schemas.netflix.com/catalog/titles/bonus_materials" title="bonus materials"></link>
+        <release_year>2003</release_year>
+        <category scheme="http://api-public.netflix.com/categories/mpaa_ratings" label="R" term="R"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Sci-Fi &amp; Fantasy" term="Sci-Fi &amp; Fantasy"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Action Sci-Fi &amp; Fantasy" term="Action Sci-Fi &amp; Fantasy"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Sci-Fi Thrillers" term="Sci-Fi Thrillers"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Action Thrillers" term="Action Thrillers"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Blockbusters" term="Blockbusters"></category>
+        <runtime>6540</runtime>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60029154/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60029154/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60029154/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60029154/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api-public.netflix.com/catalog/people/20000904" rel="http://schemas.netflix.com/catalog/person" title="Jonathan Mostow"></link></people></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60029154/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"></link>
+        <average_rating>3.5</average_rating>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60029154/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"></link>
+        <link href="http://www.terminator3.com/" rel="http://schemas.netflix.com/catalog/titles/official_url" title="official webpage"></link>
+        <link href="http://www.netflix.com/Movie/Terminator_3_Rise_of_the_Machines/60029154" rel="alternate" title="web page"></link>
 
           </catalog_title>
         </catalog_titles>
     http_version: 
-  recorded_at: Sat, 10 Mar 2012 15:04:59 GMT
+  recorded_at: Sun, 14 Jul 2013 15:39:06 GMT
 - request:
     method: get
-    uri: http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=<ROTTEN_KEY>&page=1&page_limit=5&q=The%20Terminator
+    uri: http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=<ROTTEN_KEY>&page=1&page_limit=5&q=Terminator
     body:
       encoding: US-ASCII
       string: ''
     headers:
+      User-Agent: Faraday v0.8.7
       Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept: ! '*/*'
-      User-Agent: Ruby
   response:
     status: {code: 200, message: OK}
     headers:
-      Accept-Ranges: bytes
-      Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Cache-Control: must-revalidate
       Content-Language: en-US
       Content-Type: text/javascript;charset=ISO-8859-1
-      Date: Sat, 10 Mar 2012 15:00:00 GMT
-      Expires: Sat, 6 May 1995 12:00:00 GMT
-      Pragma: no-cache
+      Date: Sun, 14 Jul 2013 15:39:07 GMT
+      Expires: '-1'
       Server: Mashery Proxy
       Set-Cookie:
-      - JSESSIONID=EB923A1DDE8CEE3118691C35D05FF69A.localhost; Path=/
-      - ServerID=1174; Path=/
+      - JSESSIONID=C92023371E406EAFA0D64E701A544866.localhost; Path=/
+      - ServerID=1336; Path=/
+      - instart=7; Expires=Tue, 13-Aug-2013 15:39:07 GMT; Path=/
       Vary: User-Agent,Accept-Encoding
-      X-Mashery-Responder: proxylb-p-us-east-1d-07.mashery.com
-      X-Original-Content-Encoding: gzip
-      X-Original-Content-Length: '1993'
-      Content-Length: '11737'
+      X-Mashery-Responder: prod-j-worker-us-east-1d-32.mashery.com
+      Content-Length: '11441'
       Connection: keep-alive
     body:
       encoding: UTF-8
       string: |-
         {
-          "total": 20,
+          "total": 21,
           "movies": [
             {
               "id": "770676948",
@@ -925,10 +433,10 @@ http_interactions:
               },
               "synopsis": "",
               "posters": {
-                "thumbnail": "http://content8.flixster.com/movie/10/92/76/10927658_mob.jpg",
-                "profile": "http://content8.flixster.com/movie/10/92/76/10927658_pro.jpg",
-                "detailed": "http://content8.flixster.com/movie/10/92/76/10927658_det.jpg",
-                "original": "http://content8.flixster.com/movie/10/92/76/10927658_ori.jpg"
+                "thumbnail": "http://content7.flixster.com/movie/11/16/67/11166729_mob.jpg",
+                "profile": "http://content7.flixster.com/movie/11/16/67/11166729_pro.jpg",
+                "detailed": "http://content7.flixster.com/movie/11/16/67/11166729_det.jpg",
+                "original": "http://content7.flixster.com/movie/11/16/67/11166729_ori.jpg"
               },
               "abridged_cast": [
                 {
@@ -980,11 +488,46 @@ http_interactions:
               }
             },
             {
+              "id": "771359910",
+              "title": "Terminator 5",
+              "year": 2015,
+              "mpaa_rating": "Unrated",
+              "runtime": "",
+              "release_dates": {
+                "theater": "2015-06-26"
+              },
+              "ratings": {
+                "critics_score": -1,
+                "audience_score": 100
+              },
+              "synopsis": "James Cameron's sci-fi classic gets rebooted in this Paramount production designed as the first installment in a new trilogy. ~ Jason Buchanan, Rovi",
+              "posters": {
+                "thumbnail": "http://images.rottentomatoescdn.com/images/redesign/poster_default.gif",
+                "profile": "http://images.rottentomatoescdn.com/images/redesign/poster_default.gif",
+                "detailed": "http://images.rottentomatoescdn.com/images/redesign/poster_default.gif",
+                "original": "http://images.rottentomatoescdn.com/images/redesign/poster_default.gif"
+              },
+              "abridged_cast": [
+
+              ],
+              "alternate_ids": {
+                "imdb": "1340138"
+              },
+              "links": {
+                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/771359910.json",
+                "alternate": "http://www.rottentomatoes.com/m/terminator_5/",
+                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/771359910/cast.json",
+                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/771359910/clips.json",
+                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/771359910/reviews.json",
+                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/771359910/similar.json"
+              }
+            },
+            {
               "id": "14016",
               "title": "Terminator 2: Judgment Day",
               "year": 1991,
               "mpaa_rating": "R",
-              "runtime": 139,
+              "runtime": 150,
               "critics_consensus": "T2 features thrilling action sequences and eye-popping visual effects, but what takes this sci-fi/ action landmark to the next level is the depth of the human (and cyborg) characters.",
               "release_dates": {
                 "theater": "1991-07-03",
@@ -1138,7 +681,7 @@ http_interactions:
               },
               "ratings": {
                 "critics_rating": "Fresh",
-                "critics_score": 71,
+                "critics_score": 70,
                 "audience_rating": "Spilled",
                 "audience_score": 54
               },
@@ -1197,68 +740,16 @@ http_interactions:
                 "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/13049/reviews.json",
                 "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/13049/similar.json"
               }
-            },
-            {
-              "id": "156881813",
-              "title": "Pembalasan ratu pantai selatan (Lady Terminator) (Nasty Hunter) (Shooting Star)",
-              "year": 1989,
-              "mpaa_rating": "R",
-              "runtime": 83,
-              "release_dates": {
-                "theater": "2003-01-01",
-                "dvd": "2005-03-29"
-              },
-              "ratings": {
-                "critics_score": -1,
-                "audience_rating": "Spilled",
-                "audience_score": 50
-              },
-              "synopsis": "",
-              "posters": {
-                "thumbnail": "http://content9.flixster.com/movie/10/64/89/10648995_mob.jpg",
-                "profile": "http://content9.flixster.com/movie/10/64/89/10648995_pro.jpg",
-                "detailed": "http://content9.flixster.com/movie/10/64/89/10648995_det.jpg",
-                "original": "http://content9.flixster.com/movie/10/64/89/10648995_ori.jpg"
-              },
-              "abridged_cast": [
-                {
-                  "name": "Barbara Constable",
-                  "id": "364621144"
-                },
-                {
-                  "name": "Christopher Hart",
-                  "id": "770880444"
-                },
-                {
-                  "name": "Claudia Rademaker",
-                  "id": "770881763"
-                },
-                {
-                  "name": "Joseph McGlynn",
-                  "id": "770881764"
-                }
-              ],
-              "alternate_ids": {
-                "imdb": "0095483"
-              },
-              "links": {
-                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/156881813.json",
-                "alternate": "http://www.rottentomatoes.com/m/lady-terminator/",
-                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/156881813/cast.json",
-                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/156881813/clips.json",
-                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/156881813/reviews.json",
-                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/156881813/similar.json"
-              }
             }
           ],
           "links": {
-            "self": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=the+terminator&page_limit=5&page=1",
-            "next": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=the+terminator&page_limit=5&page=2"
+            "self": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=Terminator&page_limit=5&page=1",
+            "next": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=Terminator&page_limit=5&page=2"
           },
           "link_template": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q={search-term}&page_limit={results-per-page}&page={page-number}"
         }
     http_version: 
-  recorded_at: Sat, 10 Mar 2012 15:05:00 GMT
+  recorded_at: Sun, 14 Jul 2013 15:39:08 GMT
 - request:
     method: get
     uri: http://api.themoviedb.org/3/configuration?api_key=<TMDB_KEY>
@@ -1266,32 +757,33 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
+      User-Agent: Faraday v0.8.7
       Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept: ! '*/*'
-      User-Agent: Ruby
   response:
     status: {code: 200, message: OK}
     headers:
+      Access-Control-Allow-Origin: ! '*'
       Age: '0'
       Cache-Control: public, max-age=36000
       Content-Type: application/json;charset=utf-8
-      Date: Sat, 10 Mar 2012 15:05:38 GMT
+      Date: Sun, 14 Jul 2013 15:39:08 GMT
+      Etag: ! '"a1dda02b6f2e5ef6f6b1a534a181cf1d"'
       Server: nginx
       Status: 200 OK
       Via: 1.1 varnish
       X-Cache: MISS
-      X-Frame-Options: sameorigin
-      X-Varnish: '417285013'
-      X-Varnish-Sid: tm-v-p-1100
-      X-Xss-Protection: 1; mode=block
-      Content-Length: '363'
+      X-Varnish: '1780269062'
+      X-Varnish-Sid: tm-v-p-1200
+      Content-Length: '1112'
       Connection: keep-alive
     body:
       encoding: UTF-8
       string: |-
         {
           "images": {
-            "base_url": "http://cf2.imgobject.com/t/p/",
+            "base_url": "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/",
+            "secure_base_url": "https://d3gtl9l2a4fn1j.cloudfront.net/t/p/",
             "poster_sizes": [
               "w92",
               "w154",
@@ -1311,11 +803,629 @@ http_interactions:
               "w185",
               "h632",
               "original"
+            ],
+            "logo_sizes": [
+              "w45",
+              "w92",
+              "w154",
+              "w185",
+              "w300",
+              "w500",
+              "original"
             ]
-          }
+          },
+          "change_keys": [
+            "adult",
+            "also_known_as",
+            "alternative_titles",
+            "biography",
+            "birthday",
+            "budget",
+            "cast",
+            "character_names",
+            "crew",
+            "deathday",
+            "general",
+            "genres",
+            "homepage",
+            "images",
+            "imdb_id",
+            "name",
+            "original_title",
+            "overview",
+            "plot_keywords",
+            "production_companies",
+            "production_countries",
+            "releases",
+            "revenue",
+            "runtime",
+            "spoken_languages",
+            "status",
+            "tagline",
+            "title",
+            "trailers",
+            "translations"
+          ]
         }
     http_version: 
-  recorded_at: Sat, 10 Mar 2012 15:05:38 GMT
+  recorded_at: Sun, 14 Jul 2013 15:39:08 GMT
+- request:
+    method: post
+    uri: http://fickle:<FICKLE_KEY>@fickle-movieapp.herokuapp.com/recommend
+    body:
+      encoding: US-ASCII
+      string: ! '["51e2c61c04f55519f2000025"]'
+    headers:
+      Content-Type: application/json
+      User-Agent: Faraday v0.8.7
+      Accept: ! '*/*'
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Content-Type: application/json
+      Date: Sun, 14 Jul 2013 15:39:09 GMT
+      Server: gunicorn/0.17.4
+      Content-Length: '10'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        [
+          null
+        ]
+    http_version: 
+  recorded_at: Sun, 14 Jul 2013 15:39:09 GMT
+- request:
+    method: get
+    uri: http://api.themoviedb.org/3/search/movie?api_key=<TMDB_KEY>&query=Lepa%20Brena
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent: Faraday v0.8.7
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Access-Control-Allow-Origin: ! '*'
+      Age: '0'
+      Cache-Control: public, max-age=3600
+      Content-Type: application/json;charset=utf-8
+      Date: Sun, 14 Jul 2013 15:39:09 GMT
+      Etag: ! '"a8d277d2d95f2ea20f792a48c43093dc"'
+      Server: nginx
+      Status: 200 OK
+      Via: 1.1 varnish
+      X-Cache: MISS
+      X-Memc: HIT
+      X-Memc-Age: '3343'
+      X-Memc-Expires: '257'
+      X-Memc-Key: 1627315d53317be0d8e3423cdbf21a52
+      X-Varnish: '2420923111'
+      X-Varnish-Sid: tm-v-p-1100
+      Content-Length: '78'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "page": 1,
+          "results": [
+
+          ],
+          "total_pages": 0,
+          "total_results": 0
+        }
+    http_version: 
+  recorded_at: Sun, 14 Jul 2013 15:39:09 GMT
+- request:
+    method: get
+    uri: http://api.themoviedb.org/3/search/movie?api_key=<TMDB_KEY>&query=red%20shoe%20diaries
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent: Faraday v0.8.7
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Access-Control-Allow-Origin: ! '*'
+      Age: '0'
+      Cache-Control: public, max-age=3600
+      Content-Type: application/json;charset=utf-8
+      Date: Sun, 14 Jul 2013 15:39:10 GMT
+      Etag: ! '"f67f38cf4e4a46f015c26aff5c1510d2"'
+      Server: nginx
+      Status: 200 OK
+      Via: 1.1 varnish
+      X-Cache: MISS
+      X-Memc: HIT
+      X-Memc-Age: '3344'
+      X-Memc-Expires: '256'
+      X-Memc-Key: 92e5e8f69481ca0c983d9136faefdb6b
+      X-Varnish: '2420923335'
+      X-Varnish-Sid: tm-v-p-1100
+      Content-Length: '405'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "page": 1,
+          "results": [
+            {
+              "adult": false,
+              "backdrop_path": null,
+              "id": 5234,
+              "original_title": "Red Shoe Diaries",
+              "release_date": "1992-05-16",
+              "poster_path": "/fcWaJOQWHOsGfJDDRH5YvtXU1dk.jpg",
+              "popularity": 0.52,
+              "title": "Red Shoe Diaries",
+              "vote_average": 0.0,
+              "vote_count": 0
+            }
+          ],
+          "total_pages": 1,
+          "total_results": 1
+        }
+    http_version: 
+  recorded_at: Sun, 14 Jul 2013 15:39:10 GMT
+- request:
+    method: get
+    uri: http://api-public.netflix.com/catalog/titles?expand=synopsis,directors&max_results=5&start_index=0&term=red%20shoe%20diaries&v=1.0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent: Faraday v0.8.7
+      Authorization: OAuth oauth_consumer_key="<NETFLIX_KEY>", oauth_nonce="e1e9f3e976f207606c3d880de6de4b5d",
+        oauth_signature="hiTIZzLdNh1Zho0PYtSpUZN%2F%2Fdw%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1373816350", oauth_version="1.0"
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      X-Mashery-Responder: mashery-web2-atl.mashery.com
+      Date: Sun, 14 Jul 2013 15:39:09 GMT
+      Server: Noelios-Restlet-Engine/1.1.rc2
+      Etag: ! '"960286904"'
+      Vary: Accept-Charset,Accept-Encoding,Accept-Language,Accept
+      Content-Type: application/xml;charset=UTF-8
+      P3p: policyref=http://www.netflix.com/w3c/p3p.xml, CP="CAO DSP COR CUR ADM DEV
+        TAI PSA PSD IVAa IVDa CONi OUR DELi SAMi OTRi IND PHY ONL UNI PUR FIN COM
+        NAV INT DEMi CNT STA PRE "
+      Cache-Control: private
+      Accept-Ranges: bytes
+      Content-Length: '14417'
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" standalone='yes'?>
+
+        <catalog_titles>
+          <link href="http://api-public.netflix.com/catalog/titles/index" rel="http://schemas.netflix.com/catalog/titles/index" title="index"></link>
+          <link href="http://api-public.netflix.com/catalog/titles/autocomplete" rel="http://schemas.netflix.com/catalog/titles/autocomplete" title="autocomplete"></link>
+          <url_template>http://api-public.netflix.com/catalog/titles?{-join|&amp;|term|start_index|max_results}</url_template>
+          <number_of_results>3519</number_of_results>
+          <start_index>0</start_index>
+          <results_per_page>5</results_per_page>
+          <catalog_title>
+            <id>http://api-public.netflix.com/catalog/titles/movies/60027797</id><title short="Red Shoe Diaries: Hotline" regular="Red Shoe Diaries: Hotline"></title>
+        <box_art small="http://cdn-7.nflximg.com/us/boxshots/tiny/60027797.jpg" medium="http://cdn-7.nflximg.com/us/boxshots/small/60027797.jpg" large="http://cdn-7.nflximg.com/us/boxshots/large/60027797.jpg"></box_art>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60027797/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[Master of erotica Zalman King brings you the long-running Showtime series "Red Shoe Diaries," a collection of erotic writings that come to life and sizzle on the screen -- and are guaranteed to make the heart skip a beat or two. This disc contains the episodes "Hotline," "Gino" and "Love at First Sight."]]></synopsis></link>
+        <release_year>1994</release_year>
+        <category scheme="http://api-public.netflix.com/categories/tv_ratings" label="TV-MA" term="TV-MA"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Romance" term="Romance"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Steamy Romance" term="Steamy Romance"></category>
+        <runtime>5340</runtime>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60027797/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60027797/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60027797/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60027797/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60027797/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"></link>
+        <average_rating>2.9</average_rating>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60027797/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"></link>
+        <link href="http://www.netflix.com/Movie/Red_Shoe_Diaries_Hotline/60027797" rel="alternate" title="web page"></link>
+
+          </catalog_title>
+          <catalog_title>
+            <id>http://api-public.netflix.com/catalog/titles/movies/70003090</id><title short="Red Shoe Diaries: The Game" regular="Red Shoe Diaries: The Game"></title>
+        <box_art small="http://cdn-0.nflximg.com/us/boxshots/tiny/70003090.jpg" medium="http://cdn-0.nflximg.com/us/boxshots/small/70003090.jpg" large="http://cdn-0.nflximg.com/us/boxshots/large/70003090.jpg"></box_art>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70003090/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[A woman becomes erotically obsessed with the ribald Red Shoe Diaries board game in "The Game," one episode in this collection of erotic tales from the popular Zalman King series, which also includes "The Cake" and "Like Father, Like Son." In "The Cake," an innocent housewife meets a man who shows her more than one use for a birthday cake. In "Like Father, Like Son," a man is pulled into a sexual tangle with his father's former lover.]]></synopsis></link>
+        <release_year>2000</release_year>
+        <category scheme="http://api-public.netflix.com/categories/mpaa_ratings" label="NR" term="NR"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Romance" term="Romance"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Steamy Romance" term="Steamy Romance"></category>
+        <runtime>6600</runtime>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70003090/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70003090/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70003090/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70003090/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api-public.netflix.com/catalog/people/20014550" rel="http://schemas.netflix.com/catalog/person" title="Brian Grant"></link><link href="http://api-public.netflix.com/catalog/people/20014551" rel="http://schemas.netflix.com/catalog/person" title="Philippe Angers"></link></people></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70003090/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"></link>
+        <average_rating>3.1</average_rating>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70003090/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"></link>
+        <link href="http://www.netflix.com/Movie/Red_Shoe_Diaries_The_Game/70003090" rel="alternate" title="web page"></link>
+
+          </catalog_title>
+          <catalog_title>
+            <id>http://api-public.netflix.com/catalog/titles/movies/60020301</id><title short="Red Shoe Diaries: Strip Poker" regular="Red Shoe Diaries: Strip Poker"></title>
+        <box_art small="http://cdn-1.nflximg.com/us/boxshots/tiny/60020301.jpg" medium="http://cdn-1.nflximg.com/us/boxshots/small/60020301.jpg" large="http://cdn-1.nflximg.com/us/boxshots/large/60020301.jpg"></box_art>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60020301/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[From executive producer (and exotica master) Zalman King comes this steamy collection of three installments from the long-running Showtime series that brings titillating writings to life on the screen. First up is "Strip Poker," which follows a beautiful photographer who chronicles her neighbor's frequent games of strip poker -- and secretly lusts to play. Additional episodes include "Slow Train" and "Hard Labor."]]></synopsis></link>
+        <release_year>2000</release_year>
+        <category scheme="http://api-public.netflix.com/categories/tv_ratings" label="TV-MA" term="TV-MA"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Romance" term="Romance"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Steamy Romance" term="Steamy Romance"></category>
+        <runtime>5220</runtime>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60020301/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60020301/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60020301/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60020301/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"></link>
+        <average_rating>2.7</average_rating>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60020301/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"></link>
+        <link href="http://www.netflix.com/Movie/Red_Shoe_Diaries_Strip_Poker/60020301" rel="alternate" title="web page"></link>
+
+          </catalog_title>
+          <catalog_title>
+            <id>http://api-public.netflix.com/catalog/titles/movies/70003091</id><title short="Red Shoe Diaries: Forbidden Zone" regular="Red Shoe Diaries: Forbidden Zone"></title>
+        <box_art small="http://cdn-1.nflximg.com/us/boxshots/tiny/70003091.jpg" medium="http://cdn-1.nflximg.com/us/boxshots/small/70003091.jpg" large="http://cdn-1.nflximg.com/us/boxshots/large/70003091.jpg"></box_art>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70003091/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[Three erotic tales make up this collection from the popular Zalman King series. In "The Art of Loneliness," a beautiful blind radio show personality experiences an unusual thrill when a couple engages in an intense erotic encounter in her presence. "Forbidden Zone" finds two lovers transported into a futuristic world. And in "The Picnic," two guys and a girl turn a picnic in the countryside into a comedic scene of love, loss and last requests.]]></synopsis></link>
+        <release_year>2002</release_year>
+        <category scheme="http://api-public.netflix.com/categories/mpaa_ratings" label="R" term="R"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Romance" term="Romance"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Steamy Romance" term="Steamy Romance"></category>
+        <runtime>5160</runtime>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70003091/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70003091/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70003091/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70003091/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api-public.netflix.com/catalog/people/20013670" rel="http://schemas.netflix.com/catalog/person" title="Rafael Eisenman"></link></people></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70003091/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"></link>
+        <average_rating>3.3</average_rating>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/70003091/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"></link>
+        <link href="http://www.netflix.com/Movie/Red_Shoe_Diaries_Forbidden_Zone/70003091" rel="alternate" title="web page"></link>
+
+          </catalog_title>
+          <catalog_title>
+            <id>http://api-public.netflix.com/catalog/titles/movies/60035932</id><title short="Red Shoe Diaries: Movie: Special Ed." regular="Red Shoe Diaries: The Movie: Special Edition"></title>
+        <box_art small="http://cdn-2.nflximg.com/us/boxshots/tiny/60035932.jpg" medium="http://cdn-2.nflximg.com/us/boxshots/small/60035932.jpg" large="http://cdn-2.nflximg.com/us/boxshots/large/60035932.jpg"></box_art>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60035932/synopsis" rel="http://schemas.netflix.com/catalog/titles/synopsis" title="synopsis"><synopsis><![CDATA[In the film that launched the erotic Showtime series, a woman engaged to an architect has an affair with a construction worker and then kills herself because she can't handle the clash in lifestyles. When the architect, Jake (David Duchovny), goes through his fianc&#233;e's belongings after her suicide, he discovers a shoebox containing her diary. Stunned to learn of the affair, Jake seeks out the man he now holds responsible for her death.]]></synopsis></link>
+        <release_year>1992</release_year>
+        <category scheme="http://api-public.netflix.com/categories/mpaa_ratings" label="R" term="R"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Drama" term="Drama"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Steamy Romance" term="Steamy Romance"></category>
+        <category scheme="http://api-public.netflix.com/categories/genres" label="Made-for-TV Movies" term="Made-for-TV Movies"></category>
+        <runtime>6300</runtime>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60035932/format_availability" rel="http://schemas.netflix.com/catalog/titles/format_availability" title="formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60035932/screen_formats" rel="http://schemas.netflix.com/catalog/titles/screen_formats" title="screen formats"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60035932/cast" rel="http://schemas.netflix.com/catalog/people.cast" title="cast"></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60035932/directors" rel="http://schemas.netflix.com/catalog/people.directors" title="directors"><people><link href="http://api-public.netflix.com/catalog/people/20002603" rel="http://schemas.netflix.com/catalog/person" title="Zalman King"></link></people></link>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60035932/languages_and_audio" rel="http://schemas.netflix.com/catalog/titles/languages_and_audio" title="languages and audio"></link>
+        <average_rating>3.0</average_rating>
+        <link href="http://api-public.netflix.com/catalog/titles/movies/60035932/similars" rel="http://schemas.netflix.com/catalog/titles.similars" title="similars"></link>
+        <link href="http://www.netflix.com/Movie/Red_Shoe_Diaries_The_Movie_Special_Edition/60035932" rel="alternate" title="web page"></link>
+
+          </catalog_title>
+        </catalog_titles>
+    http_version: 
+  recorded_at: Sun, 14 Jul 2013 15:39:10 GMT
+- request:
+    method: get
+    uri: http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=<ROTTEN_KEY>&page=1&page_limit=5&q=red%20shoe%20diaries
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent: Faraday v0.8.7
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: ! '*/*'
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Cache-Control: must-revalidate
+      Content-Language: en-US
+      Content-Type: text/javascript;charset=ISO-8859-1
+      Date: Sun, 14 Jul 2013 15:39:11 GMT
+      Expires: '-1'
+      Server: Mashery Proxy
+      Set-Cookie:
+      - JSESSIONID=984799EBB20D871A69764C4B2DD4E00F.localhost; Path=/
+      - ServerID=1335; Path=/
+      - instart=5; Expires=Tue, 13-Aug-2013 15:39:11 GMT; Path=/
+      Vary: User-Agent,Accept-Encoding
+      X-Mashery-Responder: prod-j-worker-us-east-1c-37.mashery.com
+      Content-Length: '9508'
+      Connection: keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "total": 20,
+          "movies": [
+            {
+              "id": "14558",
+              "title": "Red Shoe Diaries - The Movie",
+              "year": 1992,
+              "mpaa_rating": "R",
+              "runtime": 105,
+              "release_dates": {
+                "dvd": "2006-05-23"
+              },
+              "ratings": {
+                "critics_score": -1,
+                "audience_rating": "Spilled",
+                "audience_score": 52
+              },
+              "synopsis": "",
+              "posters": {
+                "thumbnail": "http://content7.flixster.com/movie/10/92/98/10929865_mob.jpg",
+                "profile": "http://content7.flixster.com/movie/10/92/98/10929865_pro.jpg",
+                "detailed": "http://content7.flixster.com/movie/10/92/98/10929865_det.jpg",
+                "original": "http://content7.flixster.com/movie/10/92/98/10929865_ori.jpg"
+              },
+              "abridged_cast": [
+                {
+                  "name": "David Duchovny",
+                  "id": "162661591",
+                  "characters": [
+                    "Jake"
+                  ]
+                },
+                {
+                  "name": "Brigitte Bako",
+                  "id": "712251688",
+                  "characters": [
+                    "Alex"
+                  ]
+                },
+                {
+                  "name": "Billy Wirth",
+                  "id": "162749471",
+                  "characters": [
+                    "Workman (Thomas K. Butler)"
+                  ]
+                },
+                {
+                  "name": "Rhonda Aldrich",
+                  "id": "465972940",
+                  "characters": [
+                    "Michelle"
+                  ]
+                },
+                {
+                  "name": "Sherry Bilsing",
+                  "id": "770953665",
+                  "characters": [
+                    "Passing Woman"
+                  ]
+                }
+              ],
+              "links": {
+                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/14558.json",
+                "alternate": "http://www.rottentomatoes.com/m/red_shoe_diaries_the_movie/",
+                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/14558/cast.json",
+                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/14558/clips.json",
+                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/14558/reviews.json",
+                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/14558/similar.json"
+              }
+            },
+            {
+              "id": "770901633",
+              "title": "Red Shoe Diaries 2 - Double Dare",
+              "year": 1992,
+              "mpaa_rating": "R",
+              "runtime": 94,
+              "release_dates": {
+                "dvd": "1993-03-24"
+              },
+              "ratings": {
+                "critics_score": -1,
+                "audience_rating": "Upright",
+                "audience_score": 80
+              },
+              "synopsis": "",
+              "posters": {
+                "thumbnail": "http://content8.flixster.com/movie/10/96/47/10964702_mob.jpg",
+                "profile": "http://content8.flixster.com/movie/10/96/47/10964702_pro.jpg",
+                "detailed": "http://content8.flixster.com/movie/10/96/47/10964702_det.jpg",
+                "original": "http://content8.flixster.com/movie/10/96/47/10964702_ori.jpg"
+              },
+              "abridged_cast": [
+                {
+                  "name": "Steven Bauer",
+                  "id": "162668180"
+                },
+                {
+                  "name": "Joan Severance",
+                  "id": "168457601"
+                },
+                {
+                  "name": "Denise Crosby",
+                  "id": "162681774"
+                },
+                {
+                  "name": "Laura Johnson",
+                  "id": "371353853"
+                },
+                {
+                  "name": "Arnold Vosloo",
+                  "id": "351526731"
+                }
+              ],
+              "links": {
+                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/770901633.json",
+                "alternate": "http://www.rottentomatoes.com/m/red_shoe_diaries_2_double_dare/",
+                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/770901633/cast.json",
+                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/770901633/clips.json",
+                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/770901633/reviews.json",
+                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/770901633/similar.json"
+              }
+            },
+            {
+              "id": "770904445",
+              "title": "Red Shoe Diaries 3 - Another Woman's Lipstick",
+              "year": 1993,
+              "mpaa_rating": "R",
+              "runtime": 90,
+              "release_dates": {
+                "dvd": "1993-12-15"
+              },
+              "ratings": {
+                "critics_score": -1,
+                "audience_rating": "Upright",
+                "audience_score": 75
+              },
+              "synopsis": "",
+              "posters": {
+                "thumbnail": "http://content7.flixster.com/movie/10/96/63/10966337_mob.jpg",
+                "profile": "http://content7.flixster.com/movie/10/96/63/10966337_pro.jpg",
+                "detailed": "http://content7.flixster.com/movie/10/96/63/10966337_det.jpg",
+                "original": "http://content7.flixster.com/movie/10/96/63/10966337_ori.jpg"
+              },
+              "abridged_cast": [
+                {
+                  "name": "Richard Tyson",
+                  "id": "162691174"
+                },
+                {
+                  "name": "Maryam d'Abo",
+                  "id": "162669782"
+                },
+                {
+                  "name": "Nina Siemaszko",
+                  "id": "162708621"
+                },
+                {
+                  "name": "Zalman King",
+                  "id": "162670960"
+                }
+              ],
+              "links": {
+                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/770904445.json",
+                "alternate": "http://www.rottentomatoes.com/m/red_shoe_diaries_3_another_womans_lipstick/",
+                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/770904445/cast.json",
+                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/770904445/clips.json",
+                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/770904445/reviews.json",
+                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/770904445/similar.json"
+              }
+            },
+            {
+              "id": "770823706",
+              "title": "Red Shoe Diaries: Forbidden Zone",
+              "year": 2002,
+              "mpaa_rating": "Unrated",
+              "runtime": "",
+              "release_dates": {
+                "theater": "2002-12-31"
+              },
+              "ratings": {
+                "critics_score": -1,
+                "audience_rating": "Spilled",
+                "audience_score": 0
+              },
+              "synopsis": "",
+              "posters": {
+                "thumbnail": "http://content9.flixster.com/movie/10/92/98/10929859_mob.jpg",
+                "profile": "http://content9.flixster.com/movie/10/92/98/10929859_pro.jpg",
+                "detailed": "http://content9.flixster.com/movie/10/92/98/10929859_det.jpg",
+                "original": "http://content9.flixster.com/movie/10/92/98/10929859_ori.jpg"
+              },
+              "abridged_cast": [
+                {
+                  "name": "Brad Fisher",
+                  "id": "770706701"
+                },
+                {
+                  "name": "David Duchovny",
+                  "id": "162661591"
+                },
+                {
+                  "name": "Honey Labrador",
+                  "id": "364598537"
+                },
+                {
+                  "name": "Jay Acovone",
+                  "id": "416810702"
+                },
+                {
+                  "name": "Kira Reed",
+                  "id": "770713974"
+                }
+              ],
+              "links": {
+                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/770823706.json",
+                "alternate": "http://www.rottentomatoes.com/m/red-shoe-diaries-forbidden-zone/",
+                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/770823706/cast.json",
+                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/770823706/clips.json",
+                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/770823706/reviews.json",
+                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/770823706/similar.json"
+              }
+            },
+            {
+              "id": "770823781",
+              "title": "Red Shoe Diaries: Girl on a Bike",
+              "year": 2000,
+              "mpaa_rating": "Unrated",
+              "runtime": 78,
+              "release_dates": {
+                "theater": "2000-12-31",
+                "dvd": "2000-03-14"
+              },
+              "ratings": {
+                "critics_score": -1,
+                "audience_rating": "Spilled",
+                "audience_score": 0
+              },
+              "synopsis": "",
+              "posters": {
+                "thumbnail": "http://content7.flixster.com/movie/10/92/98/10929857_mob.jpg",
+                "profile": "http://content7.flixster.com/movie/10/92/98/10929857_pro.jpg",
+                "detailed": "http://content7.flixster.com/movie/10/92/98/10929857_det.jpg",
+                "original": "http://content7.flixster.com/movie/10/92/98/10929857_ori.jpg"
+              },
+              "abridged_cast": [
+                {
+                  "name": "Adewale Alan Boyce",
+                  "id": "770788099"
+                },
+                {
+                  "name": "Brent Fraser",
+                  "id": "770755374"
+                },
+                {
+                  "name": "David Duchovny",
+                  "id": "162661591"
+                },
+                {
+                  "name": "Geraldine Cotte",
+                  "id": "770788100"
+                },
+                {
+                  "name": "Robbi Chong",
+                  "id": "770681044"
+                }
+              ],
+              "links": {
+                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/770823781.json",
+                "alternate": "http://www.rottentomatoes.com/m/red-shoe-diaries-girl-on-a-bike/",
+                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/770823781/cast.json",
+                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/770823781/clips.json",
+                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/770823781/reviews.json",
+                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/770823781/similar.json"
+              }
+            }
+          ],
+          "links": {
+            "self": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=red+shoe+diaries&page_limit=5&page=1",
+            "next": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=red+shoe+diaries&page_limit=5&page=2"
+          },
+          "link_template": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q={search-term}&page_limit={results-per-page}&page={page-number}"
+        }
+    http_version: 
+  recorded_at: Sun, 14 Jul 2013 15:39:11 GMT
 - request:
     method: get
     uri: http://api.themoviedb.org/3/movie/5234?api_key=<TMDB_KEY>
@@ -1323,29 +1433,30 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
+      User-Agent: Faraday v0.8.7
       Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept: ! '*/*'
-      User-Agent: Ruby
   response:
     status: {code: 200, message: OK}
     headers:
+      Access-Control-Allow-Origin: ! '*'
       Age: '0'
-      Cache-Control: public, max-age=172800
+      Cache-Control: public, max-age=86402
       Content-Type: application/json;charset=utf-8
-      Date: Wed, 14 Mar 2012 12:11:03 GMT
+      Date: Sun, 14 Jul 2013 15:39:11 GMT
+      Etag: ! '"ea16ffd6a62214e2c8674a110bb92596"'
       Server: nginx
       Status: 200 OK
       Vary: Accept-Encoding
       Via: 1.1 varnish
       X-Cache: MISS
-      X-Frame-Options: sameorigin
       X-Memc: HIT
-      X-Memc-Age: '19424'
-      X-Memc-Key: /movie/5234?language=en
-      X-Varnish: '1375364177'
-      X-Varnish-Sid: tm-v-p-1200
-      X-Xss-Protection: 1; mode=block
-      Content-Length: '1556'
+      X-Memc-Age: '3343'
+      X-Memc-Expires: '83059'
+      X-Memc-Key: 2434dd4f3fb6aeb6ab2fe6fd49a71ac3
+      X-Varnish: '2420924275'
+      X-Varnish-Sid: tm-v-p-1100
+      Content-Length: '1516'
       Connection: keep-alive
     body:
       encoding: UTF-8
@@ -1375,13 +1486,10 @@ http_interactions:
           "imdb_id": "tt0105227",
           "original_title": "Red Shoe Diaries",
           "overview": "Trapped by a burning secret. Torn by a blazing desire. He gave her his devoted passion. He offered her a lasting relationship. He promised her a secure future. She thought he was all she ever wanted. Until she met everything she ever desired: the perfect body... on the perfect man... with a perfect opportunity for having a secret affair with a total stranger. Haunted by guilt, she is drawn uncontrollably into the powerful, beckoning arms of illicit lust and feverish obsession. But like a moth lured to the candle, the fire that now controls her could be the flame that one day consumes her.",
-          "popularity": 0.013,
+          "popularity": 0.52,
           "poster_path": "/fcWaJOQWHOsGfJDDRH5YvtXU1dk.jpg",
           "production_companies": [
-            {
-              "name": "Republic Pictures",
-              "id": 1916
-            }
+
           ],
           "production_countries": [
             {
@@ -1398,13 +1506,14 @@ http_interactions:
               "name": "English"
             }
           ],
+          "status": "Released",
           "tagline": "",
           "title": "Red Shoe Diaries",
-          "vote_average": 4.0,
+          "vote_average": 0.0,
           "vote_count": 0
         }
     http_version: 
-  recorded_at: Wed, 14 Mar 2012 12:11:04 GMT
+  recorded_at: Sun, 14 Jul 2013 15:39:11 GMT
 - request:
     method: get
     uri: http://api.themoviedb.org/3/movie/5234/casts?api_key=<TMDB_KEY>
@@ -1412,29 +1521,30 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
+      User-Agent: Faraday v0.8.7
       Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept: ! '*/*'
-      User-Agent: Ruby
   response:
     status: {code: 200, message: OK}
     headers:
+      Access-Control-Allow-Origin: ! '*'
       Age: '0'
-      Cache-Control: public, max-age=172800
+      Cache-Control: public, max-age=86402
       Content-Type: application/json;charset=utf-8
-      Date: Wed, 14 Mar 2012 12:11:04 GMT
+      Date: Sun, 14 Jul 2013 15:39:12 GMT
+      Etag: ! '"2fc6ca82f29e33e398098e3a86d7b867"'
       Server: nginx
       Status: 200 OK
       Vary: Accept-Encoding
       Via: 1.1 varnish
       X-Cache: MISS
-      X-Frame-Options: sameorigin
       X-Memc: HIT
-      X-Memc-Age: '19425'
-      X-Memc-Key: /movie/5234/casts?language=en
-      X-Varnish: '1375364198'
-      X-Varnish-Sid: tm-v-p-1200
-      X-Xss-Protection: 1; mode=block
-      Content-Length: '3005'
+      X-Memc-Age: '33790'
+      X-Memc-Expires: '52612'
+      X-Memc-Key: 01bf04722cd5bf7525146fea6924b0ac
+      X-Varnish: '2420924476'
+      X-Varnish-Sid: tm-v-p-1100
+      Content-Length: '3236'
       Connection: keep-alive
     body:
       encoding: UTF-8
@@ -1447,6 +1557,7 @@ http_interactions:
               "name": "Brigitte Bako",
               "character": "Alex",
               "order": 0,
+              "cast_id": 1,
               "profile_path": null
             },
             {
@@ -1454,6 +1565,7 @@ http_interactions:
               "name": "Bridgit Ryan",
               "character": "Marlene",
               "order": 1,
+              "cast_id": 2,
               "profile_path": null
             },
             {
@@ -1461,6 +1573,7 @@ http_interactions:
               "name": "Evie Sullivan",
               "character": "Gabriella",
               "order": 2,
+              "cast_id": 3,
               "profile_path": null
             },
             {
@@ -1468,6 +1581,7 @@ http_interactions:
               "name": "Brenda Vaccaro",
               "character": "Martha",
               "order": 3,
+              "cast_id": 4,
               "profile_path": "/cwNmZCRMRRiwtVSmkBiqP7aalyL.jpg"
             },
             {
@@ -1475,6 +1589,7 @@ http_interactions:
               "name": "Anna Karin",
               "character": "Heidi I.",
               "order": 4,
+              "cast_id": 5,
               "profile_path": null
             },
             {
@@ -1482,6 +1597,7 @@ http_interactions:
               "name": "David Duchovny",
               "character": "Jake Winters",
               "order": 5,
+              "cast_id": 6,
               "profile_path": "/9xkXqD2v4GfcXfyrjhOpfWQTNqk.jpg"
             },
             {
@@ -1489,13 +1605,15 @@ http_interactions:
               "name": "Billy Wirth",
               "character": "Thomas K. Butler",
               "order": 6,
-              "profile_path": null
+              "cast_id": 7,
+              "profile_path": "/oyigYLUbcfdpkhC5SqAQuRyLA7p.jpg"
             },
             {
               "id": 42146,
               "name": "Kai Wulff",
               "character": "Paul",
               "order": 7,
+              "cast_id": 8,
               "profile_path": null
             },
             {
@@ -1503,6 +1621,7 @@ http_interactions:
               "name": "Christina Caron",
               "character": "Heidi II.",
               "order": 8,
+              "cast_id": 9,
               "profile_path": null
             },
             {
@@ -1510,6 +1629,7 @@ http_interactions:
               "name": "Leana Hall",
               "character": "Ingrid",
               "order": 9,
+              "cast_id": 10,
               "profile_path": null
             }
           ],
@@ -1587,7 +1707,7 @@ http_interactions:
           ]
         }
     http_version: 
-  recorded_at: Wed, 14 Mar 2012 12:11:04 GMT
+  recorded_at: Sun, 14 Jul 2013 15:39:12 GMT
 - request:
     method: get
     uri: http://api.rottentomatoes.com/api/public/v1.0/movie_alias.json?apikey=<ROTTEN_KEY>&id=0105227&type=imdb
@@ -1595,27 +1715,24 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
+      User-Agent: Faraday v0.8.7
       Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept: ! '*/*'
-      User-Agent: Ruby
   response:
     status: {code: 200, message: OK}
     headers:
-      Accept-Ranges: bytes
-      Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Cache-Control: must-revalidate
       Content-Language: en-US
       Content-Type: text/javascript;charset=ISO-8859-1
-      Date: Wed, 14 Mar 2012 12:11:06 GMT
-      Expires: Sat, 6 May 1995 12:00:00 GMT
-      Pragma: no-cache
+      Date: Sun, 14 Jul 2013 15:39:12 GMT
+      Expires: '-1'
       Server: Mashery Proxy
       Set-Cookie:
-      - JSESSIONID=4F885882B1057693D97758C1EB4B20C8.localhost; Path=/
-      - ServerID=1175; Path=/
+      - JSESSIONID=BFD1CA747D1413AAABB272A17887A13F.localhost; Path=/
+      - ServerID=1335; Path=/
+      - instart=5; Expires=Tue, 13-Aug-2013 15:39:12 GMT; Path=/
       Vary: User-Agent,Accept-Encoding
-      X-Mashery-Responder: proxylb-p-us-east-1d-07.mashery.com
-      X-Original-Content-Encoding: gzip
-      X-Original-Content-Length: '82'
+      X-Mashery-Responder: prod-j-worker-us-east-1b-36.mashery.com
       Content-Length: '61'
       Connection: keep-alive
     body:
@@ -1625,5 +1742,5 @@ http_interactions:
           "error": "Could not find a movie with the specified id"
         }
     http_version: 
-  recorded_at: Wed, 14 Mar 2012 12:11:05 GMT
+  recorded_at: Sun, 14 Jul 2013 15:39:12 GMT
 recorded_with: VCR 2.0.0

@@ -22,7 +22,7 @@ Feature: Movie search
     And I should see "by Zalman King"
 
   Scenario: Multiple results
-    When I search for "The Terminator"
+    When I search for "Terminator"
     And I should see "The Terminator" as a movie title in the results
     And I should see "(1984)" for the movie "The Terminator"
     And I should see "Terminator 2: Judgment Day" as a movie title in the results
