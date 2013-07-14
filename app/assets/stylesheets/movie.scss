@@ -208,10 +208,25 @@ ol.movies { clear:left; padding-left:0;
 }
 
 /* mobile */
+@media only screen and (min-width:481px) and (max-width:568px) {
+  ol.movies li {
+    width: (568px - 6*7px) / 2;
+    min-height: 116px;
+    margin-right: 7px;
+    margin-bottom: 5px;
+  }
+}
+@media only screen and (max-width:480px) {
+  ol.movies li {
+    min-height: 0;
+    width: 100%;
+    float: none;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}
 @media only screen and (max-device-width:480px) {
   ol.movies {
-    li { min-height:0; width:100%; float:none; margin-right:0; margin-bottom:20px; }
-
     .movie { padding-left:$poster-small-width / 2 + 14px;
 
       h1 { font-size:16px; margin:0 0 4px; }

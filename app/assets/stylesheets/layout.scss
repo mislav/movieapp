@@ -1,5 +1,10 @@
 $body-padding:30px;
 
+html {
+  // Prevent font scaling in landscape
+  -webkit-text-size-adjust: none;
+}
+
 body, h1, h2, h3, p { margin:0; padding:0 }
 
 img {
@@ -233,7 +238,10 @@ form {
   .flash { padding: 4px; font-size: 11px }
 
   body > article { padding:7px;
-    header, > h1 { margin-bottom:20px; }
+    header, > h1 {
+      margin-bottom: 20px;
+      + .flash { margin-top: -10px; }
+    }
     h1 { font-size:15px; line-height:22px; }
   }
 
