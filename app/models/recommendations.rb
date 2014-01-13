@@ -49,7 +49,7 @@ Recommendations = Struct.new(:user) do
       fickle = Fickle::Client.new(fickle_url, fickle_key)
       fickle.connection.options[:timeout] = 5
       begin
-        fickle.recommend([user.id.to_s])
+        fickle.recommend([user.id.to_s], 20)
       rescue Faraday::Error::TimeoutError
         return [[]]
       end
