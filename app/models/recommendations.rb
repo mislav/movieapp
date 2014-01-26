@@ -45,11 +45,11 @@ Recommendations = Struct.new(:user) do
 
   # response: [ [ [id, rating], [id, rating], ... ] ]
   def fetch_recommendations
-    Rails.cache.fetch("recommendations/#{user.id}", expires_in: 1.day) do
+    Rails.cache.fetch("recommendations/#{user.id}", expires_in: 1.hour) do
       fickle = Fickle::Client.new(fickle_url, fickle_key)
       fickle.connection.options[:timeout] = 5
       begin
-        fickle.recommend([user.id.to_s])
+        fickle.recommend([user.id.to_s], 20)
       rescue Faraday::Error::TimeoutError
         return [[]]
       end
