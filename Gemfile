@@ -25,7 +25,6 @@ gem 'escape_utils'
 gem 'choices' #, :path => '/Users/mislav/Projects/choices'
 gem 'never-forget' #, :path => '/Users/mislav/Projects/never-forget'
 gem 'twin' #, :path => '/Users/mislav/Projects/twin'
-gem 'rails-behaviors'
 
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'

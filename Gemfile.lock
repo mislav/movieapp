@@ -140,8 +140,6 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails-behaviors (0.1.2)
-      sprockets (~> 2.0)
     railties (3.2.12)
       actionpack (= 3.2.12)
       activesupport (= 3.2.12)
@@ -247,7 +245,6 @@ DEPENDENCIES
   nokogiri (~> 1.4.1)
   omniauth-facebook
   omniauth-twitter
-  rails-behaviors
   railties (~> 3.2.11)
   rspec-rails (~> 2.8.0)
   ruby-debug

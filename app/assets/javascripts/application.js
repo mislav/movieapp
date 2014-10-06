@@ -1,5 +1,5 @@
 //= require zepto
-//= require rails
+//= require rails-behaviors/index
 //= require_tree .
 //= require facebox
 //= require bootstrap-transition
