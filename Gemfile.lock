@@ -214,6 +214,7 @@ DEPENDENCIES
   faraday (~> 0.8.9)
   faraday_middleware (~> 0.8.4)
   fickle-ruby (~> 1.0)
+  kgio
   launchy
   mingo (>= 0.3.0)
   mongo-rails-instrumentation
@@ -223,6 +224,7 @@ DEPENDENCIES
   nokogiri (~> 1.4.1)
   omniauth-facebook
   omniauth-twitter
+  rack-cache
   railties (~> 3.2.11)
   rspec-rails (~> 2.8.0)
   sass-rails (~> 3.2.5)

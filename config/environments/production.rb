@@ -18,6 +18,21 @@ Movies::Application.configure do
   # Use a different cache store in production
   config.cache_store = :dalli_store unless $rails_rake_task
 
+  client = Dalli::Client.new(
+    ENV["MEMCACHIER_SERVERS"].to_s.split(","),
+    :username => ENV["MEMCACHIER_USERNAME"],
+    :password => ENV["MEMCACHIER_PASSWORD"],
+    :failover => true,
+    :socket_timeout => 1.5,
+    :socket_failure_delay => 0.2,
+    :value_max_bytes => 10485760
+  )
+  config.action_dispatch.rack_cache = {
+    :metastore    => client,
+    :entitystore  => client
+  }
+  config.static_cache_control = "public, max-age=2592000"
+
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx

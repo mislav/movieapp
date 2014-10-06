@@ -17,6 +17,8 @@ end
 
 group :production do
   gem 'dalli'
+  gem 'rack-cache'
+  gem 'kgio'
 end
 
 gem 'mingo', '>= 0.3.0' #, :path => '/Users/mislav/Projects/mingo'
