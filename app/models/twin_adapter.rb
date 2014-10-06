@@ -62,7 +62,7 @@ module TwinAdapter
     end
   end
   
-  default_url_options[:host] = 'movi.im'
+  # default_url_options[:host] = 'movi.im'
   
   def self.favorites(params, current_user, user_id = nil)
     user = user_id ? find_by_id(user_id) : current_user
