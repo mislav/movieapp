@@ -1,7 +1,15 @@
+<% begin %>
 <% if my_page? && @recommended && @recommended.any? %>
   <p class="flash notice">
     Hey <%= user_friendly_name(@user) %>, we've got
     <%= link_to pluralize(@recommended.size, 'recommendation'), movie_recommendations_path(@user) %>
     for you!
+  </p>
+<% end %>
+<% rescue Faraday::Error::ClientError => error %>
+  <% NeverForget.log(error, user_id: @user.id) %>
+  <p class="flash warning">
+    Warning: we couldn't fetch movie recommendations for you at this time.
+    The recommendations service might be temporarily down.
   </p>
 <% end %>
