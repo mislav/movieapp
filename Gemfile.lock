@@ -73,7 +73,7 @@ GEM
     execjs (2.2.1)
     faraday (0.8.9)
       multipart-post (~> 1.2.0)
-    faraday_middleware (0.8.4)
+    faraday_middleware (0.8.8)
       faraday (>= 0.7.4, < 0.9)
     ffi (1.0.11)
     fickle-ruby (1.0.0)
@@ -211,8 +211,8 @@ DEPENDENCIES
   cucumber-rails
   dalli
   escape_utils
-  faraday (~> 0.8.0.rc)
-  faraday_middleware
+  faraday (~> 0.8.9)
+  faraday_middleware (~> 0.8.4)
   fickle-ruby (~> 1.0)
   launchy
   mingo (>= 0.3.0)

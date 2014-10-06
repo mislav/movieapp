@@ -38,8 +38,8 @@ group :extras do
   gem 'nokogiri', '~> 1.4.1'
   gem 'nibbler', '~> 1.3' #, :path => '/Users/mislav/Projects/nibbler'
   gem 'addressable', '~> 2.1'
-  gem 'faraday', '~> 0.8.0.rc'
-  gem 'faraday_middleware'
+  gem 'faraday', '~> 0.8.9'
+  gem 'faraday_middleware', '~> 0.8.4'
   gem 'simple_oauth'
 end
 
