@@ -18,7 +18,7 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     addressable (2.2.7)
-    bootstrap-sass (2.2.1.1)
+    bootstrap-sass (2.2.2.0)
       sass (~> 3.2)
     bson (1.5.2)
     bson_ext (1.5.2)
@@ -39,19 +39,21 @@ GEM
       ffi (~> 1.0.6)
     choices (0.2.4)
       hashie (>= 0.4.0)
-    chunky_png (1.2.5)
+    chunky_png (1.3.1)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
-    coffee-script (2.2.0)
+    coffee-script (2.3.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.2.0)
+    coffee-script-source (1.8.0)
     columnize (0.8.9)
-    compass (0.12.alpha.4)
+    compass (0.12.7)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
-      sass (~> 3.1)
+      sass (~> 3.2.19)
+    compass-rails (2.0.0)
+      compass (>= 0.12.2)
     crack (0.3.1)
     cucumber (1.0.6)
       builder (>= 2.1.2)
@@ -68,17 +70,16 @@ GEM
     diff-lcs (1.1.3)
     erubis (2.7.0)
     escape_utils (0.2.4)
-    execjs (1.3.0)
-      multi_json (~> 1.0)
+    execjs (2.2.1)
     faraday (0.8.9)
       multipart-post (~> 1.2.0)
     faraday_middleware (0.8.4)
       faraday (>= 0.7.4, < 0.9)
-    ffi (1.0.9)
+    ffi (1.0.11)
     fickle-ruby (1.0.0)
       faraday (~> 0.8.8)
       multi_json (~> 1.8)
-    fssm (0.2.8.1)
+    fssm (0.2.10)
     gherkin (2.4.21)
       json (>= 1.4.6)
     hashie (2.0.5)
@@ -156,8 +157,8 @@ GEM
       railties (>= 3.0)
       rspec (~> 2.8.0)
     rubyzip (0.9.4)
-    sass (3.2.3)
-    sass-rails (3.2.5)
+    sass (3.2.19)
+    sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
@@ -179,9 +180,9 @@ GEM
     twin (0.1.3)
       activesupport (>= 2.3)
     tzinfo (0.3.29)
-    uglifier (1.2.2)
+    uglifier (1.2.7)
       execjs (>= 0.3.0)
-      multi_json (>= 1.0.2)
+      multi_json (~> 1.3)
     unicorn (4.8.3)
       kgio (~> 2.6)
       rack
@@ -204,8 +205,9 @@ DEPENDENCIES
   byebug
   capybara
   choices
-  coffee-rails (~> 3.2)
-  compass (~> 0.12.alpha)
+  coffee-rails (~> 3.2.2)
+  compass (~> 0.12.0)
+  compass-rails
   cucumber-rails
   dalli
   escape_utils
@@ -223,11 +225,11 @@ DEPENDENCIES
   omniauth-twitter
   railties (~> 3.2.11)
   rspec-rails (~> 2.8.0)
-  sass-rails (~> 3.2)
+  sass-rails (~> 3.2.5)
   simple_oauth
   twin
   tzinfo
-  uglifier
+  uglifier (~> 1.2.2)
   unicorn
   vcr
   webmock (~> 1.8.0)

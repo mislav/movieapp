@@ -7,10 +7,11 @@ gem 'tzinfo'
 gem 'unicorn'
 
 group :assets do
-  gem 'sass-rails', '~> 3.2'
-  gem 'coffee-rails', '~> 3.2'
-  gem 'uglifier'
-  gem 'compass', '~> 0.12.alpha'
+  gem 'sass-rails', '~> 3.2.5'
+  gem 'coffee-rails', '~> 3.2.2'
+  gem 'uglifier', '~> 1.2.2'
+  gem 'compass', '~> 0.12.0'
+  gem 'compass-rails'
   gem 'bootstrap-sass', '~> 2.2.1'
 end
 
