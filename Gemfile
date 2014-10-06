@@ -1,7 +1,10 @@
 source 'https://rubygems.org'
 
+ruby '2.1.3'
+
 gem 'railties', '~> 3.2.11'
 gem 'tzinfo'
+gem 'unicorn'
 
 group :assets do
   gem 'sass-rails', '~> 3.2'
@@ -12,7 +15,6 @@ group :assets do
 end
 
 group :production do
-  gem 'therubyracer-heroku', '~> 0.8.1.pre3', :require => nil
   gem 'dalli'
 end
 
@@ -40,15 +42,9 @@ group :extras do
   gem 'simple_oauth'
 end
 
-group :development do
-  gem 'mongrel', :require => nil, :platforms => :ruby_18
-  gem 'thin', :require => nil, :platforms => :ruby_19
-end
-
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.0'
-  gem 'ruby-debug', :platforms => :mri_18
-  gem 'ruby-debug19', :platforms => :mri_19
+  gem 'byebug'
 end
 
 group :test do
