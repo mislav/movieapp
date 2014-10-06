@@ -19,6 +19,7 @@ group :production do
   gem 'dalli'
   gem 'rack-cache'
   gem 'kgio'
+  gem 'rails_12factor'
 end
 
 gem 'mingo', '>= 0.3.0' #, :path => '/Users/mislav/Projects/mingo'

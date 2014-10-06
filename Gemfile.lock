@@ -132,6 +132,11 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    rails_12factor (0.0.2)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.2)
+    rails_stdout_logging (0.0.3)
     railties (3.2.19)
       actionpack (= 3.2.19)
       activesupport (= 3.2.19)
@@ -225,6 +230,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-twitter
   rack-cache
+  rails_12factor
   railties (~> 3.2.11)
   rspec-rails (~> 2.8.0)
   sass-rails (~> 3.2.5)
