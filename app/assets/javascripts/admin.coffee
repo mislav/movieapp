@@ -22,7 +22,7 @@ $(document).on 'click', '#facebox .poster_picker article', (e) ->
       contentType: 'application/json'
 
     # prevents bug in Chrome where we remain scrolled completely off page
-    window.scrollTo 0
+    window.scrollTo 0, 0
     $.facebox.close()
 
     $('.movie img.poster').attr('src', params.movie.poster_medium_url)
