@@ -3,7 +3,11 @@ require 'forwardable'
 
 Recommendations = Struct.new(:user) do
   extend Forwardable
-  def_delegators :movies, :any?, :empty?, :size
+  def_delegators :movies, :empty?, :size
+
+  def any?
+    enabled? && movies.any?
+  end
 
   def load_movies
     Movie.find(recommended_movie_ids)
@@ -62,5 +66,9 @@ Recommendations = Struct.new(:user) do
 
   def fickle_key
     Movies::Application.config.fickle.api_key
+  end
+
+  def enabled?
+    Movies::Application.config.fickle.enabled
   end
 end

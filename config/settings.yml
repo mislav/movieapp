@@ -25,6 +25,7 @@ defaults: &defaults
   fickle:
     url: "http://fickle-movieapp.herokuapp.com"
     api_key: <%= ENV['FICKLE_KEY'] %>
+    enabled: <%= ENV['RECOMMENDATIONS'] || 'true' %>
 
 development:
   <<: *defaults
