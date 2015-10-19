@@ -1,4 +1,5 @@
 .bundle
+vendor/bundle
 db/*.sqlite3
 config/settings.local.yml
 .idea
@@ -8,4 +9,3 @@ public/stylesheets/*.css
 tmp
 script/server
 .powenv
-.rbenv-version
