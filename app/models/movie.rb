@@ -145,6 +145,15 @@ class Movie < Mingo
     end
   end
 
+  def reset_poster!
+    self.poster_small_url = nil
+    self.poster_medium_url = nil
+    unlock_value :poster_small_url
+    unlock_value :poster_medium_url
+    update_tmdb_movie
+    save
+  end
+
   def netflix_title=(netflix)
     self.netflix_id = netflix.id
     self.netflix_url = netflix.url

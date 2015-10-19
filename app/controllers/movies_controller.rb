@@ -67,6 +67,13 @@ class MoviesController < ApplicationController
     render :layout => !request.xhr?
   end
 
+  def broken_poster
+    @movie.reset_poster!
+
+    response.content_type = Mime::HTML
+    render :inline => %{<%= movie_poster(@movie) %>}, :layout => !request.xhr?
+  end
+
   def raw
     @data = case params[:kind]
     when 'tmdb'

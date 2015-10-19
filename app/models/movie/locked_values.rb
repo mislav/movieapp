@@ -29,6 +29,10 @@ module Movie::LockedValues
     locked_values << field.to_s
   end
 
+  def unlock_value(field)
+    locked_values.delete field.to_s
+  end
+
   def locked_value?(field)
     locked_values.include? field.to_s
   end

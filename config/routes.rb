@@ -13,6 +13,7 @@ Movies::Application.routes.draw do
       get :wikipedia
       get :raw
       get :pick_poster
+      put :broken_poster
       put :change_plot_field
       put :link_to_netflix
       put :add_to_watch

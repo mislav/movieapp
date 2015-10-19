@@ -18,7 +18,7 @@ if pagination.size()
       loading = true
       $.ajax
         url: nextUrl
-        method: 'get'
+        context: pagination
         success: (data, status, xhr) ->
           container.append data
           unless nextUrl = xhr.getResponseHeader 'X-Next-Page'
