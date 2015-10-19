@@ -29,7 +29,7 @@ gem 'bson_ext', '>= 1.1.1', :require => nil
 gem 'will_paginate', '~> 3.0' #, :path => '/Users/mislav/.coral/will_paginate-mislav'
 gem 'escape_utils'
 gem 'choices' #, :path => '/Users/mislav/Projects/choices'
-gem 'never-forget' #, :path => '/Users/mislav/Projects/never-forget'
+gem 'never-forget' #, :path => '/Users/mislav/p/never-forget'
 gem 'twin' #, :path => '/Users/mislav/Projects/twin'
 
 gem 'omniauth-twitter'
