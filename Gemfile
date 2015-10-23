@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
-ruby '2.1.3'
+ruby '2.2.3'
 
-gem 'railties', '~> 3.2.11'
+gem 'railties', '~> 3.2.22'
 gem 'tzinfo'
 gem 'unicorn'
+gem 'test-unit', '~> 3.0'
 
 group :assets do
   gem 'sass-rails', '~> 3.2.5'
@@ -38,7 +39,7 @@ gem 'omniauth-facebook'
 gem 'fickle-ruby', '~> 1.0'
 
 group :extras do
-  gem 'nokogiri', '~> 1.4.1'
+  gem 'nokogiri', '~> 1.5.0'
   gem 'nibbler', '~> 1.3' #, :path => '/Users/mislav/Projects/nibbler'
   gem 'addressable', '~> 2.1'
   gem 'faraday', '~> 0.8.9'
