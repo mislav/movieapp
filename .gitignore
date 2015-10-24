@@ -6,6 +6,7 @@ config/settings.local.yml
 .sass-cache
 log/*.log
 public/stylesheets/*.css
+public/assets/
 tmp
 script/server
 .powenv
