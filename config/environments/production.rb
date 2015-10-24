@@ -19,9 +19,9 @@ Movies::Application.configure do
   config.cache_store = :dalli_store unless $rails_rake_task
 
   client = Dalli::Client.new(
-    ENV["MEMCACHIER_SERVERS"].to_s.split(","),
-    :username => ENV["MEMCACHIER_USERNAME"],
-    :password => ENV["MEMCACHIER_PASSWORD"],
+    ENV["MEMCACHE_SERVERS"].to_s.split(","),
+    :username => ENV["MEMCACHE_USERNAME"],
+    :password => ENV["MEMCACHE_PASSWORD"],
     :failover => true,
     :socket_timeout => 1.5,
     :socket_failure_delay => 0.2,
