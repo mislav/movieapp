@@ -1,0 +1,30 @@
+#!/bin/bash
+# Usage: backup save
+#        backup restore <yyyy-mm-dd>
+
+set -e
+
+cd "${0%/*}/.."
+eval "$(grep ^export .env)"
+
+case "$1" in
+save )
+  dir="$(mktemp -d "${TMPDIR:-/tmp/}backup.XXX")"
+  mongodump --db movieapp --out "$dir"
+  pushd "$dir"
+  file="${PWD}/$(date '+%Y-%m-%d').tgz"
+  tar -czf "$file" *
+  popd
+  script/s3 put "${file}" mislav:movieapp/backup/ --acl "authenticated-read"
+  rm -rf "$dir"
+  ;;
+restore )
+  dir="$(mktemp -d "${TMPDIR:-/tmp/}backup.XXX")"
+  script/s3 get "mislav:movieapp/backup/${1}.tgz" | tar -xz -C "$dir"
+  mongorestore --drop "${dir}/movieapp"
+  rm -rf "$dir"
+  ;;
+* )
+  exit 1
+  ;;
+esac
