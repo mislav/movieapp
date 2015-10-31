@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# Usage: s3-put <FILE> <S3_BUCKET>[:<PATH>] [<CONTENT_TYPE>]
+# Usage: s3 put <file> <bucket>[:<path>] [--acl <acl>] [--content-type <content-type>]
+#        s3 get <bucket>:<path>
+#        s3 delete <bucket>:<path>
 #
 # Uploads a file to the Amazon S3 service.
 # Outputs the URL for the newly uploaded file.
@@ -36,36 +38,90 @@ string_to_sign() {
   echo "$content_md5"
   echo "$content_type"
   echo "$date"
-  echo "x-amz-acl:$acl"
+  [ -z "$acl" ] || echo "x-amz-acl:$acl"
   printf "/$bucket/$remote_path"
 }
 
-date_string() {
-  LC_TIME=C date "+%a, %d %h %Y %T %z"
+http() {
+  curl -qsSf \
+    -H "Authorization: $(authorization)" \
+    -H "x-amz-acl: $acl" \
+    -H "Date: $date" \
+    -H "Content-MD5: $content_md5" \
+    -H "Content-Type: $content_type" \
+    "$@"
 }
 
-file="$1"
-bucket="${2%%:*}"
-remote_path="${2#*:}"
-content_type="$3"
+content_md5=""
+content_type=""
+date="$(LC_TIME=C date "+%a, %d %h %Y %T %z")"
+acl=""
 
-if [ -z "$remote_path" ] || [ "$remote_path" = "$bucket" ]; then
-  remote_path="${file##*/}"
-fi
+put() {
+  unset file
+  unset remote_path
 
-http_method=PUT
-acl="public-read"
-content_md5="$(bin_md5 < "$file" | base64)"
-date="$(date_string)"
+  while [ $# -gt 0 ]; do
+    case "$1" in
+    --acl ) shift 1; acl="$1" ;;
+    --acl=* ) acl="${1#--acl=}" ;;
+    --content-type ) shift 1; content_type="$1" ;;
+    --content-type=* ) content_type="${1#--content-type=}" ;;
+    * )
+      if [ -z "${file+x}" ]; then file="$1"
+      elif [ -z "${remote_path+x}" ]; then remote_path="$1"
+      else abort_usage
+      fi
+      ;;
+    esac
+    shift 1
+  done
 
-url="https://$bucket.s3.amazonaws.com/$remote_path"
+  bucket="${remote_path%%:*}"
+  remote_path="${remote_path#*:}"
 
-curl -qsSf -T "$file" \
-  -H "Authorization: $(authorization)" \
-  -H "x-amz-acl: $acl" \
-  -H "Date: $date" \
-  -H "Content-MD5: $content_md5" \
-  -H "Content-Type: $content_type" \
-  "$url"
+  if [ -z "$remote_path" ] || [ "$remote_path" = "$bucket" ]; then
+    remote_path="${file##*/}"
+  elif [[ $remote_path == */ ]]; then
+    remote_path="${remote_path}${file##*/}"
+  fi
 
-echo "$url"
+  http_method=PUT
+  content_md5="$(bin_md5 < "$file" | base64)"
+
+  url="https://${bucket}.s3.amazonaws.com/${remote_path}"
+  http -T "$file" "$url" >&2
+  echo "$url"
+}
+
+get() {
+  bucket="${1%%:*}"
+  remote_path="${1#*:}"
+
+  http_method=GET
+  http "https://${bucket}.s3.amazonaws.com/${remote_path}"
+}
+
+delete() {
+  bucket="${1%%:*}"
+  remote_path="${1#*:}"
+
+  http_method=DELETE
+  http -X "$http_method" "https://${bucket}.s3.amazonaws.com/${remote_path}"
+}
+
+abort_usage() {
+  sed -n 's/^# \{0,1\}//; 2,4p' "$0" >&2
+  exit 1
+}
+
+cmd="$1"
+case "$cmd" in
+get | put | delete )
+  shift 1
+  "$cmd" "$@"
+  ;;
+* )
+  abort_usage
+  ;;
+esac
