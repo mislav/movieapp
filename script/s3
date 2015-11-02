@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Usage: s3 put <file> <bucket>[:<path>] [--acl <acl>] [--content-type <content-type>]
 #        s3 get <bucket>:<path>
+#        s3 list <bucket>[:<prefix>]
 #        s3 delete <bucket>:<path>
 #
 # Uploads a file to the Amazon S3 service.
@@ -102,6 +103,20 @@ get() {
   http "https://${bucket}.s3.amazonaws.com/${remote_path}"
 }
 
+list() {
+  bucket="${1%%:*}"
+  prefix="${1#*:}"
+
+  if [ "$prefix" = "$bucket" ]; then
+    prefix=""
+  fi
+
+  http_method=GET
+  remote_path=""
+  url="https://${bucket}.s3.amazonaws.com/?prefix=${prefix}"
+  http "$url" | sed $'s/<Key>/\\\n/g' | cut -d '<' -f1 | sed '/^$/d'
+}
+
 delete() {
   bucket="${1%%:*}"
   remote_path="${1#*:}"
@@ -111,13 +126,13 @@ delete() {
 }
 
 abort_usage() {
-  sed -n 's/^# \{0,1\}//; 2,4p' "$0" >&2
+  sed -n 's/^# \{0,1\}//; 2,/^$/p' "$0" >&2
   exit 1
 }
 
 cmd="$1"
 case "$cmd" in
-get | put | delete )
+get | put | delete | list )
   shift 1
   "$cmd" "$@"
   ;;
