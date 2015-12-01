@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
   
   before_filter :find_movie, :except => :index
-  admin_actions :only => [:edit, :update, :change_plot_field, :link_to_netflix]
+  admin_actions :only => [:edit, :update, :change_plot_field]
   
   rescue_from 'Net::HTTPExceptions', 'Faraday::Error::ClientError' do |error|
     render 'shared/error', :status => 500, :locals => {:error => error}
@@ -33,10 +33,6 @@ class MoviesController < ApplicationController
 
     if params[:local]
       @movies = Movie.search_regexp(@query, :no_escape).page(params[:page])
-    elsif params[:netflix]
-      require 'netflix'
-      @movies = Netflix.search(@query, :expand => %w'directors').titles
-      render :netflix_search, :layout => !request.xhr?
     else
       @movies = Movie.search(@query).paginate(:page => params[:page], :per_page => 30)
       redirect_to movie_url(@movies.first) if @movies.total_entries == 1
@@ -134,11 +130,6 @@ class MoviesController < ApplicationController
   
   def change_plot_field
     @movie.toggle_plot_field!
-    redirect_to movie_url(@movie)
-  end
-  
-  def link_to_netflix
-    @movie.update_netflix_info(params[:netflix_id])
     redirect_to movie_url(@movie)
   end
   

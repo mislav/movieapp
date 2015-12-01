@@ -1,4 +1,3 @@
-require 'netflix'
 require 'tmdb'
 require 'rotten_tomatoes'
 require 'wikipedia'
@@ -222,18 +221,6 @@ class Movie < Mingo
   rescue Net::HTTPExceptions, Faraday::Error::ClientError, Timeout::Error
     NeverForget.log($!, tmdb_id: self.tmdb_id)
     Rails.logger.warn "An HTTP error occured while trying to get data for TMDB movie #{self.tmdb_id}"
-  end
-  
-  def update_netflix_info(netflix_id = self.netflix_id)
-    if netflix_id
-      self.netflix_title = Netflix.movie_info(netflix_id)
-    else
-      self.netflix_id = self.netflix_url = self.netflix_plot = nil
-    end
-    self.save
-  rescue Net::HTTPExceptions, Faraday::Error::ClientError, Timeout::Error
-    NeverForget.log($!, netflix_id: self.netflix_id)
-    Rails.logger.warn "An HTTP error occured while trying to get data for Netflix movie #{self.netflix_id}"
   end
   
   def extended_info_missing?

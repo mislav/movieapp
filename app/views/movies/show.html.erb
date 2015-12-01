@@ -23,11 +23,6 @@
         <li><%= link_to "switch to #{@movie.next_plot_source} plot", change_plot_field_movie_path(@movie.id), :method => 'put' %></li>
         <% end %>
         <li><%= link_to "change poster image", pick_poster_movie_path(@movie.id), :rel => 'facebox.poster_picker' %></li>
-        <% if @movie.netflix_id.blank? %>
-        <li><%= link_to "link to Netflix", root_path(netflix: true, q: @movie.title), :rel => 'facebox.netflix_picker' %></li>
-        <% else %>
-        <li><%= link_to "unlink from Netflix", link_to_netflix_movie_path(@movie.id), :method => 'put' %></li>
-        <% end %>
         <li><%= link_to "edit movie", edit_movie_path(@movie.id), :rel => 'facebox.edit' %></li>
         <% if @movie.tmdb_url.present? %>
         <li><%= link_to "see TMDB entry", @movie.tmdb_url %></li>

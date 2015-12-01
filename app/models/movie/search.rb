@@ -7,7 +7,7 @@ module Movie::Search
     search_combined(term)
   rescue Faraday::Error::ClientError, Faraday::Error::ParsingError, Timeout::Error
     NeverForget.log($!, term: term)
-    search_netflix(term).presence || search_regexp(term)
+    search_regexp(term)
   end
 
   def search_regexp(term, no_escape = false)
@@ -20,16 +20,6 @@ module Movie::Search
     spawner = RecordSpawner.new(tmdb_movies)
     block_given? ? yield(spawner) : spawner.make_all
     spawner.made_movies
-  end
-
-  def from_netflix_movies(netflix_titles)
-    existing = find(netflix_id: {'$in' => netflix_titles.map(&:id)}).index_by(&:netflix_id)
-    netflix_titles.map do |netflix_title|
-      if movie = existing[netflix_title.id]
-        movie.netflix_title = netflix_title
-        movie
-      end
-    end.compact
   end
 
   private
@@ -75,39 +65,17 @@ module Movie::Search
   def search_rotten_tomatoes(term)
     RottenTomatoes.search(term).movies
   rescue Faraday::Error::ClientError, Timeout::Error
-    # we can survive without Netflix results
+    # we can survive without Rotten results
     NeverForget.log($!, term: term)
     []
-  end
-
-  def search_netflix_titles(term)
-    Netflix.search(term, :expand => %w[synopsis directors]).titles
-  rescue Faraday::Error::ClientError, Timeout::Error
-    # we can survive without Netflix results
-    NeverForget.log($!, term: term)
-    []
-  end
-
-  def search_netflix(term)
-    netflix_titles = search_netflix_titles(term)
-    return netflix_titles if netflix_titles.empty?
-    from_netflix_movies(netflix_titles).each(&:save)
   end
 
   def search_combined(term)
     tmdb_movies = Tmdb.search(term).movies.reject { |m| m.year.blank? }
     return tmdb_movies if tmdb_movies.empty?
-    netflix_titles = search_netflix_titles(term)
     rotten_movies = search_rotten_tomatoes(term)
 
     from_tmdb_movies(tmdb_movies) do |spawner|
-      netflix_titles.each do |netflix_title|
-        if tmdb_movie = spawner.find_linked_to_netflix(netflix_title)
-          tmdb_movies.delete(tmdb_movie)
-          spawner.make(tmdb_movie, netflix_title)
-        end
-      end
-
       tmdb_movies.each { |tmdb| spawner.make(tmdb) }
     end.each { |movie|
       if rotten = rotten_movies.delete(movie)

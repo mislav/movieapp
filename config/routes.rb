@@ -15,7 +15,6 @@ Movies::Application.routes.draw do
       get :pick_poster
       put :broken_poster
       put :change_plot_field
-      put :link_to_netflix
       put :add_to_watch
       delete :remove_from_to_watch
       put :add_watched
