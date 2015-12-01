@@ -54,7 +54,10 @@ module Movies
       config.twitter.consumer_key, config.twitter.secret
 
     config.middleware.use OmniAuth::Strategies::Facebook,
-      config.facebook.app_id, config.facebook.secret
+      config.facebook.app_id, config.facebook.secret, :client_options => {
+        :site => 'https://graph.facebook.com/v2.2',
+        :authorize_url => "https://www.facebook.com/v2.2/dialog/oauth"
+      }
 
     config.middleware.use Twin
 
