@@ -14,7 +14,7 @@ detectBrokenPosterImages = ->
   images = $('img.poster').slice numProcessed
   numProcessed += images.length
   for img in images
-    if img.completed then processImage.call img
+    if img.complete then processImage.call img
     else $(img).on 'load error', processImage
 
 $(document).on 'ajaxSuccess', '.pagination', detectBrokenPosterImages
