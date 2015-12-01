@@ -2,11 +2,11 @@
 vendor/bundle
 db/*.sqlite3
 config/settings.local.yml
+.env
 .idea
 .sass-cache
 log/*.log
 public/stylesheets/*.css
 public/assets/
 tmp
-script/server
 .powenv

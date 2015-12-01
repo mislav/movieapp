@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+
+ssh app@movi.im 'mongodump --db movieapp --out db >/dev/null && tar -cz db' | tar -xz
+mongorestore --db movieapp --dir db/movieapp/
+git clean -fdx db/movieapp/

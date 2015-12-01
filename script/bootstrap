@@ -1,0 +1,31 @@
+#!/bin/bash
+set -e
+
+brew bundle
+bundle install --path vendor/bundle --without production --jobs 4
+
+cat > /usr/local/etc/nginx/servers/movieapp <<OUT
+upstream movieapp {
+  server unix:$PWD/tmp/unicorn.sock fail_timeout=0;
+}
+
+server {
+  listen 8080;
+  server_name movi.dev;
+
+  root $PWD/public;
+
+  try_files \$uri/index.html \$uri @movieapp;
+
+  location @movieapp {
+    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    proxy_set_header Host \$http_host;
+    proxy_redirect off;
+    proxy_pass http://movieapp;
+  }
+
+  error_page 500 502 503 504 /500.html;
+}
+OUT
+
+brew services restart nginx

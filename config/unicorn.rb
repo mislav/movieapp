@@ -4,6 +4,7 @@ if "production" == ENV["RAILS_ENV"]
   worker_processes 2
   timeout 30
 else
-  worker_processes 1
+  listen File.expand_path("../../tmp/unicorn.sock", __FILE__)
+  worker_processes 2
   timeout 60
 end
