@@ -1,5 +1,5 @@
 require 'tmdb'
-require 'rotten_tomatoes'
+require 'rotten_tomatoes_private'
 require 'wikipedia'
 require 'html/sanitizer'
 require 'movie_title'
@@ -178,6 +178,12 @@ class Movie < Mingo
         'poster_profile'  => rotten.poster_profile,
         'poster_detailed' => rotten.poster_detailed
       }
+
+      if self['rotten_tomatoes']
+        %w[poster_detailed genres].each do |field|
+          values[field] ||= self['rotten_tomatoes'][field]
+        end
+      end
     else
       values = {}
     end
@@ -187,7 +193,7 @@ class Movie < Mingo
 
   def rotten_info_stale?
     self['rotten_tomatoes'].nil? or
-      self['rotten_tomatoes']['updated_at'] < 1.day.ago
+      self['rotten_tomatoes']['updated_at'] < 1.week.ago
   end
 
   def rotten_id
@@ -206,9 +212,9 @@ class Movie < Mingo
 
   def update_rotten_movie
     self.rotten_movie = if id = rotten_id
-      RottenTomatoes.movie_details(id)
-    elsif imdb_id
-      RottenTomatoes.find_by_imdb_id(imdb_id)
+      RottenTomatoesPrivate.movie_details(id)
+    else
+      RottenTomatoesPrivate.search(title).movies.detect { |m| m == self }
     end
   end
 

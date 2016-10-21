@@ -63,7 +63,7 @@ module Movie::Search
   end
 
   def search_rotten_tomatoes(term)
-    RottenTomatoes.search(term).movies
+    RottenTomatoesPrivate.search(term).movies
   rescue Faraday::Error::ClientError, Timeout::Error
     # we can survive without Rotten results
     NeverForget.log($!, term: term)
