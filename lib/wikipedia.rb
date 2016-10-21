@@ -2,7 +2,7 @@ require 'faraday_middleware'
 
 module Wikipedia
   def self.client
-    @client ||= Faraday.new('http://en.wikipedia.org/w/api.php?format=json') do |client|
+    @client ||= Faraday.new('https://en.wikipedia.org/w/api.php?format=json') do |client|
       if user_agent = Movies::Application.config.user_agent
         client.headers[:user_agent] = Movies::Application.config.user_agent
       end
