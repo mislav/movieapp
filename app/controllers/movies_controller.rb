@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   
-  before_filter :find_movie, :except => :index
+  before_filter :find_movie, :except => [:index, :opensearch]
   admin_actions :only => [:edit, :update, :change_plot_field]
   
   rescue_from 'Net::HTTPExceptions', 'Faraday::Error::ClientError' do |error|
