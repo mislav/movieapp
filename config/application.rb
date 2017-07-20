@@ -55,8 +55,8 @@ module Movies
 
     config.middleware.use OmniAuth::Strategies::Facebook,
       config.facebook.app_id, config.facebook.secret, :client_options => {
-        :site => 'https://graph.facebook.com/v2.2',
-        :authorize_url => "https://www.facebook.com/v2.2/dialog/oauth"
+        :site => 'https://graph.facebook.com/v2.10',
+        :authorize_url => "https://www.facebook.com/v2.10/dialog/oauth"
       }
 
     config.middleware.use Twin
