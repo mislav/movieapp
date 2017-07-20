@@ -26,12 +26,16 @@ module User::Social
     self.facebook_friends.include? user['facebook']['id'] if user.from_facebook?
   end
 
-  FACEBOOK_FIELDS = %w[id username link name email website timezone location gender]
+  FACEBOOK_FIELDS = %w[id link name email timezone]
 
   def facebook_info=(info)
     self['facebook'] = info.to_hash.slice(*FACEBOOK_FIELDS).tap do |data|
       self.username ||= data['username'] || data['link'].scan(/[\w.]+/).last
       self.name ||= data['name']
+
+      if info['picture'] && !info['picture']['data']['is_silhouette']
+        data['picture'] = info['picture']['data']['url']
+      end
     end
   end
 
