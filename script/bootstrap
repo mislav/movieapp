@@ -1,17 +1,88 @@
 #!/bin/bash
 set -e
 
-brew bundle --no-upgrade
-bundle install --path vendor/bundle --without production --jobs 4
+hostname=movi.dev
+cert_dir=/usr/local/etc/nginx/certs
+root_ca="$cert_dir/rootCA.pem"
+root_ca_key="$cert_dir/rootCA.key"
+csr="$cert_dir/$hostname.csr"
+cert="$cert_dir/$hostname.crt"
+cert_key="$cert_dir/$hostname.key"
 
-cat > /usr/local/etc/nginx/servers/movieapp <<OUT
+brew bundle --no-upgrade
+bundle install --path vendor/bundle --without production --jobs 4 | grep -v '^Using '
+
+mkdir -p "$cert_dir"
+
+if [ ! -e "$root_ca" ]; then
+  openssl genrsa -des3 -out "$root_ca_key" 2048
+  openssl req -x509 -new -nodes -key "$root_ca_key" -sha256 -days 1024 -out "$root_ca"
+  printf "\n\e[31mIMPORTANT:\e[m You must import %s in Keychain and mark it as trusted.\n\n" "$root_ca"
+fi
+
+if [ ! -e "$cert" ]; then
+  openssl req -new -sha256 -nodes -out "$csr" -newkey rsa:2048 -keyout "$cert_key" -config <( cat <<EOF
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+distinguished_name = dn
+
+[dn]
+C=NL
+ST=Nord Holland
+L=Amsterdam
+O=Testing
+OU=Testing Domain
+emailAddress=mislav@example.com
+CN = $hostname
+EOF
+  )
+
+  openssl x509 -req -in "$csr" -CA "$root_ca" -CAkey "$root_ca_key" -CAcreateserial -out "$cert" -days 500 -sha256 -extfile <( cat <<EOF
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = $hostname
+EOF
+  )
+
+  rm "$csr"
+fi
+
+cat > /usr/local/etc/nginx/servers/movieapp <<EOF
 upstream movieapp {
   server unix:$PWD/tmp/unicorn.sock fail_timeout=0;
 }
 
 server {
+  listen 8443 ssl;
+  server_name $hostname;
+
+  ssl_certificate     $cert;
+  ssl_certificate_key $cert_key;
+
+  root $PWD/public;
+
+  try_files \$uri/index.html \$uri @movieapp;
+
+  location @movieapp {
+    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto https;
+    proxy_set_header Host \$http_host;
+    proxy_redirect off;
+    proxy_pass http://movieapp;
+  }
+
+  error_page 500 502 503 504 /500.html;
+}
+
+server {
   listen 8080;
-  server_name movi.dev;
+  server_name $hostname;
 
   root $PWD/public;
 
@@ -26,6 +97,6 @@ server {
 
   error_page 500 502 503 504 /500.html;
 }
-OUT
+EOF
 
 brew services restart nginx
