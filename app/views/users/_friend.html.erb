@@ -1,7 +1,7 @@
 <tr>
   <td>
     <% if friend.picture? %>
-      <span class="avatar" style="background-image:url(<%= friend.picture_url %>)"></span>
+      <span class="avatar" style="background-image:url(<%= strip_schema(friend.picture_url) %>)"></span>
     <% end %>
   </td>
 

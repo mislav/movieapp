@@ -62,7 +62,7 @@ module MoviesHelper
     if Movies.offline? or src.blank?
       content_tag :span, nil, :class => 'poster'
     else
-      image_tag src, :width => width, :class => 'poster',
+      image_tag strip_schema(src), :width => width, :class => 'poster',
         :alt => src.blank? ? 'No poster' : ('Poster for ' + movie.title)
     end
   end

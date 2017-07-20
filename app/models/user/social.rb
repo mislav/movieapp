@@ -115,7 +115,7 @@ module User::Social
 
   # 100x? px
   def facebook_picture
-    "http://graph.facebook.com/#{self['facebook']['id']}/picture?type=normal"
+    "https://graph.facebook.com/#{self['facebook']['id']}/picture?type=normal"
   end
 
   # either Twitter of Facebook picture

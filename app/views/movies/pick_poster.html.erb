@@ -1,6 +1,6 @@
 <% for poster in @posters -%>
   <article>
-    <%= image_tag poster.medium_url, width: 185 %>
-    <%= image_tag poster.small_url,  width: 92 %>
+    <%= image_tag strip_schema(poster.medium_url), width: 185 %>
+    <%= image_tag strip_schema(poster.small_url),  width: 92 %>
   </article>
 <% end -%>

@@ -42,4 +42,8 @@ module ApplicationHelper
   def android?
     request.user_agent =~ /\bAndroid\b/
   end
+
+  def strip_schema(url)
+    url.sub(%r{^[\w-]+://}, '//')
+  end
 end
