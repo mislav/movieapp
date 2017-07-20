@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-brew bundle
+brew bundle --no-upgrade
 bundle install --path vendor/bundle --without production --jobs 4
 
 cat > /usr/local/etc/nginx/servers/movieapp <<OUT
