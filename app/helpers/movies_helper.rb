@@ -63,7 +63,7 @@ module MoviesHelper
       content_tag :span, nil, :class => 'poster'
     else
       image_tag strip_schema(src), :width => width, :class => 'poster',
-        :alt => src.blank? ? 'No poster' : ('Poster for ' + movie.title)
+        :alt => 'Poster for ' + movie.title
     end
   end
   

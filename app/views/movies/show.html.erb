@@ -5,7 +5,7 @@
   <meta property="og:title" content="<%= h movie_title_with_year(@movie, :with_original) %>">
   <meta property="og:type" content="video.movie">
   <meta property="og:url" content="<%= movie_url(@movie) %>">
-  <meta property="og:image" content="<%= strip_schema(@movie.poster_small_url) %>">
+  <meta property="og:image" content="<%= strip_schema(@movie.poster_small_url.to_s) %>">
   <meta property="og:site_name" content="Movi.im">
   <% if @movie.chosen_plot.present? %>
   <meta property="og:description" content="<%= h movie_plot(@movie) %>">
