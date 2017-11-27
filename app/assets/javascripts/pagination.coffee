@@ -2,7 +2,7 @@ viewport = $(window)
 pagination = $('.pagination').eq(0)
 
 viewportOffset = (el) ->
-  el.offset().top - document.body.scrollTop
+  el.offset().top - window.scrollY
 
 if pagination.size()
   nextUrl = pagination.find('a[rel=next]').attr 'href'
