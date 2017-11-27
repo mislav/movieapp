@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-hostname=movi.dev
+hostname=movi.localhost
 cert_dir=/usr/local/etc/nginx/certs
 root_ca="$cert_dir/rootCA.pem"
 root_ca_key="$cert_dir/rootCA.key"
