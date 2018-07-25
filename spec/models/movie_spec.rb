@@ -69,7 +69,7 @@ describe Movie do
 
       attributes = movie.to_hash
       movie.ensure_extended_info
-      attributes.should == movie
+      attributes.should_not == movie.to_hash
     end
 
     it "movie with stale info" do
@@ -118,7 +118,7 @@ describe Movie do
       attributes = movie.to_hash
       movie.ensure_extended_info
       movie.should_not be_changed
-      attributes.should == movie
+      attributes.should == movie.to_hash
       movie.directors.should == []
     end
     
