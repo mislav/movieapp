@@ -8,6 +8,12 @@ if defined?(Bundler)
   Bundler.require(:default, :assets, Rails.env)
 end
 
+if defined?(Rake)
+  Rake::Application.class_eval do
+    def last_comment() end
+  end
+end
+
 module Movies
   def self.offline?
     Application.config.offline

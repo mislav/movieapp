@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept: ! '*/*'
+      Accept: "*/*"
       User-Agent: Ruby
   response:
     status: {code: 200, message: OK}
@@ -25,11 +25,11 @@ http_interactions:
       X-Frame-Options: sameorigin
       X-Memc: HIT
       X-Memc-Age: '91926'
-      X-Memc-Key: /search/movie?include_adult=false&language=en&query=star+wars
+      X-Memc-Key: "/search/movie?include_adult=false&language=en&query=star+wars"
       X-Varnish: '2044175914'
       X-Varnish-Sid: tm-v-p-1200
       X-Xss-Protection: 1; mode=block
-      Content-Length: '6467'
+      Content-Length: '2444'
       Connection: keep-alive
     body:
       encoding: UTF-8
@@ -117,7 +117,7 @@ http_interactions:
         oauth_signature="HIlJn%2BClJJ7Up1FdpLX8aBgfjsk%3D", oauth_signature_method="HMAC-SHA1",
         oauth_timestamp="1331670303", oauth_version="1.0"
       Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept: ! '*/*'
+      Accept: "*/*"
       User-Agent: Ruby
   response:
     status: {code: 200, message: OK}
@@ -125,10 +125,10 @@ http_interactions:
       Access-Control-Allow-Credentials: 'true'
       Access-Control-Allow-Headers: Authorization,Content-Type,Accept,X-Netflix.application.name,X-Netflix.application.version,X-Netflix.esn,X-Netflix.device.type,X-Netflix.certification.version,X-Netflix.request.uuid,X-Netflix.user.id,X-Netflix.oauth.consumer.key,X-Netflix.oauth.token,X-Netflix.routing
       Access-Control-Allow-Methods: GET, POST
-      Access-Control-Allow-Origin: ! '*'
+      Access-Control-Allow-Origin: "*"
       Content-Type: application/xml;charset=UTF-8
       Date: Tue, 13 Mar 2012 20:25:04 GMT
-      Etag: ! '"0"'
+      Etag: '"0"'
       Server: Noelios-Restlet-Engine/1.1.rc2
       Set-Cookie: tlr=HR|1331670304465; Domain=.netflix.com; Expires=Fri, 08-Mar-2013
         20:25:04 GMT
@@ -274,425 +274,13 @@ http_interactions:
   recorded_at: Tue, 13 Mar 2012 20:25:04 GMT
 - request:
     method: get
-    uri: http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=<ROTTEN_KEY>&page=1&page_limit=5&q=star%20wars
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept: ! '*/*'
-      User-Agent: Ruby
-  response:
-    status: {code: 200, message: OK}
-    headers:
-      Accept-Ranges: bytes
-      Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
-      Content-Language: en-US
-      Content-Type: text/javascript;charset=ISO-8859-1
-      Date: Tue, 13 Mar 2012 20:25:05 GMT
-      Expires: Sat, 6 May 1995 12:00:00 GMT
-      Pragma: no-cache
-      Server: Mashery Proxy
-      Set-Cookie:
-      - JSESSIONID=EF9E5D8B98905678C59D938E319F6936.localhost; Path=/
-      - ServerID=1175; Path=/
-      Vary: User-Agent,Accept-Encoding
-      X-Mashery-Responder: proxylb-p-us-east-1d-07.mashery.com
-      X-Original-Content-Encoding: gzip
-      X-Original-Content-Length: '2063'
-      Content-Length: '12505'
-      Connection: keep-alive
-    body:
-      encoding: UTF-8
-      string: |-
-        {
-          "total": 34,
-          "movies": [
-            {
-              "id": "9",
-              "title": "Star Wars: Episode III - Revenge of the Sith",
-              "year": 2005,
-              "mpaa_rating": "PG-13",
-              "runtime": 140,
-              "critics_consensus": "This sixth and final installment of George Lucas' epic space opera will please die-hard fanatics and non-believers alike -- largely due to awesome digital effects and the sheer power of the mythology.",
-              "release_dates": {
-                "theater": "2005-05-15",
-                "dvd": "2005-11-01"
-              },
-              "ratings": {
-                "critics_rating": "Certified Fresh",
-                "critics_score": 80,
-                "audience_rating": "Upright",
-                "audience_score": 64
-              },
-              "synopsis": "",
-              "posters": {
-                "thumbnail": "http://content8.flixster.com/movie/10/94/47/10944718_mob.jpg",
-                "profile": "http://content8.flixster.com/movie/10/94/47/10944718_pro.jpg",
-                "detailed": "http://content8.flixster.com/movie/10/94/47/10944718_det.jpg",
-                "original": "http://content8.flixster.com/movie/10/94/47/10944718_ori.jpg"
-              },
-              "abridged_cast": [
-                {
-                  "name": "Hayden Christensen",
-                  "id": "162652153",
-                  "characters": [
-                    "Anakin Skywalker/Darth Vader"
-                  ]
-                },
-                {
-                  "name": "Ewan McGregor",
-                  "id": "162652152",
-                  "characters": [
-                    "Obi-Wan Kenobi"
-                  ]
-                },
-                {
-                  "name": "Kenny Baker",
-                  "id": "418638213",
-                  "characters": [
-                    "R2-D2"
-                  ]
-                },
-                {
-                  "name": "Graeme Blundell",
-                  "id": "548155708",
-                  "characters": [
-                    "Ruwee Naberrie"
-                  ]
-                },
-                {
-                  "name": "Jeremy Bulloch",
-                  "id": "358317901",
-                  "characters": [
-                    "Captain Colton"
-                  ]
-                }
-              ],
-              "alternate_ids": {
-                "imdb": "0121766"
-              },
-              "links": {
-                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/9.json",
-                "alternate": "http://www.rottentomatoes.com/m/star_wars_3/",
-                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/9/cast.json",
-                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/9/clips.json",
-                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/9/reviews.json",
-                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/9/similar.json"
-              }
-            },
-            {
-              "id": "11292",
-              "title": "Star Wars: Episode IV - A New Hope",
-              "year": 1977,
-              "mpaa_rating": "PG",
-              "runtime": 105,
-              "critics_consensus": "A legendarily expansive and ambitious start to the sci-fi saga, George Lucas opened our eyes to the possiblites of blockbuster filmmaking and things have never been the same.",
-              "release_dates": {
-                "theater": "1977-05-25",
-                "dvd": "2004-09-21"
-              },
-              "ratings": {
-                "critics_rating": "Certified Fresh",
-                "critics_score": 94,
-                "audience_rating": "Upright",
-                "audience_score": 93
-              },
-              "synopsis": "",
-              "posters": {
-                "thumbnail": "http://content9.flixster.com/movie/10/94/47/10944715_mob.jpg",
-                "profile": "http://content9.flixster.com/movie/10/94/47/10944715_pro.jpg",
-                "detailed": "http://content9.flixster.com/movie/10/94/47/10944715_det.jpg",
-                "original": "http://content9.flixster.com/movie/10/94/47/10944715_ori.jpg"
-              },
-              "abridged_cast": [
-                {
-                  "name": "Mark Hamill",
-                  "id": "162665747",
-                  "characters": [
-                    "Luke Skywalker"
-                  ]
-                },
-                {
-                  "name": "Harrison Ford",
-                  "id": "162661579",
-                  "characters": [
-                    "Han Solo"
-                  ]
-                },
-                {
-                  "name": "Carrie Fisher",
-                  "id": "162663355",
-                  "characters": [
-                    "Princess Leia Organa"
-                  ]
-                },
-                {
-                  "name": "Peter Cushing",
-                  "id": "162658723",
-                  "characters": [
-                    "Grand Moff Tarkin"
-                  ]
-                },
-                {
-                  "name": "Alec Guinness",
-                  "id": "162655900",
-                  "characters": [
-                    "Ben Obi-Wan Kenobi"
-                  ]
-                }
-              ],
-              "alternate_ids": {
-                "imdb": "0076759"
-              },
-              "links": {
-                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/11292.json",
-                "alternate": "http://www.rottentomatoes.com/m/star_wars/",
-                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/11292/cast.json",
-                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/11292/clips.json",
-                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/11292/reviews.json",
-                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/11292/similar.json"
-              }
-            },
-            {
-              "id": "10009",
-              "title": "Star Wars: Episode II - Attack of the Clones",
-              "year": 2002,
-              "mpaa_rating": "PG",
-              "runtime": 143,
-              "critics_consensus": "Containing more of what made the Star Wars series fun, Attack of the Clones is an improvement over The Phantom Menace.",
-              "release_dates": {
-                "theater": "2002-05-16",
-                "dvd": "2002-11-12"
-              },
-              "ratings": {
-                "critics_rating": "Fresh",
-                "critics_score": 67,
-                "audience_rating": "Upright",
-                "audience_score": 69
-              },
-              "synopsis": "",
-              "posters": {
-                "thumbnail": "http://content7.flixster.com/movie/10/94/47/10944721_mob.jpg",
-                "profile": "http://content7.flixster.com/movie/10/94/47/10944721_pro.jpg",
-                "detailed": "http://content7.flixster.com/movie/10/94/47/10944721_det.jpg",
-                "original": "http://content7.flixster.com/movie/10/94/47/10944721_ori.jpg"
-              },
-              "abridged_cast": [
-                {
-                  "name": "Ewan McGregor",
-                  "id": "162652152",
-                  "characters": [
-                    "Obi-Wan Kenobi"
-                  ]
-                },
-                {
-                  "name": "Natalie Portman",
-                  "id": "162652154",
-                  "characters": [
-                    "PadmA? Amidala",
-                    "Padme Amidala",
-                    "Padm? Amidala"
-                  ]
-                },
-                {
-                  "name": "Hayden Christensen",
-                  "id": "162652153",
-                  "characters": [
-                    "Anakin Skywalker"
-                  ]
-                },
-                {
-                  "name": "Christopher Lee",
-                  "id": "162652385",
-                  "characters": [
-                    "Count Dooku"
-                  ]
-                },
-                {
-                  "name": "Samuel L. Jackson",
-                  "id": "162652156",
-                  "characters": [
-                    "Mace Windu"
-                  ]
-                }
-              ],
-              "alternate_ids": {
-                "imdb": "0121765"
-              },
-              "links": {
-                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/10009.json",
-                "alternate": "http://www.rottentomatoes.com/m/star_wars_episode_ii_attack_of_the_clones/",
-                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/10009/cast.json",
-                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/10009/clips.json",
-                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/10009/reviews.json",
-                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/10009/similar.json"
-              }
-            },
-            {
-              "id": "11366",
-              "title": "Star Wars: Episode VI - Return of the Jedi",
-              "year": 1983,
-              "mpaa_rating": "PG",
-              "runtime": 133,
-              "critics_consensus": "Though failing to reach the cinematic heights of its predecessors, Return of the Jedi remains an entertaining sci-fi adventure and a fitting end to the classic trilogy.",
-              "release_dates": {
-                "theater": "1983-05-25",
-                "dvd": "2006-09-12"
-              },
-              "ratings": {
-                "critics_rating": "Certified Fresh",
-                "critics_score": 79,
-                "audience_rating": "Upright",
-                "audience_score": 93
-              },
-              "synopsis": "",
-              "posters": {
-                "thumbnail": "http://content7.flixster.com/movie/10/94/47/10944709_mob.jpg",
-                "profile": "http://content7.flixster.com/movie/10/94/47/10944709_pro.jpg",
-                "detailed": "http://content7.flixster.com/movie/10/94/47/10944709_det.jpg",
-                "original": "http://content7.flixster.com/movie/10/94/47/10944709_ori.jpg"
-              },
-              "abridged_cast": [
-                {
-                  "name": "Mark Hamill",
-                  "id": "162665747",
-                  "characters": [
-                    "Luke Skywalker"
-                  ]
-                },
-                {
-                  "name": "Harrison Ford",
-                  "id": "162661579",
-                  "characters": [
-                    "Han Solo"
-                  ]
-                },
-                {
-                  "name": "Carrie Fisher",
-                  "id": "162663355",
-                  "characters": [
-                    "Princess Leia"
-                  ]
-                },
-                {
-                  "name": "Billy Dee Williams",
-                  "id": "162656403",
-                  "characters": [
-                    "Lando Calrissian"
-                  ]
-                },
-                {
-                  "name": "Anthony Daniels",
-                  "id": "178810494",
-                  "characters": [
-                    "C-3PO"
-                  ]
-                }
-              ],
-              "alternate_ids": {
-                "imdb": "0086190"
-              },
-              "links": {
-                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/11366.json",
-                "alternate": "http://www.rottentomatoes.com/m/return_of_the_jedi/",
-                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/11366/cast.json",
-                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/11366/clips.json",
-                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/11366/reviews.json",
-                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/11366/similar.json"
-              }
-            },
-            {
-              "id": "11470",
-              "title": "Star Wars: Episode V - The Empire Strikes Back",
-              "year": 1980,
-              "mpaa_rating": "PG",
-              "runtime": 124,
-              "critics_consensus": "Dark, sinister, but ultimately even more involving than A New Hope, The Empire Strikes Back defies viewer expectations and takes the series to heightened emotional levels.",
-              "release_dates": {
-                "theater": "1980-05-21",
-                "dvd": "2004-09-21"
-              },
-              "ratings": {
-                "critics_rating": "Certified Fresh",
-                "critics_score": 97,
-                "audience_rating": "Upright",
-                "audience_score": 94
-              },
-              "synopsis": "",
-              "posters": {
-                "thumbnail": "http://content7.flixster.com/movie/11/15/79/11157937_mob.jpg",
-                "profile": "http://content7.flixster.com/movie/11/15/79/11157937_pro.jpg",
-                "detailed": "http://content7.flixster.com/movie/11/15/79/11157937_det.jpg",
-                "original": "http://content7.flixster.com/movie/11/15/79/11157937_ori.jpg"
-              },
-              "abridged_cast": [
-                {
-                  "name": "Mark Hamill",
-                  "id": "162665747",
-                  "characters": [
-                    "Luke Skywalker"
-                  ]
-                },
-                {
-                  "name": "Harrison Ford",
-                  "id": "162661579",
-                  "characters": [
-                    "Han Solo"
-                  ]
-                },
-                {
-                  "name": "Carrie Fisher",
-                  "id": "162663355",
-                  "characters": [
-                    "Princess Leia"
-                  ]
-                },
-                {
-                  "name": "David Prowse",
-                  "id": "603676177",
-                  "characters": [
-                    "Darth Vader"
-                  ]
-                },
-                {
-                  "name": "James Earl Jones",
-                  "id": "162655731",
-                  "characters": [
-                    "Darth Vader"
-                  ]
-                }
-              ],
-              "alternate_ids": {
-                "imdb": "0080684"
-              },
-              "links": {
-                "self": "http://api.rottentomatoes.com/api/public/v1.0/movies/11470.json",
-                "alternate": "http://www.rottentomatoes.com/m/empire_strikes_back/",
-                "cast": "http://api.rottentomatoes.com/api/public/v1.0/movies/11470/cast.json",
-                "clips": "http://api.rottentomatoes.com/api/public/v1.0/movies/11470/clips.json",
-                "reviews": "http://api.rottentomatoes.com/api/public/v1.0/movies/11470/reviews.json",
-                "similar": "http://api.rottentomatoes.com/api/public/v1.0/movies/11470/similar.json"
-              }
-            }
-          ],
-          "links": {
-            "self": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=star+wars&page_limit=5&page=1",
-            "next": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=star+wars&page_limit=5&page=2"
-          },
-          "link_template": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q={search-term}&page_limit={results-per-page}&page={page-number}"
-        }
-    http_version: 
-  recorded_at: Tue, 13 Mar 2012 20:25:06 GMT
-- request:
-    method: get
     uri: http://api.themoviedb.org/3/configuration?api_key=<TMDB_KEY>
     body:
       encoding: US-ASCII
       string: ''
     headers:
       Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept: ! '*/*'
+      Accept: "*/*"
       User-Agent: Ruby
   response:
     status: {code: 200, message: OK}
@@ -741,4 +329,647 @@ http_interactions:
         }
     http_version: 
   recorded_at: Tue, 13 Mar 2012 20:25:06 GMT
-recorded_with: VCR 2.0.0
+- request:
+    method: get
+    uri: https://www.rottentomatoes.com/api/private/v1.0/search?page=1&q=star%20wars&t=movie
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent: Mozilla/5.0
+      Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: "*/*"
+  response:
+    status: {code: 200, message: OK}
+    headers:
+      Content-Type: application/json;charset=ISO-8859-1
+      Access-Control-Allow-Credentials: 'false'
+      Access-Control-Allow-Methods: GET
+      Access-Control-Allow-Origin: "*"
+      Content-Language: en-US
+      Content-Security-Policy: frame-ancestors 'self' rottentomatoes.com *.rottentomatoes.com
+        ;
+      Server: nginx/1.8.1
+      X-Content-Security-Policy: frame-ancestors 'self' rottentomatoes.com *.rottentomatoes.com
+        ;
+      X-Content-Type-Options: nosniff
+      X-Xss-Protection: 1; mode=block
+      X-Amz-Cf-Id: HKDElj2U2a5WA2etKvlAmD5fbwn08X-BSWMHQ1BBGRkK0NA8el3GuA==
+      Vary: Accept-Encoding
+      Date: Wed, 25 Jul 2018 18:46:17 GMT
+      Content-Length: '21444'
+      Connection: keep-alive
+      Set-Cookie:
+      - JSESSIONID=BB45435C258FEDFC630F6BED258161A9; Path=/; HttpOnly
+      - akacd_RTReplatform=2177452799~rv=13~id=83fb195299cbb21400bafe6f9b8b893e; path=/;
+        Expires=Mon, 31 Dec 2038 23:59:59 GMT
+      - akamai_generated_location={"zip":"""","city":"AMSTERDAM","state":"""","county":"""","areacode":"""","lat":"52.35","long":"4.92","countrycode":"NL"};
+        expires=Wed, 25-Jul-2018 18:46:47 GMT; path=/; domain=.rottentomatoes.com
+      Strict-Transport-Security: max-age=15768000
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "pageCount": 2,
+          "totalCount": 50,
+          "movies": [
+            {
+              "castItems": [
+                {
+                  "name": "Ewan McGregor",
+                  "url": "/celebrity/ewan_mcgregor/"
+                },
+                {
+                  "name": "Natalie Portman",
+                  "url": "/celebrity/natalie_portman/"
+                },
+                {
+                  "name": "Hayden Christensen",
+                  "url": "/celebrity/hayden_christensen/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/TlgMbTVTC0436I0JmTHwfTX0QEk=/120x178/v1.bTsxMjMwMzAzODtqOzE3ODIwOzIwNDg7NDgwOzcxMQ",
+              "name": "Star Wars: Episode III - Revenge of the Sith",
+              "meterClass": "certified",
+              "image": "https://resizing.flixster.com/W8OwUXzrc-8g768HS4hiwznUgqk=/54x80/v1.bTsxMjMwMzAzODtqOzE3ODIwOzIwNDg7NDgwOzcxMQ",
+              "subline": "Ewan McGregor, Natalie Portman, Hayden Christensen",
+              "year": 2005,
+              "meterScore": 79,
+              "url": "/m/star_wars_episode_iii_revenge_of_the_sith"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Alden Ehrenreich",
+                  "url": "/celebrity/alden-ehrenreich/"
+                },
+                {
+                  "name": "Joonas Suotamo",
+                  "url": "/celebrity/joonas_suotamo/"
+                },
+                {
+                  "name": "Woody Harrelson",
+                  "url": "/celebrity/woody_harrelson/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/vNqII9Pmtn4X4VXMLZ12rbz85q0=/120x178/v1.bTsxMjcwODEwNztqOzE3ODA0OzIwNDg7NDgwOzcxMQ",
+              "name": "Solo: A Star Wars Story",
+              "meterClass": "fresh",
+              "image": "https://resizing.flixster.com/UAfGwOMgmMqbv3ZWBU3teNE3F0A=/54x80/v1.bTsxMjcwODEwNztqOzE3ODA0OzIwNDg7NDgwOzcxMQ",
+              "subline": "Alden Ehrenreich, Joonas Suotamo, Woody Harrelson",
+              "year": 2018,
+              "meterScore": 71,
+              "url": "/m/solo_a_star_wars_story"
+            },
+            {
+              "castItems": [
+
+              ],
+              "posterImage": "https://d2a5cgar23scu2.cloudfront.net/static/static/images/redesign/poster_default.gif",
+              "name": "Solo: A Star Wars Story - Opening Night Fan Event",
+              "meterClass": "N/A",
+              "image": "https://d2a5cgar23scu2.cloudfront.net/static/images/defaults/video.default.l.jpg",
+              "subline": "",
+              "year": 2018,
+              "url": "/m/solo_a_star_wars_story_opening_night_fan_event"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Daisy Ridley",
+                  "url": "/celebrity/daisy_ridley/"
+                },
+                {
+                  "name": "John Boyega",
+                  "url": "/celebrity/john_boyega/"
+                },
+                {
+                  "name": "Adam Driver",
+                  "url": "/celebrity/adam_driver/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/CAYGFNCb0vQaentzoyEopB5m0r8=/120x178/v1.bTsxMTIwMzMwNjtqOzE3ODc1OzIwNDg7ODAwOzExODU",
+              "name": "Star Wars: Episode VII - The Force Awakens",
+              "meterClass": "certified",
+              "image": "https://resizing.flixster.com/-60XF34cEWab_TZMZNmY81QFJMM=/54x80/v1.bTsxMTIwMzMwNjtqOzE3ODc1OzIwNDg7ODAwOzExODU",
+              "subline": "Daisy Ridley, John Boyega, Adam Driver",
+              "year": 2015,
+              "meterScore": 93,
+              "url": "/m/star_wars_episode_vii_the_force_awakens"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Hayden Christensen",
+                  "url": "/celebrity/hayden_christensen/"
+                },
+                {
+                  "name": "Natalie Portman",
+                  "url": "/celebrity/natalie_portman/"
+                },
+                {
+                  "name": "Ewan McGregor",
+                  "url": "/celebrity/ewan_mcgregor/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/oL70alg4bKA1e92cNSb6-EKSKg0=/119x180/v1.bTsxMjMwMzAzNDtqOzE3ODE2OzIwNDg7NDgwOzcyNw",
+              "name": "Star Wars: Episode II - Attack of the Clones",
+              "meterClass": "fresh",
+              "image": "https://resizing.flixster.com/pAvmeMGdAumEEw6OBgbkqszmSqQ=/53x81/v1.bTsxMjMwMzAzNDtqOzE3ODE2OzIwNDg7NDgwOzcyNw",
+              "subline": "Hayden Christensen, Natalie Portman, Ewan McGregor",
+              "year": 2002,
+              "meterScore": 66,
+              "url": "/m/star_wars_episode_ii_attack_of_the_clones"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Mark Hamill",
+                  "url": "/celebrity/mark_hamill/"
+                },
+                {
+                  "name": "Carrie Fisher",
+                  "url": "/celebrity/carrie_fisher/"
+                },
+                {
+                  "name": "Adam Driver",
+                  "url": "/celebrity/adam_driver/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/qcgZ8hdmtSr2Vps23XoEBsrDpiw=/120x178/v1.bTsxMjU0NjIzNDtqOzE3Nzk0OzIwNDg7MTY4ODsyNTAw",
+              "name": "Star Wars: The Last Jedi",
+              "meterClass": "certified",
+              "image": "https://resizing.flixster.com/C3oak4Z-k2-9cTBgU86k_SKt3hs=/54x80/v1.bTsxMjU0NjIzNDtqOzE3Nzk0OzIwNDg7MTY4ODsyNTAw",
+              "subline": "Mark Hamill, Carrie Fisher, Adam Driver",
+              "year": 2017,
+              "meterScore": 91,
+              "url": "/m/star_wars_the_last_jedi"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Liam Neeson",
+                  "url": "/celebrity/liam_neeson/"
+                },
+                {
+                  "name": "Ewan McGregor",
+                  "url": "/celebrity/ewan_mcgregor/"
+                },
+                {
+                  "name": "Natalie Portman",
+                  "url": "/celebrity/natalie_portman/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/DlB7jJigCnrcLClh26TX9keDL7M=/120x180/v1.bTsxMjMwMzAzMztqOzE3ODE1OzIwNDg7NDgwOzcyMg",
+              "name": "Star Wars: Episode I - The Phantom Menace",
+              "meterClass": "rotten",
+              "image": "https://resizing.flixster.com/ZqXHTbI55xtmPfMJYu8nOnnUkvk=/54x81/v1.bTsxMjMwMzAzMztqOzE3ODE1OzIwNDg7NDgwOzcyMg",
+              "subline": "Liam Neeson, Ewan McGregor, Natalie Portman",
+              "year": 1999,
+              "meterScore": 55,
+              "url": "/m/star_wars_episode_i_the_phantom_menace"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Mark Hamill",
+                  "url": "/celebrity/mark_hamill/"
+                },
+                {
+                  "name": "Harrison Ford",
+                  "url": "/celebrity/harrison_ford/"
+                },
+                {
+                  "name": "Carrie Fisher",
+                  "url": "/celebrity/carrie_fisher/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/RV625qdAb_9cPyPHE4YwTK5aOl0=/114x180/v1.bTsxMjMwMzAzOTtqOzE3ODIxOzIwNDg7NDgwOzc1Ng",
+              "name": "Star Wars: Episode IV - A New Hope",
+              "meterClass": "certified",
+              "image": "https://resizing.flixster.com/gcsdM9l41s6AtVrjUtjw6fq4IzE=/51x81/v1.bTsxMjMwMzAzOTtqOzE3ODIxOzIwNDg7NDgwOzc1Ng",
+              "subline": "Mark Hamill, Harrison Ford, Carrie Fisher",
+              "year": 1977,
+              "meterScore": 93,
+              "url": "/m/star_wars"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Matt Lanter",
+                  "url": "/celebrity/matt_lanter/"
+                },
+                {
+                  "name": "Ashley Eckstein",
+                  "url": "/celebrity/ashley-drane/"
+                },
+                {
+                  "name": "James Arnold Taylor",
+                  "url": "/celebrity/james_arnold_taylor/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/iiqmHQ3f4CxyfaJUMDgsB9bCJHc=/120x180/v1.bTsxMTIwMzI0MTtqOzE3OTAwOzIwNDg7MTM2NDsyMDQ2",
+              "name": "Star Wars: The Clone Wars",
+              "meterClass": "rotten",
+              "image": "https://resizing.flixster.com/ztRLNixMLGrCj9Zc-LLqvN5JKws=/54x81/v1.bTsxMTIwMzI0MTtqOzE3OTAwOzIwNDg7MTM2NDsyMDQ2",
+              "subline": "Matt Lanter, Ashley Eckstein, James Arnold Taylor",
+              "year": 2008,
+              "meterScore": 18,
+              "url": "/m/clone_wars"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Mark Hamill",
+                  "url": "/celebrity/mark_hamill/"
+                },
+                {
+                  "name": "Harrison Ford",
+                  "url": "/celebrity/harrison_ford/"
+                },
+                {
+                  "name": "Carrie Fisher",
+                  "url": "/celebrity/carrie_fisher/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/asAY_4z4H5qvAodUoIZ4VrPHsDM=/116x180/v1.bTsxMjMwMzA0MDtqOzE3ODIyOzIwNDg7NDgwOzc0Nw",
+              "name": "Star Wars: Episode V - The Empire Strikes Back",
+              "meterClass": "certified",
+              "image": "https://resizing.flixster.com/NLtoK858fY5NI9fyhmvHou7l3gU=/52x81/v1.bTsxMjMwMzA0MDtqOzE3ODIyOzIwNDg7NDgwOzc0Nw",
+              "subline": "Mark Hamill, Harrison Ford, Carrie Fisher",
+              "year": 1980,
+              "meterScore": 95,
+              "url": "/m/empire_strikes_back"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Mark Hamill",
+                  "url": "/celebrity/mark_hamill/"
+                },
+                {
+                  "name": "Carrie Fisher",
+                  "url": "/celebrity/carrie_fisher/"
+                },
+                {
+                  "name": "Harrison Ford",
+                  "url": "/celebrity/harrison_ford/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/GhQFeBRMalDaXi9ELksJ4a-klkk=/113x180/v1.bTsxMjMwMzA0MTtqOzE3ODIzOzIwNDg7NDgwOzc2Mw",
+              "name": "Star Wars: Episode VI - Return of the Jedi",
+              "meterClass": "certified",
+              "image": "https://resizing.flixster.com/8BxJ_7tzL5i2QOyFni8PzgeGnwE=/51x81/v1.bTsxMjMwMzA0MTtqOzE3ODIzOzIwNDg7NDgwOzc2Mw",
+              "subline": "Mark Hamill, Carrie Fisher, Harrison Ford",
+              "year": 1983,
+              "meterScore": 80,
+              "url": "/m/star_wars_episode_vi_return_of_the_jedi"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Felicity Jones",
+                  "url": "/celebrity/felicity-jones/"
+                },
+                {
+                  "name": "Diego Luna",
+                  "url": "/celebrity/diego_luna/"
+                },
+                {
+                  "name": "Mads Mikkelsen",
+                  "url": "/celebrity/mads_mikkelsen/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/pOOf1Mhvr41GqclSLAdp-7mfKUg=/120x178/v1.bTsxMjIzNzIxOTtwOzE3NzkwOzIwNDg7NzIwOzEwNjU",
+              "name": "Rogue One: A Star Wars Story",
+              "meterClass": "certified",
+              "image": "https://resizing.flixster.com/UO-euPtNXo9mERk0g7feqjGZ9Rk=/54x80/v1.bTsxMjIzNzIxOTtwOzE3NzkwOzIwNDg7NzIwOzEwNjU",
+              "subline": "Felicity Jones, Diego Luna, Mads Mikkelsen",
+              "year": 2016,
+              "meterScore": 85,
+              "url": "/m/rogue_one_a_star_wars_story"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Robert Clotworthy",
+                  "url": "/celebrity/robert_clotworthy/"
+                },
+                {
+                  "name": "George Lucas",
+                  "url": "/celebrity/george_lucas/"
+                },
+                {
+                  "name": "Ralph McQuarrie",
+                  "url": "/celebrity/ralph_mcquarrie/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/rYvdyNC0KqdZLFoDIcrtUXV1USk=/120x71/v1.bTsxMTYyMTIzMjtqOzE3ODkxOzIwNDg7NjkwOzQwOA",
+              "name": "Star Wars: Empire of Dreams",
+              "meterClass": "N/A",
+              "image": "https://resizing.flixster.com/3wko-R04YWJg03Zwit-TPM_v1c4=/54x32/v1.bTsxMTYyMTIzMjtqOzE3ODkxOzIwNDg7NjkwOzQwOA",
+              "subline": "Robert Clotworthy, George Lucas, Ralph McQuarrie",
+              "year": 2004,
+              "url": "/m/star_wars_empire_of_dreams"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "J.J. Abrams",
+                  "url": "/celebrity/jeffrey_abrams/"
+                },
+                {
+                  "name": "Ram Bergman",
+                  "url": "/celebrity/1096605-ram_bergman/"
+                },
+                {
+                  "name": "J.J. Abrams",
+                  "url": "/celebrity/jeffrey_abrams/"
+                }
+              ],
+              "posterImage": "https://d2a5cgar23scu2.cloudfront.net/static/static/images/redesign/poster_default.gif",
+              "name": "Star Wars: Episode IX",
+              "meterClass": "N/A",
+              "image": "https://d2a5cgar23scu2.cloudfront.net/static/images/defaults/video.default.l.jpg",
+              "subline": "J.J. Abrams, Ram Bergman, J.J. Abrams",
+              "year": 2019,
+              "url": "/m/star_wars_episode_ix"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Mark Hamill",
+                  "url": "/celebrity/mark_hamill/"
+                },
+                {
+                  "name": "Harrison Ford",
+                  "url": "/celebrity/harrison_ford/"
+                },
+                {
+                  "name": "Carrie Fisher",
+                  "url": "/celebrity/carrie_fisher/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/1BwhVRa77slxx3FieHlvi3KyaDc=/120x174/v1.bTsxMDg3MTA3NjtqOzE3ODMxOzIwNDg7NTE2Ozc0OA",
+              "name": "Star Wars: Holiday Special",
+              "meterClass": "rotten",
+              "image": "https://resizing.flixster.com/10dBqRBFRUl_0DREjPXFUKC0QM4=/54x78/v1.bTsxMDg3MTA3NjtqOzE3ODMxOzIwNDg7NTE2Ozc0OA",
+              "subline": "Mark Hamill, Harrison Ford, Carrie Fisher",
+              "year": 1978,
+              "meterScore": 33,
+              "url": "/m/star_wars_holiday_special"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Gina Hernandez",
+                  "url": "/celebrity/gina_hernandez/"
+                },
+                {
+                  "name": "Frank Hernandez",
+                  "url": "/celebrity/frank_hernandez/"
+                },
+                {
+                  "name": "Joe Lancaster",
+                  "url": "/celebrity/joe_lancaster/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/Trd-wKlF6p_JEe9r6mMub6Cpw9Q=/120x180/v1.bTsxMDg3MTA3MTtqOzE3ODI2OzIwNDg7NDI3OzY0MA",
+              "name": "Star Wars: Revelations",
+              "meterClass": "N/A",
+              "image": "https://resizing.flixster.com/mXfpSxC3kSmL84fniR5hIsc6ufg=/54x81/v1.bTsxMDg3MTA3MTtqOzE3ODI2OzIwNDg7NDI3OzY0MA",
+              "subline": "Gina Hernandez, Frank Hernandez, Joe Lancaster",
+              "year": 2005,
+              "url": "/m/star-wars-revelations"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Jeremy Bulloch",
+                  "url": "/celebrity/jeremy_bulloch/"
+                },
+                {
+                  "name": "Christian Boeving",
+                  "url": "/celebrity/christian-boeving/"
+                },
+                {
+                  "name": "Jose Rosete",
+                  "url": "/celebrity/jose_rosete/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/pFAK2OfP-UQPRjkyd_mBp9k2T2I=/90x180/v1.bTsxMDg0MDA4NjtqOzE3ODQ2OzIwNDg7MzUwOzcwMA",
+              "name": "Star Wars: Secrets of the Rebellion",
+              "meterClass": "N/A",
+              "image": "https://resizing.flixster.com/yZMqISymiRUJeJpilXpqVOlMUkM=/40x80/v1.bTsxMDg0MDA4NjtqOzE3ODQ2OzIwNDg7MzUwOzcwMA",
+              "subline": "Jeremy Bulloch, Christian Boeving, Jose Rosete",
+              "year": 2008,
+              "url": "/m/star-wars-secrets-of-the-rebellion"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Tony Mines",
+                  "url": "/celebrity/tony_mines/"
+                }
+              ],
+              "posterImage": "https://d2a5cgar23scu2.cloudfront.net/static/static/images/redesign/poster_default.gif",
+              "name": "Star Wars Episode V 1/2: The Han Solo Affair",
+              "meterClass": "N/A",
+              "image": "https://d2a5cgar23scu2.cloudfront.net/static/images/defaults/video.default.l.jpg",
+              "subline": "Tony Mines, ",
+              "year": 2002,
+              "url": "/m/star-wars-episode-v-12-the-han-solo-affair"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Kevin Burns",
+                  "url": "/celebrity/kevin_burns/"
+                },
+                {
+                  "name": "Steven Smith",
+                  "url": "/celebrity/steven_smith_2/"
+                },
+                {
+                  "name": "David Comtois",
+                  "url": "/celebrity/david_comtois/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/-hfNws1MxmhabIdCNa3BFaEP3PQ=/120x160/v1.bTsxMTU1NDc3MztqOzE3ODk2OzIwNDg7NzY4OzEwMjQ",
+              "name": "Star Wars: The Legacy Revealed",
+              "meterClass": "N/A",
+              "image": "https://resizing.flixster.com/fB15PqGRuFe50PBbwOaqRFBHjKQ=/54x72/v1.bTsxMTU1NDc3MztqOzE3ODk2OzIwNDg7NzY4OzEwMjQ",
+              "subline": "Kevin Burns, Steven Smith, David Comtois",
+              "year": 2007,
+              "url": "/m/star-wars-the-legacy-revealed"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "William Shatner",
+                  "url": "/celebrity/william_shatner/"
+                },
+                {
+                  "name": "Leonard Nimoy",
+                  "url": "/celebrity/leonard_nimoy/"
+                },
+                {
+                  "name": "Anthony Daniels",
+                  "url": "/celebrity/anthony_daniels/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/H-QGFUEvtR-7et9CC7gj2qGVkoY=/120x168/v1.bTsxMTI3MTQ3NztqOzE3ODcyOzIwNDg7MTUyNDsyMTM5",
+              "name": "Star Wars vs. Star Trek: The Rivalry Continues",
+              "meterClass": "N/A",
+              "image": "https://resizing.flixster.com/TssRn5gJ3Jd8Kz3__M3q5LL5gJQ=/54x76/v1.bTsxMTI3MTQ3NztqOzE3ODcyOzIwNDg7MTUyNDsyMTM5",
+              "subline": "William Shatner, Leonard Nimoy, Anthony Daniels",
+              "year": 2001,
+              "url": "/m/star_wars_vs_star_trek_the_rivalry_continues"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Jason Brannon",
+                  "url": "/celebrity/jason_brannon/"
+                },
+                {
+                  "name": "Thomas Lee",
+                  "url": "/celebrity/thomas-lee/"
+                }
+              ],
+              "posterImage": "https://d2a5cgar23scu2.cloudfront.net/static/static/images/redesign/poster_default.gif",
+              "name": "Star Wars Gangsta Rap",
+              "meterClass": "N/A",
+              "image": "https://d2a5cgar23scu2.cloudfront.net/static/images/defaults/video.default.l.jpg",
+              "subline": "Jason Brannon, Thomas Lee, ",
+              "year": 2000,
+              "url": "/m/star-wars-gangsta-rap"
+            },
+            {
+              "castItems": [
+
+              ],
+              "posterImage": "https://resizing.flixster.com/SrpRoH3dRqhYoo2E2DwBBKreb4w=/120x155/v1.bTsxMjU0NTMyNDtqOzE3ODI5OzIwNDg7MjAwOzI1OA",
+              "name": "Star Wars: The Last Jedi - Opening Night Fan Event",
+              "meterClass": "N/A",
+              "image": "https://resizing.flixster.com/DcbcagvArguAZrbC2vEyQI8nAxo=/54x70/v1.bTsxMjU0NTMyNDtqOzE3ODI5OzIwNDg7MjAwOzI1OA",
+              "subline": "",
+              "year": 2017,
+              "url": "/m/star_wars_the_last_jedi_opening_night_fan_event"
+            },
+            {
+              "castItems": [
+
+              ],
+              "posterImage": "https://d2a5cgar23scu2.cloudfront.net/static/static/images/redesign/poster_default.gif",
+              "name": "Star Wars Movie Marathon",
+              "meterClass": "N/A",
+              "image": "https://d2a5cgar23scu2.cloudfront.net/static/images/defaults/video.default.l.jpg",
+              "subline": "",
+              "year": 2011,
+              "url": "/m/star_wars_movie_marathon"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Mark August",
+                  "url": "/celebrity/mark_august/"
+                },
+                {
+                  "name": "Jennifer Moreau",
+                  "url": "/celebrity/jennifer_moreau/"
+                },
+                {
+                  "name": "Martin Spitznagel",
+                  "url": "/celebrity/martin_spitznagel/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/mgwNEn0qViStoZ4V3QiC5mA1KSQ=/120x180/v1.bTsxMTE5OTU2MjtqOzE3ODY2OzIwNDg7MTAwMDsxNTAw",
+              "name": "Star Wars: Hunt for the Holocron",
+              "meterClass": "N/A",
+              "image": "https://resizing.flixster.com/eSZ1XUM6USdJAJckJSuId6B7VGs=/54x81/v1.bTsxMTE5OTU2MjtqOzE3ODY2OzIwNDg7MTAwMDsxNTAw",
+              "subline": "Mark August, Jennifer Moreau, Martin Spitznagel",
+              "year": 2013,
+              "url": "/m/star_wars_hunt_for_the_holocron"
+            },
+            {
+              "castItems": [
+
+              ],
+              "posterImage": "https://resizing.flixster.com/10ln166laTM4YERSKA3q-bDUdBk=/120x155/v1.bTsxMjU0NTMyMztqOzE3ODI4OzIwNDg7MjAwOzI1OA",
+              "name": "Star Wars Double Feature",
+              "meterClass": "N/A",
+              "image": "https://resizing.flixster.com/jn-1k7WpU_MOZ1N-rPZtCIHAqQ8=/54x70/v1.bTsxMjU0NTMyMztqOzE3ODI4OzIwNDg7MjAwOzI1OA",
+              "subline": "",
+              "year": 2017,
+              "url": "/m/star_wars_double_feature"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Leonard Horowitz",
+                  "url": "/celebrity/leonard_horowitz/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/ypMKSUTzQgM0V8eLV2CuPESc594=/110x150/v1.bTsxMjEyODg3ODtqOzE3ODA4OzIwNDg7MTEwOzE1MA",
+              "name": "Star Wars Weapons and End Times Warfare",
+              "meterClass": "N/A",
+              "image": "https://resizing.flixster.com/sYRtb5DD--yKNBthAclfedFZzYU=/54x74/v1.bTsxMjEyODg3ODtqOzE3ODA4OzIwNDg7MTEwOzE1MA",
+              "subline": "Leonard Horowitz, ",
+              "year": 2005,
+              "url": "/m/star-wars-weapons-and-end-times-warfare"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Inti Carriso",
+                  "url": "/celebrity/inti_carriso/"
+                }
+              ],
+              "posterImage": "https://d2a5cgar23scu2.cloudfront.net/static/static/images/redesign/poster_default.gif",
+              "name": "Star Wars: Renacimiento",
+              "meterClass": "N/A",
+              "image": "https://d2a5cgar23scu2.cloudfront.net/static/images/defaults/video.default.l.jpg",
+              "subline": "Inti Carriso, ",
+              "url": "/m/star-wars-renacimiento"
+            },
+            {
+              "castItems": [
+
+              ],
+              "posterImage": "https://d2a5cgar23scu2.cloudfront.net/static/static/images/redesign/poster_default.gif",
+              "name": "Star Wars: Der letzte Jedi - Das große ProSieben TV-Special zum Film",
+              "meterClass": "N/A",
+              "image": "https://d2a5cgar23scu2.cloudfront.net/static/images/defaults/video.default.l.jpg",
+              "subline": "",
+              "year": 2017,
+              "url": "/m/star_wars_der_letzte_jedi_das_grosse_prosieben_tv_special_zum_film"
+            },
+            {
+              "castItems": [
+                {
+                  "name": "Abraham Benrubi",
+                  "url": "/celebrity/abraham_benrubi/"
+                },
+                {
+                  "name": "Conan O'Brien",
+                  "url": "/celebrity/conan_obrien/"
+                },
+                {
+                  "name": "George Lucas",
+                  "url": "/celebrity/george_lucas/"
+                }
+              ],
+              "posterImage": "https://resizing.flixster.com/TuUpF8BCvLCcGw9IokwEzGURGQs=/120x171/v1.bTsxMjEyMDg5NTtqOzE3NzkwOzIwNDg7Mjg0OzQwNQ",
+              "name": "Robot Chicken: Star Wars",
+              "meterClass": "N/A",
+              "image": "https://resizing.flixster.com/ATYK4551bZ6yUDDAyN_tvrbR1zQ=/54x77/v1.bTsxMjEyMDg5NTtqOzE3NzkwOzIwNDg7Mjg0OzQwNQ",
+              "subline": "Abraham Benrubi, Conan O'Brien, George Lucas",
+              "year": 2007,
+              "url": "/m/robot_chicken_star_wars"
+            }
+          ]
+        }
+    http_version: 
+  recorded_at: Wed, 25 Jul 2018 18:46:17 GMT
+recorded_with: VCR 2.9.3

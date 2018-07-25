@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=Misery%201990
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=Misery%201990
     body:
       encoding: US-ASCII
       string: ''
@@ -130,7 +130,7 @@ http_interactions:
   recorded_at: Tue, 13 Mar 2012 20:19:13 GMT
 - request:
     method: get
-    uri: http://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=Klogaboogaloo%201990
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=Klogaboogaloo%201990
     body:
       encoding: US-ASCII
       string: ''

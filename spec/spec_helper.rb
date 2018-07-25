@@ -13,6 +13,7 @@ VCR.turn_off!
 
 RSpec.configure do |config|
   config.mock_with :rspec
+  config.infer_spec_type_from_file_location!
   config.include WebMock::API
   config.extend VCR::RSpec::Macros
   config.extend Module.new {

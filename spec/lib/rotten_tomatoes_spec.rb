@@ -4,7 +4,7 @@ require 'rotten_tomatoes'
 
 describe RottenTomatoes::Movie do
 
-  use_vcr_cassette record: :none
+  use_vcr_cassette 'RottenTomatoes_Movie', record: :none
 
   describe "movie details" do
     subject { RottenTomatoes.movie_details(770672122) }

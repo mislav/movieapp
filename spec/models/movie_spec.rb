@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'ostruct'
+require 'rotten_tomatoes'
 
 describe Movie do
   before do
@@ -142,31 +143,6 @@ describe Movie do
       tmdb2 = OpenStruct.new poster_cover: 'poster:/other'
       movie.tmdb_movie = tmdb2
       movie.poster_medium_url.should eq('poster:/url')
-    end
-
-    it "refreshes Rotten info" do
-      rotten_movie = OpenStruct.new \
-        id: 369,
-        genres: %w[Comedy Parody],
-        url: 'http://www.rottentomatoes.com/m/a_movie/',
-        critics_score: 98
-
-      movie = build imdb_id: 'tt0123'
-      movie.rotten_id.should be_nil
-      movie.critics_score.should be_nil
-
-      RottenTomatoes.should_receive(:find_by_imdb_id).once.with('tt0123').
-        and_return(rotten_movie)
-
-      movie.ensure_extended_info
-
-      movie.rotten_id.should eq(369)
-      movie.critics_score.should eq(98)
-      movie.rotten_url.should eq('http://www.rottentomatoes.com/m/a_movie/')
-      movie['rotten_tomatoes']['updated_at'].should be_within(1).of(Time.now)
-
-      # do it again, checking nothing bad happens
-      movie.ensure_extended_info
     end
   end
 

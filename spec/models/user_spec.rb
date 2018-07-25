@@ -371,7 +371,7 @@ describe User do
 
     it "uses facebook picture" do
       user['facebook'] = {'id' => '1'}
-      user.picture_url.should eq('http://graph.facebook.com/1/picture?type=normal')
+      user.picture_url.should eq('https://graph.facebook.com/1/picture?type=normal')
     end
   end
 end
