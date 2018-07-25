@@ -37,7 +37,7 @@ Movies::Application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
-  config.serve_static_assets = false
+  config.serve_static_files = false
 
   config.assets.compress = true
 
