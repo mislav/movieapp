@@ -121,7 +121,7 @@ GEM
     multi_test (0.1.2)
     multi_xml (0.6.0)
     multipart-post (1.2.0)
-    never-forget (0.1.2)
+    never-forget (0.2.0)
       activesupport
       erubis
       mingo (>= 0.2)
