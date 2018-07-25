@@ -72,7 +72,7 @@ module Netflix
     end
   end
 
-  endpoint(:search_titles, '/catalog/titles?{-join|&|term,max_results,start_index,expand}') do
+  endpoint(:search_titles, '/catalog/titles{?term,max_results,start_index,expand}') do
     elements 'catalog_title' => :titles, :with => Title
     element 'number_of_results' => :total_entries
     element 'results_per_page' => :per_page
@@ -90,7 +90,7 @@ module Netflix
     get(:search_titles, params)
   end
 
-  endpoint(:title_details, '/catalog/titles/movies/{title_id}?{-join|&|expand}') do
+  endpoint(:title_details, '/catalog/titles/movies/{title_id}{?expand}') do
     element 'catalog_title' => :title, :with => Title
   end
 
@@ -99,7 +99,7 @@ module Netflix
     get(:title_details, title_id: movie_id, expand: fields.join(',')).title
   end
 
-  endpoint(:autocomplete_titles, '/catalog/titles/autocomplete?term={term}') do
+  endpoint(:autocomplete_titles, '/catalog/titles/autocomplete{?term}') do
     elements './/autocomplete_item/title/@short' => :titles
   end
 

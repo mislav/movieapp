@@ -180,7 +180,7 @@ module Tmdb
     element 'iso_639_1'    => :language
   end
 
-  endpoint(:movie_search, 'search/movie?{-join|&|api_key,query}') do
+  endpoint(:movie_search, 'search/movie{?api_key,query}') do
     elements :results, :with => Movie
     alias_method :movies, :results
   end
@@ -191,14 +191,14 @@ module Tmdb
     result
   end
 
-  endpoint(:movie_info, 'movie/{tmdb_id}?api_key={api_key}', Movie)
+  endpoint(:movie_info, 'movie/{tmdb_id}{?api_key}', Movie)
 
   def self.movie_details tmdb_id
     movie = get(:movie_info, :tmdb_id => tmdb_id)
     process_movie movie
   end
   
-  endpoint(:configuration, 'configuration?api_key={api_key}', Configuration)
+  endpoint(:configuration, 'configuration{?api_key}', Configuration)
   
   def self.configuration
     if defined? @config and @config and !@config.stale?
@@ -208,9 +208,9 @@ module Tmdb
     end
   end
 
-  endpoint(:movie_cast, 'movie/{tmdb_id}/casts?api_key={api_key}', Cast)
+  endpoint(:movie_cast, 'movie/{tmdb_id}/casts{?api_key}', Cast)
 
-  endpoint(:movie_images, 'movie/{tmdb_id}/images?api_key={api_key}') do
+  endpoint(:movie_images, 'movie/{tmdb_id}/images{?api_key}') do
     elements :posters, :with => PosterImage
   end
 
