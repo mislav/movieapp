@@ -2,18 +2,19 @@ source 'https://rubygems.org'
 
 ruby '2.2.3'
 
-gem 'railties', '~> 3.2.22'
+gem 'railties', '~> 4.1.11'
+gem 'activemodel', '~> 4.1.11'
 gem 'tzinfo'
 gem 'unicorn'
 gem 'test-unit', '~> 3.0'
 
 group :assets do
-  gem 'sass-rails', '~> 3.2.5'
-  gem 'coffee-rails', '~> 3.2.2'
-  gem 'uglifier', '~> 1.2.2'
-  gem 'compass', '~> 0.12.0'
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
+  gem 'compass'
   gem 'compass-rails'
-  gem 'bootstrap-sass', '~> 2.2.1'
+  gem 'bootstrap-sass'
 end
 
 group :production do
@@ -23,10 +24,9 @@ group :production do
   gem 'rails_12factor'
 end
 
-gem 'mingo', '>= 0.3.0' #, :path => '/Users/mislav/Projects/mingo'
-gem 'mongo_ext', '>= 0.19.3', :require => nil
+gem 'mingo', '~> 0.5.0' #, :path => '/Users/mislav/p/mingo'
 gem 'mongo-rails-instrumentation'
-gem 'bson_ext', '>= 1.1.1', :require => nil
+gem 'bson_ext', '>= 1.12.5', :require => nil
 gem 'will_paginate', '~> 3.0' #, :path => '/Users/mislav/.coral/will_paginate-mislav'
 gem 'escape_utils'
 gem 'choices' #, :path => '/Users/mislav/Projects/choices'
@@ -48,13 +48,13 @@ group :extras do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.8.0'
+  gem 'rspec-rails', '~> 2.8'
   gem 'byebug'
 end
 
 group :test do
   gem 'webmock', '~> 1.8.0'
-  gem 'vcr'
+  gem 'vcr', '~> 2.0'
   gem 'cucumber-rails', :require => nil
   gem 'capybara', :require => nil
   gem 'launchy', :require => nil
