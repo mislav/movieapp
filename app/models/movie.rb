@@ -1,7 +1,6 @@
 require 'tmdb'
 require 'rotten_tomatoes_private'
 require 'wikipedia'
-require 'html/sanitizer'
 require 'movie_title'
 
 class Movie < Mingo
@@ -163,9 +162,9 @@ class Movie < Mingo
     self.homepage ||= netflix.official_url if netflix.official_url.present?
     self.directors ||= netflix.directors if netflix.directors.present?
 
-    if netflix_plot.blank? and netflix.synopsis.present?
-      self.netflix_plot = HTML::FullSanitizer.new.sanitize(netflix.synopsis)
-    end
+    # if netflix_plot.blank? and netflix.synopsis.present?
+    #   self.netflix_plot = HTML::FullSanitizer.new.sanitize(netflix.synopsis)
+    # end
   end
 
   def rotten_movie=(rotten)
