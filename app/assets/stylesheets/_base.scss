@@ -1,4 +1,8 @@
 @import "compass";
+
+@mixin reset-text {
+}
+
 @import "bootstrap/variables";
 @import "bootstrap/component-animations";
 @import "bootstrap/tooltip";
