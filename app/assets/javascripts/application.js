@@ -18,6 +18,15 @@ $.fn.trigger = function(event, data) {
   return origTrigger.call(this, event, data)
 }
 
+$.offset = {
+  setOffset: function(el, options, i) {
+    $(el).offset({
+      top: Math.round(options.top),
+      left: Math.round(options.left)
+    })
+  }
+}
+
 $(function(){
   $('a[rel*=facebox]').facebox()
   $('[rel*=tooltip]').tooltip()
