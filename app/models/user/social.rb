@@ -26,7 +26,7 @@ module User::Social
     self.facebook_friends.include? user['facebook']['id'] if user.from_facebook?
   end
 
-  FACEBOOK_FIELDS = %w[id link name email timezone]
+  FACEBOOK_FIELDS = %w[id name timezone]
 
   def facebook_info=(info)
     self['facebook'] = info.to_hash.slice(*FACEBOOK_FIELDS).tap do |data|
@@ -41,7 +41,7 @@ module User::Social
 
   def refresh_social_connections
     fetch_twitter_friends
-    fetch_facebook_friends
+    # fetch_facebook_friends
   end
 
   def fetch_twitter_friends

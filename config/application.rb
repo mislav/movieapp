@@ -62,7 +62,7 @@ module Movies
     config.middleware.use OmniAuth::Strategies::Facebook,
       config.facebook.app_id, config.facebook.secret,
       :scope => 'email',
-      :info_fields => 'id,name,link,picture,timezone',
+      :info_fields => 'id,name,picture,timezone',
       :secure_image_url => true,
       :client_options => {
         :site => 'https://graph.facebook.com/v2.10',
