@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.3'
+ruby '2.3.1'
 
 gem 'railties', '~> 4.2.11'
 gem 'activemodel', '~> 4.2.11'
@@ -39,7 +39,7 @@ gem 'omniauth-facebook'
 gem 'fickle-ruby', '~> 1.0'
 
 group :extras do
-  gem 'nokogiri', '~> 1.8.2'
+  gem 'nokogiri', '~> 1.8.5'
   gem 'nibbler', '~> 1.3' #, :path => '/Users/mislav/Projects/nibbler'
   gem 'addressable', '~> 2.1'
   gem 'faraday', '~> 0.8.9'
