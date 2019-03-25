@@ -118,7 +118,7 @@ GEM
     mingo (0.6.0)
       mongo (>= 1.3, < 2.0)
     mini_mime (1.0.0)
-    mini_portile2 (2.3.0)
+    mini_portile2 (2.4.0)
     minitest (5.11.3)
     mongo (1.12.5)
       bson (= 1.12.5)
@@ -134,8 +134,8 @@ GEM
       mingo (>= 0.2)
       rack
     nibbler (1.3.0)
-    nokogiri (1.8.5)
-      mini_portile2 (~> 2.3.0)
+    nokogiri (1.9.1)
+      mini_portile2 (~> 2.4.0)
     oauth (0.5.4)
     oauth2 (1.4.0)
       faraday (>= 0.8, < 0.13)
@@ -266,7 +266,7 @@ DEPENDENCIES
   mongo-rails-instrumentation
   never-forget
   nibbler (~> 1.3)
-  nokogiri (~> 1.8.5)
+  nokogiri (~> 1.9.1)
   omniauth-facebook
   omniauth-twitter
   rack-cache
