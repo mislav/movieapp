@@ -162,15 +162,15 @@ describe User do
     end
   end
   
-  describe ".from_twitter_or_facebook" do
+  describe ".login_from_provider" do
     before do
       @twitter_data = Hashie::Mash.new :screen_name => 'mislav', :name => 'Birdie Mislav', :id => 1234
-      @facebook_data = Hashie::Mash.new :link => 'http://facebook.com/mislav', :name => 'Private Mislav', :id => 2345
+      @facebook_data = Hashie::Mash.new :name => 'Private Mislav', :id => 2345
     end
     
-    xit "merges two user records" do
+    it "merges two user records" do
       existing_facebook_id = BSON::ObjectId.from_time(5.minutes.ago)
-      collection.save :facebook => { :id => 2345 }, :_id => existing_facebook_id, :username => 'facebooker'
+      collection.save :facebook => { :id => '2345' }, :_id => existing_facebook_id, :username => 'facebooker'
       existing_twitter_id = collection.insert :twitter => { :id => 1234 }, :username => 'twat'
       
       facebook_user = User.first existing_facebook_id
@@ -186,9 +186,26 @@ describe User do
       total_watched = twitter_user.watched.to_a + facebook_user.watched.to_a
       total_to_watch = twitter_user.to_watch.to_a + facebook_user.to_watch.to_a
       
-      user = User.login_from_twitter_or_facebook(@twitter_data, @facebook_data)
+      fb_auth = double(
+        provider: 'facebook',
+        uid: @facebook_data[:id],
+        extra: double(raw_info: @facebook_data),
+        credentials: nil
+      )
+      user = User.login_from_provider(fb_auth)
+      user.id.should == existing_facebook_id
+      expect(user.username).to eq('facebooker')
+
+      tw_auth = double(
+        provider: 'twitter',
+        uid: @twitter_data[:id],
+        extra: double(raw_info: @twitter_data),
+        credentials: nil
+      )
+      user = User.login_from_provider(tw_auth, user)
       user.id.should == existing_facebook_id
       user['twitter']['id'].should == 1234
+      expect(user.username).to eq('facebooker')
       
       user.watched.size.should == 3
       user.watched.to_a.should == total_watched
@@ -196,6 +213,12 @@ describe User do
       user.to_watch.to_a.should == total_to_watch
       
       User.first(existing_twitter_id).should be_nil
+    end
+
+    it "generates a username from facebook ID" do
+      user = User.new
+      user.facebook_info = @facebook_data
+      expect(user.username).to eq('fb-2345')
     end
   end
   

@@ -30,7 +30,7 @@ module User::Social
 
   def facebook_info=(info)
     self['facebook'] = info.to_hash.slice(*FACEBOOK_FIELDS).tap do |data|
-      self.username ||= data['username']
+      self.username ||= "fb-#{data['id']}"
       self.name ||= data['name']
 
       if info['picture'] && !info['picture']['data']['is_silhouette']

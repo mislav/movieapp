@@ -38,7 +38,7 @@ class User < Mingo
   end
   
   def merge_account(other)
-    other.each do |key, value|
+    other.to_hash.each do |key, value|
       self[key] = value if value and self[key].nil?
     end
     [self.class.collection['watched'], self.class.collection['to_watch']].each do |collection|
