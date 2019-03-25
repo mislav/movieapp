@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 ruby '2.2.3'
 
-gem 'railties', '~> 4.2.5'
-gem 'activemodel', '~> 4.2.5'
+gem 'railties', '~> 4.2.11'
+gem 'activemodel', '~> 4.2.11'
 gem 'tzinfo'
 gem 'unicorn'
 gem 'test-unit', '~> 3.0'
