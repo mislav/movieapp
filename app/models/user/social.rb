@@ -41,7 +41,7 @@ module User::Social
 
   def refresh_social_connections
     fetch_twitter_friends
-    # fetch_facebook_friends
+    fetch_facebook_friends
   end
 
   def fetch_twitter_friends
@@ -157,7 +157,7 @@ module User::Social
         user['facebook_token'] = [auth.credentials.token, auth.credentials.secret] if auth.credentials
       end
 
-      user.refresh_social_connections unless Movies.offline?
+      # user.refresh_social_connections unless Movies.offline?
       user.save
       return user
     end
