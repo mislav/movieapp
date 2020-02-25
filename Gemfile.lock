@@ -134,7 +134,7 @@ GEM
       mingo (>= 0.2)
       rack
     nibbler (1.3.0)
-    nokogiri (1.10.4)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     oauth (0.5.4)
     oauth2 (1.4.0)
@@ -268,7 +268,7 @@ DEPENDENCIES
   mongo-rails-instrumentation
   never-forget
   nibbler (~> 1.3)
-  nokogiri (~> 1.10.4)
+  nokogiri (~> 1.10.8)
   omniauth-facebook
   omniauth-twitter
   rack-cache
