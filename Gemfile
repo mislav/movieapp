@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
+# ruby '2.5.1'
 
 gem 'railties', '~> 4.2.11'
 gem 'activemodel', '~> 4.2.11'

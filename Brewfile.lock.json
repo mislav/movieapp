@@ -1,0 +1,35 @@
+{
+  "entries": {
+    "brew": {
+      "mongodb/brew/mongodb-community@3.6": {
+        "options": {
+          "restart_service": true
+        }
+      },
+      "mongodb-community@3.6": {
+        "version": "3.6.19",
+        "bottle": false,
+        "options": {
+          "restart_service": true
+        }
+      }
+    },
+    "tap": {
+      "mongodb/brew": {
+        "revision": "0fee8b43c06d68e60dc262cf982d9ec5d08814ec"
+      }
+    }
+  },
+  "system": {
+    "macos": {
+      "catalina": {
+        "HOMEBREW_VERSION": "2.4.16-85-gf5b71af",
+        "HOMEBREW_PREFIX": "/usr/local",
+        "Homebrew/homebrew-core": "3c21c86d457af7e574c5bf963da25b30feb30664",
+        "CLT": "1103.0.32.62",
+        "Xcode": "11.7",
+        "macOS": "10.15.6"
+      }
+    }
+  }
+}
