@@ -92,11 +92,7 @@ ol.movies { clear:left; padding-left:0;
       &:hover { color:firebrick; }
     }
     
-    .no-js & {
-      .add-watched { display: none; }
-      .question a[href="#cancel"] { display: none; }
-    }
-    .js & {
+    & {
       .question {
         display: none;
         opacity: 0;

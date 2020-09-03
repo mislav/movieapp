@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" prefix="og: http://ogp.me/ns#">
+<html prefix="og: http://ogp.me/ns#">
   <head>
     <meta charset="UTF-8" />
     <%= csrf_meta_tags %>
@@ -13,15 +13,6 @@
   </head>
   
   <body class="<%= body_class %>">
-    <%= javascript_include_tag 'modernizr' %>
-    <script>
-      (function(M, feature){
-        var test = M.inputtypes.search && !/\b(Firefox|Android)\b/.test(navigator.userAgent)
-        document.documentElement.className += ' ' + (test ? '' : 'no-') + feature;
-        M[feature] = test;
-      })(Modernizr, 'inputsearch')
-    </script>
-    
     <header>
       <h1><a href="/">movi.im</a></h1>
     
