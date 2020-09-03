@@ -20,7 +20,7 @@ Feature: Marking movies as to-watch or watched
     When I press "Want to watch" for the movie "Terminator 2: Judgment Day"
     
     When I follow "mislav" in the navigation
-    Then I should see "Mislav Marohnić didn't tell us what he/she watched yet."
+    Then I should see "Mislav Marohnić didn't tell us what they watched yet."
     When I follow "2 movies to watch"
     Then I should see movies: "The Terminator (1984)" and "Terminator 2: Judgment Day (1991)"
   

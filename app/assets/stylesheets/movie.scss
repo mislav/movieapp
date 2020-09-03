@@ -22,10 +22,9 @@ ol.movies { clear:left; padding-left:0;
       &:active, &:visited { outline:0 none }
     }
   
-    h1, h2 { letter-spacing:.01em }
-    h1 { font-size:18px; line-height:1.2; }
+    h1 { font-size: 1.4em; line-height:1.2; }
     h2 { margin-bottom:2px; }
-    h2, .year { font-size:15px; line-height:1.2; }
+    h2, .year { line-height:1.2; }
 
     .poster {
       display:block;
@@ -53,8 +52,6 @@ ol.movies { clear:left; padding-left:0;
     @include background-image(radial-gradient(top left, rgba(white, .5), rgba(white, 0) 150px));
   }
   
-  .actions { font-size:11px }
-
   .actions {
     margin-top:1em;
     
@@ -69,8 +66,8 @@ ol.movies { clear:left; padding-left:0;
         background-color:#e5e5e5; @include background-image(linear-gradient(rgba(white, .6), rgba(white, 0)));
         border:1px solid #ddd; @include border-radius;
 
-        height:18px; line-height:16px;
-        margin:0 0 5px; padding:0 4px 2px;
+        margin:0.5em 0 0 0;
+        padding:0.2em  0.5em;
         
         &:hover { color:#fdfdfd; border-color:$body-color; background:$body-color }
         
@@ -122,8 +119,8 @@ ol.movies { clear:left; padding-left:0;
 
   .actions { margin-top:1.3em; }
 
-  h1 { font-size:28px; line-height:1.1; margin-bottom:3px; }
-  h2, .year { font-size:18px; line-height:1.2; margin-bottom:2px; }
+  h1 { margin-bottom:3px; }
+  h2, .year { margin-bottom:2px; }
 
   header {
     float: none;
@@ -141,12 +138,11 @@ ol.movies { clear:left; padding-left:0;
   }
   .directors {
     margin-top:12px;
-    strong { font-size:1.2em; font-weight:normal; @include text-shadow }
+    strong { font-weight:normal }
     a { text-decoration:none; color:$body-color; }
     a:hover { text-decoration: underline; }
   }
   .countries, .runtime { display:inline-block; }
-  .countries, .directors { font-size:12px; }
   .countries { margin:9px 6px 0 0; }
   
   /* special cases */
@@ -173,7 +169,6 @@ ol.movies { clear:left; padding-left:0;
       background: #eee;
       text-shadow: white 1px 1px 1px;
       font-weight: bold;
-      font-size: 11px;
       &:first-child {
         @include border-left-radius;
         font-weight: normal;
@@ -197,10 +192,6 @@ ol.movies { clear:left; padding-left:0;
     a { color: inherit; }
     line-height: 1.6;
   }
-}
-
-.movie-raw pre {
-  font-size: 12px
 }
 
 /* mobile */

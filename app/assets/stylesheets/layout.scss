@@ -23,7 +23,7 @@ a {
 body {
 /*  background-image:url('9_2_grid.png');*/
   color:$body-color; background-color:#fdfdfd;
-  font:75%/1.5em $body-type;
+  font:14px/1.5em $body-type;
   padding:0 $body-padding;
   max-width:780px; margin:0 auto;
 }
@@ -33,7 +33,7 @@ h1, h2, h3, .movie .plot {
   text-rendering: optimizeLegibility;
 }
 
-h1 { font-weight: normal; @include text-shadow; }
+h1 { font-weight: normal; }
 h1 a, h2 a { text-decoration:none;
   &:link, &:visited { color:$body-color; }
 }
@@ -50,9 +50,9 @@ body > header {
   background-color: $top-color-stop;
   @include background-image(linear-gradient($top-color-stop, $bottom-color-stop));
 
-  h1 { font:normal 24px/1.5 $logo-type; float:left; }
+  h1 { font:normal 1.6em/1.5 $logo-type; float:left; }
 
-  nav { font-size:11px; line-height:22px; margin-top:8px;
+  nav { margin-top:8px;
     
     p { text-align:right; }
 
@@ -70,19 +70,6 @@ body > header {
   }
 
   + form { position:absolute; top:31px;
- 
-    input[type="search"] { font-size:11px; width:190px;
-      
-      .no-inputsearch & {
-        @include box-shadow(rgba(black, .5) 1px 1px 1px 0 inset);
-        border:1px solid #ddd;
-        @include border-radius(10px);
-        padding:.15em 10px .1em; margin-top:2px; width:165px;
-      }
-      
-      &.placeholder { color:gray; }
-    }
-    
     input[type="submit"] { display:none }
   }
 }
@@ -113,7 +100,7 @@ body > article {
   padding-top:22px;
   header, > h1 { margin-bottom:23px; }
   > h1, > header > h1 {
-    font-size: 18px;
+    font-size: 1.6em;
     line-height: 1.5;
     border-bottom: 1px solid #e8e8e8;
   }
@@ -122,9 +109,9 @@ body > article {
   }
 }
 
-.about > article { max-width: 48em;
+.about > article {
+  max-width: 48em;
   h1 { margin-bottom:0; }
-  section h1 { font: normal 15px/18px $body-type; @include text-shadow; margin:35px 0 11px; }
   p { margin-bottom:10px; padding-top:8px; }
   ul { margin:18px 0 0; }
 }
@@ -139,16 +126,8 @@ body > article {
 }
 
 .intro {
-  @extend .blue-box;
-  padding-left:$body-padding; margin-left: -$body-padding; width:472px;
-
-  h1 { font-size:18px; margin-bottom:1em; }
-  p + p { margin-top:12px; }
-  + p { margin-top:.7em; }
-  
-  body > article > &:first-child {
-    position: relative; top: -2em;
-  }
+  padding-bottom: 22px;
+  p { margin: 1em 0; }
 }
 
 .pagination {
@@ -178,7 +157,6 @@ p.not-found {
   text-transform: uppercase;
   font-size: 90%;
   font-style: italic;
-  letter-spacing: .05em;
   display: inline-block;
   background: #eee;
   @include border-radius(8px);
