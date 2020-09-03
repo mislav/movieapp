@@ -154,7 +154,6 @@ ol.movies { clear:left; padding-left:0;
   .friends {
     margin-top: 12px;
     display: inline-block;
-    font-size: 0;
     .liked { @extend em.liked }
     .disliked { @extend em.disliked }
     color: gray;
@@ -162,7 +161,6 @@ ol.movies { clear:left; padding-left:0;
     > span {
       white-space: nowrap;
       cursor: default;
-      display: inline-block;
       padding: 2px 8px;
       border: 1px solid silver;
       border-right-width: 0;
