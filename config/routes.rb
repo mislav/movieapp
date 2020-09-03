@@ -1,6 +1,7 @@
 Movies::Application.routes.draw do
 
   get 'about' => 'movies#about', :as => :about
+  get 'privacy' => 'movies#privacy', :as => :privacy_policy
 
   get 'movies/_dups' => 'movies#dups'
   get 'movies/_netflix' => 'movies#without_netflix'
