@@ -39,7 +39,7 @@ gem 'omniauth-facebook'
 gem 'fickle-ruby', '~> 1.0'
 
 group :extras do
-  gem 'nokogiri', '~> 1.10.8'
+  gem 'nokogiri', '~> 1.11.0'
   gem 'nibbler', '~> 1.3' #, :path => '/Users/mislav/Projects/nibbler'
   gem 'addressable', '~> 2.1'
   gem 'faraday', '~> 0.8.9'
