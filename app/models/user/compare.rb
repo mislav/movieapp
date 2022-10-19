@@ -104,7 +104,7 @@ class User::Compare
     @compatibility ||= Cache.fetch [self, :compatibility, ALGORITHM_VERSION], expires_in: 1.day do
       return nil if in_common_count.zero?
 
-      percentage = (Math.sqrt(score * common_factor) - margin_of_error) * 100
+      percentage = (Math.sqrt([0, score].max * common_factor) - margin_of_error) * 100
       [0, percentage].max
     end
   end
