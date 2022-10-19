@@ -6,15 +6,10 @@
     <h1>People you're following</h1>
     <p>See what they have watched recently in your <%= link_to 'timeline', timeline_path %>.</p>
 
-    <% unless current_user.from_twitter? and current_user.from_facebook? %>
+    <% unless current_user.from_twitter? %>
       <p>You can also
-        <% if current_user.from_twitter? %>
-          <%= facebook_icon %>
-          <%= link_to 'login with Facebook', connect_path(network:'facebook') %>
-        <% else %>
-          <%= twitter_icon %>
-          <%= link_to 'login with Twitter', connect_path(network:'twitter') %>
-        <% end %>
+        <%= twitter_icon %>
+        <%= link_to 'login with Twitter', connect_path(network:'twitter') %>
         to connect with people on that network.
       </p>
     <% end %>

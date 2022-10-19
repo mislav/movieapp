@@ -41,7 +41,6 @@ module User::Social
 
   def refresh_social_connections
     fetch_twitter_friends
-    fetch_facebook_friends
   end
 
   def fetch_twitter_friends
@@ -54,28 +53,6 @@ module User::Social
         when 401
           # the token seems no longer valid
           self['twitter_token'] = nil
-        else
-          raise "unhandled status: #{data.status.inspect}"
-        end
-      elsif data.is_a? Exception
-        raise data
-      end
-    end
-  rescue StandardError
-    NeverForget.log($!, user_id: self.id)
-  end
-
-  def fetch_facebook_friends
-    if self['facebook_token']
-      data = ServiceFetcher.get_facebook_info(self['facebook_token'], fields: 'friends')
-      if data.respond_to? :status
-        case data.status
-        when 200
-          self.facebook_friends = data.friends.data.map(&:id)
-          # watched.import_from_facebook data.movies.data
-        when 401
-          # the token seems no longer valid
-          self['facebook_token'] = nil
         else
           raise "unhandled status: #{data.status.inspect}"
         end

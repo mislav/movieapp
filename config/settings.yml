@@ -15,9 +15,6 @@ defaults: &defaults
   twitter:
     consumer_key: <%= ENV['TWITTER_KEY'] %>
     secret: <%= ENV['TWITTER_SECRET'] %>
-  facebook:
-    app_id: <%= ENV['FACEBOOK_ID'] %>
-    secret: <%= ENV['FACEBOOK_SECRET'] %>
   tmdb:
     api_key: <%= ENV['TMDB_KEY'] %>
   rotten_tomatoes:

@@ -34,7 +34,6 @@ gem 'never-forget' #, :path => '/Users/mislav/p/never-forget'
 gem 'twin' #, :path => '/Users/mislav/Projects/twin'
 
 gem 'omniauth-twitter'
-gem 'omniauth-facebook'
 
 gem 'fickle-ruby', '~> 1.0'
 

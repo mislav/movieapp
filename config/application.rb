@@ -57,16 +57,6 @@ module Movies
     config.middleware.use OmniAuth::Strategies::Twitter,
       config.twitter.consumer_key, config.twitter.secret
 
-    config.middleware.use OmniAuth::Strategies::Facebook,
-      config.facebook.app_id, config.facebook.secret,
-      :scope => 'email',
-      :info_fields => 'id,name,picture,timezone',
-      :secure_image_url => true,
-      :client_options => {
-        :site => 'https://graph.facebook.com/v2.10',
-        :authorize_url => "https://www.facebook.com/v2.10/dialog/oauth"
-      }
-
     config.middleware.use Twin
 
     unless Rails.env.development?

@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
   end
 
   def connect
-    session[:connecting_with] = params[:network] # facebook or twitter
+    session[:connecting_with] = params[:network] # twitter
     session[:following_count] = current_user.friends.count
 
     redirect_to login_path(params[:network])
@@ -47,6 +47,10 @@ class SessionsController < ApplicationController
     render 'shared/error', status: 500, locals: {
       error: OpenStruct.new(message: params[:message])
     }
+  end
+
+  def legacy_facebook
+    render 'shared/legacy_facebook', status: 410
   end
 
   def logout

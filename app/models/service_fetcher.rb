@@ -27,27 +27,6 @@ module ServiceFetcher
     error
   end
 
-  def facebook_config
-    Movies::Application.config.facebook
-  end
-
-  def facebook_client(token_values)
-    token, = token_values
-    oauth = OAuth2::Client.new facebook_config.app_id, facebook_config.secret,
-      site: 'https://graph.facebook.com',
-      raise_errors: false
-
-    OAuth2::AccessToken.new(oauth, token, mode: :query, param_name: 'access_token')
-  end
-
-  def get_facebook_info(token_values, params)
-    client = facebook_client(token_values)
-    response = client.get('/me', params: params)
-    process_json_response(response.body, response.status)
-  rescue => error
-    error
-  end
-
   def get_twitter_profile_image(screen_name)
     get_redirect_location "http://api.twitter.com/1/users/profile_image/#{screen_name}?size=bigger"
   end

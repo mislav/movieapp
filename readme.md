@@ -13,9 +13,7 @@ your friends.
   - TMDb
   - Rotten Tomatoes
   - Twitter
-  - Facebook
 
 To get the keys, you either need to register an API account with each of these
-services and configure them in `config/settings.local.yml`, or you can [ask
-Mislav nicely](mailto:mislav.marohnic@gmail.com) for ones that we use in
-production.
+services and configure them in `config/settings.local.yml`, or you can ask
+Mislav for ones that we use in production.

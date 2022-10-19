@@ -31,7 +31,7 @@
           <p class="login">Login with
             <%= link_to login_path('twitter'), class: 'icon', rel: 'nofollow' do %><%= twitter_icon(nil) %> <span>Twitter</span><% end %>
             or
-            <%= link_to login_path('facebook'), class: 'icon', rel: 'nofollow' do %><%= facebook_icon(nil) %> <span>Facebook</span><% end %>
+            <%= link_to facebook_login_path, class: 'icon', rel: 'nofollow' do %><%= facebook_icon(nil) %> <span>Facebook</span><% end %>
 
             <% if Rails.env.development? %><%= separator %> <%= link_to 'Instalogin!', instant_login_path %><% end %>
           </p>

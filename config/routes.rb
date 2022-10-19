@@ -34,6 +34,7 @@ Movies::Application.routes.draw do
   match 'auth/failure'            => 'sessions#auth_failure', :via => [:get, :post]
   match 'auth/:provider/callback' => 'sessions#finalize', :via => [:get, :post]
   get   'login/connect'           => 'sessions#connect', :as => :connect
+  get   'login/facebook'          => 'sessions#legacy_facebook', :as => :facebook_login
   get   'logout'                  => 'sessions#logout', :as => :logout
 
   root :to => "movies#index"
