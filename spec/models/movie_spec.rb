@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'ostruct'
-require 'rotten_tomatoes'
 
 describe Movie do
   before do
