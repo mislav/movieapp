@@ -24,11 +24,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
-    autoprefixer-rails (9.7.1)
-      execjs
-    bootstrap-sass (3.4.1)
-      autoprefixer-rails (>= 5.2.1)
-      sassc (>= 2.0.0)
     bson (1.12.5)
     bson_ext (1.12.5)
       bson (~> 1.12.5)
@@ -43,7 +38,6 @@ GEM
       xpath (>= 2.0, < 4.0)
     choices (0.4.0)
       hashie (>= 0.4.0)
-    chunky_png (1.3.10)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -51,22 +45,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    compass (1.0.3)
-      chunky_png (~> 1.2)
-      compass-core (~> 1.0.2)
-      compass-import-once (~> 1.0.5)
-      rb-fsevent (>= 0.9.3)
-      rb-inotify (>= 0.9)
-      sass (>= 3.3.13, < 3.5)
-    compass-core (1.0.3)
-      multi_json (~> 1.0)
-      sass (>= 3.3.0, < 3.5)
-    compass-import-once (1.0.5)
-      sass (>= 3.2, < 3.5)
-    compass-rails (3.1.0)
-      compass (~> 1.0.0)
-      sass-rails (< 5.1)
-      sprockets (< 4.0)
     concurrent-ruby (1.1.9)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -97,7 +75,6 @@ GEM
       multipart-post (~> 1.2.0)
     faraday_middleware (0.8.8)
       faraday (>= 0.7.4, < 0.9)
-    ffi (1.15.5)
     fickle-ruby (1.0.0)
       faraday (~> 0.8.8)
       multi_json (~> 1.8)
@@ -183,9 +160,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.19.0)
     rake (13.0.6)
-    rb-fsevent (0.10.3)
-    rb-inotify (0.9.10)
-      ffi (>= 0.5.0, < 2)
     rspec-collection_matchers (1.1.3)
       rspec-expectations (>= 2.99.0.beta1)
     rspec-core (2.99.2)
@@ -212,8 +186,6 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    sassc (2.2.1)
-      ffi (~> 1.9)
     simple_oauth (0.3.1)
     snaky_hash (2.0.0)
       hashie
@@ -255,14 +227,11 @@ PLATFORMS
 DEPENDENCIES
   activemodel (~> 4.2.11)
   addressable (~> 2.8)
-  bootstrap-sass
   bson_ext (>= 1.12.5)
   byebug
   capybara
   choices
   coffee-rails
-  compass
-  compass-rails
   cucumber-rails
   dalli
   escape_utils

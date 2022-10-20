@@ -2,8 +2,6 @@
 //= require rails-behaviors/index
 //= require_tree .
 //= require facebox
-//= require bootstrap/transition
-//= require bootstrap/tooltip
 
 $.facebox.settings.loadingImage = '/assets/facebox-loading.gif'
 $.facebox.settings.closeImage ='/assets/facebox-close.png'
@@ -29,7 +27,6 @@ $.offset = {
 
 $(function(){
   $('a[rel*=facebox]').facebox()
-  $('[rel*=tooltip]').tooltip()
 })
 
 $.fn.fadeIn = function(speed, fn) {

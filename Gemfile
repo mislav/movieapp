@@ -12,9 +12,6 @@ group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
-  gem 'compass'
-  gem 'compass-rails'
-  gem 'bootstrap-sass'
 end
 
 group :production do

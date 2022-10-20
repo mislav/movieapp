@@ -1,16 +1,60 @@
-@import "compass";
-
-@mixin reset-text {
+@mixin clearfix {
+  &:before,
+  &:after {
+    display: table; // 2
+    content: " "; // 1
+  }
+  &:after {
+    clear: both;
+  }
 }
 
-@import "bootstrap/variables";
-@import "bootstrap/component-animations";
-@import "bootstrap/tooltip";
+@mixin text-shadow($props: false) {
+  @if $props {
+    text-shadow: $props;
+  } @else {
+    text-shadow: rgba(black, 0.8) 1px 1px 1px;
+  }
+}
+
+@mixin border-radius($props: false) {
+  @if $props {
+    border-radius: $props;
+  } @else {
+    border-radius: 4px;
+  }
+}
+@mixin border-left-radius {
+}
+@mixin border-right-radius {
+}
+
+@mixin background-image($props) {
+  background-image: $props;
+}
+
+@mixin font-face(
+  $name,
+  $font-files,
+  $weight: false,
+  $style: false
+) {
+  @font-face {
+    font-family: quote($name);
+    src: $font-files;
+    @if $weight {
+      font-weight: $weight;
+    }
+    @if $style {
+      font-style: $style;
+    }
+  }
+}
 
 @include font-face("Open Sans", font-url("OpenSans-Regular-webfont.woff") format("woff"));
-@include font-face("Open Sans", font-url("OpenSans-Bold-webfont.woff") format("woff"), false, bold);
-@include font-face("Open Sans", font-url("OpenSans-Italic-webfont.woff") format("woff"), false, false, italic);
-@include font-face("Open Sans", font-url("OpenSans-Light-webfont.woff") format("woff"), false, 200);
+@include font-face("Open Sans", font-url("OpenSans-Bold-webfont.woff") format("woff"), bold);
+@include font-face("Open Sans", font-url("OpenSans-Italic-webfont.woff") format("woff"), false, italic);
+@include font-face("Open Sans", font-url("OpenSans-Light-webfont.woff") format("woff"), 200);
 
 $body-type: "open sans", "bitstream vera sans", helvetica, arial, sans-serif;
 $heading-type: $body-type;
@@ -23,8 +67,3 @@ $lightblue:#4A8A9F;
 $top-color-stop:#DEEAEE;
 $bottom-color-stop:#EFF4F6;
 $lightblue-border:#CEDFE5;
-
-@mixin link-with-icon {
-  text-decoration: none;
-  span { text-decoration: underline; }
-}

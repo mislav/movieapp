@@ -58,9 +58,9 @@ body > header {
 
     .login {
       a.icon {
-        @include link-with-icon;
-        img { opacity: .5; @include transition(opacity 0.15s ease-out); }
-        span { @include transition(color 0.15s ease-out); }
+        text-decoration: none;
+        img { opacity: .5; transition: opacity 0.15s ease-out; }
+        span { text-decoration: underline; transition: color 0.15s ease-out; }
         &:hover {
           span { color: $body-color; }
           img { opacity: 1; }
@@ -88,7 +88,7 @@ body > header {
     background: #CD5C5C;
     border-color: darken(#CD5C5C, 10%);
     color: white;
-    @include text-shadow;
+    text-shadow: $default-text-shadow-color 1px 1px 1px;
   }
   &.notice {
     background: lighten(#90EE90, 20%);
@@ -141,7 +141,7 @@ body > article {
     text-align: center;
     padding: 3px;
     color: white;
-    @include text-shadow;
+    text-shadow: $default-text-shadow-color 1px 1px 1px;
   }
   a { text-decoration: none; }
   a:hover { text-decoration: none; border-bottom: 1px solid silver; }
@@ -161,7 +161,7 @@ p.not-found {
   background: #eee;
   @include border-radius(8px);
   padding: .2em 1.2em;
-  @include text-shadow(rgba(white, .8) 1px 1px 1px);
+  text-shadow: rgba(white, .8) 1px 1px 1px;
 }
 
 #facebox {
@@ -172,7 +172,7 @@ p.not-found {
     padding: .5em 0;
     cursor: pointer;
     background: white;
-    @include transition(background-color 0.25s);
+    transition: background-color 0.25s;
     &:hover { background:lemonchiffon; }
   }
 }

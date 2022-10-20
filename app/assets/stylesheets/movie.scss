@@ -10,7 +10,7 @@ em.disliked { color: darkred; }
 
 /* movie list */
 ol.movies { clear:left; padding-left:0;
-  @include no-bullets;
+  list-style-type: none;
   @include clearfix;
 
   li { width:370px; min-height:175px; float:left; margin:0 20px 5px 0; }
