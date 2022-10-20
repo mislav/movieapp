@@ -57,8 +57,6 @@ module Movies
     config.middleware.use OmniAuth::Strategies::Twitter,
       config.twitter.consumer_key, config.twitter.secret
 
-    config.middleware.use Twin
-
     unless Rails.env.development?
       # this seems to be the only place to hook into the phase when routes are loaded
       initializer "User reserved names", :after => :set_routes_reloader_hook do

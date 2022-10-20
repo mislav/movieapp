@@ -28,7 +28,6 @@ gem 'will_paginate', '~> 3.0' #, :path => '/Users/mislav/.coral/will_paginate-mi
 gem 'escape_utils'
 gem 'choices' #, :path => '/Users/mislav/Projects/choices'
 gem 'never-forget' #, :path => '/Users/mislav/p/never-forget'
-gem 'twin' #, :path => '/Users/mislav/Projects/twin'
 
 gem 'omniauth-twitter'
 
