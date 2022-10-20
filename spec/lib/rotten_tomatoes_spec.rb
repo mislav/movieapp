@@ -2,9 +2,7 @@
 require 'spec_helper'
 require 'rotten_tomatoes'
 
-describe RottenTomatoes::Movie do
-
-  use_vcr_cassette 'RottenTomatoes_Movie', record: :none
+describe RottenTomatoes::Movie, vcr: { cassette_name: 'RottenTomatoes_Movie', record: :none } do
 
   describe "movie details" do
     subject { RottenTomatoes.movie_details(770672122) }

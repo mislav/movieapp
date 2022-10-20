@@ -26,7 +26,7 @@ describe Netflix::Title do
   its(:official_url)  { should == 'http://www.mar-adentro.com/' }
   its(:synopsis)      { should include("this moving film based on a true story as Ramon Sampedro") }
 
-  its(:special_edition?) { should be_false }
+  its(:special_edition?) { should == false }
 
   it "detects special editions" do
     movie = subject.dup

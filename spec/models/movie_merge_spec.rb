@@ -43,7 +43,7 @@ describe Movie do
     user1['watched_count'].should == 1
     user1['to_watch_count'].should == 0
     user1.watched.should include(movie1)
-    user1.watched.rating_for(movie1).should be_true
+    user1.watched.rating_for(movie1).should == true
     user1.to_watch.should_not include(movie1)
 
     user2['watched_count'].should == 0
@@ -52,7 +52,7 @@ describe Movie do
     user2.watched.should_not include(movie1)
 
     user3.watched.should include(movie5)
-    user3.watched.rating_for(movie5).should be_true
+    user3.watched.rating_for(movie5).should == true
     user3.to_watch.should include(movie6)
   end
 

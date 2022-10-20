@@ -2,9 +2,7 @@
 require 'spec_helper'
 require 'tmdb'
 
-describe Tmdb::Movie do
-
-  use_vcr_cassette 'Tmdb_Movie', record: :none
+describe Tmdb::Movie, vcr: { cassette_name: 'Tmdb_Movie', record: :none } do
 
   context "normal one" do
     let(:result) { Tmdb.search 'black cat' }

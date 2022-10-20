@@ -10,9 +10,7 @@ describe Movie do
     described_class.collection
   end
   
-  describe "combined search" do
-
-    use_vcr_cassette 'movie_search/combined', record: :none
+  describe "combined search", vcr: { cassette_name: 'movie_search/combined', record: :none } do
 
     before(:each) do
       @movies = Movie.search 'star wars'
@@ -43,9 +41,7 @@ describe Movie do
     end
   end
 
-  describe "failed TMDB search" do
-    use_vcr_cassette 'movie_search/tmdb_fail', record: :none
-
+  describe "failed TMDB search", vcr: { cassette_name: 'movie_search/tmdb_fail', record: :none } do
     it "uses Netflix to find existing entries in the db" do
       ep_iii_id   = collection.insert title: 'Star Wars III', netflix_id: 70018728
       new_hope_id = collection.insert title: 'Star Wars IV', netflix_id: 60010932
@@ -58,9 +54,7 @@ describe Movie do
     end
   end
 
-  describe "failed TMDB and Netflix search" do
-    use_vcr_cassette 'movie_search/tmdb_netflix_fail', record: :none
-
+  describe "failed TMDB and Netflix search", vcr: { cassette_name: 'movie_search/tmdb_netflix_fail', record: :none } do
     it "falls back to regexp search" do
       collection.insert title: 'Unrelated Movie'
       collection.insert title: 'Star Wars episode one'

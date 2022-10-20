@@ -8,19 +8,8 @@ require 'webmock/rspec'
 # in ./support/ and its subdirectories.
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
-# Enables existing Webmock stubs to work
-VCR.turn_off!
-
 RSpec.configure do |config|
   config.mock_with :rspec
   config.infer_spec_type_from_file_location!
   config.include WebMock::API
-  config.extend VCR::RSpec::Macros
-  config.extend Module.new {
-    def use_vcr_cassette(*args)
-      before(:all) { VCR.turn_on! }
-      super
-      after(:all) { VCR.turn_off! }
-    end
-  }
 end

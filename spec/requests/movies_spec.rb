@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 describe "Movies" do
-  describe "GET /[movie]/wikipedia" do
-
-    use_vcr_cassette :Wikipedia, record: :none
+  describe "GET /[movie]/wikipedia", vcr: { cassette_name: :Wikipedia, record: :none } do
 
     before do
       @movie = Movie.create title: 'Misery', year: 1990

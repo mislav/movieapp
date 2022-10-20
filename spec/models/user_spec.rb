@@ -117,8 +117,8 @@ describe User do
         it "saves a watched movie with string rating" do
           subject.watched.rate_movie @deep_blue, 'Yes'
           subject.watched.rate_movie @breakfast, 'No'
-          subject.watched.rating_for(@deep_blue).should be_true
-          subject.watched.rating_for(@breakfast).should be_false
+          subject.watched.rating_for(@deep_blue).should == true
+          subject.watched.rating_for(@breakfast).should == false
         end
         
         it "removes a watched movie" do
@@ -306,7 +306,6 @@ describe User do
         user.twitter_friends = [234]
         user.facebook_friends = [234]
         user['twitter_token'] = ['TWTOKEN', 'TWSECRET']
-        user['facebook_token'] = ['FBTOKEN', nil]
       }
     end
 
@@ -332,33 +331,6 @@ describe User do
       user.fetch_twitter_friends
       user.twitter_friends.to_a.should =~ [234]
       user['twitter_token'].should be_nil
-    end
-
-    it "successful from facebook" do
-      facebook_data = Hashie::Mash.new status: 200,
-        friends: {
-          data: [ {id: 1234}, {id: 4567} ]
-        }
-
-      ServiceFetcher.should_receive(:get_facebook_info).
-        with(user['facebook_token'], fields: 'friends').
-        and_return(facebook_data)
-
-      user.fetch_facebook_friends
-      user.facebook_friends.to_a.should =~ ["1234", "4567"]
-      user['facebook_token'].should_not be_nil
-    end
-
-    it "failed from facebook" do
-      facebook_data = OpenStruct.new status: 401
-
-      ServiceFetcher.should_receive(:get_facebook_info).
-        with(user['facebook_token'], fields: 'friends').
-        and_return(facebook_data)
-
-      user.fetch_facebook_friends
-      user.facebook_friends.to_a.should =~ ["234"]
-      user['facebook_token'].should be_nil
     end
   end
 

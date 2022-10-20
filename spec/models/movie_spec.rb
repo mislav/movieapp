@@ -50,9 +50,7 @@ describe Movie do
     movie.updated_at.should be_within(1).of(Time.now)
   end
   
-  describe "extended info" do
-
-    use_vcr_cassette 'Tmdb::Movie', record: :none
+  describe "extended info", vcr: { cassette_name: 'Tmdb::Movie', record: :none } do
 
     let(:tmdb_id) { 24684 }
 
@@ -181,9 +179,7 @@ describe Movie do
     end
   end
   
-  describe "wikipedia" do
-
-    use_vcr_cassette :Wikipedia, record: :none
+  describe "wikipedia", vcr: { cassette_name: :Wikipedia, record: :none } do
 
     it "isn't linked to wikipedia" do
       movie = build

@@ -1,7 +1,6 @@
 require 'net/http'
 require 'json'
 require 'oauth'
-require 'oauth2'
 require 'hashie/mash'
 
 module ServiceFetcher

@@ -130,6 +130,7 @@ VCR.configure do |vcr|
   vcr.cassette_serializers[:styled_yaml] = StyledYAML
   vcr.default_cassette_options = { serialize_with: :styled_yaml }
   vcr.hook_into :webmock
+  vcr.configure_rspec_metadata!
 
   vcr.filter_sensitive_data('<TMDB_KEY>') { Movies::Application.config.tmdb.api_key }
   vcr.filter_sensitive_data('<ROTTEN_KEY>') { Movies::Application.config.rotten_tomatoes.api_key }
