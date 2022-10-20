@@ -3,6 +3,8 @@ vendor/bundle
 db/*.sqlite3
 config/settings.local.yml
 .env
+.envrc
+.direnv
 .idea
 .sass-cache
 log/*.log
