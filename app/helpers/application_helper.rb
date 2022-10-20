@@ -34,11 +34,6 @@ module ApplicationHelper
     request.path.start_with? '/compare/'
   end
 
-  def ios?
-    # FIXME: Android browser also identifies itself as Mobile Safari
-    request.user_agent =~ /\bMobile\/.*\bSafari\b/
-  end
-
   def android?
     request.user_agent =~ /\bAndroid\b/
   end
