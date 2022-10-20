@@ -25,7 +25,7 @@
       <% end %></nav>
       </div>
       
-      <% cache [@user.watched, :stats] do %>
+      <% cache [@user.watched, :stats, :v2] do %>
       <ul class="stats">
         <li><em><%= @user.watched.size %></em> movies &asymp; <%= life_wasted(@user) %></li>
         <li><%= positive(@user) %>, <%= hater(@user) %></li>

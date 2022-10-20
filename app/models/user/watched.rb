@@ -36,10 +36,14 @@ module User::Watched
 
     def minutes_spent
       movie_ids = link_documents.map { |doc| doc['movie_id'] }
-      result = Movie.collection.group \
-        cond: {_id: {'$in' => movie_ids}},
-        initial: {minutes: 0},
-        reduce: 'function(doc, prev) { if(doc.runtime) prev.minutes += doc.runtime; return prev }'
+      result = Movie.collection.aggregate([
+        {
+          '$match' => { _id: {'$in' => movie_ids} },
+        },
+        {
+          '$group' => { _id: nil, minutes: { '$sum' => '$runtime' } }
+        },
+      ], cursor: {})
 
       result.first['minutes']
     end
