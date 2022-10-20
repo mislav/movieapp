@@ -8,6 +8,9 @@ if defined?(Bundler)
   Bundler.require(:default, :assets, Rails.env)
 end
 
+$:.unshift(File.expand_path('../../lib', __FILE__))
+require 'never_forget'
+
 if defined?(Rake)
   Rake::Application.class_eval do
     def last_comment() end

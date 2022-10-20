@@ -21,13 +21,12 @@ group :production do
   gem 'rails_12factor'
 end
 
-gem 'mingo', '~> 0.6.0' #, :path => '/Users/mislav/p/mingo'
+gem 'mongo', '< 2.0.0'
 gem 'mongo-rails-instrumentation'
 gem 'bson_ext', '>= 1.12.5', :require => nil
 gem 'will_paginate', '~> 3.0' #, :path => '/Users/mislav/.coral/will_paginate-mislav'
 gem 'escape_utils'
 gem 'choices' #, :path => '/Users/mislav/Projects/choices'
-gem 'never-forget' #, :path => '/Users/mislav/p/never-forget'
 
 gem 'omniauth-twitter'
 
