@@ -12,3 +12,4 @@ public/stylesheets/*.css
 public/assets/
 tmp
 .powenv
+/bin
