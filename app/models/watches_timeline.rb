@@ -53,9 +53,9 @@ class WatchesTimeline
     watch = @watches.last and watch['_id'] if defined? @watches
   end
   
-  def each
+  def each(&block)
     return to_enum unless block_given?
-    load_movies.each(&Proc.new)
+    load_movies.each(&block)
   end
   
   def people_who_watched(movie)

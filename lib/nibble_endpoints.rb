@@ -33,15 +33,15 @@ module NibbleEndpoints
     @connection = Faraday::Connection.new(Addressable::URI.parse(url_prefix), &block)
   end
 
-  def endpoint(name, url, parser = nil)
+  def endpoint(name, url, parser = nil, &block)
     template = Addressable::Template.new url.to_s
-    parser ||= block_given? && Class.new(Nibbler, &Proc.new)
+    parser ||= block_given? && Class.new(Nibbler, &block)
     endpoints[name.to_sym] = [template, parser]
   end
 
-  def default_params(params = nil)
+  def default_params(params = nil, &block)
     if params or block_given?
-      @default_params = params || Proc.new
+      @default_params = params || block
     else
       @default_params = {} unless defined? @default_params
       @default_params = @default_params.call if @default_params.is_a? Proc

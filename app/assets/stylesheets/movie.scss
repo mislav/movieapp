@@ -3,9 +3,16 @@ $poster-medium-width: 185px;
 $poster-margin: 20px;
 $poster-small-height:140px;
 $poster-medium-height:274px;
-    
-em.liked { color: green; }
-em.disliked { color: darkred; }
+
+@mixin liked {
+  color: green;
+}
+@mixin disliked {
+  color: darkred;
+}
+
+em.liked { @include liked; }
+em.disliked { @include disliked; }
 .other-info em { font-style:normal; }
 
 /* movie list */
@@ -154,8 +161,8 @@ ol.movies { clear:left; padding-left:0;
   .friends {
     margin-top: 12px;
     display: inline-block;
-    .liked { @extend em.liked }
-    .disliked { @extend em.disliked }
+    .liked { @include liked }
+    .disliked { @include disliked }
     color: gray;
     position: relative;
     > span {
