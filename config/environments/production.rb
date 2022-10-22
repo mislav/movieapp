@@ -16,21 +16,8 @@ Movies::Application.configure do
   # config.logger = SyslogLogger.new
 
   # Use a different cache store in production
-  config.cache_store = :dalli_store unless $rails_rake_task
+  config.cache_store = :mem_cache_store, ENV["MEMCACHE_SERVERS"] || "localhost:11211"
 
-  client = Dalli::Client.new(
-    ENV["MEMCACHE_SERVERS"].to_s.split(","),
-    :username => ENV["MEMCACHE_USERNAME"],
-    :password => ENV["MEMCACHE_PASSWORD"],
-    :failover => true,
-    :socket_timeout => 1.5,
-    :socket_failure_delay => 0.2,
-    :value_max_bytes => 10485760
-  )
-  config.action_dispatch.rack_cache = {
-    :metastore    => client,
-    :entitystore  => client
-  }
   config.static_cache_control = "public, max-age=2592000"
 
   # Specifies the header that your server uses for sending files
