@@ -29,4 +29,6 @@ Movies::Application.configure do
   config.assets.debug = false
 
   config.eager_load = false
+
+  config.hosts << 'movi.test'
 end

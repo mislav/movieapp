@@ -1,5 +1,5 @@
 require 'rbconfig'
-require 'erubis'
+require 'erubi'
 require 'yaml'
 
 module NeverForget
@@ -38,10 +38,15 @@ module NeverForget
     end
     
     def render_exceptions_view
-      template = Erubis::Eruby.new(exceptions_template)
-      context = Erubis::Context.new(:recent => Exception.recent)
-      context.extend TemplateHelpers
-      template.evaluate(context)
+      src = Erubi::Engine.new(exceptions_template).src
+      context = Module.new do
+        extend TemplateHelpers
+        def self.get_binding
+          @recent = Exception.recent
+          binding
+        end
+      end
+      eval(src, context.instance_eval { get_binding })
     end
     
     def exceptions_template

@@ -6,7 +6,7 @@ module NeverForget
 
     initializer "never_forget" do |app|
       if NeverForget.enabled = app.config.never_forget.enabled
-        app.config.middleware.insert_after 'ActionDispatch::ShowExceptions',
+        app.config.middleware.insert_after ActionDispatch::ShowExceptions,
           ExceptionHandler, :list_path => app.config.never_forget.list_path
 
         ::ActiveSupport.on_load(:action_controller) { include NeverForget::ControllerRescue }

@@ -3,7 +3,7 @@ require 'ostruct'
 
 class SessionsController < ApplicationController
 
-  skip_before_filter :login_from_token
+  skip_before_action :login_from_token
 
   # for offline testing purposes only
   def instant_login

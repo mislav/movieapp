@@ -1,9 +1,9 @@
 class MoviesController < ApplicationController
   
-  before_filter :find_movie, :except => [:index, :opensearch]
+  before_action :find_movie, :except => [:index, :opensearch]
   admin_actions :only => [:edit, :update, :change_plot_field]
   
-  rescue_from 'Net::HTTPExceptions', 'Faraday::Error::ClientError' do |error|
+  rescue_from 'Net::HTTPExceptions', 'Faraday::ServerError' do |error|
     render 'shared/error', :status => 500, :locals => {:error => error}
   end
   
@@ -59,14 +59,14 @@ class MoviesController < ApplicationController
   def pick_poster
     @posters = PosterFinder.call @movie
 
-    response.content_type = Mime::HTML
+    response.content_type = 'text/html'
     render :layout => !request.xhr?
   end
 
   def broken_poster
     @movie.reset_poster!
 
-    response.content_type = Mime::HTML
+    response.content_type = 'text/html'
     render :inline => %{<%= movie_poster(@movie) %>}, :layout => !request.xhr?
   end
 
@@ -163,7 +163,7 @@ class MoviesController < ApplicationController
       if block_given?
         yield
       else
-        response.content_type = Mime::HTML
+        response.content_type = 'text/html'
         render :partial => 'actions', :locals => {:movie => @movie}
       end
     else

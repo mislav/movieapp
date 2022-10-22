@@ -1,4 +1,4 @@
-require 'faraday_middleware'
+require 'faraday'
 
 module Wikipedia
   def self.client

@@ -6,7 +6,7 @@
     for you!
   </p>
 <% end %>
-<% rescue Faraday::Error::ClientError => error %>
+<% rescue Faraday::ServerError => error %>
   <% NeverForget.log(error, user_id: @user.id) %>
   <p class="flash warning">
     Warning: we couldn't fetch movie recommendations for you at this time.

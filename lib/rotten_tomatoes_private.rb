@@ -15,7 +15,7 @@ module RottenTomatoesPrivate
     if Movies::Application.config.api_caching
       conn.response :caching do
         FailsafeStore.new Rails.root + 'tmp/cache', :namespace => 'rotten_tomatoes', :expires_in => 1.day,
-          :exceptions => ['Faraday::Error::ClientError']
+          :exceptions => ['Faraday::ServerError']
       end
     end
 

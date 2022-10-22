@@ -5,7 +5,7 @@ module Movie::Search
   # If all external searches fail, use regular expressions to search existing titles.
   def search(term)
     search_combined(term)
-  rescue Faraday::Error::ClientError, Faraday::Error::ParsingError, Timeout::Error
+  rescue Faraday::ServerError, Faraday::ParsingError, Timeout::Error
     NeverForget.log($!, term: term)
     search_regexp(term)
   end
@@ -64,7 +64,7 @@ module Movie::Search
 
   def search_rotten_tomatoes(term)
     RottenTomatoesPrivate.search(term).movies
-  rescue Faraday::Error::ClientError, Timeout::Error
+  rescue Faraday::ServerError, Timeout::Error
     # we can survive without Rotten results
     NeverForget.log($!, term: term)
     []
