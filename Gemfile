@@ -14,15 +14,11 @@ end
 group :production do
   gem 'dalli'
   gem 'rack-cache'
-  gem 'kgio'
-  gem 'rails_12factor'
 end
 
 gem 'mongo', '< 2.0.0'
-# gem 'mongo-rails-instrumentation'
 gem 'bson_ext', '>= 1.12.5', :require => nil
 gem 'will_paginate', '~> 3.3.1'
-gem 'escape_utils'
 gem 'choices' #, :path => '/Users/mislav/Projects/choices'
 
 gem 'omniauth-twitter'

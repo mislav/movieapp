@@ -98,7 +98,10 @@ class Movie < Mingo
   end
 
   def self.directors_of_movies(movies)
-    movies.map { |m| m['directors'] }.compact.flatten.histogram.to_a.sort_by(&:last).reverse
+    directors = movies.map { |m| m['directors'] }.compact.flatten
+    directors.each_with_object(Hash.new(0)) do |name, all|
+      all[name] += 1
+    end.to_a.sort_by(&:last).reverse
   end
 
   def tmdb_movie=(movie)
