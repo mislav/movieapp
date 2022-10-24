@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :login_from_token
+  before_action :login_from_token
   
   def self.admin_actions(options)
-    before_filter :check_admin, options
+    before_action :check_admin, options
   end
   
   def logged_in?

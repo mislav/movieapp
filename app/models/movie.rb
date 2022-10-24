@@ -98,7 +98,10 @@ class Movie < Mingo
   end
 
   def self.directors_of_movies(movies)
-    movies.map { |m| m['directors'] }.compact.flatten.histogram.to_a.sort_by(&:last).reverse
+    directors = movies.map { |m| m['directors'] }.compact.flatten
+    directors.each_with_object(Hash.new(0)) do |name, all|
+      all[name] += 1
+    end.to_a.sort_by(&:last).reverse
   end
 
   def tmdb_movie=(movie)
@@ -223,7 +226,7 @@ class Movie < Mingo
     update_tmdb_movie if extended_info_missing? or tmdb_info_stale?
     update_rotten_movie if rotten_info_stale?
     self.save
-  rescue Net::HTTPExceptions, Faraday::Error::ClientError, Timeout::Error
+  rescue Net::HTTPExceptions, Faraday::ServerError, Timeout::Error
     NeverForget.log($!, tmdb_id: self.tmdb_id)
     Rails.logger.warn "An HTTP error occured while trying to get data for TMDB movie #{self.tmdb_id}"
   end

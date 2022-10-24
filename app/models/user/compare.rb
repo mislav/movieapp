@@ -70,7 +70,12 @@ class User::Compare
   
   def movies_to_watch
     to_watch = User.collection['to_watch'].find('user_id' => {'$in' => [user1.id, user2.id]})
-    ids = to_watch.map { |doc| doc['movie_id'] }.select_occurring(2)
+    ids = to_watch.map { |doc| doc['movie_id'] }
+
+    ids = each_with_object(Hash.new(0)) do |id, all|
+      all[id] += 1
+    end.map { |id, count| id if count == 2 }.compact
+
     Movie.find ids.sample(60)
   end
 

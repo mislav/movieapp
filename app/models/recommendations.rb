@@ -1,4 +1,3 @@
-require 'fickle'
 require 'forwardable'
 
 Recommendations = Struct.new(:user) do
@@ -47,25 +46,8 @@ Recommendations = Struct.new(:user) do
     { :movie_id => { '$in' => recommended_movie_ids } }
   end
 
-  # response: [ [ [id, rating], [id, rating], ... ] ]
   def fetch_recommendations
-    Rails.cache.fetch("recommendations/#{user.id}", expires_in: 1.hour) do
-      fickle = Fickle::Client.new(fickle_url, fickle_key)
-      fickle.connection.options[:timeout] = 5
-      begin
-        fickle.recommend([user.id.to_s], 20)
-      rescue Faraday::Error::TimeoutError
-        return [[]]
-      end
-    end
-  end
-
-  def fickle_url
-    Movies::Application.config.fickle.url
-  end
-
-  def fickle_key
-    Movies::Application.config.fickle.api_key
+    raise "not implemented"
   end
 
   def enabled?

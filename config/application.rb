@@ -8,6 +8,9 @@ if defined?(Bundler)
   Bundler.require(:default, :assets, Rails.env)
 end
 
+$:.unshift(File.expand_path('../../lib', __FILE__))
+require 'never_forget'
+
 if defined?(Rake)
   Rake::Application.class_eval do
     def last_comment() end
@@ -32,7 +35,7 @@ module Movies
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
+    config.assets.version = '2.0'
 
     config.assets.append_path "vendor/assets/bower_components"
 

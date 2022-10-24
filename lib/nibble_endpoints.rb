@@ -1,3 +1,4 @@
+require 'faraday'
 require 'faraday_middleware'
 require 'nibbler/json'
 require 'addressable/uri'
