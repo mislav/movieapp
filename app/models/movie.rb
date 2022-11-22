@@ -226,7 +226,7 @@ class Movie < Mingo
     update_tmdb_movie if extended_info_missing? or tmdb_info_stale?
     update_rotten_movie if rotten_info_stale?
     self.save
-  rescue Net::HTTPExceptions, Faraday::ServerError, Timeout::Error
+  rescue Net::HTTPExceptions, Faraday::Error, Timeout::Error
     NeverForget.log($!, tmdb_id: self.tmdb_id)
     Rails.logger.warn "An HTTP error occured while trying to get data for TMDB movie #{self.tmdb_id}"
   end
