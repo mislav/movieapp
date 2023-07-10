@@ -5,9 +5,7 @@ require 'movie_title'
 module RottenTomatoesPrivate
   extend NibbleEndpoints
 
-  # ${RT.PrivateApiV2FrontendHost}/api/private/v2.0/search/default-list
-  # https://www.rottentomatoes.com/api/private/v1.0/movies/12897/recommendations/
-  define_connection 'https://www.rottentomatoes.com/api/private/v1.0' do |conn|
+  define_connection 'https://www.rottentomatoes.com' do |conn|
     conn.headers[:user_agent] = 'Mozilla/5.0'
 
     conn.response :json, :content_type => /\bjson$/
@@ -24,24 +22,20 @@ module RottenTomatoesPrivate
     conn.adapter :net_http
   end
 
-  class Movie < NibblerJSON
+  class Movie < Nibbler
     include MovieTitle
 
-    element :name
-    element :year
-    element '.url' => :path
-    element '.meterScore' => :critics_score
-    element '.posterImage' => :poster_profile
+    element 'a[slot=title]' => :name, :with => -> (el) { el.inner_text.strip }
+    element '@releaseyear' => :year #, :with => -> (year) { year.to_i }
+    element 'a[slot=title]/@href' => :url
+    element '@tomatometerscore' => :critics_score
+    element 'img/@src' => :poster_profile
 
     def poster_detailed() nil end
     alias genres poster_detailed
 
     def id
-      path.split('/').last
-    end
-
-    def url
-      File.join('//www.rottentomatoes.com/', path)
+      url.split('/').last
     end
   end
 
@@ -49,18 +43,11 @@ module RottenTomatoesPrivate
     include MovieTitle
 
     element 'script[type="application/ld+json"]' => :data, :with => -> (json_str) { JSON.parse(json_str) }
-    element '#score-details-json' => :score_data, :with => -> (json_str) { JSON.parse(json_str) }
-
-    def critics_score
-      @score_data["scoreboard"]["tomatometerScore"]
-    end
+    element 'score-board/@tomatometerscore' => :critics_score
+    element 'score-board [slot=info]' => :year, :with => -> (el) { el.inner_text.match(/\b(\d{4,})\b/)[1].to_i }
 
     def name
       @data["name"]
-    end
-
-    def year
-      @score_data["scoreboard"]["info"].match(/\b(\d{4,})\b/)[1].to_i
     end
 
     def genres
@@ -91,15 +78,12 @@ module RottenTomatoesPrivate
     end
   end
 
-  endpoint(:search_movies, 'search?q={query}&t=movie&page={page}') do
-    element '.totalCount' => :total_count
-    element '.pageCount' => :total_pages
-    elements :movies, :with => Movie
+  endpoint(:search_movies, 'https://www.rottentomatoes.com/search?search={query}') do
+    elements 'search-page-result[type=movie] search-page-media-row' => :movies, :with => Movie
   end
 
-  def self.search query, options = {}
-    get :search_movies, :query => query,
-      :page => options.fetch(:page, 1)
+  def self.search(query)
+    get(:search_movies, :query => query)
   end
 
   endpoint(:movie_details, 'https://www.rottentomatoes.com/m/{id}', MovieFull)

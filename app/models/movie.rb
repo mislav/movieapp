@@ -208,7 +208,7 @@ class Movie < Mingo
 
   def critics_score
     if score = self['rotten_tomatoes'] && self['rotten_tomatoes']['critics_score']
-      score < 1 ? nil : score
+      score.to_i < 1 ? nil : score.to_i
     end
   end
 
