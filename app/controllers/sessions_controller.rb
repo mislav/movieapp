@@ -5,6 +5,21 @@ class SessionsController < ApplicationController
 
   skip_before_action :login_from_token
 
+  def signin
+  end
+
+  def signin_email
+    user = User.first(email: params[:email])
+    if user
+      flash[:notice] = "Please check your email inbox for the link to sign in."
+      redirect_to root_url
+      SigninMailer.with(user_email: user.email).signin_link.deliver_later
+    else
+      flash[:error] = "could not find user with email: %p" % params[:email]
+      redirect_back fallback_location: signin_url
+    end
+  end
+
   # for offline testing purposes only
   def instant_login
     user = Rails.configuration.twitter.test_user

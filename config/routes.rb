@@ -30,6 +30,8 @@ Movies::Application.routes.draw do
   
   get 'director/*director' => 'movies#index', :as => :director
 
+  get   'login'                   => 'sessions#signin', :as => :signin
+  post  'login/email'             => 'sessions#signin_email', :as => :signin_email
   get   'login/instant'           => 'sessions#instant_login', :as => :instant_login
   match 'auth/failure'            => 'sessions#auth_failure', :via => [:get, :post]
   match 'auth/:provider/callback' => 'sessions#finalize', :via => [:get, :post]

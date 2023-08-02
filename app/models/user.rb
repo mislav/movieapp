@@ -1,8 +1,10 @@
 class User < Mingo
   property :username
   property :name
+  property :email
   
   collection.ensure_index :username, unique: true
+  collection.ensure_index :email, unique: true
   
   include Mingo::Timestamps
   include Social

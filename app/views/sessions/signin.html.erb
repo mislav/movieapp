@@ -1,0 +1,11 @@
+<% @title = "Sign in to movi.im" %>
+<article>
+  <h1>Sign in</h1>
+  <%= form_tag signin_email_path do %>
+    <label>
+      email
+      <%= email_field_tag "email" %>
+    </label>
+    <%= submit_tag "Sign in" %>
+  <% end %>
+</article>

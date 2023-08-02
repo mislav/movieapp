@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'railties', '~> 6.1.0'
 gem 'activemodel', '~> 6.1.0'
+gem 'actionmailer', '~> 6.1.0'
 gem 'tzinfo'
 gem 'puma'
 
@@ -21,6 +22,7 @@ gem 'bson_ext', '>= 1.12.5', :require => nil
 gem 'will_paginate', '~> 3.3.1'
 gem 'choices' #, :path => '/Users/mislav/Projects/choices'
 
+gem 'postmark-rails'
 gem 'omniauth-twitter'
 
 group :extras do

@@ -3,6 +3,7 @@ require File.expand_path('../boot', __FILE__)
 require 'active_model/railtie'
 require 'action_controller/railtie'
 require 'action_view/railtie'
+require 'action_mailer/railtie'
 
 if defined?(Bundler)
   Bundler.require(:default, :assets, Rails.env)
@@ -40,6 +41,11 @@ module Movies
     config.assets.append_path "vendor/assets/bower_components"
 
     config.assets.initialize_on_precompile = false
+
+    config.action_mailer.delivery_method = :postmark
+    config.action_mailer.postmark_settings = { :api_token => config.postmark.api_key }
+    config.action_mailer.default_url_options = { host: 'movi.im', protocol: 'https' }
+    config.action_mailer.delivery_job = "ActionMailer::MailDeliveryJob"
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
