@@ -16,7 +16,8 @@ module NeverForget
   
   module ControllerRescue
     def rescue_with_handler(exception)
-      if super
+      # ignore: ActionController::RoutingError: No route matches [GET] "/wp-admin/admin-ajax.php"
+      if super && !exception.is_a?(ActionController::RoutingError)
         # the exception was handled, but we still want to save it
         NeverForget.log(exception, request.env)
         true
