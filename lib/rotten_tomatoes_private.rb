@@ -1,4 +1,5 @@
 require 'nibble_endpoints'
+require 'faraday_middleware'
 require 'failsafe_store'
 require 'movie_title'
 
@@ -12,11 +13,12 @@ module RottenTomatoesPrivate
 
     if Movies::Application.config.api_caching
       conn.response :caching do
-        FailsafeStore.new Rails.root + 'tmp/cache', :namespace => 'rotten_tomatoes', :expires_in => 1.day,
+        FailsafeStore.new Rails.root + 'tmp/cache', :namespace => 'rotten_tomatoes-1', :expires_in => 1.day,
           :exceptions => ['Faraday::ServerError']
       end
     end
 
+    conn.response :follow_redirects
     conn.use :instrumentation
     conn.response :raise_error
     conn.adapter :net_http

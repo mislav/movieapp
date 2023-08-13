@@ -1,4 +1,5 @@
 require 'nibble_endpoints'
+require 'faraday_middleware'
 require 'failsafe_store'
 require 'active_support/core_ext/object/blank'
 require 'movie_title'
