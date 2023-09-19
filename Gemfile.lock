@@ -158,7 +158,7 @@ GEM
       omniauth-oauth (~> 1.1)
       rack
     public_suffix (5.0.0)
-    puma (6.3.0)
+    puma (6.3.1)
       nio4r (~> 2.0)
     racc (1.7.1)
     rack (2.2.7)
