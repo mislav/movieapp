@@ -135,7 +135,7 @@ GEM
     multi_test (1.1.0)
     multipart-post (2.2.3)
     nibbler (1.3.0)
-    nio4r (2.7.0)
+    nio4r (2.7.3)
     nokogiri (1.16.2)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -158,7 +158,7 @@ GEM
       omniauth-oauth (~> 1.1)
       rack
     public_suffix (5.0.0)
-    puma (6.4.2)
+    puma (6.4.3)
       nio4r (~> 2.0)
     racc (1.7.3)
     rack (2.2.8.1)
