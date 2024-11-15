@@ -47,6 +47,7 @@ Movies::Application.routes.draw do
 
   with_options :username => /[^\/]+/ do |user|
     user.get ':username' => 'users#show', :as => :watched, :via => :get
+    user.get ':username/watched(.:format)' => 'users#show', :via => :get
     user.get ':username/liked' => 'users#liked', :as => :liked, :via => :get
     user.get ':username/to-watch' => 'users#to_watch', :as => :to_watch, :via => :get
     user.get ':username/friends' => redirect('/following')
