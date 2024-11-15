@@ -47,9 +47,26 @@ class UsersController < ApplicationController
   end
   
   def show
-    @movies = @user.watched(max_id: params[:max_id]).page(params[:page])
-    @recommended = Recommendations.new(@user)
-    ajax_pagination if my_page? || stale?(etag: session_cache_key(@movies))
+    respond_to do |format|
+      format.html do
+        @movies = @user.watched(max_id: params[:max_id]).page(params[:page])
+        @recommended = Recommendations.new(@user)
+        ajax_pagination if my_page? || stale?(etag: session_cache_key(@movies))
+      end
+      format.csv do
+        # https://letterboxd.com/about/importing-data/
+        render :text => CSV.generate { |csv|
+          csv << %w[Title Year tmdbID]
+          @user.watched.each do |movie|
+            csv << [
+              movie.title,
+              movie.year,
+              movie.tmdb_id,
+            ]
+          end
+        }
+      end
+    end
   end
   
   def liked
