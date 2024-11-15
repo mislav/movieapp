@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     respond_to do |wants|
       wants.html
       wants.csv do
-        render :text => CSV.generate { |csv|
+        render :plain => CSV.generate { |csv|
           csv << %w[_id username]
           @users.each {|u| csv << [u.id, u.username] }
         }
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
     respond_to do |wants|
       wants.csv do
-        render :text => CSV.generate { |csv|
+        render :plain => CSV.generate { |csv|
           csv << %w[_id user_id liked movie_id movie_title]
           watched.each do |watch|
             movie = movies[watch['movie_id']] or next
@@ -55,13 +55,23 @@ class UsersController < ApplicationController
       end
       format.csv do
         # https://letterboxd.com/about/importing-data/
-        render :text => CSV.generate { |csv|
-          csv << %w[Title Year tmdbID]
+        to_numeric_rating = ->(liked) {
+          case liked
+          when true then 5.0
+          when nil then 3.0
+          when false then 1.0
+          end
+        }
+        render :plain => CSV.generate { |csv|
+          csv << %w[Title Year tmdbID Rating WatchedDate Tags]
           @user.watched.each do |movie|
             csv << [
               movie.title,
               movie.year,
               movie.tmdb_id,
+              to_numeric_rating.(@user.watched.rating_for(movie)),
+              @user.watched.rated_date_for(movie).strftime("%Y-%m-%d"),
+              "movi.im",
             ]
           end
         }
@@ -75,9 +85,26 @@ class UsersController < ApplicationController
   end
   
   def to_watch
-    @movies = @user.to_watch(max_id: params[:max_id]).page(params[:page])
-    @recommended = Recommendations.new(@user)
-    ajax_pagination if my_page? || stale?(etag: session_cache_key(@movies))
+    respond_to do |format|
+      format.html do
+        @movies = @user.to_watch(max_id: params[:max_id]).page(params[:page])
+        @recommended = Recommendations.new(@user)
+        ajax_pagination if my_page? || stale?(etag: session_cache_key(@movies))
+      end
+      format.csv do
+        # https://letterboxd.com/about/importing-data/
+        render :plain => CSV.generate { |csv|
+          csv << %w[Title Year tmdbID]
+          @user.to_watch.each do |movie|
+            csv << [
+              movie.title,
+              movie.year,
+              movie.tmdb_id,
+            ]
+          end
+        }
+      end
+    end
   end
   
   def timeline

@@ -40,6 +40,17 @@
       </nav>
     </header>
 
+    <% if my_page? %>
+      <p class="flash warning">
+        Hey there, thank you for using movi.im, but I'm afraid you might be <a href="<%= about_url %>">unable to login soon</a>.<br>
+        You should export your data by using these links:
+        <%= link_to 'Watched movies', export_path(username: current_user.username, format: "csv") %>,
+        <%= link_to 'To-watch list', to_watch_path(username: current_user.username, format: "csv") %>
+        (CSV format).<br>
+        This export format can be imported into <a href="https://letterboxd.com/mmislav/">Letterboxd</a>, another service to track movies that you've watched.
+      </p>
+    <% end %>
+
     <%= render 'recommendation_notice' %>
 
     <%= render 'movies/paginated', :movies => @movies %>

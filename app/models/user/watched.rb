@@ -26,6 +26,10 @@ module User::Watched
       link_to_movie(movie)['liked']
     end
 
+    def rated_date_for(movie)
+      link_to_movie(movie)['_id'].generation_time
+    end
+
     def liked(options = {})
       self.dup.where(liked: true)
     end
